@@ -1,0 +1,4 @@
+Installation EV3 Software: https://sourceforge.net/p/lejos/wiki/Windows%20Installation/
+Installation EV3 Eclipse Plug-In: https://sourceforge.net/p/lejos/wiki/Installing%20the%20Eclipse%20plugin/
+
+LeJos API http://www.lejos.org/ev3/docs/overview-summary.html

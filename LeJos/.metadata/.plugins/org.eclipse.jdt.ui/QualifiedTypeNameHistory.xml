@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="lejos.remote.ev3.RemoteEV3"/>
+<fullyQualifiedTypeName name="lejos.remote.ev3.RMIRegulatedMotor"/>
+<fullyQualifiedTypeName name="lejos.utility.Delay"/>
+</qualifiedTypeNameHistroy>
