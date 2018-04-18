@@ -112,7 +112,6 @@ public class Chargierstation implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
     	Kommunikation.setKisteIstLeergut(false); //Variable resetten
     	
     	

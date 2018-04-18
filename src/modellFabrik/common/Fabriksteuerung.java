@@ -150,7 +150,7 @@ public class Fabriksteuerung {
 					e.printStackTrace();
 					System.out.println("B1 not Found");
 				}
-				b101a =b101.createRegulatedMotor("A", 'M');
+				 b101a =b101.createRegulatedMotor("A", 'M');
 				 b101b =b101.createRegulatedMotor("B", 'M');
 				 b101c =b101.createRegulatedMotor("C", 'M');
 				 b101d =b101.createRegulatedMotor("D", 'M');
