@@ -58,7 +58,8 @@ public class Fabriksteuerung {
 	static Port b104port1;
 	static Port b105port3;
 	static Port b105port4;
-	static Port b106port2; 
+	static Port b106port1;
+	static Port b107port2;
 	
 	static EV3UltrasonicSensor b1061;
 	static EV3TouchSensor b1053;
@@ -73,42 +74,25 @@ public class Fabriksteuerung {
 	public static void main (String args []) throws RemoteException, MalformedURLException, NotBoundException, InterruptedException {
 		
 		
-//		Runtime.getRuntime().addShutdownHook(new Thread() {  // should start after the main thread termination
-//	        @Override
-//	        public void run() {
-//	            closePorts();
-//	        }
-//	    });
-		
-		
-		
-		/////////////////////////////////////////////////////////////////////////////////
 		//Deklaration der Bricks, Sensoren und Motoren://////////////////////////////////
 		//Bennenung der Bricks: bX, X=Nummer des Bricks//////////////////////////////////
 		//Sensoren und Motoren: Portbezeichnung nach Bricknamen//////////////////////////
 		//Beispiel: Brick b101; Sensor an 1: b1011; Motor an A: b101a////////////////////
 		//Bei Portobjekten vor Portnummer "port" anhängen (z.B. b101port1)///////////////
 		//Immer sofort! neue Ports unten wieder schließen////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
 		System.out.print("Initialisiere Hardware.");
 		
 		 initAll();   // init all bricks,motors and sensors
 		
 	
 		
-		/////////////////////////////////////////////////////////////////////////////////
 		//Eigenschaften der Sensoren/Aktoren verändern///////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
 		System.out.print(".");
 		
-		/////////////////////////////////////////////////////////////////////////////////
 		//Variablen für den Produktionsablauf////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
 		System.out.println(".");
 		
-		/////////////////////////////////////////////////////////////////////////////////
-		//Deklaration Threads////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
+		//Init Threads////////////////////////////////////////////////////////////
 		
 		Thread chargierStation = new Thread (new Chargierstation (b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c));
 		Thread heben = new Thread (new Hebevorrichtung (b101a, b101b, b101c, b101d));
@@ -120,11 +104,7 @@ public class Fabriksteuerung {
 		 * Thread fördernZurTrommel = new Thread (new BandZurTrommel (......)); DIESE KLASSE NOCH NICHT IMPLEMENTIEREN
 		 */
 		
-		
-		
-		/////////////////////////////////////////////////////////////////////////////////
 		//Ab hier folgt das Produktionsprogramm//////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
 		
 		chargierStation.start();
 		heben.start();
@@ -141,10 +121,7 @@ public class Fabriksteuerung {
 		kontrollieren.interrupt();
 		
 		
-		
-		/////////////////////////////////////////////////////////////////////////////////
 		//Ports Schließen////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////
 		
 		System.out.println("Schließe Ports");
 		
@@ -174,10 +151,9 @@ public class Fabriksteuerung {
 					System.out.println("B1 not Found");
 				}
 				b101a =b101.createRegulatedMotor("A", 'M');
-				RMIRegulatedMotor b101b =b101.createRegulatedMotor("B", 'M');
-				RMIRegulatedMotor b101c =b101.createRegulatedMotor("C", 'M');
-				RMIRegulatedMotor b101d =b101.createRegulatedMotor("D", 'M');
-				RMIRegulatedMotor b101a =b101.createRegulatedMotor("D", 'M');
+				 b101b =b101.createRegulatedMotor("B", 'M');
+				 b101c =b101.createRegulatedMotor("C", 'M');
+				 b101d =b101.createRegulatedMotor("D", 'M');
 				
 				openMotorPorts.add(b101a);
 				openMotorPorts.add(b101b);
@@ -196,13 +172,13 @@ public class Fabriksteuerung {
 			
 		}
 		
-		RMIRegulatedMotor b105c = b105.createRegulatedMotor("C", 'L');	//Motor Drehtisch
-		RMIRegulatedMotor b105d = b105.createRegulatedMotor("D", 'L');	//Motor Räder Drehtisch
+		 b105c = b105.createRegulatedMotor("C", 'L');	//Motor Drehtisch
+		 b105d = b105.createRegulatedMotor("D", 'L');	//Motor Räder Drehtisch
 		
-		Port b105port3 = b105.getPort("S3");						
-		EV3TouchSensor b1053 = new EV3TouchSensor (b105port3);	//Sensor Förderband
-		Port b105port4 = b105.getPort("S4");													
-		EV3TouchSensor b1054 = new EV3TouchSensor (b105port4);	//Sensor Drehtisch
+		 b105port3 = b105.getPort("S3");						
+		 b1053 = new EV3TouchSensor (b105port3);	//Sensor Förderband
+		 b105port4 = b105.getPort("S4");													
+		 b1054 = new EV3TouchSensor (b105port4);	//Sensor Drehtisch
 		
 		openMotorPorts.add(b105c);
 		openMotorPorts.add(b105d);
@@ -220,12 +196,12 @@ public class Fabriksteuerung {
 			
 		}
 		
-		RMIRegulatedMotor b106a = b106.createRegulatedMotor("A", 'L');	//Laufband zum Drehtisch
-		RMIRegulatedMotor b106b = b106.createRegulatedMotor("B", 'L');	//Laufband vom Drehtisch
-		RMIRegulatedMotor b106d = b106.createRegulatedMotor("D", 'L');	//Laufband zur Kippvorrichtung
+		 b106a = b106.createRegulatedMotor("A", 'L');	//Laufband zum Drehtisch
+		 b106b = b106.createRegulatedMotor("B", 'L');	//Laufband vom Drehtisch
+		 b106d = b106.createRegulatedMotor("D", 'L');	//Laufband zur Kippvorrichtung
 		
-		Port b106port1 = b106.getPort("S1");							//Sensor Ultraschall FTS-Erkennnung
-		EV3UltrasonicSensor b1061 = new EV3UltrasonicSensor (b106port1);
+		b106port1 = b106.getPort("S1");							//Sensor Ultraschall FTS-Erkennnung
+		b1061 = new EV3UltrasonicSensor (b106port1);
 		b1061.getDistanceMode();
 		
 		openMotorPorts.add(b106a);
@@ -244,11 +220,11 @@ public class Fabriksteuerung {
 			
 		}
 		
-		RMIRegulatedMotor b107b = b107.createRegulatedMotor("B", 'M');
-		RMIRegulatedMotor b107c = b107.createRegulatedMotor("C", 'L');
-		RMIRegulatedMotor b107d = b107.createRegulatedMotor("D", 'L');
-		Port b107port2 = b107.getPort("S2");
-		EV3TouchSensor b1072 = new EV3TouchSensor (b107port2); //Sensor Zähler	
+		 b107b = b107.createRegulatedMotor("B", 'M');
+		 b107c = b107.createRegulatedMotor("C", 'L');
+		 b107d = b107.createRegulatedMotor("D", 'L');
+		 b107port2 = b107.getPort("S2");
+		 b1072 = new EV3TouchSensor (b107port2); //Sensor Zähler	
 		
 		openMotorPorts.add(b107b);
 		openMotorPorts.add(b107c);
@@ -266,9 +242,9 @@ public class Fabriksteuerung {
 
 				}
 				
-				RMIRegulatedMotor b108a = b108.createRegulatedMotor("A", 'M');
-				RMIRegulatedMotor b108b = b108.createRegulatedMotor("B", 'L');
-				RMIRegulatedMotor b108c = b108.createRegulatedMotor("C", 'M');
+				 b108a = b108.createRegulatedMotor("A", 'M');
+				 b108b = b108.createRegulatedMotor("B", 'L');
+				 b108c = b108.createRegulatedMotor("C", 'M');
 				
 				openMotorPorts.add(b108a);
 				openMotorPorts.add(b108b);
