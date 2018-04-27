@@ -16,7 +16,7 @@ import stations.Chargier;
 import stations.Lift;
 import stations.Cleaning;
 
-public class Steuerung implements Runnable  {
+public class Steuerung {
 
 	static RemoteEV3 b101;					
 	static RemoteEV3 b105;
@@ -69,24 +69,17 @@ public class Steuerung implements Runnable  {
 	private static Cleaning cleaner = new Cleaning(b108b, b108c);
 	
 	
-	@Override
-	public void run() {
-		
-	}
-	
-	
-	
 	
 	public static void main(String[] args) throws RemoteException {
 		
 
-	chargier.startLineToLifter(true);
-	chargier.startLineToStore(true);
-	chargier.startLineToTable(true);
-	chargier.startTableLine(true);
-	
-	lift.startGrab();
-	lift.startShaker();
+//	chargier.startLineToLifter(true);
+//	chargier.startLineToStore(true);
+//	chargier.startLineToTable(true);
+//	chargier.startTableLine(true);
+//	
+//	lift.startGrab();
+//	lift.startShaker();
 	
 	
 	}

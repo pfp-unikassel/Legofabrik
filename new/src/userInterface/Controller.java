@@ -46,11 +46,9 @@ public class Controller implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {  // gets startet with programm
 		
-		s = new Steuerung();
-		Thread steuerung = new Thread (s);
-		steuerung.start();
+		Steuerung s = new Steuerung();
 		
-	
+		
 		 
 		paused = false;
 		running = false;
@@ -83,6 +81,7 @@ public class Controller implements Initializable {
 				s.getChargier().startLineToLifter(true);
 				s.getChargier().startLineToStore(true);
 				s.getChargier().startLineToTable(true);
+				s.getLift().startShaker();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -106,6 +105,7 @@ public class Controller implements Initializable {
 			s.getChargier().stopLineToLifter();
 			s.getChargier().stopLineToStorer();
 			s.getChargier().stopLineToTable();
+			s.getLift().stopShaker();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
