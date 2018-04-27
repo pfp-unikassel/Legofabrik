@@ -13,7 +13,6 @@ public class test3 {
 	
 	static	RMIRegulatedMotor b106a;
 	static	RMIRegulatedMotor b106b;
-	static	RMIRegulatedMotor b106c;
 	static	RMIRegulatedMotor b106d;
 	static Port b106port1;
 	static EV3TouchSensor b1061;
@@ -33,31 +32,36 @@ public class test3 {
 		 
 		 
 		 b106a.backward();
-		 b106d.forward();
-		 b106b.forward();
+//		 b106d.forward();
+//		 b106b.forward();
 		 
 		 b106port1 = b106.getPort("S1");
 		 b1061 = new EV3TouchSensor (b106port1); 
-		 
+	 
 		 
 		 float [] Sensorarray = new float [b1061.sampleSize()];
+		 Sensorarray[0] = 0;
 		 
-		 
-		 while( true ) {
+		 while( Sensorarray[0] != 1.0 ) {
 			 
 			b1061.fetchSample(Sensorarray, 0);					// schreibt Sensorwert in Array [0]
-			if(Sensorarray[0] == 0) {							// wenn array stelle 1 = 0 solange laufe
-				
-				System.out.print("Button pushed");
-				b106a.stop(true);
-				b106d.stop(true);
-				b106b.stop(true);
-				
-				break;
-			}
+			System.out.println(Sensorarray[0]);
+			
+//			if(Sensorarray[0] != 1) {							// wenn array stelle 1 = 0 solange laufe
+//				
+//				System.out.print("Button pushed");
+//				b106a.stop(true);
+//				b106d.stop(true);
+////				b106b.stop(true);
+//				break;
+//			}
 		 }
 		 
-		 
+		 b106a.close();
+		 b106b.close();
+		 b106d.close();
+		 b1061.close();
+		
 		 
 		 
 		 
