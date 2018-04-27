@@ -46,8 +46,8 @@ public class Controller implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {  // gets startet with programm
 		
-		Steuerung s = new Steuerung();
-		
+		s = new Steuerung();
+		s.start();
 		
 		 
 		paused = false;
@@ -79,9 +79,9 @@ public class Controller implements Initializable {
 			
 			try {
 				s.getChargier().startLineToLifter(true);
-				s.getChargier().startLineToStore(true);
-				s.getChargier().startLineToTable(true);
-				s.getLift().startShaker();
+//				s.getChargier().startLineToStore(true);
+//				s.getChargier().startLineToTable(true);
+//				s.getLift().startShaker();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -103,9 +103,9 @@ public class Controller implements Initializable {
 
 		try {
 			s.getChargier().stopLineToLifter();
-			s.getChargier().stopLineToStorer();
-			s.getChargier().stopLineToTable();
-			s.getLift().stopShaker();
+//			s.getChargier().stopLineToStorer();
+//			s.getChargier().stopLineToTable();
+//			s.getLift().stopShaker();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,6 +142,7 @@ public class Controller implements Initializable {
 
 	public void emptyButtonClicked() {
 		System.out.println("emptyButtonClicked clicked");
+		s.closePorts();
 		
 	}
 

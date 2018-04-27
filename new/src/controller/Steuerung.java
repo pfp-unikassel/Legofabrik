@@ -1,6 +1,6 @@
 package controller;
 
-import java.lang.ref.Cleaner;
+
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -64,15 +64,15 @@ public class Steuerung {
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed after
 	static ArrayList<BaseSensor> openSensorPorts = new ArrayList<>(); 
 	
-	private static Chargier chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
-	private static Lift lift = new Lift(b101a, b101b, b101c, b101d,b108a);
-	private static Cleaning cleaner = new Cleaning(b108b, b108c);
+	private static Chargier chargier;
+	private static Lift lift;
+	private static Cleaning cleaner;
 	
 	
 	
 	public static void main(String[] args) throws RemoteException {
 		
-
+		
 //	chargier.startLineToLifter(true);
 //	chargier.startLineToStore(true);
 //	chargier.startLineToTable(true);
@@ -81,9 +81,14 @@ public class Steuerung {
 //	lift.startGrab();
 //	lift.startShaker();
 	
-	
 	}
-
+	
+	public void start(){
+		initAll();
+		chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
+	  	lift = new Lift(b101a, b101b, b101c, b101d,b108a);
+		cleaner = new Cleaning(b108b, b108c);
+	}
 	
 	
 	
@@ -229,6 +234,7 @@ public class Steuerung {
 	}
 	
 	public Chargier getChargier() {
+		System.out.println("get chargier");
 		return chargier;
 	}
 

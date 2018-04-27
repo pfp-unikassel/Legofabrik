@@ -18,7 +18,7 @@ public class Chargier {
 	RMIRegulatedMotor drehtischRotieren;
 	
 	private int tablePosition = 0;
-	private int lineSpeed = 0;  			//TODO: change to default speed 
+	private int lineSpeed = 300;  			//TODO: change to default speed 
 	
 	
 	public Chargier(
