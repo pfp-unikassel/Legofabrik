@@ -1,5 +1,6 @@
-package modellFabrik.common;
+package controller;
 
+import java.lang.ref.Cleaner;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -7,23 +8,17 @@ import java.util.ArrayList;
 
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.BaseSensor;
-import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
-import lejos.utility.Delay;
-import modellFabrik.modules.*;
+import stations.Chargier;
+import stations.Lift;
+import stations.Cleaning;
 
-public class Fabriksteuerung {
-	
-	/////////////////////////////////////////////////////////////////////////////////////
-	//Statische Variablen////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////
-	static Kommunikation kommunikation = new Kommunikation ();
-	
-	//------------------ care not clean, u cant use them without declaration null pointer will pop off-------------
-	static RemoteEV3 b101;					//Brick init
+public class Steuerung {
+
+	static RemoteEV3 b101;					
 	static RemoteEV3 b105;
 	static RemoteEV3 b106;
 	static RemoteEV3 b107;
@@ -65,73 +60,32 @@ public class Fabriksteuerung {
 	static EV3TouchSensor b1053;
 	static EV3TouchSensor b1054;
 	static EV3TouchSensor b1072;
-	//-----------------------------------------------------------------------------------------------------------
 	
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed after
 	static ArrayList<BaseSensor> openSensorPorts = new ArrayList<>(); 
 	
+	private static Chargier chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
+	private static Lift lift = new Lift(b101a, b101b, b101c, b101d,b108a);
+	private static Cleaning cleaner = new Cleaning(b108b, b108c);
 	
-	public static void main (String args []) throws RemoteException, MalformedURLException, NotBoundException, InterruptedException {
-		
-		
-		//Deklaration der Bricks, Sensoren und Motoren://////////////////////////////////
-		//Bennenung der Bricks: bX, X=Nummer des Bricks//////////////////////////////////
-		//Sensoren und Motoren: Portbezeichnung nach Bricknamen//////////////////////////
-		//Beispiel: Brick b101; Sensor an 1: b1011; Motor an A: b101a////////////////////
-		//Bei Portobjekten vor Portnummer "port" anhängen (z.B. b101port1)///////////////
-		//Immer sofort! neue Ports unten wieder schließen////////////////////////////////
-		System.out.print("Initialisiere Hardware.");
-		
-		 initAll();   // init all bricks,motors and sensors
-		
 	
-		
-		//Eigenschaften der Sensoren/Aktoren verändern///////////////////////////////////
-		System.out.print(".");
-		
-		//Variablen für den Produktionsablauf////////////////////////////////////////////
-		System.out.println(".");
-		
-		//Init Threads////////////////////////////////////////////////////////////
-		
-		Thread chargierStation = new Thread (new Chargierstation (b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c));
-		Thread heben = new Thread (new Hebevorrichtung (b101a, b101b, b101c, b101d));
-		Thread rütteln = new Thread (new Rüttler (b108a)); 
-		Thread waschen = new Thread (new Waschtrommel (b108b, b108c));
-		Thread zählen = new Thread (new BandZähler (b107d, b1072));
-		Thread kontrollieren = new Thread (new Qualitätskontrolle (b107c, b107b));
-		/*
-		 * Thread fördernZurTrommel = new Thread (new BandZurTrommel (......)); DIESE KLASSE NOCH NICHT IMPLEMENTIEREN
-		 */
-		
-		//Ab hier folgt das Produktionsprogramm//////////////////////////////////////////
-		
-		chargierStation.start();
-		heben.start();
-		rütteln.start();
-		waschen.start();
-		zählen.start();
-		kontrollieren.start();
-		
-		chargierStation.join();
-		rütteln.join();
-		waschen.join();
-		zählen.join();
-		Delay.msDelay(30000);
-		kontrollieren.interrupt();
-		
-		
-		//Ports Schließen////////////////////////////////////////////////////////////////
-		
-		System.out.println("Schließe Ports");
+	
+	public static void main(String[] args) throws RemoteException {
 		
 
-		
-		closePorts();
-		
-		System.out.println("Programm beendet.");
-		
+//	chargier.startLineToLifter(true);
+//	chargier.startLineToStore(true);
+//	chargier.startLineToTable(true);
+//	chargier.startTableLine(true);
+//	
+//	lift.startGrab();
+//	lift.startShaker();
+	
+	
 	}
+
+	
+	
 	
 	public static void initAll() {
 		initBrick1(); 
@@ -141,6 +95,7 @@ public class Fabriksteuerung {
 		initBrick8();  
 
 	}
+	
 	public static void initBrick1() {
 		//Brick 101
 				try {
@@ -185,6 +140,7 @@ public class Fabriksteuerung {
 		openSensorPorts.add(b1053);
 		openSensorPorts.add(b1054);
 	}
+	
 	public static void initBrick6() {
 		
 		try {
@@ -210,6 +166,7 @@ public class Fabriksteuerung {
 		openSensorPorts.add(b1061);
 		
 	}
+	
 	public static void initBrick7() {
 		try {
 			b107 = new RemoteEV3 ("192.168.0.107");
@@ -231,6 +188,7 @@ public class Fabriksteuerung {
 		openMotorPorts.add(b107d);
 		openSensorPorts.add(b1072);
 	}
+	
 	public static void initBrick8() {
 		//Brick 108
 				try {
@@ -251,8 +209,7 @@ public class Fabriksteuerung {
 				openMotorPorts.add(b108c);
 	}
 	
-	
-	
+ 
 
 	public static void closePorts(){
 		
@@ -270,4 +227,20 @@ public class Fabriksteuerung {
 			temp1.close();
 		}
 	}
+	
+	public Chargier getChargier() {
+		return chargier;
+	}
+
+	public Lift getLift() {
+		return lift;
+	}
+
+	public Cleaning getCleaner() {
+		return cleaner;
+	}
+
+
+
+
 }
