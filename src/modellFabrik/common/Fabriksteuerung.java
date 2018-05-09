@@ -98,8 +98,8 @@ public class Fabriksteuerung {
 		Thread heben = new Thread (new Hebevorrichtung (b101a, b101b, b101c, b101d));
 		Thread rütteln = new Thread (new Rüttler (b108a)); 
 		Thread waschen = new Thread (new Waschtrommel (b108b, b108c));
-		Thread zählen = new Thread (new BandZähler (b107d, b1072));
-		Thread kontrollieren = new Thread (new Qualitätskontrolle (b107c, b107b));
+	//	Thread zählen = new Thread (new BandZähler (b107d, b1072));
+//		Thread kontrollieren = new Thread (new Qualitätskontrolle (b107c, b107b));
 		/*
 		 * Thread fördernZurTrommel = new Thread (new BandZurTrommel (......)); DIESE KLASSE NOCH NICHT IMPLEMENTIEREN
 		 */
