@@ -40,9 +40,9 @@ public class test3 {
 	 
 		 
 		 float [] Sensorarray = new float [b1061.sampleSize()];
-		 Sensorarray[0] = 0;
+		
 		 
-		 while( Sensorarray[0] != 1.0 ) {
+		 while(Sensorarray[0] != 1.0 ) {
 			 
 			b1061.fetchSample(Sensorarray, 0);					// schreibt Sensorwert in Array [0]
 			System.out.println(Sensorarray[0]);

@@ -260,6 +260,77 @@ public class Steuerung {
 	}
 
 
+	public void startSzenario1()   {
+		
+		try {
+			chargier.startLineToTable(true);
+			chargier.startTableLine(true);
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void startSzenario2()   {
+		
+		try {
+			chargier.stopLineToTable();
+			chargier.stopTableLine();
+			chargier.turnTable(660);
+			
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() {
+			            @Override
+			            public void run() {
+			            	try {
+								chargier.startLineToLifter(true);
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            }
+			        }, 
+			        5000   // time to turn around table
+			);		
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void startSzenario3()   {
+	
+		try {
+			
+			chargier.stopLineToLifter();
+			lift.start();
+			lift.startShaker();
+			
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() {
+			            @Override
+			            public void run() {
+			            	try {
+								lift.stopShaker();								
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            }
+			        }, 
+			        15000   // time after shaker stops
+			);
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 
 }

@@ -167,17 +167,18 @@ public class Controller implements Initializable {
 
 	public void szenarioButton1Clicked() {
 		System.out.println("szenarioButton1Clicked clicked");
+		s.startSzenario1();
 		
 	}
 
 	public void szenarioButton2Clicked() {
 		System.out.println("szenarioButton2Clicked clicked");
-		
+		s.startSzenario2();
 	}
 	
 	public void szenarioButton3Clicked() {
 		System.out.println("szenarioButton3Clicked clicked");
-		
+		s.startSzenario3();
 	}
 
 	public void error() {

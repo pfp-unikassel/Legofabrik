@@ -2,6 +2,8 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import javax.swing.Timer;
+
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Lift {
@@ -87,5 +89,61 @@ public class Lift {
 	
 	public void setShakerSpeed(int shakerSpeed) {
 		this.shakerSpeed = shakerSpeed;
+	}
+	
+	public void start() {
+		
+		try {
+			
+			startGrab();
+			
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() {
+			            @Override
+			            public void run() {
+			            	try {
+								startLiftUp();
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            }
+			        }, 
+			        2500 								//time lift needs to grab
+			);
+			
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() {
+			            @Override
+			            public void run() {
+			            	try {
+								startLiftDown();
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            }
+			        }, 
+			        5000								//time lift needs to lift and to be empty
+			);
+
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() {
+			            @Override
+			            public void run() {
+			            	try {
+								releaseGrab();
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            }
+			        }, 
+			        500
+			);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
