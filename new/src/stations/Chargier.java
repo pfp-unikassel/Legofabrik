@@ -144,4 +144,22 @@ public class Chargier {
 		this.lineSpeed = lineSpeed;
 	}
 
+
+	public void touchEndefired() {
+		
+		
+	}
+
+
+	public void touchfired() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void schrankefired() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

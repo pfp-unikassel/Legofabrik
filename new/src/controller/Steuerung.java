@@ -59,7 +59,7 @@ public class Steuerung {
 	static EV3UltrasonicSensor b1061;
 	static EV3TouchSensor b1053;
 	static EV3TouchSensor b1054;
-	static EV3TouchSensor b1072;
+	static EV3TouchSensor b1072;  // zaehler noch nicht implementiert
 	
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed after
 	static ArrayList<BaseSensor> openSensorPorts = new ArrayList<>(); 
@@ -72,24 +72,37 @@ public class Steuerung {
 	
 	public static void main(String[] args) throws RemoteException {
 		
-		
-//	chargier.startLineToLifter(true);
-//	chargier.startLineToStore(true);
-//	chargier.startLineToTable(true);
-//	chargier.startTableLine(true);
-//	
-//	lift.startGrab();
-//	lift.startShaker();
-	
+
 	}
 	
 	public void start(){
+		
 		initAll();
+		
 		chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
 	  	lift = new Lift(b101a, b101b, b101c, b101d,b108a);
 		cleaner = new Cleaning(b108b, b108c);
+		
+		Sensordeamon sensordeamon = new Sensordeamon(this,b1061,b1053,b1054,b1072); // uebergebe das Object und rufe 
+		sensordeamon.start();
+		
 	}
 	
+	public void b1053Fired() {
+		chargier.touchEndefired();
+	}
+	
+	public void b1054Fired() {
+		chargier.touchfired();
+	}
+	
+	public void b1061Fired() {
+		chargier.schrankefired();
+	}
+	
+	public void b1072Fired() {
+		
+	}
 	
 	
 	public static void initAll() {

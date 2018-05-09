@@ -9,12 +9,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+import controller.Sensordeamon;
 import controller.Steuerung;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -35,6 +37,17 @@ public class Controller implements Initializable {
 	public Label leftBottomLabel;
 	public Label rightBottomLabel;
 	public Circle showBall;
+	
+	public Circle led1,led2,led3,led4,led5,led6,led7;
+	
+	public Button test1,test2,test3,test4,test5,test6,test7;
+	
+	public Button details1,details2,details3,details4,details5,details6,details7;
+	
+	public Button stop1,stop2,stop3,stop4,stop5,stop6,stop7;
+	
+	public CheckBox box1,box2,box3,box4,box5,box6,box7;
+	
 	public boolean paused;     // True if game paused right now
 	public boolean running;
 	private Timeline timeline;
@@ -47,9 +60,10 @@ public class Controller implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {  // gets startet with programm
 		
 		s = new Steuerung();
-		s.start();
+		//s.start();
 		
-		 
+		
+		
 		paused = false;
 		running = false;
 		

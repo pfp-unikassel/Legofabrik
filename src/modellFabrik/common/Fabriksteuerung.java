@@ -82,7 +82,7 @@ public class Fabriksteuerung {
 		//Immer sofort! neue Ports unten wieder schlieﬂen////////////////////////////////
 		System.out.print("Initialisiere Hardware.");
 		
-		 initAll();   // init all bricks,motors and sensors
+		// initAll();   // init all bricks,motors and sensors
 		
 	
 		
