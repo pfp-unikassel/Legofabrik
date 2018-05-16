@@ -2,8 +2,6 @@ package stations;
 
 import java.rmi.RemoteException;
 
-import javax.swing.Timer;
-
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Lift {
@@ -109,7 +107,7 @@ public class Lift {
 							}
 			            }
 			        }, 
-			        2500 								//time lift needs to grab
+			        10000								//time lift needs to grab
 			);
 			
 			new java.util.Timer().schedule( 

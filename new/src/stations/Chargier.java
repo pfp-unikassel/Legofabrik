@@ -80,13 +80,13 @@ public class Chargier {
 	
 	public void turnTable(int degree) throws RemoteException {				// turn Table around degree
 		
-		drehtischRotieren.rotate(degree); 		// maybe - degree depends on motor settings
+		drehtischRotieren.rotate(-degree); 		// maybe - degree depends on motor settings
 		tablePosition =+ degree;                     
 	}
 	
 	public void resetTable() throws RemoteException {  // turns table back to start position
 		
-		drehtischRotieren.rotate(-1 * tablePosition);  
+		drehtischRotieren.rotate( tablePosition);  
 	}
 	
 	public void startLineToLifter(boolean direction) throws RemoteException {  	// start line from Table to lifer if direction true turn forword
@@ -145,14 +145,14 @@ public class Chargier {
 	}
 
 
-	public void touchEndefired() {
+	public void touchLiftfired() {
 		
-		
+		System.out.println("Lift Sensor fired");
 	}
 
 
-	public void touchfired() {
-		// TODO Auto-generated method stub
+	public void touchTablefired() {
+		System.out.println("Table Sensor fired");
 		
 	}
 

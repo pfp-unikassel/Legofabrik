@@ -64,20 +64,20 @@ public class Steuerung {
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed after
 	static ArrayList<BaseSensor> openSensorPorts = new ArrayList<>(); 
 	
-	private static Chargier chargier;
-	private static Lift lift;
-	private static Cleaning cleaner;
+	 static Chargier chargier;
+	 static Lift lift;
+	 static Cleaning cleaner;
 	
 	
 	
-	public static void main(String[] args) throws RemoteException {
+	public  static void main(String[] args) throws RemoteException {
 		
-
 	}
 	
 	public void start(){
 		
 		initAll();
+		System.out.println("steuerung start");
 		
 		chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
 	  	lift = new Lift(b101a, b101b, b101c, b101d,b108a);
@@ -85,19 +85,18 @@ public class Steuerung {
 		
 		Sensordeamon sensordeamon = new Sensordeamon(this,b1061,b1053,b1054,b1072); // uebergebe das Object und rufe 
 		sensordeamon.start();
-		
 	}
 	
-	public void b1053Fired() {
-		chargier.touchEndefired();
+	public void b1053Fired() { // lift schalter
+		chargier.touchLiftfired();
 	}
 	
-	public void b1054Fired() {
-		chargier.touchfired();
+	public void b1054Fired() { // drehtischschalter
+		chargier.touchTablefired();
 	}
 	
-	public void b1061Fired() {
-		chargier.schrankefired();
+	public void b1061Fired() {  //ultraschall sensor
+		chargier.schrankefired();  
 	}
 	
 	public void b1072Fired() {
@@ -106,6 +105,8 @@ public class Steuerung {
 	
 	
 	public static void initAll() {
+		System.out.println("init All");
+		
 		initBrick1(); 
 		initBrick5(); 
 		initBrick6();
@@ -263,7 +264,8 @@ public class Steuerung {
 	public void startSzenario1()   {
 		
 		try {
-			chargier.startLineToTable(true);
+			chargier.resetTable();
+			chargier.startLineToTable(false);
 			chargier.startTableLine(true);
 			
 		} catch (RemoteException e) {
@@ -285,7 +287,8 @@ public class Steuerung {
 			            @Override
 			            public void run() {
 			            	try {
-								chargier.startLineToLifter(true);
+								chargier.startLineToLifter(false);
+								chargier.startTableLine(false);
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -307,7 +310,8 @@ public class Steuerung {
 		try {
 			
 			chargier.stopLineToLifter();
-			lift.start();
+			chargier.stopTableLine();
+		//	lift.start();
 			lift.startShaker();
 			
 			new java.util.Timer().schedule( 
