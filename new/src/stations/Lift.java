@@ -16,8 +16,10 @@ public class Lift {
 	private int winkelHeben = 3400;
 	private int liftSpeed = 740;
 	private int shakerSpeed = 700;
+	private boolean running = false;
 		
 
+	
 	public Lift(	RMIRegulatedMotor greifenLinks,
 			RMIRegulatedMotor greifenRechts,
 			RMIRegulatedMotor hebenLinks, 
@@ -92,7 +94,7 @@ public class Lift {
 	public void start() {
 		
 		try {
-			
+			setRunning(true);
 			startGrab();
 			
 			new java.util.Timer().schedule( 
@@ -122,7 +124,7 @@ public class Lift {
 							}
 			            }
 			        }, 
-			        5000								//time lift needs to lift and to be empty
+			        15000								//time lift needs to lift and to be empty
 			);
 
 			new java.util.Timer().schedule( 
@@ -131,17 +133,28 @@ public class Lift {
 			            public void run() {
 			            	try {
 								releaseGrab();
+								setRunning(false);
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 			            }
 			        }, 
-			        500
+			        20000
 			);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
+	
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
 }
