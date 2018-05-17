@@ -34,13 +34,13 @@ public class Lift {
 	
 	public void startGrab() throws RemoteException {  
 		
-		greifenLinks.rotate(winkelGreifen);
+		greifenLinks.rotate(winkelGreifen,true);
 		greifenRechts.rotate(-winkelGreifen);
 	}
 	
 	public void releaseGrab() throws RemoteException { 
 		
-		greifenLinks.rotate(-winkelGreifen);
+		greifenLinks.rotate(-winkelGreifen,true);
 		greifenRechts.rotate(winkelGreifen);
 	}
 	public void startLiftUp() throws RemoteException {   // start lift/elevator and hold him up
@@ -48,7 +48,7 @@ public class Lift {
 		hebenLinks.setSpeed(liftSpeed);
 		hebenRechts.setSpeed(liftSpeed);
 		
-		hebenLinks.rotate(winkelHeben);
+		hebenLinks.rotate(winkelHeben,true);
 		hebenRechts.rotate(winkelHeben);
 		
 	}
@@ -58,7 +58,7 @@ public class Lift {
 		hebenLinks.setSpeed(liftSpeed);
 		hebenRechts.setSpeed(liftSpeed);
 		
-		hebenLinks.rotate(-winkelHeben);
+		hebenLinks.rotate(-winkelHeben,true);
 		hebenRechts.rotate(-winkelHeben);
 		
 	}
@@ -97,52 +97,16 @@ public class Lift {
 			setRunning(true);
 			startGrab();
 			
-			new java.util.Timer().schedule( 
-			        new java.util.TimerTask() {
-			            @Override
-			            public void run() {
-			            	try {
-								startLiftUp();
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-			            }
-			        }, 
-			        10000								//time lift needs to grab
-			);
-			
-			new java.util.Timer().schedule( 
-			        new java.util.TimerTask() {
-			            @Override
-			            public void run() {
-			            	try {
-								startLiftDown();
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-			            }
-			        }, 
-			        15000								//time lift needs to lift and to be empty
-			);
 
-			new java.util.Timer().schedule( 
-			        new java.util.TimerTask() {
-			            @Override
-			            public void run() {
-			            	try {
-								releaseGrab();
-								setRunning(false);
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-			            }
-			        }, 
-			        20000
-			);
-		} catch (RemoteException e) {
+			startLiftUp();
+			Thread.sleep(4000);			
+			startLiftDown();
+	
+		    releaseGrab();
+			setRunning(false);
+				
+			
+		} catch (RemoteException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

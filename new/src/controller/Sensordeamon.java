@@ -45,33 +45,34 @@ public class Sensordeamon extends Thread {
 				
 				s.b1061Fired();
 				System.out.println("Sensor b1061 fired");
-				waitSek(2);
-				s.resetSensorStatus();
 				waitSek(8);
+				Sensorarray1[0] = 0;
+				s.resetSensorStatus();
 				
 			}
 			if(Sensorarray2[0]==1 ){
 				s.b1053Fired();
 				System.out.println("Sensor b1053 fired");
-				waitSek(2);
-				s.resetSensorStatus();
 				waitSek(8);
+				Sensorarray2[0] = 0;
+				s.resetSensorStatus();
 
 			}
 			if(Sensorarray3[0]==1 ){
 				s.b1054Fired();
 				System.out.println("Sensor b1054 fired");
-				waitSek(2);
-				s.resetSensorStatus();
 				waitSek(8);
+				Sensorarray3[0] = 0;
+				s.resetSensorStatus();
 
 			}
 			if(Sensorarray4[0]==1 ){
 				s.b1072Fired();
 				System.out.println("Sensor b1072 fired");
-				waitSek(2);
-				s.resetSensorStatus();
 				waitSek(8);
+				Sensorarray4[0] = 0;
+				s.resetSensorStatus();
+
 			}
 			
 		}

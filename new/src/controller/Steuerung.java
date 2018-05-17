@@ -272,109 +272,92 @@ public class Steuerung {
 
 	public void startSzenario1() {
 
-		try {
-			chargier.resetTable();
-			chargier.startLineToTable(false);
-			chargier.startTableLine(true);
+		
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				try {
+					chargier.resetTable();
+					chargier.startLineToTable(false);
+					chargier.startTableLine(true);
 
-			// wait till Table Button is pushed, test maybe Ui freezes
-			while (!b1054Status) {
-
-			}
-
-			chargier.stopLineToTable();
-			chargier.stopTableLine();
-			chargier.turnTable(660);
-
-			new java.util.Timer().schedule(new java.util.TimerTask() {
-				@Override
-				public void run() {
-					try {
-						chargier.startLineToLifter(false);
-						chargier.startTableLine(false);
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					// wait till Table Button is pushed, test maybe Ui freezes
+					while (!b1054Status) {
+						System.out.println("hänge in schleife 1");
 					}
-				}
-			}, 5000 // time to turn around table
-			);
+					
 
-			// wait till Lift Button is pushed, test maybe Ui freezes
-			while (!b1053Status) {
+					chargier.stopLineToTable();
+					chargier.stopTableLine();
+					chargier.turnTable(660);
+					
+					chargier.startLineToLifter(false);
+					chargier.startTableLine(false);
 
-			}
-			chargier.stopLineToLifter();
-			chargier.stopTableLine();
-			lift.start();
-			lift.startShaker();
-
-			new java.util.Timer().schedule(new java.util.TimerTask() {
-				@Override
-				public void run() {
-					try {
-						lift.stopShaker();
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					while (!b1053Status) {
+						System.out.println("hänge in schleife 2");
 					}
-				}
-			}, 15000 // time after shaker stops
-			);
-			
-			while(lift.isRunning()) {  // wait until lift is finished
-				
-			}
-			chargier.startLineToLifter(true);
-			chargier.startTableLine(true);
-			
-			while(!b1054Status) { // wait table button pushed
-				
-			}
-			chargier.stopLineToLifter();
-			chargier.stopTableLine();
-			chargier.turnTable(-1320);
-			
-			new java.util.Timer().schedule(new java.util.TimerTask() {
-				@Override
-				public void run() {
-					try {
-						chargier.startTableLine(false);
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					
+					
+					chargier.stopLineToLifter();
+					chargier.stopTableLine();
+					
+					lift.startShaker();
+					lift.start(); // wait until it finished
+					lift.stopShaker();
+	
+					chargier.startLineToLifter(true);
+					chargier.startTableLine(true);
+					
+					while(!b1054Status) { // wait table button pushed
+						System.out.println("hänge in schleife 3");
 					}
-				}
-			}, 5000 // time after shaker stops
-			);
-			
-			new java.util.Timer().schedule(new java.util.TimerTask() {
-				@Override
-				public void run() {
-					try {
-						chargier.resetTable();
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}, 8000 // time after shaker stops
-			);
-			
+					
+					chargier.stopLineToLifter();
+					chargier.stopTableLine();
+					
+					chargier.turnTable(-1320);
+					
+					chargier.startLineToStore(true); // maybe falls
+					chargier.startTableLine(false);
+					
+					Thread.sleep(2000);
+					chargier.stopTableLine();
+					chargier.stopLineToStorer();
+					
+					chargier.resetTable(); // turns 660 to much repair later
+	
 
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				} catch (RemoteException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000 
+		);
+		
+		
 
 	}
 
 	public void startSzenario2() {
-
+		
+		try {
+			chargier.turnTable(660);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void startSzenario3() {
 
+		try {
+			chargier.resetTable();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

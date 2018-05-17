@@ -81,12 +81,13 @@ public class Chargier {
 	public void turnTable(int degree) throws RemoteException {				// turn Table around degree
 		
 		drehtischRotieren.rotate(-degree); 		// maybe - degree depends on motor settings
-		tablePosition =+ degree;                     
+		tablePosition = tablePosition + degree;                     
 	}
 	
 	public void resetTable() throws RemoteException {  // turns table back to start position
 		
 		drehtischRotieren.rotate( tablePosition);  
+		tablePosition = 0;
 	}
 	
 	public void startLineToLifter(boolean direction) throws RemoteException {  	// start line from Table to lifer if direction true turn forword
