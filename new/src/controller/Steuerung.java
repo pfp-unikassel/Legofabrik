@@ -10,6 +10,7 @@ import lejos.hardware.sensor.BaseSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.hardware.sensor.SensorMode;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 import stations.Chargier;
@@ -55,13 +56,16 @@ public class Steuerung {
 	static Port b105port4;
 	static Port b106port1;
 	static Port b107port2;
+	static Port b107port3;
 
 	static EV3UltrasonicSensor b1061;
 	static EV3TouchSensor b1053;
 	static EV3TouchSensor b1054;
 	static EV3TouchSensor b1072; 
-	static EV3ColorSensor xxx ; // name after brick and init
 
+	static EV3ColorSensor b1073 ; 
+	
+	
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed
 																			// after
 	static ArrayList<BaseSensor> openSensorPorts = new ArrayList<>();
@@ -88,9 +92,9 @@ public class Steuerung {
 		chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
 		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
 		cleaner = new Cleaning(b108b, b108c);
-		quality = new Quality(b107c, b107b,b107d); //without color atm
+		quality = new Quality(b107c, b107b,b107d); 
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b1061, b1053, b1054, b1072,xxx); // uebergebe das Object und rufe
+		Sensordeamon sensordeamon = new Sensordeamon(this, b1061, b1053, b1054, b1072); // uebergebe das Object und rufe  , b1073
 		sensordeamon.start();
 	}
 
@@ -114,7 +118,7 @@ public class Steuerung {
 		quality.counterSensorFired();
 		b1072Status = true ;
 	}
-	public void b1071Fired(String colorString) {
+	public void b1073Fired(String colorString) {
 		
 		quality.colorSensorFired(colorString);
 	}
@@ -224,11 +228,17 @@ public class Steuerung {
 		b107d = b107.createRegulatedMotor("D", 'L');
 		b107port2 = b107.getPort("S2");
 		b1072 = new EV3TouchSensor(b107port2); // Sensor Zähler
+		
+		b107port3 = b107.getPort("S3");
+//		b1073 = new EV3ColorSensor(b107port3);
+		
 
 		openMotorPorts.add(b107b);
 		openMotorPorts.add(b107c);
 		openMotorPorts.add(b107d);
+		
 		openSensorPorts.add(b1072);
+//		openSensorPorts.add(b1073);
 	}
 
 	public static void initBrick8() {
@@ -357,22 +367,13 @@ public class Steuerung {
 
 	public void startSzenario2() {
 		
-		try {
-			chargier.turnTable(660);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		quality.closeGate();
+		
 	}
 
 	public void startSzenario3() {
 
-		try {
-			chargier.resetTable();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		quality.openGate();
 	}
 
 
