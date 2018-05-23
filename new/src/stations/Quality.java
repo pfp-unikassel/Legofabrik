@@ -15,15 +15,21 @@ public class Quality {
 	EV3ColorSensor s;
 	float color[];
 	
-	private boolean gateStatus = false; //TODO: anote what is open what is closed
+	private boolean gateStatus = true; //TODO: anote what is open what is closed
 	private int counterLineSpeed = 360;
 	private int lineSpeed = 360;
 	private int countedBalls = 0;
+	private int goodBalls = 0;
+	private int badBalls = 0;
+	private String colorString = "";
+	
+	
+	
 
-	
-	
-	public Quality(RMIRegulatedMotor band, RMIRegulatedMotor gate, RMIRegulatedMotor counterLine,
-			EV3TouchSensor counter) {
+
+
+
+	public Quality(RMIRegulatedMotor band, RMIRegulatedMotor gate, RMIRegulatedMotor counterLine) {
 
 		this.line = band;
 		this.gate = gate;
@@ -31,36 +37,33 @@ public class Quality {
 		this.counter = counter;
 	}
 
-	public Quality(RMIRegulatedMotor band, RMIRegulatedMotor gate, EV3ColorSensor s, RMIRegulatedMotor counterLine,
-			EV3TouchSensor counter) {
-
-		this.line = band;
-		this.gate = gate;
-		this.s = s;
-		color = new float[s.sampleSize()];
-		this.counterLine = counterLine;
-		this.counter = counter;
-	}
 
 	
 	
 	public void closeGate() {
-		gateStatus = false;
-		try {
-			gate.rotate(-40); // maybe +40 dont know what open and close is
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if(gateStatus) {			// if gate is open close if allready closed stay closed
+			
+			gateStatus = false;
+			try {
+				gate.rotate(-40); // maybe +40 dont know what open and close is
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public void openGate() {
-		gateStatus = true;
-		try {
-			gate.rotate(40); 	// maybe -40 dont know what open and close is
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!gateStatus) {				// if gate is close open if allready open stay open
+			
+			gateStatus = true;
+			try {
+				gate.rotate(40); 	// maybe -40 dont know what open and close is
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -101,11 +104,21 @@ public class Quality {
 	public void counterSensorFired() {
 
 		countedBalls++;
+		System.out.println(countedBalls);  //TODO: delete after debug
 	}
 
-	public void colorSensorFired(float color) {
+	public void colorSensorFired(String colorString) {
 
-		this.color[0] = color;
+		this.colorString = colorString;
+		System.out.println("erkannte Farbe ist " + colorString);
+		
+		if(colorString == "White") {   // if ball is white close gate 
+			closeGate();		
+			setGoodBalls(getGoodBalls()+1);
+		}else {						 // if ball is not white open gate 
+			openGate();
+			setBadBalls(getBadBalls()+1);
+		}
 	}
 
 	public int getCounterLineSpeed() {
@@ -135,9 +148,60 @@ public class Quality {
 	}
 	public void reset() {
 		
-		if(gateStatus) {
+		if(gateStatus) {			// closes gate if open
 			closeGate();
 		}
 		setCountedBalls(0);
+		resetColorString();
+		setGoodBalls(0);
+		setBadBalls(0);
+	}
+	
+	public int getGoodBalls() {
+		return goodBalls;
+	}
+
+
+
+
+	public void setGoodBalls(int goodBalls) {
+		this.goodBalls = goodBalls;
+	}
+
+
+
+
+	public void setGateStatus(boolean gateStatus) {
+		this.gateStatus = gateStatus;
+	}
+
+
+
+
+	public int getBadBalls() {
+		return badBalls;
+	}
+
+
+
+
+	public void setBadBalls(int badBalls) {
+		this.badBalls = badBalls;
+	}
+
+
+
+
+	public void setColorString(String colorString) {
+		this.colorString = colorString;
+		
+	}
+	public String getColorString() {
+		return colorString;
+	}
+
+	public void resetColorString() {
+		this.colorString = "";
+		
 	}
 }

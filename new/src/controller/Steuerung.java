@@ -7,12 +7,14 @@ import java.util.ArrayList;
 
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.BaseSensor;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 import stations.Chargier;
 import stations.Lift;
+import stations.Quality;
 import stations.Cleaning;
 
 public class Steuerung {
@@ -57,7 +59,8 @@ public class Steuerung {
 	static EV3UltrasonicSensor b1061;
 	static EV3TouchSensor b1053;
 	static EV3TouchSensor b1054;
-	static EV3TouchSensor b1072; // zaehler noch nicht implementiert
+	static EV3TouchSensor b1072; 
+	static EV3ColorSensor xxx ; // name after brick and init
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed
 																			// after
@@ -66,6 +69,7 @@ public class Steuerung {
 	static Chargier chargier;
 	static Lift lift;
 	static Cleaning cleaner;
+	static Quality quality;
 
 	private boolean b1053Status = false; // set True if button fires
 	private boolean b1054Status = false;
@@ -84,8 +88,9 @@ public class Steuerung {
 		chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
 		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
 		cleaner = new Cleaning(b108b, b108c);
+		quality = new Quality(b107c, b107b,b107d); //without color atm
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b1061, b1053, b1054, b1072); // uebergebe das Object und rufe
+		Sensordeamon sensordeamon = new Sensordeamon(this, b1061, b1053, b1054, b1072,xxx); // uebergebe das Object und rufe
 		sensordeamon.start();
 	}
 
@@ -106,7 +111,12 @@ public class Steuerung {
 
 	public void b1072Fired() {
 
+		quality.counterSensorFired();
 		b1072Status = true ;
+	}
+	public void b1071Fired(String colorString) {
+		
+		quality.colorSensorFired(colorString);
 	}
 	
 	public void resetSensorStatus() {
@@ -114,6 +124,7 @@ public class Steuerung {
 		b1053Status = false ;
 		b1053Status = false ;
 		b1053Status = false ;
+		quality.resetColorString();
 	}
 
 	public static void initAll() {
@@ -258,7 +269,6 @@ public class Steuerung {
 	}
 
 	public Chargier getChargier() {
-		System.out.println("get chargier");
 		return chargier;
 	}
 
@@ -270,6 +280,11 @@ public class Steuerung {
 		return cleaner;
 	}
 
+	public Quality getQuality() {
+		return quality;
+	}
+	
+	
 	public void startSzenario1() {
 
 		
@@ -359,5 +374,7 @@ public class Steuerung {
 			e.printStackTrace();
 		}
 	}
+
+
 
 }
