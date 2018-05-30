@@ -51,19 +51,19 @@ public class Steuerung {
 	static RMIRegulatedMotor b108c;
 	static RMIRegulatedMotor b108d;
 
-	static Port b104port1;
-	static Port b105port3;
-	static Port b105port4;
-	static Port b106port1;
-	static Port b107port2;
-	static Port b107port3;
+//	static Port b104port1;
+//	static Port b105port3;
+//	static Port b105port4;
+//	static Port b106port1;
+//	static Port b107port2;
+//	static Port b107port3;
 
-	static EV3UltrasonicSensor b1061;
-	static EV3TouchSensor b1053;
-	static EV3TouchSensor b1054;
-	static EV3TouchSensor b1072;
+//	static EV3UltrasonicSensor b1061;
+//	static EV3TouchSensor b1053;
+//	static EV3TouchSensor b1054;
+//	static EV3TouchSensor b1072;
 
-	static EV3ColorSensor b1073;
+//	static EV3ColorSensor b1073;
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed
 																			// after
@@ -88,12 +88,13 @@ public class Steuerung {
 		initAll();
 		System.out.println("steuerung start");
 
-		chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
+		chargier = new Chargier(//b1061, b1054, b1053,
+				b106a, b106d, b106b, b105d, b105c);
 		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
 		cleaner = new Cleaning(b108b, b108c);
 		quality = new Quality(b107c, b107b, b107d);
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b1061, b1053, b1054, b1072); // uebergebe das Object und rufe
+		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107); // uebergebe das Object und rufe
 																						// , b1073
 		sensordeamon.start();
 	}
@@ -177,15 +178,15 @@ public class Steuerung {
 		b105c = b105.createRegulatedMotor("C", 'L'); // Motor Drehtisch
 		b105d = b105.createRegulatedMotor("D", 'L'); // Motor Räder Drehtisch
 
-		b105port3 = b105.getPort("S3");
-		b1053 = new EV3TouchSensor(b105port3); // Sensor Förderband
-		b105port4 = b105.getPort("S4");
-		b1054 = new EV3TouchSensor(b105port4); // Sensor Drehtisch
+//		b105port3 = b105.getPort("S3");
+//		b1053 = new EV3TouchSensor(b105port3); // Sensor Förderband
+//		b105port4 = b105.getPort("S4");
+//		b1054 = new EV3TouchSensor(b105port4); // Sensor Drehtisch
 
 		openMotorPorts.add(b105c);
 		openMotorPorts.add(b105d);
-		openSensorPorts.add(b1053);
-		openSensorPorts.add(b1054);
+//		openSensorPorts.add(b1053);
+//		openSensorPorts.add(b1054);
 	}
 
 	public static void initBrick6() {
@@ -203,14 +204,14 @@ public class Steuerung {
 		b106b = b106.createRegulatedMotor("B", 'L'); // Laufband vom Drehtisch
 		b106d = b106.createRegulatedMotor("D", 'L'); // Laufband zur Kippvorrichtung
 
-		b106port1 = b106.getPort("S1"); // Sensor Ultraschall FTS-Erkennnung
-		b1061 = new EV3UltrasonicSensor(b106port1);
-		b1061.getDistanceMode();
+//		b106port1 = b106.getPort("S1"); // Sensor Ultraschall FTS-Erkennnung
+//		b1061 = new EV3UltrasonicSensor(b106port1);
+//		b1061.getDistanceMode();
 
 		openMotorPorts.add(b106a);
 		openMotorPorts.add(b106b);
 		openMotorPorts.add(b106d);
-		openSensorPorts.add(b1061);
+//		openSensorPorts.add(b1061);
 
 	}
 
@@ -227,17 +228,17 @@ public class Steuerung {
 		b107b = b107.createRegulatedMotor("B", 'M');
 		b107c = b107.createRegulatedMotor("C", 'L');
 		b107d = b107.createRegulatedMotor("D", 'L');
-		b107port2 = b107.getPort("S2");
-		b1072 = new EV3TouchSensor(b107port2); // Sensor Zähler
+//		b107port2 = b107.getPort("S2");
+//		b1072 = new EV3TouchSensor(b107port2); // Sensor Zähler
 
-		b107port3 = b107.getPort("S3");
+//		b107port3 = b107.getPort("S3");
 		// b1073 = new EV3ColorSensor(b107port3);
 
 		openMotorPorts.add(b107b);
 		openMotorPorts.add(b107c);
 		openMotorPorts.add(b107d);
 
-		openSensorPorts.add(b1072);
+//		openSensorPorts.add(b1072);
 		// openSensorPorts.add(b1073);
 	}
 
@@ -261,6 +262,10 @@ public class Steuerung {
 		openMotorPorts.add(b108c);
 	}
 
+	public void addToSensorList(BaseSensor s) {
+		
+		openSensorPorts.add(s);
+	}
 	public static void closePorts() {
 
 		for (RMIRegulatedMotor temp : openMotorPorts) { // close every open Motor
@@ -273,9 +278,9 @@ public class Steuerung {
 			}
 		}
 
-		for (BaseSensor temp1 : openSensorPorts) { // close every sensor in Sensorlist
-			temp1.close();
-		}
+//		for (BaseSensor temp1 : openSensorPorts) { // close every sensor in Sensorlist
+//			temp1.close();
+//		}
 	}
 
 	public Chargier getChargier() {
@@ -347,6 +352,9 @@ public class Steuerung {
 					chargier.stopLineToStorer();
 
 					chargier.resetTable(); // turns 660 to much repair later
+					
+//					quality.startCounterLine(true); test
+//					quality.startLine(true);
 
 				} catch (RemoteException | InterruptedException e) {
 					// TODO Auto-generated catch block

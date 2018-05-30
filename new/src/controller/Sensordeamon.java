@@ -1,66 +1,95 @@
 package controller;
 
+import java.rmi.RemoteException;
+
+import lejos.hardware.sensor.BaseSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.hardware.sensor.SensorMode;
+import lejos.remote.ev3.RMISampleProvider;
+import lejos.remote.ev3.RemoteEV3;
 import lejos.robotics.Color;
 
 public class Sensordeamon extends Thread {
-	
+
 	private Steuerung s;
 	private EV3UltrasonicSensor b1061;
 	private EV3TouchSensor b1053;
 	private EV3TouchSensor b1054;
 	private EV3TouchSensor b1072;
 	private EV3ColorSensor b1073;
-	
-	public Sensordeamon(){
-		setDaemon(true);  // makes this thread a deamon, closes hisself after the main thread
+
+	private RemoteEV3 b105;
+	private RemoteEV3 b106;
+	private RemoteEV3 b107;
+
+	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107) {
+		setDaemon(true); // makes this thread a deamon, closes hisself after the main thread
+		this.b105 = b105;
+		this.b106 = b106;
+		this.b107 = b107;
+		this.s = s;
 	}
-	
-	public Sensordeamon(Steuerung s,EV3UltrasonicSensor u,EV3TouchSensor s1 ,EV3TouchSensor s2, EV3TouchSensor s3){ //,EV3ColorSensor s4
-		
-		setDaemon(true);  // makes this thread a deamon, closes hisself after the main thread
-		
-		this.s= s;
-		this.b1061 = u;
-		this.b1053 = s1;
-		this.b1054 = s2;
-		this.b1072 = s3;
-		//this.b1073 = s4;
-	}
+
+//	public Sensordeamon(Steuerung s, EV3UltrasonicSensor u, EV3TouchSensor s1, EV3TouchSensor s2, EV3TouchSensor s3) { // ,EV3ColorSensor
+//																														// s4
+//
+//		setDaemon(true); // makes this thread a deamon, closes hisself after the main thread
+//
+//		this.s = s;
+//		this.b1061 = u;
+//		this.b1053 = s1;
+//		this.b1054 = s2;
+//		this.b1072 = s3;
+//		// this.b1073 = s4;
+//	}
 
 	@Override
 	public void run() {
+
+		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor", "Distance");
+		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
+		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
+		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
+		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
+
+//		s.addToSensorList((BaseSensor) b1053);  TODO: not sure if needed to close port
+//		s.addToSensorList((BaseSensor) b1054);
+//		s.addToSensorList((BaseSensor) b1061);
+//		s.addToSensorList((BaseSensor) b1072);
+//		s.addToSensorList((BaseSensor) b1073);
 		
-//		SensorMode color = b1073.getColorIDMode();
-		
-		 float [] Sensorarray1 = new float [b1061.sampleSize()];
-		 float [] Sensorarray2 = new float [b1053.sampleSize()];
-		 float [] Sensorarray3 = new float [b1054.sampleSize()];
-		 float [] Sensorarray4 = new float [b1072.sampleSize()];
-		 //float[] Sensorarray5 = new float [color.sampleSize()];
-		 
-		while(true) { 		// kontrolliere jederzeit ob einer der Sensoren etwas erkennt
-			
-			b1061.fetchSample(Sensorarray1, 0);		// aktualisiere werte in [0] vom Array
-			b1053.fetchSample(Sensorarray2, 0);
-			b1054.fetchSample(Sensorarray3, 0);
-			b1072.fetchSample(Sensorarray4, 0);
-//			color.fetchSample(Sensorarray5, 0);
-			
-			
-			if(Sensorarray1[0]==1 ){   // wenn schalter gedrueckt wurde dann
+		float[] Sensorarray1 = new float[5];
+		float[] Sensorarray2 = new float[5];
+		float[] Sensorarray3 = new float[5];
+		float[] Sensorarray4 = new float[5];
+		float[] Sensorarray5 = new float[5];
+
+		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas erkennt
+
+			try {
+				Sensorarray1 = b1061.fetchSample();
+				Sensorarray2 = b1053.fetchSample();
+				Sensorarray3 = b1054.fetchSample();
+				Sensorarray4 = b1072.fetchSample();
+				Sensorarray5 = b1073.fetchSample();
 				
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if (Sensorarray1[0] == 1) { // wenn schalter gedrueckt wurde dann
+
 				s.b1061Fired();
 				System.out.println("Sensor b1061 fired");
 				waitSek(8);
 				Sensorarray1[0] = 0;
 				s.resetSensorStatus();
-				
+
 			}
-			if(Sensorarray2[0]==1 ){
+			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
 				System.out.println("Sensor b1053 fired");
 				waitSek(8);
@@ -68,7 +97,7 @@ public class Sensordeamon extends Thread {
 				s.resetSensorStatus();
 
 			}
-			if(Sensorarray3[0]==1 ){
+			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
 				System.out.println("Sensor b1054 fired");
 				waitSek(8);
@@ -76,7 +105,7 @@ public class Sensordeamon extends Thread {
 				s.resetSensorStatus();
 
 			}
-			if(Sensorarray4[0]==1 ){     // counter sensor
+			if (Sensorarray4[0] == 1) { // counter sensor
 				s.b1072Fired();
 				System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
@@ -84,35 +113,35 @@ public class Sensordeamon extends Thread {
 				s.resetSensorStatus();
 
 			}
-//			if(Sensorarray5[0] != -1) {
-//				System.out.println("Farbsensor erkennt farbe");
-//				int coloIndex = (int)Sensorarray5[0];
-//				String colorString = "";
-//				switch(coloIndex){
-//					
-//					case Color.BLACK: colorString = "BLACK"; break;
-//					case Color.BLUE: colorString = "BLUE"; break;
-//					case Color.GREEN: colorString = "GREEN"; break;
-//					case Color.YELLOW: colorString = "YELLOW"; break;
-//					case Color.RED: colorString = "RED"; break;
-//					case Color.WHITE: colorString = "WHITE"; break;
-//					case Color.BROWN: colorString = "BROWN"; break;					
-//				}
-//				s.b1073Fired(colorString);
-//				waitSek(1); // TODO: maybe turn line to sensor slow 
-//				s.resetSensorStatus();
-//			}
+			 if(Sensorarray5[0] != -1) {
+			 System.out.println("Farbsensor erkennt farbe");
+			 int coloIndex = (int)Sensorarray5[0];
+			 String colorString = "";
+			 switch(coloIndex){
 			
+			 case Color.BLACK: colorString = "BLACK"; break;
+			 case Color.BLUE: colorString = "BLUE"; break;
+			 case Color.GREEN: colorString = "GREEN"; break;
+			 case Color.YELLOW: colorString = "YELLOW"; break;
+			 case Color.RED: colorString = "RED"; break;
+			 case Color.WHITE: colorString = "WHITE"; break;
+			 case Color.BROWN: colorString = "BROWN"; break;
+			 }
+			 s.b1073Fired(colorString);
+			 waitSek(1); // TODO: maybe turn line to sensor slow
+			 s.resetSensorStatus();
+			 }
+
 		}
 	}
-	
-	public void waitSek(int sekunden){
-		
+
+	public void waitSek(int sekunden) {
+
 		try {
-			sleep(sekunden*1000);
+			sleep(sekunden * 1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-}		
+}
