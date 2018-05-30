@@ -61,11 +61,10 @@ public class Steuerung {
 	static EV3UltrasonicSensor b1061;
 	static EV3TouchSensor b1053;
 	static EV3TouchSensor b1054;
-	static EV3TouchSensor b1072; 
+	static EV3TouchSensor b1072;
 
-	static EV3ColorSensor b1073 ; 
-	
-	
+	static EV3ColorSensor b1073;
+
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all open Motor they need to be closed
 																			// after
 	static ArrayList<BaseSensor> openSensorPorts = new ArrayList<>();
@@ -92,42 +91,44 @@ public class Steuerung {
 		chargier = new Chargier(b1061, b1054, b1053, b106a, b106d, b106b, b105d, b105c);
 		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
 		cleaner = new Cleaning(b108b, b108c);
-		quality = new Quality(b107c, b107b,b107d); 
+		quality = new Quality(b107c, b107b, b107d);
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b1061, b1053, b1054, b1072); // uebergebe das Object und rufe  , b1073
+		Sensordeamon sensordeamon = new Sensordeamon(this, b1061, b1053, b1054, b1072); // uebergebe das Object und rufe
+																						// , b1073
 		sensordeamon.start();
 	}
 
 	public void b1053Fired() { // lift schalter
 		chargier.touchLiftfired();
-		b1053Status = true ;
+		b1053Status = true;
 	}
 
 	public void b1054Fired() { // drehtischschalter
 		chargier.touchTablefired();
-		b1054Status = true ;
+		b1054Status = true;
 	}
 
 	public void b1061Fired() { // ultraschall sensor
 		chargier.schrankefired();
-		b1061Status = true ;
+		b1061Status = true;
 	}
 
 	public void b1072Fired() {
 
 		quality.counterSensorFired();
-		b1072Status = true ;
+		b1072Status = true;
 	}
+
 	public void b1073Fired(String colorString) {
-		
+
 		quality.colorSensorFired(colorString);
 	}
-	
+
 	public void resetSensorStatus() {
-		b1053Status = false ;
-		b1053Status = false ;
-		b1053Status = false ;
-		b1053Status = false ;
+		b1053Status = false;
+		b1053Status = false;
+		b1053Status = false;
+		b1053Status = false;
 		quality.resetColorString();
 	}
 
@@ -228,17 +229,16 @@ public class Steuerung {
 		b107d = b107.createRegulatedMotor("D", 'L');
 		b107port2 = b107.getPort("S2");
 		b1072 = new EV3TouchSensor(b107port2); // Sensor Zähler
-		
+
 		b107port3 = b107.getPort("S3");
-//		b1073 = new EV3ColorSensor(b107port3);
-		
+		// b1073 = new EV3ColorSensor(b107port3);
 
 		openMotorPorts.add(b107b);
 		openMotorPorts.add(b107c);
 		openMotorPorts.add(b107d);
-		
+
 		openSensorPorts.add(b1072);
-//		openSensorPorts.add(b1073);
+		// openSensorPorts.add(b1073);
 	}
 
 	public static void initBrick8() {
@@ -293,11 +293,9 @@ public class Steuerung {
 	public Quality getQuality() {
 		return quality;
 	}
-	
-	
+
 	public void startSzenario1() {
 
-		
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
@@ -310,72 +308,64 @@ public class Steuerung {
 					while (!b1054Status) {
 						System.out.println("hänge in schleife 1");
 					}
-					
 
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
 					chargier.turnTable(660);
-					
+
 					chargier.startLineToLifter(false);
 					chargier.startTableLine(false);
 
 					while (!b1053Status) {
 						System.out.println("hänge in schleife 2");
 					}
-					
-					
+
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
-					
+
 					lift.startShaker();
 					lift.start(); // wait until it finished
 					lift.stopShaker();
-	
+
 					chargier.startLineToLifter(true);
 					chargier.startTableLine(true);
-					
-					while(!b1054Status) { // wait table button pushed
+
+					while (!b1054Status) { // wait table button pushed
 						System.out.println("hänge in schleife 3");
 					}
-					
+
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
-					
+
 					chargier.turnTable(-1320);
-					
+
 					chargier.startLineToStore(true); // maybe falls
 					chargier.startTableLine(false);
-					
+
 					Thread.sleep(2000);
 					chargier.stopTableLine();
 					chargier.stopLineToStorer();
-					
+
 					chargier.resetTable(); // turns 660 to much repair later
-	
 
 				} catch (RemoteException | InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		}, 1000 
-		);
-		
-		
+		}, 1000);
 
 	}
 
 	public void startSzenario2() {
-		
+
 		quality.closeGate();
-		
+
 	}
 
 	public void startSzenario3() {
 
 		quality.openGate();
 	}
-
-
 
 }
