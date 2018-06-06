@@ -16,8 +16,8 @@ public class Quality {
 	float color[];
 	
 	private boolean gateStatus = true; //TODO: true us open 
-	private int counterLineSpeed = 360;
-	private int lineSpeed = 360;
+	private int counterLineSpeed = 180;
+	private int lineSpeed = 90;
 	private int countedBalls = 0;
 	private int goodBalls = 0;
 	private int badBalls = 0;
@@ -34,7 +34,7 @@ public class Quality {
 		this.line = band;
 		this.gate = gate;
 		this.counterLine = counterLine;
-		this.counter = counter;
+
 	}
 
 
@@ -46,7 +46,7 @@ public class Quality {
 			
 			gateStatus = false;
 			try {
-				gate.rotate(-40); // maybe +40 dont know what open and close is
+				gate.rotate(40); // maybe +40 dont know what open and close is
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -59,7 +59,7 @@ public class Quality {
 			
 			gateStatus = true;
 			try {
-				gate.rotate(40); 	// maybe -40 dont know what open and close is
+				gate.rotate(-40); 	// maybe -40 dont know what open and close is
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -112,12 +112,14 @@ public class Quality {
 		this.colorString = colorString;
 		System.out.println("erkannte Farbe ist " + colorString);
 		
-		if(colorString == "White") {   // if ball is white close gate 
-			closeGate();		
+		if(colorString == "WHITE") {   // if ball is white close gate 
+			openGate();		
 			setGoodBalls(getGoodBalls()+1);
+			System.out.println(" White open gate");
 		}else {						 // if ball is not white open gate 
-			openGate();
+			closeGate();
 			setBadBalls(getBadBalls()+1);
+			System.out.println(" not white close gate");
 		}
 	}
 

@@ -14,11 +14,6 @@ import lejos.robotics.Color;
 public class Sensordeamon extends Thread {
 
 	private Steuerung s;
-	private EV3UltrasonicSensor b1061;
-	private EV3TouchSensor b1053;
-	private EV3TouchSensor b1054;
-	private EV3TouchSensor b1072;
-	private EV3ColorSensor b1073;
 
 	private RemoteEV3 b105;
 	private RemoteEV3 b106;
@@ -32,19 +27,6 @@ public class Sensordeamon extends Thread {
 		this.s = s;
 	}
 
-//	public Sensordeamon(Steuerung s, EV3UltrasonicSensor u, EV3TouchSensor s1, EV3TouchSensor s2, EV3TouchSensor s3) { // ,EV3ColorSensor
-//																														// s4
-//
-//		setDaemon(true); // makes this thread a deamon, closes hisself after the main thread
-//
-//		this.s = s;
-//		this.b1061 = u;
-//		this.b1053 = s1;
-//		this.b1054 = s2;
-//		this.b1072 = s3;
-//		// this.b1073 = s4;
-//	}
-
 	@Override
 	public void run() {
 
@@ -54,11 +36,11 @@ public class Sensordeamon extends Thread {
 		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
 
-//		s.addToSensorList((BaseSensor) b1053);  TODO: not sure if needed to close port
-//		s.addToSensorList((BaseSensor) b1054);
-//		s.addToSensorList((BaseSensor) b1061);
-//		s.addToSensorList((BaseSensor) b1072);
-//		s.addToSensorList((BaseSensor) b1073);
+		s.addToSensorList( b1053);  
+		s.addToSensorList(b1054);
+		s.addToSensorList( b1061);
+		s.addToSensorList( b1072);
+		s.addToSensorList(b1073);
 		
 		float[] Sensorarray1 = new float[5];
 		float[] Sensorarray2 = new float[5];
@@ -69,11 +51,12 @@ public class Sensordeamon extends Thread {
 		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas erkennt
 
 			try {
-				Sensorarray1 = b1061.fetchSample();
-				Sensorarray2 = b1053.fetchSample();
-				Sensorarray3 = b1054.fetchSample();
-				Sensorarray4 = b1072.fetchSample();
-				Sensorarray5 = b1073.fetchSample();
+					Sensorarray1 = b1061.fetchSample();
+					Sensorarray2 = b1053.fetchSample();
+					Sensorarray3 = b1054.fetchSample();
+					Sensorarray4 = b1072.fetchSample();
+					Sensorarray5 = b1073.fetchSample();	
+				
 				
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

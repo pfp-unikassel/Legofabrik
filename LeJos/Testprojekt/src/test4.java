@@ -23,8 +23,8 @@ public class test4 {
 
 		try {
 
-			b110 = new RemoteEV3("192.168.0.109"); // TODO change to new brick
-			b107 = new RemoteEV3("192.168.0.103"); // TODO change to new brick
+			b110 = new RemoteEV3("192.168.0.103"); // TODO change to new brick
+		//	b107 = new RemoteEV3("192.168.0.109"); // TODO change to new brick
 
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -32,16 +32,16 @@ public class test4 {
 			System.out.println("B1 not Found");
 
 		}
+//
+//		RMISampleProvider touch1 = b107.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null);
+//
+//		RMISampleProvider touch2 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
+//
+//		RMISampleProvider touch3 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
+//
+//		RMISampleProvider touch4 = b107.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
 
-		RMISampleProvider touch1 = b107.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null);
-
-		RMISampleProvider touch2 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
-
-		RMISampleProvider touch3 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
-
-		RMISampleProvider touch4 = b107.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
-
-		RMISampleProvider touch5 = b110.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null);
+//		RMISampleProvider touch5 = b110.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null);
 		
 		RMISampleProvider color6 = b110.createSampleProvider("S2", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
 
@@ -92,29 +92,29 @@ public class test4 {
 //		 }
 
 		while (true) {
-
-			Sensorarray1 = touch1.fetchSample();
-			Sensorarray2 = touch2.fetchSample();
-			Sensorarray3 = touch3.fetchSample();
-			Sensorarray4 = touch4.fetchSample();
-			Sensorarray5 = touch5.fetchSample();
+//
+//			Sensorarray1 = touch1.fetchSample();
+//			Sensorarray2 = touch2.fetchSample();
+//			Sensorarray3 = touch3.fetchSample();
+//			Sensorarray4 = touch4.fetchSample();
+//			Sensorarray5 = touch5.fetchSample();
 			Sensorarray6 = color6.fetchSample();
-			
-			if(Sensorarray1[0] == 1) {
-				System.out.println("1 fired");
-			}
-			if(Sensorarray2[0] == 1) {
-				System.out.println("2 fired");
-			}
-			if(Sensorarray3[0] == 1) {
-				System.out.println("3 fired");
-			}
-			if(Sensorarray4[0] == 1) {
-				System.out.println("4 fired");
-			}
-			if(Sensorarray5[0] == 1) {
-				System.out.println("5 fired");
-			}
+//			
+//			if(Sensorarray1[0] == 1) {
+//				System.out.println("1 fired");
+//			}
+//			if(Sensorarray2[0] == 1) {
+//				System.out.println("2 fired");
+//			}
+//			if(Sensorarray3[0] == 1) {
+//				System.out.println("3 fired");
+//			}
+//			if(Sensorarray4[0] == 1) {
+//				System.out.println("4 fired");
+//			}
+//			if(Sensorarray5[0] == 1) {
+//				System.out.println("5 fired");
+//			}
 			
 			Sensorarray6 = color6.fetchSample();
 			
