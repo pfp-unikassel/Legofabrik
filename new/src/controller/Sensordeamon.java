@@ -98,10 +98,11 @@ public class Sensordeamon extends Thread {
 				s.b1072Fired();
 				System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
-				waitSek(1);
+				;
 				s.resetSensorStatus();
 
 			}
+
 			if (Sensorarray5[0] != -1) {
 				System.out.println("Farbsensor erkennt farbe");
 				int coloIndex = (int) Sensorarray5[0];
@@ -134,6 +135,7 @@ public class Sensordeamon extends Thread {
 				waitSek(1); // TODO: maybe turn line to sensor slow
 				s.resetSensorStatus();
 			}
+
 
 			// if (Sensorarray6[0] == 1) {
 			// s.b1131fired(true);

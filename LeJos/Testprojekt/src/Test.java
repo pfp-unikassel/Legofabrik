@@ -7,28 +7,25 @@ import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 import lejos.utility.Delay;
+import stations.Airarms;
 
 public class Test {
 	public static void main (String args []) throws RemoteException, MalformedURLException, NotBoundException{
 		
-		RemoteEV3 b105 = new RemoteEV3 ("192.168.0.105");
-		 Port b105port1 = b105.getPort("S4");		;
-		 EV3TouchSensor b1051 = new EV3TouchSensor (b105port1);
-		 
-		 
-		 float [] Sensorarray = new float [b1051.sampleSize()];
+		RemoteEV3 b105 = new RemoteEV3 ("192.168.0.111");
+		
+		RMIRegulatedMotor b105a = b105.createRegulatedMotor("A", 'M');
+		RMIRegulatedMotor b105b = b105.createRegulatedMotor("B", 'M');
+		RMIRegulatedMotor b105c = b105.createRegulatedMotor("C", 'M');
+		RMIRegulatedMotor b105d = b105.createRegulatedMotor("D", 'M');
+		
+		Airarms air = new Airarms(b105a,b105b,b105c,b105d);
+		
+		air.armUp();
 		
 		 
-		 while(Sensorarray[0] != 1.0 ) {
-			 
-			b1051.fetchSample(Sensorarray, 0);					// schreibt Sensorwert in Array [0]
-			System.out.println(Sensorarray[0]);
 		 
-		 
-		 }
-		 
-		 System.out.println("Test erfolgreich ");
-		 b1051.close();
+		
 		
 	}
 }
