@@ -92,7 +92,7 @@ public class Sensordeamon extends Thread {
 				s.b1072Fired();
 				System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
-				waitSek(1);
+				;
 				s.resetSensorStatus();
 
 			}
@@ -107,7 +107,8 @@ public class Sensordeamon extends Thread {
 			 case Color.GREEN: colorString = "GREEN"; break;
 			 case Color.YELLOW: colorString = "YELLOW"; break;
 			 case Color.RED: colorString = "RED"; break;
-			 case Color.WHITE: colorString = "WHITE"; break;
+			 case Color.WHITE: colorString = "WHITE";
+			 waitSek(2);break;
 			 case Color.BROWN: colorString = "BROWN"; break;
 			 }
 			 s.b1073Fired(colorString);

@@ -25,10 +25,10 @@ public class Compressor {
 		if (!getOnPressure()) {
 
 			try {
-				m1.forward(); // TODO:maybe backward dunno
+				m1.forward(); // TODO:2 for 2 back
 				m2.forward();
-				m3.forward();
-				m4.forward();
+				m3.backward();
+				m4.backward();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

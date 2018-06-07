@@ -1,5 +1,7 @@
 package stations;
 
+import java.rmi.RemoteException;
+
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Airarms {
@@ -7,8 +9,14 @@ public class Airarms {
 	private boolean grabStatus = true; // true is open
 	private boolean grabPosition = true; // true is || over the line
 
-	private boolean armPosition = true; // true is to line
-	private boolean armStatus = true; // true is up false down
+	private boolean armPosition = false; // true ist ausgefahren
+	private boolean armStatus = false; // true is up false down
+	
+	private boolean towerPosition = true; // to lane
+	
+	private int turnDegree = 30;
+	private int towerTurnDegree = 95;
+
 
 	RMIRegulatedMotor moveArm;
 	RMIRegulatedMotor verticalArm;
@@ -20,7 +28,7 @@ public class Airarms {
 	public Airarms(RMIRegulatedMotor airLine1, RMIRegulatedMotor airLine2, RMIRegulatedMotor airLine3,
 			RMIRegulatedMotor airLine4, RMIRegulatedMotor turnArm1, RMIRegulatedMotor turnArm2) {
 
-		this.moveArm = airLine1;
+		this.moveArm = airLine1;   // ausfahren
 		this.verticalArm = airLine2;
 		this.turnGrab = airLine3;
 		this.openCloseGrab = airLine4;
@@ -28,18 +36,62 @@ public class Airarms {
 		this.turnArm2 = turnArm2;
 
 	}
+	
+	public Airarms(RMIRegulatedMotor airLine1, RMIRegulatedMotor airLine2, RMIRegulatedMotor airLine3,
+			RMIRegulatedMotor airLine4) {
+
+		this.moveArm = airLine1;   // ausfahren
+		this.verticalArm = airLine2;
+		this.turnGrab = airLine3;
+		this.openCloseGrab = airLine4;
+
+
+	}
 
 	public void armUp() {
 
-		if (!getArmStatus()) { // if arm is down do
+		if (!getArmStatus()) { // if arm is down do   mit der achse gegen den uhrzeigersinn
 			setArmStatus(true);
+			try {
+				verticalArm.rotateTo(turnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
+	public void turnTower(){
+		
+		if(towerPosition){  // true ist ausgefahren
+			try {
+				turnArm1.rotate(towerTurnDegree, true);
+				turnArm2.rotate(towerTurnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			try {
+				turnArm1.rotate(-towerTurnDegree, true);
+				turnArm2.rotate(-towerTurnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+	}
 	public void armDown() {
 
 		if (getArmStatus()) { // if arm is up do
 			setArmStatus(false);
+			try {
+				verticalArm.rotateTo(-turnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -47,10 +99,22 @@ public class Airarms {
 
 		if (getArmPosition()) {
 			// turn to get balls
+			try {
+				moveArm.rotate(turnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			setArmPosition(false);
 		} else {
 			setArmPosition(true);
+			try {
+				moveArm.rotate(-turnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// turn to lane
 		}
 	}
@@ -59,6 +123,12 @@ public class Airarms {
 
 		if (!getGrabStatus()) {
 			setGrabStatus(true);
+			try {
+				openCloseGrab.rotate(turnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// close
 		}
 	}
@@ -67,6 +137,12 @@ public class Airarms {
 
 		if (!getGrabStatus()) {
 			setGrabStatus(false);
+			try {
+				openCloseGrab.rotate(-turnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// open
 		}
 	}
@@ -76,7 +152,18 @@ public class Airarms {
 		if (getGrabPosition()) {
 			// turn = to lane
 			setGrabPosition(false);
-		} else {
+			try {
+				turnGrab.rotateTo(turnDegree,true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {try {
+			turnGrab.rotateTo(-turnDegree,true);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			// || to lane
 			setGrabPosition(true);
 		}

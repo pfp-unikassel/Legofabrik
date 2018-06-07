@@ -19,7 +19,7 @@ public class QualityStation {
 	private RMIRegulatedMotor armHorizontal;
 	private RMIRegulatedMotor tower;
 
-	public QualityStation(RMIRegulatedMotor table, RMIRegulatedMotor armVertical, RMIRegulatedMotor armHorizontal,
+	public QualityStation(RMIRegulatedMotor table,  RMIRegulatedMotor armHorizontal, RMIRegulatedMotor armVertical,
 			RMIRegulatedMotor tower) {
 
 		this.table = table;

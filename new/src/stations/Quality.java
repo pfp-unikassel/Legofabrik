@@ -15,9 +15,9 @@ public class Quality {
 	EV3ColorSensor s;
 	float color[];
 	
-	private boolean gateStatus = true; //TODO: true us open 
+	private boolean gateStatus = false; //TODO: true us open 
 	private int counterLineSpeed = 180;
-	private int lineSpeed = 90;
+	private int lineSpeed = 45;
 	private int countedBalls = 0;
 	private int goodBalls = 0;
 	private int badBalls = 0;
