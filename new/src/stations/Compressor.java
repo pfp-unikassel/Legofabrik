@@ -25,8 +25,8 @@ public class Compressor {
 		if (!getOnPressure()) {
 
 			try {
-				m1.forward(); // TODO:maybe backward dunno
-				m2.forward();
+				m1.backward(); // TODO:maybe backward dunno
+				m2.backward();
 				m3.forward();
 				m4.forward();
 			} catch (RemoteException e) {
@@ -49,10 +49,14 @@ public class Compressor {
 		}
 	}
 
-	public void pressureButtonfired() {
+	public void pressureButtonfired(boolean button) {
 		if (!getOnPressure()) {
 			setOnPressure(true);
 			stopCompressor();
+		} 
+		
+		if(!button ) {				// wenn der Knopf nicht gedrueckt ist starte komp
+			startCompressor();
 		}
 
 	}

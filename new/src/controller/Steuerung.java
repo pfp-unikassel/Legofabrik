@@ -325,8 +325,14 @@ public class Steuerung {
 					lift.start(); // wait until it finished
 					lift.stopShaker();
 
+					cleaner.startCleaner(true); //TODO: maybe falls = andere richtung
+					cleaner.startLiftLine(true); //TODO: maybe falls = andere richtung
+					
 					chargier.startLineToLifter(true);
 					chargier.startTableLine(true);
+					
+					 quality.startCounterLine(false); 
+					 quality.startLine(true);
 
 					while (!b1054Status) { // wait table button pushed
 						System.out.println("hänge in schleife 3");
@@ -345,9 +351,15 @@ public class Steuerung {
 					chargier.stopLineToStorer();
 
 					chargier.resetTable(); // turns 660 to much repair later
+					
+					Thread.sleep(10000); // wait 10 sec
+					
+					cleaner.stopLiftLine();
+					cleaner.stop();
+					quality.stopCounterLine();
+					quality.stopLine();
 
-					 quality.startCounterLine(true); 
-					 quality.startLine(false);
+					
 
 				} catch (RemoteException | InterruptedException e) {
 					// TODO Auto-generated catch block
