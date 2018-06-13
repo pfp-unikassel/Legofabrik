@@ -52,14 +52,16 @@ public class Compressor {
 	}
 
 	public void pressureButtonfired(boolean button) {
-		if (!getOnPressure()) {
+		
+		if(!button ) {				// wenn der Knopf nicht gedrueckt ist starte komp
+			setOnPressure(false);
+			startCompressor();
+			
+		}else {
 			setOnPressure(true);
 			stopCompressor();
 		} 
 		
-		if(!button ) {				// wenn der Knopf nicht gedrueckt ist starte komp
-			startCompressor();
-		}
 
 	}
 

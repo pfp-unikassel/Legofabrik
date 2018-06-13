@@ -11,12 +11,11 @@ public class Airarms {
 
 	private boolean armPosition = false; // true ist ausgefahren
 	private boolean armStatus = false; // true is up false down
-	
-	private boolean towerPosition = true; // to lane
-	
-	private int turnDegree = 30;
-	private int towerTurnDegree = 95;
 
+	private boolean towerPosition = true; // to lane
+
+	private int turnDegree = 45;
+	private int towerTurnDegree = 95;
 
 	RMIRegulatedMotor moveArm;
 	RMIRegulatedMotor verticalArm;
@@ -28,7 +27,7 @@ public class Airarms {
 	public Airarms(RMIRegulatedMotor airLine1, RMIRegulatedMotor airLine2, RMIRegulatedMotor airLine3,
 			RMIRegulatedMotor airLine4, RMIRegulatedMotor turnArm1, RMIRegulatedMotor turnArm2) {
 
-		this.moveArm = airLine1;   // ausfahren
+		this.moveArm = airLine1; // ausfahren
 		this.verticalArm = airLine2;
 		this.turnGrab = airLine3;
 		this.openCloseGrab = airLine4;
@@ -36,21 +35,10 @@ public class Airarms {
 		this.turnArm2 = turnArm2;
 
 	}
-	
-	public Airarms(RMIRegulatedMotor airLine1, RMIRegulatedMotor airLine2, RMIRegulatedMotor airLine3,
-			RMIRegulatedMotor airLine4) {
-
-		this.moveArm = airLine1;   // ausfahren
-		this.verticalArm = airLine2;
-		this.turnGrab = airLine3;
-		this.openCloseGrab = airLine4;
-
-
-	}
 
 	public void armUp() {
 
-		if (!getArmStatus()) { // if arm is down do   mit der achse gegen den uhrzeigersinn
+		if (!getArmStatus()) { // if arm is down do mit der achse gegen den uhrzeigersinn
 			setArmStatus(true);
 			try {
 				verticalArm.rotateTo(turnDegree, true);
@@ -61,27 +49,6 @@ public class Airarms {
 		}
 	}
 
-	public void turnTower(){
-		
-		if(towerPosition){  // true ist ausgefahren
-			try {
-				turnArm1.rotate(towerTurnDegree, true);
-				turnArm2.rotate(towerTurnDegree, true);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else{
-			try {
-				turnArm1.rotate(-towerTurnDegree, true);
-				turnArm2.rotate(-towerTurnDegree, true);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		}
-	}
 	public void armDown() {
 
 		if (getArmStatus()) { // if arm is up do
@@ -105,7 +72,7 @@ public class Airarms {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			setArmPosition(false);
 		} else {
 			setArmPosition(true);
@@ -153,19 +120,42 @@ public class Airarms {
 			// turn = to lane
 			setGrabPosition(false);
 			try {
-				turnGrab.rotateTo(turnDegree,true);
+				turnGrab.rotateTo(turnDegree, true);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {try {
-			turnGrab.rotateTo(-turnDegree,true);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} else {
+			try {
+				turnGrab.rotateTo(-turnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// || to lane
 			setGrabPosition(true);
+		}
+	}
+
+	public void turnTower() {
+
+		if (towerPosition) { // true ist ausgefahren
+			try {
+				turnArm1.rotate(towerTurnDegree, true);
+				turnArm2.rotate(towerTurnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				turnArm1.rotate(-towerTurnDegree, true);
+				turnArm2.rotate(-towerTurnDegree, true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 

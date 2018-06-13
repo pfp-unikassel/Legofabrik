@@ -14,10 +14,14 @@ import lejos.hardware.sensor.SensorMode;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RMISampleProvider;
 import lejos.remote.ev3.RemoteEV3;
+import stations.Airarms;
 import stations.Chargier;
 import stations.Lift;
 import stations.Quality;
+import stations.QualityStation;
 import stations.Cleaning;
+import stations.Compressor;
+import stations.Deliverylane;
 
 public class Steuerung {
 
@@ -26,6 +30,11 @@ public class Steuerung {
 	RemoteEV3 b106;
 	RemoteEV3 b107;
 	RemoteEV3 b108;
+	RemoteEV3 b111;
+	RemoteEV3 b113;
+	RemoteEV3 b114;
+	RemoteEV3 b115;
+
 
 	static RMIRegulatedMotor b101a;
 	static RMIRegulatedMotor b101b;
@@ -51,6 +60,27 @@ public class Steuerung {
 	static RMIRegulatedMotor b108b;
 	static RMIRegulatedMotor b108c;
 	static RMIRegulatedMotor b108d;
+	
+	static RMIRegulatedMotor b111a;
+	static RMIRegulatedMotor b111b;
+	static RMIRegulatedMotor b111c;
+	static RMIRegulatedMotor b111d;
+	
+	static RMIRegulatedMotor b113a;
+	static RMIRegulatedMotor b113b;
+	static RMIRegulatedMotor b113c;
+	static RMIRegulatedMotor b113d;
+	
+	static RMIRegulatedMotor b114a;
+	static RMIRegulatedMotor b114b;
+	static RMIRegulatedMotor b114c;
+	
+	static RMIRegulatedMotor b115a;
+	static RMIRegulatedMotor b115b;
+	static RMIRegulatedMotor b115c;
+	static RMIRegulatedMotor b115d;
+	
+	
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
 	static ArrayList<RMISampleProvider> openSensorPorts = new ArrayList<>();
@@ -59,6 +89,10 @@ public class Steuerung {
 	static Lift lift;
 	static Cleaning cleaner;
 	static Quality quality;
+	static Compressor compressor;
+//	static Airarms airarms;
+	static Deliverylane deliverylane;
+//	static QualityStation qualitystation;
 
 	private boolean b1053Status = false; // set True if button fires
 	private boolean b1054Status = false;
@@ -79,8 +113,12 @@ public class Steuerung {
 		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
 		cleaner = new Cleaning(b108b, b108c);
 		quality = new Quality(b107c, b107b, b107d);
+		compressor = new Compressor(b113a,b113b,b113c,b113d);
+	//	ariarms = new Airarms(b111a,b111b,b111c,b111d,b114a,b114b);		// distanzsensor
+//		qualitystation = new QualityStation(b115a,b115b,b115c,b115d); // add Colorsensor
+//		deliverylane = new Deliverylane(); add motors 
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107); // uebergebe das Object und rufe b1073
+		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107,b113); // uebergebe das Object und rufe b1073  TODO: ad 114 distanz
 		sensordeamon.start();
 	}
 
@@ -104,12 +142,24 @@ public class Steuerung {
 		quality.counterSensorFired();
 		b1072Status = true;
 	}
-
+	
 	public void b1073Fired(String colorString) {
-
+		
 		quality.colorSensorFired(colorString);
 	}
+	
+	public void b1131Fired(boolean button) {
+		
+		compressor.pressureButtonfired(button);
+	}
+	
+	public void armIsStalled(boolean armIsStalled) {
+		 // QualityStation arm is stalled boolean true stalled, false nicht
+		//qulityStation.setArmIsStalled(armIsStalled);
 
+	}
+
+	
 	public void resetSensorStatus() {
 		b1053Status = false;
 		b1053Status = false;
@@ -126,6 +176,10 @@ public class Steuerung {
 		initBrick6();
 		initBrick7();
 		initBrick8();
+//		initBrick11();
+		initBrick13();
+//		initBrick14();
+//		initBrick15();
 	}
 
 	public void initBrick1() {
@@ -231,6 +285,101 @@ public class Steuerung {
 		openMotorPorts.add(b108b);
 		openMotorPorts.add(b108c);
 	}
+	
+	public void initBrick11() {
+		// Brick 111
+		try {
+			b111 = new RemoteEV3("192.168.0.111");
+			getPowerLevel(b111);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
+
+		}
+
+		b111a = b111.createRegulatedMotor("A", 'M');
+		b111b = b111.createRegulatedMotor("B", 'M');
+		b111c = b111.createRegulatedMotor("C", 'M');
+		b111d = b111.createRegulatedMotor("D", 'M');
+
+
+		openMotorPorts.add(b111a);
+		openMotorPorts.add(b111b);
+		openMotorPorts.add(b111c);
+		openMotorPorts.add(b111d);
+
+	}
+	
+	public void initBrick13() {
+		// Brick 113
+		try {
+			b113 = new RemoteEV3("192.168.0.113");
+			getPowerLevel(b113);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
+
+		}
+
+		b113a = b113.createRegulatedMotor("A", 'L');
+		b113b = b113.createRegulatedMotor("B", 'L');
+		b113c = b113.createRegulatedMotor("C", 'L');
+		b113d = b113.createRegulatedMotor("D", 'L');
+
+
+		openMotorPorts.add(b113a);
+		openMotorPorts.add(b113b);
+		openMotorPorts.add(b113c);
+		openMotorPorts.add(b113c);
+
+	}
+	
+	public void initBrick14() {
+		// Brick 114
+		try {
+			b114 = new RemoteEV3("192.168.0.114");
+			getPowerLevel(b114);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
+
+		}
+
+		b114a = b114.createRegulatedMotor("A", 'M');
+		b114b = b114.createRegulatedMotor("B", 'M');
+		b114c = b114.createRegulatedMotor("C", 'L');
+
+		openMotorPorts.add(b114a);
+		openMotorPorts.add(b114b);
+		openMotorPorts.add(b114c);
+	}
+	
+	public void initBrick15() {
+		// Brick 115
+		try {
+			b115 = new RemoteEV3("192.168.0.115");
+			getPowerLevel(b115);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
+
+		}
+
+		b115a = b115.createRegulatedMotor("A", 'M');
+		b115b = b115.createRegulatedMotor("B", 'M');
+		b115c = b115.createRegulatedMotor("C", 'M');
+		b115d = b115.createRegulatedMotor("D", 'M');
+
+		openMotorPorts.add(b115a);
+		openMotorPorts.add(b115b);
+		openMotorPorts.add(b115c);
+		openMotorPorts.add(b115d);
+	}
+
 
 	public void addToSensorList(RMISampleProvider s) {
 

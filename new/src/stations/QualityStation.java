@@ -8,6 +8,7 @@ public class QualityStation {
 
 	private boolean towerStatus = false; // false off
 	private boolean armPositionVertical = false; // false up
+	private boolean armIsStalled = false;
 	private char armPositionHorizontal = 'm'; // m mid g good b bad
 	private String colorString = "";
 	private int countedBalls = 0;
@@ -19,7 +20,7 @@ public class QualityStation {
 	private RMIRegulatedMotor armHorizontal;
 	private RMIRegulatedMotor tower;
 
-	public QualityStation(RMIRegulatedMotor table,  RMIRegulatedMotor armHorizontal, RMIRegulatedMotor armVertical,
+	public QualityStation(RMIRegulatedMotor table, RMIRegulatedMotor armHorizontal, RMIRegulatedMotor armVertical,
 			RMIRegulatedMotor tower) {
 
 		this.table = table;
@@ -35,8 +36,10 @@ public class QualityStation {
 
 		if (colorString == "White") {
 			setGoodBalls(getGoodBalls() + 1);
+
 		} else {
 			setBadBalls(getBadBalls() + 1);
+
 		}
 
 		setCountedBalls(getCountedBalls() + 1);
@@ -66,51 +69,61 @@ public class QualityStation {
 
 	public void moveArmToGood() {
 
-		if (getArmPositionHorizontal() == 'm') {
-			// mid
-		} else if (getArmPositionHorizontal() == 'g') {
-			// good
-		} else if (getArmPositionHorizontal() == 'b') {
-			// bad
-		}
+		if (!getArmPositionVertical()) { // beweg dich nur wenn arm oben ist
 
-		setArmPositionHorizontal('g');
+			if (getArmPositionHorizontal() == 'm') {
+				// mid wait till motor is finished
+			} else if (getArmPositionHorizontal() == 'g') {
+				// good
+			} else if (getArmPositionHorizontal() == 'b') {
+				// bad
+			}
+
+			setArmPositionHorizontal('g');
+		}
 	}
 
 	public void moveArmToBad() {
 
-		if (getArmPositionHorizontal() == 'm') {
-			// mid
-		} else if (getArmPositionHorizontal() == 'g') {
-			// good
-		} else if (getArmPositionHorizontal() == 'b') {
-			// bad
-		}
+		if (!getArmPositionVertical()) {
 
-		setArmPositionHorizontal('b');
+			if (getArmPositionHorizontal() == 'm') {
+				// mid
+			} else if (getArmPositionHorizontal() == 'g') {
+				// good
+			} else if (getArmPositionHorizontal() == 'b') {
+				// bad
+			}
+
+			setArmPositionHorizontal('b');
+		}
 	}
 
 	public void moveArmToMid() {
 
-		if (getArmPositionHorizontal() == 'm') {
-			// mid
-		} else if (getArmPositionHorizontal() == 'g') {
-			// good
-		} else if (getArmPositionHorizontal() == 'b') {
-			// bad
-		}
+		if (!getArmPositionVertical()) {
 
-		setArmPositionHorizontal('m');
+			if (getArmPositionHorizontal() == 'm') {
+				// mid
+			} else if (getArmPositionHorizontal() == 'g') {
+				// good
+			} else if (getArmPositionHorizontal() == 'b') {
+				// bad
+			}
+
+			setArmPositionHorizontal('m');
+		}
 	}
 
 	public void resetArm() throws RemoteException { // run to wall until resistance gets to big, move back to mid
 													// afterwards
 
-		// armUp();
-		// moveArmToGood();
-		// if(armHorizontal.isStalled()) {
-		// stopArmHorizontal();
-		// }else
+//	
+//		 armUp();
+//		 while(armIsStalled){
+//		 //lasse Motor langsam in eine Richtung fahren 
+//		 }
+//		
 
 	}
 
@@ -134,7 +147,8 @@ public class QualityStation {
 	public void armDown() throws RemoteException {
 		if (!getArmPositionVertical()) {
 			// move arm down
-			armVertical.rotate(-armVerticalMotorAngle);
+			armVertical.rotate(-armVerticalMotorAngle); // rotate without true or fals should wait until it finished
+														// rotation
 		}
 	}
 
@@ -142,6 +156,42 @@ public class QualityStation {
 		armUp();
 		stopTower();
 		resetArm();
+
+	}
+
+	public void takeBallToGood() {
+
+		try {
+			armDown();
+			armUp();
+			moveArmToGood();
+			armDown();
+			armUp();
+			goodBalls++;
+			countedBalls++;
+
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void takeBallToBad() {
+
+		try {
+			armDown();
+			armUp();
+			moveArmToBad();
+			armDown();
+			armUp();
+			badBalls++;
+			countedBalls++;
+
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -199,6 +249,14 @@ public class QualityStation {
 
 	public void setBadBalls(int badBalls) {
 		this.badBalls = badBalls;
+	}
+
+	public boolean getArmIsStalled() {
+		return armIsStalled;
+	}
+
+	public void setArmIsStalled(boolean armIsStalled) {
+		this.armIsStalled = armIsStalled;
 	}
 
 }
