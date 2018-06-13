@@ -91,7 +91,7 @@ public class Steuerung {
 	static Quality quality;
 	static Compressor compressor;
 //	static Airarms airarms;
-	static Deliverylane deliverylane;
+//	static Deliverylane deliverylane;
 //	static QualityStation qualitystation;
 
 	private boolean b1053Status = false; // set True if button fires
