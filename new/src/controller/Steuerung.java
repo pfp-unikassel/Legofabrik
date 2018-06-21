@@ -332,7 +332,7 @@ public class Steuerung {
 		openMotorPorts.add(b113a);
 		openMotorPorts.add(b113b);
 		openMotorPorts.add(b113c);
-		openMotorPorts.add(b113c);
+		openMotorPorts.add(b113d);
 
 	}
 	
@@ -435,12 +435,29 @@ public class Steuerung {
 
 	public float getPowerLevel(RemoteEV3 brick) {
 
-		System.out.println(brick.getName() + " hat noch " + brick.getPower().getBatteryCurrent() + " Akku");
+		System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt()+ "V Akku");
+
+		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
+		return brick.getPower().getVoltageMilliVolt();
+	}
+	
+	public float getPowerUse(RemoteEV3 brick) {
+
+		System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent()+ "Amp/s Akku");
 
 		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
 		return brick.getPower().getBatteryCurrent();
 	}
+	
+	public float getMotorPowerUse(RemoteEV3 brick) {
 
+		System.out.println(brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent()+ "Amp/s Akku");
+
+		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
+		return brick.getPower().getMotorCurrent();
+	}
+	
+	
 	public void startSzenario1() {
 
 		new java.util.Timer().schedule(new java.util.TimerTask() {
@@ -505,7 +522,7 @@ public class Steuerung {
 					
 					cleaner.stopLiftLine();
 					cleaner.stop();
-					quality.stopCounterLine();
+					quality.stopCounterLine();	
 					quality.stopLine();
 
 					
