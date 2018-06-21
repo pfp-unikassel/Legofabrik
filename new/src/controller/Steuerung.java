@@ -34,6 +34,7 @@ public class Steuerung {
 	RemoteEV3 b113;
 	RemoteEV3 b114;
 	RemoteEV3 b115;
+	RemoteEV3 b116;
 
 
 	static RMIRegulatedMotor b101a;
@@ -80,6 +81,11 @@ public class Steuerung {
 	static RMIRegulatedMotor b115c;
 	static RMIRegulatedMotor b115d;
 	
+	static RMIRegulatedMotor b116a;
+	static RMIRegulatedMotor b116b;
+	static RMIRegulatedMotor b116c;
+	static RMIRegulatedMotor b116d;
+	
 	
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
@@ -91,7 +97,7 @@ public class Steuerung {
 	static Quality quality;
 	static Compressor compressor;
 //	static Airarms airarms;
-//	static Deliverylane deliverylane;
+    static Deliverylane deliverylane;
 //	static QualityStation qualitystation;
 
 	private boolean b1053Status = false; // set True if button fires
@@ -116,7 +122,7 @@ public class Steuerung {
 		compressor = new Compressor(b113a,b113b,b113c,b113d);
 	//	ariarms = new Airarms(b111a,b111b,b111c,b111d,b114a,b114b);		// distanzsensor
 //		qualitystation = new QualityStation(b115a,b115b,b115c,b115d); // add Colorsensor
-//		deliverylane = new Deliverylane(); add motors 
+		deliverylane = new Deliverylane(b116a,b116b,b116c,b116d,b114c); 
 
 		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107,b113); // uebergebe das Object und rufe b1073  TODO: ad 114 distanz
 		sensordeamon.start();
@@ -178,8 +184,9 @@ public class Steuerung {
 		initBrick8();
 //		initBrick11();
 		initBrick13();
-//		initBrick14();
+		initBrick14();
 //		initBrick15();
+		initBrick16();
 	}
 
 	public void initBrick1() {
@@ -379,6 +386,29 @@ public class Steuerung {
 		openMotorPorts.add(b115c);
 		openMotorPorts.add(b115d);
 	}
+	
+	public void initBrick16() {
+		// Brick 116
+		try {
+			b116 = new RemoteEV3("192.168.0.116");
+			getPowerLevel(b116);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
+
+		}
+
+		b116a = b116.createRegulatedMotor("A", 'M');
+		b116b = b116.createRegulatedMotor("B", 'M');
+		b116c = b116.createRegulatedMotor("C", 'M');
+		b116d = b116.createRegulatedMotor("D", 'M');
+
+		openMotorPorts.add(b116a);
+		openMotorPorts.add(b116b);
+		openMotorPorts.add(b116c);
+		openMotorPorts.add(b116d);
+	}
 
 
 	public void addToSensorList(RMISampleProvider s) {
@@ -522,6 +552,9 @@ public class Steuerung {
 					
 					cleaner.stopLiftLine();
 					cleaner.stop();
+					
+					Thread.sleep(10000); // wait 10 sec
+					
 					quality.stopCounterLine();	
 					quality.stopLine();
 
@@ -538,26 +571,29 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		 try {
-			quality.startCounterLine(false);
-			 quality.startLine(true);
+		try {
+//			deliverylane.startLineToArms(false);
+//			deliverylane.startLineToEnd(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
+		 deliverylane.openGateB(); 
 		
 
 	}
 
 	public void startSzenario3() {
 
-		 try {
-				quality.stopCounterLine();
-				 quality.stopLine();
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+		try {
+//			deliverylane.stopLineToArms();
+//			deliverylane.stopLineToEnd();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 deliverylane.closeGateB(); 
 	}
 
 }

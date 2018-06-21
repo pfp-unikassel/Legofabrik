@@ -15,14 +15,14 @@ public class Deliverylane {
 	
 	private int lineToArmsSpeed = 180;
 	private int lineToEndSpeed = 270;
-	private int gateTurnDegree = 0;
+	private int gateTurnDegree = 50;;
 	
 	private boolean gateDStatus = true; // true is closed
 	private boolean gateBStatus = true; // true is closed
 	private boolean gateCStatus = true; // true is closed
 
 	public Deliverylane(RMIRegulatedMotor lineToEnd, RMIRegulatedMotor gateB, RMIRegulatedMotor gateC,
-			RMIRegulatedMotor gateA, RMIRegulatedMotor LineToArms) {
+			RMIRegulatedMotor gateD, RMIRegulatedMotor LineToArms) {
 
 		this.lineToEnd = lineToEnd;
 		this.gateB = gateB; // stoping boxes
@@ -40,7 +40,7 @@ public class Deliverylane {
 
 	}
 
-	public void startLineToArms(boolean direction) throws RemoteException {
+	public void startLineToArms(boolean direction) throws RemoteException {  //false is the right direction
 
 		LineToArms.setSpeed(getLineToArmsSpeed());
 		if (direction) {
@@ -53,10 +53,10 @@ public class Deliverylane {
 
 	public void stopLineToArms() throws RemoteException {
 
-		LineToArms.stop(false);
+		LineToArms.stop(true);
 	}
 
-	public void startLineToEnd(boolean direction) throws RemoteException {
+	public void startLineToEnd(boolean direction) throws RemoteException {  // false is the right direction
 
 		lineToEnd.setSpeed(getLineToEndSpeed());
 		if (direction) {
@@ -69,7 +69,7 @@ public class Deliverylane {
 
 	public void stopLineToEnd() throws RemoteException {
 
-		lineToEnd.stop(false);
+		lineToEnd.stop(true);
 	}
 
 	public void openGateD() {
@@ -106,7 +106,7 @@ public class Deliverylane {
 		if (getGateBStatus()) {
 			// open
 			try {
-				gateB.rotate(gateTurnDegree, true);
+				gateB.rotate(-gateTurnDegree, true);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -121,7 +121,7 @@ public class Deliverylane {
 			// close
 
 			try {
-				gateB.rotate(-gateTurnDegree, true);
+				gateB.rotate(gateTurnDegree, true);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

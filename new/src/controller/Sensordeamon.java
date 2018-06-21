@@ -36,8 +36,7 @@ public class Sensordeamon extends Thread {
 	@Override
 	public void run() {
 
-		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor",
-				"Distance");
+		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor",null); // "Distance" mode instead null
 		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
