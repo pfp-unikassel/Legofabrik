@@ -18,6 +18,15 @@ public class Compressor {
 		this.m3 = m3;
 		this.m4 = m4;
 
+		try {			// Set Compressor speed
+			m1.setSpeed(600);
+			m2.setSpeed(600);
+			m3.setSpeed(600);
+			m4.setSpeed(600);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void startCompressor() {
@@ -41,10 +50,10 @@ public class Compressor {
 	public void stopCompressor() {
 
 		try {
-			m1.stop(false);
-			m2.stop(false);
-			m3.stop(false);
-			m4.stop(false);
+			m1.stop(true);
+			m2.stop(true);
+			m3.stop(true);
+			m4.stop(true);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

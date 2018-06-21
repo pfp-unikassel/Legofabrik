@@ -96,7 +96,7 @@ public class Steuerung {
 	static Cleaning cleaner;
 	static Quality quality;
 	static Compressor compressor;
-//	static Airarms airarms;
+	static Airarms airarms;
     static Deliverylane deliverylane;
 //	static QualityStation qualitystation;
 
@@ -120,7 +120,7 @@ public class Steuerung {
 		cleaner = new Cleaning(b108b, b108c);
 		quality = new Quality(b107c, b107b, b107d);
 		compressor = new Compressor(b113a,b113b,b113c,b113d);
-	//	ariarms = new Airarms(b111a,b111b,b111c,b111d,b114a,b114b);		// distanzsensor
+		airarms = new Airarms(b111a,b111b,b111c,b111d,b114a,b114b);		// distanzsensor
 //		qualitystation = new QualityStation(b115a,b115b,b115c,b115d); // add Colorsensor
 		deliverylane = new Deliverylane(b116a,b116b,b116c,b116d,b114c); 
 
@@ -182,7 +182,7 @@ public class Steuerung {
 		initBrick6();
 		initBrick7();
 		initBrick8();
-//		initBrick11();
+		initBrick11();
 		initBrick13();
 		initBrick14();
 //		initBrick15();
@@ -571,29 +571,14 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		try {
-//			deliverylane.startLineToArms(false);
-//			deliverylane.startLineToEnd(false);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 deliverylane.openGateB(); 
+		airarms.turnArm();
 		
 
 	}
 
 	public void startSzenario3() {
 
-		try {
-//			deliverylane.stopLineToArms();
-//			deliverylane.stopLineToEnd();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		 deliverylane.closeGateB(); 
+		airarms.turnTower();
 	}
 
 }

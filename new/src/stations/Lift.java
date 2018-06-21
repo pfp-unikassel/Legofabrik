@@ -81,7 +81,7 @@ public class Lift {
 	
 	public void stopShaker() throws RemoteException {
 	
-		shaker.stop(false);
+		shaker.stop(true);
 	}
 	public int getShakerSpeed() {
 		return shakerSpeed;

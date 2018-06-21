@@ -14,8 +14,8 @@ public class Airarms {
 
 	private boolean towerPosition = true; // to lane
 
-	private int turnDegree = 45;
-	private int towerTurnDegree = 95;
+	private int turnDegree = -70;
+	private int towerTurnDegree =- 95;
 
 	RMIRegulatedMotor moveArm;
 	RMIRegulatedMotor verticalArm;
@@ -33,6 +33,14 @@ public class Airarms {
 		this.openCloseGrab = airLine4;
 		this.turnArm1 = turnArm1;
 		this.turnArm2 = turnArm2;
+		
+		try {
+			turnArm1.setSpeed(90);   // set Turnspeed 
+			turnArm2.setSpeed(90);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -74,6 +82,7 @@ public class Airarms {
 			}
 
 			setArmPosition(false);
+			
 		} else {
 			setArmPosition(true);
 			try {
@@ -141,16 +150,18 @@ public class Airarms {
 
 		if (towerPosition) { // true ist ausgefahren
 			try {
-				turnArm1.rotate(towerTurnDegree, true);
+				turnArm1.rotate(towerTurnDegree, false); // turn one after another
 				turnArm2.rotate(towerTurnDegree, true);
+				towerPosition = false;
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
 			try {
+				turnArm2.rotate(-towerTurnDegree, false);
 				turnArm1.rotate(-towerTurnDegree, true);
-				turnArm2.rotate(-towerTurnDegree, true);
+				towerPosition = true;
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
