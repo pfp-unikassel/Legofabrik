@@ -12,7 +12,7 @@ public class Airarms {
 	private boolean armPosition = false; // true ist ausgefahren
 	private boolean armStatus = false; // true is up false down
 
-	private boolean towerPosition = true; // to lane
+	private boolean towerPosition = true; // to lane  , tower1 to lane
 
 	private int turnDegree = -70;
 	private int towerTurnDegree =- 95;
@@ -169,6 +169,8 @@ public class Airarms {
 
 		}
 	}
+	
+
 
 	public void reset() {
 
@@ -182,6 +184,30 @@ public class Airarms {
 		}
 
 		armUp();
+	}
+	
+	public void fillLore() {  // just call this with 2 Balls at every QS 
+		
+		turnTower(); // not sure
+		
+		// Take Balls
+		
+		turnArm(); 		//ausfahren	
+		armDown();		// runter
+		grabClose();	// greifen
+		armUp();		//hoch
+		turnArm();      // einfahren
+		turnTower();	
+		
+		// set Balls in Cart
+		
+		grabTurn();		
+		armDown();
+		grabOpen();
+		armUp();
+		grabClose();
+		grabTurn();
+		
 	}
 
 	public boolean getGrabStatus() {
