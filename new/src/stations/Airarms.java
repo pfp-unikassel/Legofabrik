@@ -15,7 +15,7 @@ public class Airarms {
 	private boolean towerPosition = true; // to lane
 
 	private int turnDegree = -70;
-	private int towerTurnDegree =- 95;
+	private int towerTurnDegree =- 100;
 
 	RMIRegulatedMotor moveArm;
 	RMIRegulatedMotor verticalArm;
@@ -35,8 +35,8 @@ public class Airarms {
 		this.turnArm2 = turnArm2;
 		
 		try {
-			turnArm1.setSpeed(90);   // set Turnspeed 
-			turnArm2.setSpeed(90);
+			turnArm1.setSpeed(180);   // set Turnspeed 
+			turnArm2.setSpeed(180);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

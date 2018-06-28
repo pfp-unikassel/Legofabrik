@@ -29,6 +29,7 @@ public class Sensordeamon extends Thread {
 		this.b105 = b105;
 		this.b106 = b106;
 		this.b107 = b107;
+		this.b113 = b113;
 		this.s = s;
 		//this.m = b;
 	}
@@ -147,14 +148,14 @@ public class Sensordeamon extends Thread {
 				s.resetSensorStatus();
 			}
 
-			if (Sensorarray6[0] == 1) {
-				s.b1131Fired(true);
-				System.out.println("Sensor b113 fired");
-				Sensorarray6[0] = 0;
-				s.resetSensorStatus();
-			} else {
-				s.b1131Fired(false);
-			}
+//			if (Sensorarray6[0] == 1) {
+//				s.b1131Fired(true);
+//				System.out.println("Sensor b113 fired");
+//				Sensorarray6[0] = 0;
+//				s.resetSensorStatus();
+//			} else {
+//				s.b1131Fired(false);
+//			}
 
 //			try {
 //				if (m.isStalled()) {
