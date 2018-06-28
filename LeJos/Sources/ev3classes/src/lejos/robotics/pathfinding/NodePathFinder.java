@@ -56,11 +56,13 @@ public class NodePathFinder implements PathFinder{
 		this.alg = alg;
 	}
 	
+	@Override
 	public void addListener(WaypointListener wpl) {
 		if(listeners == null )listeners = new ArrayList<WaypointListener>();
 		listeners.add(wpl);
 	}
 
+	@Override
 	public Path findRoute(Pose start, Waypoint goal)
 			throws DestinationUnreachableException {
 		// Step 1: Make nodes out of start and destination
@@ -86,6 +88,7 @@ public class NodePathFinder implements PathFinder{
 		return path;
 	}
 
+	@Override
 	public void startPathFinding(Pose start, Waypoint end) {
 		Path solution = null;
 		try {

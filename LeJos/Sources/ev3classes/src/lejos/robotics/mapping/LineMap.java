@@ -24,7 +24,8 @@ public class LineMap implements RangeMap, Transmittable {
    * @param pose the pose of the robot
    * @return the range or -1 if not in range
    */
-  public float range(Pose pose) {
+  @Override
+public float range(Pose pose) {
     Line l = new  Line(pose.getX(), pose.getY(), pose.getX() + 254f
     	        * (float) Math.cos(Math.toRadians(pose.getHeading())), pose.getY() + 254f
     	        * (float) Math.sin(Math.toRadians(pose.getHeading())));
@@ -65,7 +66,8 @@ public class LineMap implements RangeMap, Transmittable {
    * @param p the Point
    * @return true iff the point is with the mapped area
    */
-  public boolean inside(Point p) {
+  @Override
+public boolean inside(Point p) {
     if (p.x < boundingRect.x || p.y < boundingRect.y) return false;
     if (p.x > boundingRect.x + boundingRect.width
         || p.y > boundingRect.y + boundingRect.height) return false;
@@ -87,7 +89,8 @@ public class LineMap implements RangeMap, Transmittable {
    * 
    * @return the bounding rectangle
    */
-  public Rectangle getBoundingRect() {
+  @Override
+public Rectangle getBoundingRect() {
     return boundingRect;
   }
   
@@ -96,7 +99,8 @@ public class LineMap implements RangeMap, Transmittable {
    * @param dos the stream
    * @throws IOException
    */
-  public void dumpObject(DataOutputStream dos) throws IOException {
+  @Override
+public void dumpObject(DataOutputStream dos) throws IOException {
       dos.writeInt(lines.length);
       for(int i=0;i<lines.length;i++) {
         dos.writeFloat(lines[i].x1);
@@ -117,7 +121,8 @@ public class LineMap implements RangeMap, Transmittable {
    * @param dis the stream
    * @throws IOException
    */
-  public void loadObject(DataInputStream dis) throws IOException {
+  @Override
+public void loadObject(DataInputStream dis) throws IOException {
       lines = new Line[dis.readInt()];
       for(int i=0;i<lines.length;i++) {
         float x1 = dis.readFloat();

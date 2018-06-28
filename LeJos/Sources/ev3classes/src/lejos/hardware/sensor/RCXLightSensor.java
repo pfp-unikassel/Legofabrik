@@ -58,18 +58,21 @@ public class RCXLightSensor extends AnalogSensor implements SensorConstants,
     setFloodlight(true);
   }
 
-  public int getFloodlight() {
+  @Override
+public int getFloodlight() {
     if (this.floodlight == true)
       return Color.RED;
     else
       return Color.NONE;
   }
 
-  public boolean isFloodlightOn() {
+  @Override
+public boolean isFloodlightOn() {
     return floodlight;
   }
 
-  public void setFloodlight(boolean floodlight) {
+  @Override
+public void setFloodlight(boolean floodlight) {
     this.floodlight = floodlight;
     if (floodlight == true)
       switchType(TYPE_REFLECTION, SWITCH_DELAY);
@@ -77,7 +80,8 @@ public class RCXLightSensor extends AnalogSensor implements SensorConstants,
       switchType(TYPE_CUSTOM, SWITCH_DELAY);
   }
 
-  public boolean setFloodlight(int color) {
+  @Override
+public boolean setFloodlight(int color) {
     if (color == Color.RED) {
       setFloodlight(true);
       return true;

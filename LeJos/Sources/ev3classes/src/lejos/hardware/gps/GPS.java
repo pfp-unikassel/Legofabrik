@@ -108,6 +108,7 @@ public class GPS extends SimpleGPS {
 	 * 
 	 * @return Number of satellites e.g. 8
 	 */
+	@Override
 	public int getSatellitesTracked(){
 		return ggaSentence.getSatellitesTracked();
 	}
@@ -131,6 +132,7 @@ public class GPS extends SimpleGPS {
 	 * @param header
 	 * @param s
 	 */
+	@Override
 	protected void sentenceChooser(String header, String s) {
 		if (header.equals(RMCSentence.HEADER)){
 			rmcSentence.parse(s);

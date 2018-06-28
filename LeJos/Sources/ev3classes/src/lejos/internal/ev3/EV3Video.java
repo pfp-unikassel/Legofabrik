@@ -22,7 +22,8 @@ public class EV3Video implements Video {
       * @param field desired field layout
       * @throws java.io.IOException
       */
-     public void open(int w, int h, int format, int field, int fps) throws java.io.IOException {  
+     @Override
+	public void open(int w, int h, int format, int field, int fps) throws java.io.IOException {  
          width = w;  
          height = h;
          this.format = format;
@@ -39,7 +40,8 @@ public class EV3Video implements Video {
       * @param h the desired frame height
       * @throws java.io.IOException
       */
-     public void open(int w, int h) throws java.io.IOException {  
+     @Override
+	public void open(int w, int h) throws java.io.IOException {  
          open(w, h, PIX_FMT_YUYV, FIELD_INTERLACED, 0);
      }  
 
@@ -48,7 +50,8 @@ public class EV3Video implements Video {
       * @param frame array to store the frame
       * @throws java.io.IOException
       */
-     public int grabFrame(byte[] frame) throws java.io.IOException {  
+     @Override
+	public int grabFrame(byte[] frame) throws java.io.IOException {  
          return grab(frame);  
      }  
    
@@ -56,7 +59,8 @@ public class EV3Video implements Video {
       * Close the webcam, the device will not be availabe after this call  
       * @throws java.io.IOException
       */
-     public void close() throws java.io.IOException {  
+     @Override
+	public void close() throws java.io.IOException {  
          dispose();  
      }  
        
@@ -84,19 +88,22 @@ public class EV3Video implements Video {
       * Create a byte array suitable for holding a single video frame
       * @return the frame array
       */
-     public byte[] createFrame() {return new byte[getBufferSize()];}  
+     @Override
+	public byte[] createFrame() {return new byte[getBufferSize()];}  
    
      /**
       * Return the frame width
       * @return width in pixels
       */
-     public int getWidth() {return width;}  
+     @Override
+	public int getWidth() {return width;}  
 
      /**
       * return the frame height
       * @return height in pixels
       */
-     public int getHeight() {return height;}  
+     @Override
+	public int getHeight() {return height;}  
      
 
  }  

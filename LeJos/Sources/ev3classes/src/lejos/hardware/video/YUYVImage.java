@@ -99,7 +99,7 @@ import lejos.hardware.lcd.GraphicsLCD;
      public int getMeanY() {  
          int total = 0;  
          for (int i = 0; i < pix.length; i += 2) {  
-             total += (int)pix[i] & 0xff;  
+             total += pix[i] & 0xff;  
          }  
          return total / getNumPixels();  
      }  
@@ -113,7 +113,7 @@ import lejos.hardware.lcd.GraphicsLCD;
          for (int i = 0; i < pix.length; i += 2) {  
              int x = (i / 2) % width;  
              int y = (i / 2) / width;  
-             device.setPixel(xDest+x, yDest+y, ((int)pix[i] & 0xff) < threshold ? 1 : 0);  
+             device.setPixel(xDest+x, yDest+y, (pix[i] & 0xff) < threshold ? 1 : 0);  
          }  
      }  
  }  

@@ -141,7 +141,8 @@ public class LinearCalibrationFilter extends AbstractCalibrationFilter {
     }
   }
 
-  public String toString() {
+  @Override
+public String toString() {
     return "LinearCalibrationFilter";
   }
 
@@ -246,7 +247,7 @@ public class LinearCalibrationFilter extends AbstractCalibrationFilter {
   public void save(String filename) {
     setPropertyArray("offset", offset);
     setPropertyArray("scale", scale);
-    setProperty("calibrationType", (float) calibrationType);
+    setProperty("calibrationType", calibrationType);
     store(filename);
   }
 
@@ -282,7 +283,8 @@ public class LinearCalibrationFilter extends AbstractCalibrationFilter {
    * Fetches a sample from the sensor and updates calibration parameters when
    * the calibration process is running.
    */
-  public void fetchSample(float[] dst, int off) {
+  @Override
+public void fetchSample(float[] dst, int off) {
     super.fetchSample(dst, off);
     for (int i = 0; i < sampleSize; i++) {
       if (calibrating) {

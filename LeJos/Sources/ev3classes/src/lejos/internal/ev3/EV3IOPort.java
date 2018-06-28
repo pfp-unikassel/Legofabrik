@@ -123,7 +123,8 @@ public abstract class EV3IOPort implements IOPort, BasicSensorPort, EV3SensorCon
      * Set the port pins up ready for use.
      * @param mode The EV3 pin mode
      */
-    public boolean setPinMode(int mode)
+    @Override
+	public boolean setPinMode(int mode)
     {
         //System.out.println("Set Pin mode port " + port + " value " + mode);
         return EV3ConfigurationPort.setPortMode(typ, port, mode);

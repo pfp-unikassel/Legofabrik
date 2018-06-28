@@ -25,7 +25,8 @@ public class SumFilter extends AbstractFilter {
     }
   }
 
-  public void fetchSample(float[] sample, int offset) {
+  @Override
+public void fetchSample(float[] sample, int offset) {
     worker.fetchSample(sample, offset);
   }
   
@@ -49,7 +50,8 @@ public class SumFilter extends AbstractFilter {
       latest = new float[sampleSize];
     }
 
-    public void fetchSample(float[] sample, int off) {
+    @Override
+	public void fetchSample(float[] sample, int off) {
       super.fetchSample(latest, 0);
 
       for (int i = 0; i < sampleSize; i++) {

@@ -1,6 +1,5 @@
 package lejos.remote.ev3;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;

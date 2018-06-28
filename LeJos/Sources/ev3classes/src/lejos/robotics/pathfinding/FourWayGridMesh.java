@@ -37,6 +37,7 @@ public class FourWayGridMesh implements NavigationMesh {
 		// generated and expect it to be connected, which it won't be.
 	}
 	
+	@Override
 	public Collection <Node> getMesh(){
 		if(mesh == null) regenerate();
 		return mesh;
@@ -70,6 +71,7 @@ public class FourWayGridMesh implements NavigationMesh {
 		this.map = map;
 	}
 	
+	@Override
 	public void regenerate() {
 		//long startNanoT = System.nanoTime();
 		//long startFreeMem = Runtime.getRuntime().freeMemory();
@@ -125,6 +127,7 @@ public class FourWayGridMesh implements NavigationMesh {
 		//System.out.println(" used: " + (startFreeMem - endFreeMem));
 	}
 	
+	@Override
 	public boolean connect(Node node1, Node node2) {
 		
 		// If there is map data to check against, do it:
@@ -151,6 +154,7 @@ public class FourWayGridMesh implements NavigationMesh {
 		return true;
 	}
 	
+	@Override
 	public boolean disconnect(Node node1, Node node2) {
 		// TODO: Return true if nodes were previously connected? Or return void.
 		node1.removeNeighbor(node2);
@@ -167,6 +171,7 @@ public class FourWayGridMesh implements NavigationMesh {
 	 * @param neighbors The maximum number of neighbors to attempt to connect with.
 	 * @return the number of neighboring nodes it was able to connect with
 	 */
+	@Override
 	public int addNode(Node node, int neighbors) {
 		if(mesh == null) regenerate();
 		
@@ -191,6 +196,7 @@ public class FourWayGridMesh implements NavigationMesh {
 		return total;
 	}
 
+	@Override
 	public boolean removeNode(Node node) {
 		//System.out.print("MAIN NODE ");
 		//outputNodeData(node);

@@ -25,7 +25,7 @@ public class EV3Battery implements Power
      */
     protected float convert(int val)
     {
-        return((float)val*EV3SensorConstants.ADC_REF)/(EV3SensorConstants.ADC_RES);
+        return(val*EV3SensorConstants.ADC_REF)/(EV3SensorConstants.ADC_RES);
     }
     /**
      * {@inheritDoc}

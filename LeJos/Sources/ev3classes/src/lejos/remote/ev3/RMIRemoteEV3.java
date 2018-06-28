@@ -4,7 +4,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.Font;
-import lejos.internal.ev3.EV3Key;
 import lejos.remote.ev3.RMIAnalogPort;
 import lejos.remote.ev3.RMIBattery;
 import lejos.remote.ev3.RMIEV3;

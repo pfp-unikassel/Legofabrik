@@ -377,7 +377,8 @@ public MCLParticleSet(RangeMap map, int numParticles, Pose initialPose,
    * @param dos the data output stream
    * @throws IOException
    */
-  public void dumpObject(DataOutputStream dos) throws IOException {
+  @Override
+public void dumpObject(DataOutputStream dos) throws IOException {
 	  dos.writeFloat(maxWeight);
       dos.writeInt(numParticles());
       for (int i = 0; i < numParticles(); i++) {
@@ -400,7 +401,8 @@ public MCLParticleSet(RangeMap map, int numParticles, Pose initialPose,
    * @param dis the data input stream
    * @throws IOException
    */
-  public void loadObject(DataInputStream dis) throws IOException {
+  @Override
+public void loadObject(DataInputStream dis) throws IOException {
 	maxWeight = dis.readFloat();
 	numParticles = dis.readInt();
     MCLParticle[] newParticles = new MCLParticle[numParticles];

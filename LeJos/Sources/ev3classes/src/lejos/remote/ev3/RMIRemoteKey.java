@@ -3,7 +3,6 @@ package lejos.remote.ev3;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import lejos.hardware.Button;
 import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
 import lejos.hardware.ev3.LocalEV3;

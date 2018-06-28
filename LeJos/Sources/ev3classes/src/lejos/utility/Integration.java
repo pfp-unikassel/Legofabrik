@@ -35,7 +35,7 @@ public class Integration {
 		// Assume linear change between measurements
 		double averageReading = (reading + lastReading)/2;
 		long millis = System.currentTimeMillis();
-		double timeInterval = (double) (millis - lastReadingMillis) / 1000d;
+		double timeInterval = (millis - lastReadingMillis) / 1000d;
 		
 		lastReadingMillis = millis;		
 		integral += (averageReading * timeInterval);

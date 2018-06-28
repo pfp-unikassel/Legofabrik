@@ -1,5 +1,6 @@
 package lejos.hardware.motor;
 
+import lejos.hardware.port.BasicMotorPort;
 import lejos.hardware.port.Port;
 import lejos.hardware.port.TachoMotorPort;
 import lejos.robotics.Encoder;
@@ -31,7 +32,7 @@ public class UnregulatedMotor extends BasicMotor implements EncoderMotor {
      */
     public UnregulatedMotor(Port port)
     {
-        this(port, TachoMotorPort.PWM_BRAKE);
+        this(port, BasicMotorPort.PWM_BRAKE);
     }
     
     /**
@@ -55,15 +56,17 @@ public class UnregulatedMotor extends BasicMotor implements EncoderMotor {
      */
     public UnregulatedMotor(TachoMotorPort port)
     {
-        this(port, TachoMotorPort.PWM_BRAKE);
+        this(port, BasicMotorPort.PWM_BRAKE);
     }
     
-    public int getTachoCount()
+    @Override
+	public int getTachoCount()
     {
         return encoderPort.getTachoCount();
     }
 
-    public void resetTachoCount()
+    @Override
+	public void resetTachoCount()
     {
         encoderPort.resetTachoCount();
     }

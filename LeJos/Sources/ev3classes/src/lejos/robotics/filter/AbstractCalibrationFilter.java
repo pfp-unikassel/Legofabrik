@@ -55,7 +55,8 @@ public abstract class AbstractCalibrationFilter extends AbstractFilter implement
    * Fetches a sample from the sensor and updates array with minimum and maximum values when
    * the calibration process is running.
    */
-  public void fetchSample(float[] dst, int off) {
+  @Override
+public void fetchSample(float[] dst, int off) {
     if (!calibrating) {
       source.fetchSample(dst, off);
     }
@@ -89,7 +90,8 @@ public abstract class AbstractCalibrationFilter extends AbstractFilter implement
    * each fetched sample. From this calibration parameters can be calculated.
    */
   
-  public void startCalibration() {
+  @Override
+public void startCalibration() {
     lowPassFilter = new LowPassFilter(source, timeConstant);
     calibrating = true;
     numberOfSamplesInCalibration=0;
@@ -103,7 +105,8 @@ public abstract class AbstractCalibrationFilter extends AbstractFilter implement
   /**
    * Halts the process of updating calibration parameters.
    */
-  public void stopCalibration() {
+  @Override
+public void stopCalibration() {
     calibrating = false;
   }
   

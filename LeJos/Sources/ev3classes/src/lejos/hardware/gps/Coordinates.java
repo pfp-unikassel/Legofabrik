@@ -547,7 +547,7 @@ UNTESTED as of April 7, 2009 - BB
         d9 = d30 * d25;
         
         double d35 = ((((((d24 * d24 * 4D - 3D) * (1.0D - d30 - d30) * d29 * d32) / 6D - d9) * d32) / 4D + d29) * d24 * d32 + d10) * d31 * 6378137D * d11;
-        if((double)Math.abs(i - byte0) < d33)
+        if(Math.abs(i - byte0) < d33)
         {
             calculatedDistance = (0.0F / 0.0F);
             calculatedAzimuth = (0.0F / 0.0F);

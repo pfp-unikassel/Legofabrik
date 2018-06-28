@@ -83,7 +83,8 @@ public class RCXRotationSensor extends AnalogSensor implements Tachometer, Senso
          * state 1 may be read. To reduce this problem a new state is not
          * accepted until two consecutive reads return the same state.
          */
-        public void run()
+        @Override
+		public void run()
         {
             int prev = getPhase();
             int cur1 = prev;
@@ -124,7 +125,8 @@ public class RCXRotationSensor extends AnalogSensor implements Tachometer, Senso
 	   * are only accurate to +- 22.5 degrees.
 	   * @return tachometer count in degrees, in increments of 22.5 degrees (rounded off)
 	   */
-    public int getTachoCount()
+    @Override
+	public int getTachoCount()
     {
         return (360 * count) / ONE_ROTATION;
     }
@@ -141,7 +143,8 @@ public class RCXRotationSensor extends AnalogSensor implements Tachometer, Senso
     /**
      * Reset the tacho count to zero.
      */
-    public void resetTachoCount()
+    @Override
+	public void resetTachoCount()
     {
         synchronized(reader)
         {
@@ -150,6 +153,7 @@ public class RCXRotationSensor extends AnalogSensor implements Tachometer, Senso
     }
 
     // TODO: Change to getTachoSpeed
+	@Override
 	public int getRotationSpeed() {
 		// TODO: Ok, if it has been longer than last delay between pulses, then it should start to 
 		// calculate speed based on the time between pulses here in this method. In other words, the 

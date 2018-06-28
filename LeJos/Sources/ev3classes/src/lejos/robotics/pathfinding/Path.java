@@ -15,6 +15,7 @@ import lejos.robotics.navigation.Waypoint;
  */
 public class Path extends ArrayList<Waypoint> implements Transmittable {
 
+	@Override
 	public void dumpObject(DataOutputStream dos) throws IOException {
 		dos.writeInt(this.size());
 		for(Waypoint wp: this) {
@@ -22,6 +23,7 @@ public class Path extends ArrayList<Waypoint> implements Transmittable {
 		}
 	}
 
+	@Override
 	public void loadObject(DataInputStream dis) throws IOException {
 		int n = dis.readInt();
 		this.clear();

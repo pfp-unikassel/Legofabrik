@@ -36,6 +36,7 @@ public class RemoteNXTAnalogPort extends RemoteNXTIOPort implements AnalogPort
 	 * @param mode the sensor mode
 	 * @return  true if success
 	 */
+	@Override
 	public boolean setTypeAndMode(int type, int mode) {
 		this.type = type;
 		this.mode = mode;
@@ -52,6 +53,7 @@ public class RemoteNXTAnalogPort extends RemoteNXTIOPort implements AnalogPort
 	 * @param type the sensor type
 	 * @return true if success
 	 */
+	@Override
 	public boolean setType(int type) {
 		this.type = type;
 		setTypeAndMode(type, mode);
@@ -63,6 +65,7 @@ public class RemoteNXTAnalogPort extends RemoteNXTIOPort implements AnalogPort
 	 * @param mode the sensor mode
 	 * @return true if success
 	 */
+	@Override
 	public boolean setMode(int mode) {
 		this.mode = mode;
 		setTypeAndMode(type, mode);
@@ -116,6 +119,6 @@ public class RemoteNXTAnalogPort extends RemoteNXTIOPort implements AnalogPort
 
 	@Override
 	public float getPin1() {
-        return (float)readRawValue()*EV3SensorConstants.ADC_REF/SensorConstants.NXT_ADC_RES;
+        return readRawValue()*EV3SensorConstants.ADC_REF/SensorConstants.NXT_ADC_RES;
 	}
 }

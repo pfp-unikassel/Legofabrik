@@ -137,14 +137,14 @@ public class Image implements Serializable
         switch (transform)
         {
             case GraphicsLCD.TRANS_MIRROR:
-            case EV3GraphicsLCD.TRANS_MIRROR_ROT180:
-            case EV3GraphicsLCD.TRANS_ROT180:
-            case EV3GraphicsLCD.TRANS_NONE:
+            case GraphicsLCD.TRANS_MIRROR_ROT180:
+            case GraphicsLCD.TRANS_ROT180:
+            case GraphicsLCD.TRANS_NONE:
                 break;
-            case EV3GraphicsLCD.TRANS_MIRROR_ROT270:
-            case EV3GraphicsLCD.TRANS_MIRROR_ROT90:
-            case EV3GraphicsLCD.TRANS_ROT270:
-            case EV3GraphicsLCD.TRANS_ROT90:
+            case GraphicsLCD.TRANS_MIRROR_ROT270:
+            case GraphicsLCD.TRANS_MIRROR_ROT90:
+            case GraphicsLCD.TRANS_ROT270:
+            case GraphicsLCD.TRANS_ROT90:
                 ow = h;
                 oh = w;
                 break;

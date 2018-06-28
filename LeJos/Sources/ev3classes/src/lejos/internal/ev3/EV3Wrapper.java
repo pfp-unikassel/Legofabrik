@@ -128,7 +128,8 @@ public class EV3Wrapper implements UncaughtExceptionHandler {
         /**
          * Background thread which provides automatic screen updates
          */
-        public void run()
+        @Override
+		public void run()
         {
             TextLCD systemLCD = new EV3TextLCD("SYSTEM", Font.getLargeFont());
             int curLayer = -1;

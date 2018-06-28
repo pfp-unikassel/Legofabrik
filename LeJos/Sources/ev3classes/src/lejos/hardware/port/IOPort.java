@@ -14,7 +14,8 @@ public interface IOPort extends Closeable   {
     /**
      * Close the port, the port can not be used after this call.
      */
-    public void close();
+    @Override
+	public void close();
     
     /**
      * Return the string representing this port

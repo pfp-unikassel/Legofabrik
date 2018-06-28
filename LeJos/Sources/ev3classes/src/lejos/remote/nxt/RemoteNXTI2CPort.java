@@ -45,7 +45,8 @@ public class RemoteNXTI2CPort extends RemoteNXTIOPort implements I2CPort
      * allow access to the specified port
      * @param p port number to open
      */
-    public boolean open(int t, int p, RemoteNXTPort r)
+    @Override
+	public boolean open(int t, int p, RemoteNXTPort r)
     {
         if (!super.open(t, p, r))
             return false;
@@ -69,7 +70,8 @@ public class RemoteNXTI2CPort extends RemoteNXTIOPort implements I2CPort
      * @param readOffset Location to write the results to
      * @param readLen The length of the read
      */
-    public synchronized void i2cTransaction(int deviceAddress, byte[]writeBuf,
+    @Override
+	public synchronized void i2cTransaction(int deviceAddress, byte[]writeBuf,
             int writeOffset, int writeLen, byte[] readBuf, int readOffset,
             int readLen)
     {
@@ -88,7 +90,7 @@ public class RemoteNXTI2CPort extends RemoteNXTIOPort implements I2CPort
 			try {
 				byte[] ret = nxtCommand.LSGetStatus((byte) port);
 				if (ret == null || ret.length < 1) throw new I2CException("Remote NXT I2C LSGetStatus error");
-				status = (int) ret[0];
+				status = ret[0];
 			} catch (IOException e) {
 				throw new PortException(e);
 			}
@@ -113,7 +115,8 @@ public class RemoteNXTI2CPort extends RemoteNXTIOPort implements I2CPort
      * @param mode the sensor mode
      * @return true if success 
      */
-    public boolean setTypeAndMode(int type, int mode) {
+    @Override
+	public boolean setTypeAndMode(int type, int mode) {
         this.type = type;
         this.mode = mode;
         try {
@@ -129,7 +132,8 @@ public class RemoteNXTI2CPort extends RemoteNXTIOPort implements I2CPort
      * @param type the sensor type
      * @return true if success
      */
-    public boolean setType(int type) {
+    @Override
+	public boolean setType(int type) {
         this.type = type;
         setTypeAndMode(type, mode);
         return true;
@@ -140,7 +144,8 @@ public class RemoteNXTI2CPort extends RemoteNXTIOPort implements I2CPort
      * @param mode the sensor mode
      * @return true if success
      */
-    public boolean setMode(int mode) {
+    @Override
+	public boolean setMode(int mode) {
         this.mode = mode;
         setTypeAndMode(type, mode);
         return true;

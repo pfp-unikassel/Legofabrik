@@ -15,6 +15,7 @@ public class RemoteMotorPort extends RemoteIOPort implements TachoMotorPort {
 		this.rmiEV3 = rmiEV3;
 	}
 	
+	@Override
 	public boolean open(int typ, int portNum, RemotePort remotePort) {
         boolean res = super.open(typ,portNum,remotePort);
 		try {
@@ -34,7 +35,8 @@ public class RemoteMotorPort extends RemoteIOPort implements TachoMotorPort {
      * @see BasicMotorPort#FLOAT
      * @see BasicMotorPort#STOP
      */
-    public void controlMotor(int power, int mode)
+    @Override
+	public void controlMotor(int power, int mode)
     {
     	try {
 			rmi.controlMotor(power, mode);
@@ -47,7 +49,8 @@ public class RemoteMotorPort extends RemoteIOPort implements TachoMotorPort {
     /**
      * returns tachometer count
      */
-    public  int getTachoCount()
+    @Override
+	public  int getTachoCount()
     {
     	try {
 			return rmi.getTachoCount();
@@ -59,7 +62,8 @@ public class RemoteMotorPort extends RemoteIOPort implements TachoMotorPort {
     /**
      *resets the tachometer count to 0;
      */ 
-    public void resetTachoCount()
+    @Override
+	public void resetTachoCount()
     {
     	try {
 			rmi.resetTachoCount();
@@ -68,7 +72,8 @@ public class RemoteMotorPort extends RemoteIOPort implements TachoMotorPort {
 		}
     }
     
-    public void setPWMMode(int mode)
+    @Override
+	public void setPWMMode(int mode)
     {
     	try {
 			rmi.setPWMMode(mode);
@@ -77,7 +82,8 @@ public class RemoteMotorPort extends RemoteIOPort implements TachoMotorPort {
 		}
     }
     
-    public void close() {
+    @Override
+	public void close() {
     	try {
 			rmi.close();
 		} catch (RemoteException e) {

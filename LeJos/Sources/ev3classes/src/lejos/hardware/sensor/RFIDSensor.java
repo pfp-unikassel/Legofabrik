@@ -125,7 +125,8 @@ public class RFIDSensor extends I2CSensor
      * @param len
      * @return The requested string.
      */
-    protected String fetchString(byte register, int len)
+    @Override
+	protected String fetchString(byte register, int len)
     {
         wakeUp();
         return super.fetchString(register, len);
@@ -179,7 +180,7 @@ public class RFIDSensor extends I2CSensor
     public int getStatus()
     {
         getData(REG_STATUS, buf1, buf1.length);
-        return (int)buf1[0];
+        return buf1[0];
     }
 
     /**

@@ -6,9 +6,6 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
-
 import lejos.hardware.DeviceException;
 import lejos.hardware.port.UARTPort;
 import lejos.internal.io.NativeDevice;
@@ -442,7 +439,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * @param mode new mode to set
      * @return true if the mode is set, false if the operation failed
      */
-    public boolean setMode(int mode)
+    @Override
+	public boolean setMode(int mode)
     {
         //System.out.println("Set mode " + mode);
         // are we initialised ?
@@ -531,7 +529,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * read a single byte from the device
      * @return the byte value
      */
-    public byte getByte()
+    @Override
+	public byte getByte()
     {
         checkSensor();
         return raw.get(calcRawOffset());
@@ -543,7 +542,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * @param offset offset at which to store the data
      * @param len number of bytes to read
      */
-    public void getBytes(byte [] vals, int offset, int len)
+    @Override
+	public void getBytes(byte [] vals, int offset, int len)
     {
         checkSensor();
         int loc = calcRawOffset();
@@ -555,7 +555,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * read a single short from the device.
      * @return the short value
      */
-    public int getShort()
+    @Override
+	public int getShort()
     {
         checkSensor();
         return raw.getShort(calcRawOffset());
@@ -567,7 +568,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * @param offset offset at which to store the data
      * @param len number of shorts to read
      */
-    public void getShorts(short [] vals, int offset, int len)
+    @Override
+	public void getShorts(short [] vals, int offset, int len)
     {
         checkSensor();
         int loc = calcRawOffset();
@@ -581,7 +583,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * @param mode mode to lookup
      * @return String version of the mode name
      */
-    public String getModeName(int mode)
+    @Override
+	public String getModeName(int mode)
     {
         if (modeInfo[mode] != null)
         {
@@ -605,7 +608,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * @param len length of the write
      * @return number of bytes written
      */
-    public int write(byte[] buffer, int offset, int len) {
+    @Override
+	public int write(byte[] buffer, int offset, int len) {
         byte[] command = new byte[len + 1];
         command[0] = (byte) port;
         System.arraycopy(buffer, offset, command, 1, len);
@@ -617,7 +621,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
     /**
      * Return the current sensor reading to a string. 
      */
-    public String toString()
+    @Override
+	public String toString()
     {
         float divTable[] = {1f, 10f, 100f, 1000f, 10000f, 100000f};
         TYPES info = modeInfo[currentMode];
@@ -649,7 +654,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * Set the bit rate of the port when operating in RAW mode.
      * @param bitRate The new bit rate
      */
-    public void setBitRate(int bitRate)
+    @Override
+	public void setBitRate(int bitRate)
     {
         UARTCONFIG uc = new UARTCONFIG();
         uc.Port = port;
@@ -666,7 +672,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * @param len The maximum number of bytes to read
      * @return The actual number of bytes read
      */
-    public int rawRead(byte[] buffer, int offset, int len)
+    @Override
+	public int rawRead(byte[] buffer, int offset, int len)
     {
         if (rawInput == null)
             rawInput = new byte[RAW_BUFFER_SIZE+2];
@@ -690,7 +697,8 @@ public class EV3UARTPort extends EV3IOPort implements UARTPort
      * @param len The number of bytes to attempt to write
      * @return The actual number of bytes written
      */
-    public int rawWrite(byte[] buffer, int offset, int len)
+    @Override
+	public int rawWrite(byte[] buffer, int offset, int len)
     {
         if (rawInput == null)
             rawOutput = new byte[RAW_BUFFER_SIZE+2];

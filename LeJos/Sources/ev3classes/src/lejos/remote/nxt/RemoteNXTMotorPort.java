@@ -29,7 +29,8 @@ public class RemoteNXTMotorPort extends RemoteNXTIOPort implements NXTProtocol, 
      * @see BasicMotorPort#FLOAT
      * @see BasicMotorPort#STOP
      */
-    public void controlMotor(int power, int mode)
+    @Override
+	public void controlMotor(int power, int mode)
     {
 		int lcpMode = 0, lcpPower = power, runState = 0;
 		
@@ -60,7 +61,8 @@ public class RemoteNXTMotorPort extends RemoteNXTIOPort implements NXTProtocol, 
     /**
      * returns tachometer count
      */
-    public  int getTachoCount()
+    @Override
+	public  int getTachoCount()
     {
 		try {
 			return nxtCommand.getTachoCount(port);
@@ -72,7 +74,8 @@ public class RemoteNXTMotorPort extends RemoteNXTIOPort implements NXTProtocol, 
     /**
      *resets the tachometer count to 0;
      */ 
-    public void resetTachoCount()
+    @Override
+	public void resetTachoCount()
     {
 		try {
 			nxtCommand.resetMotorPosition(port, false);
@@ -81,7 +84,8 @@ public class RemoteNXTMotorPort extends RemoteNXTIOPort implements NXTProtocol, 
 		}
     }
     
-    public void setPWMMode(int mode)
+    @Override
+	public void setPWMMode(int mode)
     {
     	// TODO: How can we support this on a remote NXT?
     }

@@ -11,7 +11,6 @@ import lejos.hardware.port.IOPort;
 import lejos.hardware.port.Port;
 import lejos.hardware.port.TachoMotorPort;
 import lejos.hardware.port.UARTPort;
-import lejos.hardware.sensor.EV3SensorConstants;
 
 public class RemoteRequestPort implements Port {
     public static final int SENSOR_PORT = 0;

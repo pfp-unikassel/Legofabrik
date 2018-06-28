@@ -3,7 +3,6 @@ package lejos.hardware.sensor;
 import lejos.hardware.port.I2CPort;
 import lejos.hardware.port.Port;
 import lejos.robotics.SampleProvider;
-import lejos.utility.Delay;
 import lejos.utility.EndianTools;
 
 /**
@@ -182,7 +181,7 @@ public class DexterIMUSensor extends BaseSensor implements SensorModes {
 
         public DexterIMUGyroSensor(I2CPort port, int address) {
             super(port, address);
-            if (port.getType() == I2CPort.TYPE_HIGHSPEED)
+            if (port.getType() == SensorConstants.TYPE_HIGHSPEED)
                 rate = 2;
             init();
         }

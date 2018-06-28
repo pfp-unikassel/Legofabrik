@@ -307,11 +307,13 @@ public class MovePilot implements ArcRotateMoveController {
     arc(0, angle, immediateReturn);
   }
 
-  public void rotateLeft() {
+  @Override
+public void rotateLeft() {
     rotate(Double.POSITIVE_INFINITY, true);
   }
 
-  public void rotateRight() {
+  @Override
+public void rotateRight() {
     rotate(Double.NEGATIVE_INFINITY, true);
   }
 
@@ -401,7 +403,8 @@ public class MovePilot implements ArcRotateMoveController {
       setDaemon(true);
     }
 
-    public synchronized void run() {
+    @Override
+	public synchronized void run() {
       while (more) {
         if (_moveActive) {
           if (chassis.isStalled())

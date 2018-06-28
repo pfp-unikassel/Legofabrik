@@ -25,6 +25,7 @@ public class AstarSearchAlgorithm implements SearchAlgorithm{
 	int main_loop = 0; // TODO: DELETE ME
 	int neighbor_loop = 0;
 	
+	@Override
 	public Path findPath(Node start, Node goal) {
 		
 		//long startNanoT = System.nanoTime();
@@ -129,6 +130,7 @@ public class AstarSearchAlgorithm implements SearchAlgorithm{
 		return;
 	}
 	
+	@Override
 	public String toString() {
 		return STRING_NAME;
 	}

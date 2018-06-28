@@ -12,10 +12,12 @@ public class GridNode extends Node {
 		GridNode.grid_space = grid_space;
 	}
 	
+	@Override
 	protected float calculateG(Node neighbor) {
 		return grid_space;
 	}
 	
+	@Override
 	protected float calculateH(Node neighbor) {
 		return Math.abs(this.x - neighbor.x) + Math.abs(this.y - neighbor.y);
 	}

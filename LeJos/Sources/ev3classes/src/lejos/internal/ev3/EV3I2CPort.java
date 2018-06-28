@@ -1,17 +1,9 @@
 package lejos.internal.ev3;
 
 import java.io.IOError;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.List;
-
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
-
 import lejos.hardware.port.I2CException;
 import lejos.hardware.port.I2CPort;
 import lejos.internal.io.NativeDevice;
-import lejos.utility.Delay;
 
 /**
     Provide access to EV3 I2C sensors.<BR>
@@ -54,7 +46,8 @@ public class EV3I2CPort extends EV3IOPort implements I2CPort
      * allow access to the specified port
      * @param p port number to open
      */
-    public boolean open(int t, int p, EV3Port r)
+    @Override
+	public boolean open(int t, int p, EV3Port r)
     {
         if (!super.open(t, p, r))
             return false;
@@ -112,7 +105,8 @@ public class EV3I2CPort extends EV3IOPort implements I2CPort
      * @param readOffset Location to write the results to
      * @param readLen The length of the read
      */
-    public synchronized void i2cTransaction(int deviceAddress, byte[]writeBuf,
+    @Override
+	public synchronized void i2cTransaction(int deviceAddress, byte[]writeBuf,
             int writeOffset, int writeLen, byte[] readBuf, int readOffset,
             int readLen)
     {
@@ -124,7 +118,7 @@ public class EV3I2CPort extends EV3IOPort implements I2CPort
         cmd[4] = (byte) (deviceAddress >> 1);
         if (writeLen > 0) System.arraycopy(writeBuf, writeOffset, cmd, 5, writeLen);
         i2c.ioctl(IIC_IO, cmd);
-        int result = (int) cmd[1];
+        int result = cmd[1];
         if (result == STATUS_FAIL)
             throw new I2CException("I2C I/O error");
         if (result == STATUS_BUSY)

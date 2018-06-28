@@ -237,11 +237,13 @@ public class WheeledChassis implements Chassis {
     setVelocity(linearSpeed, 0, angularSpeed);
   }
   
-  public void travelCartesian(double xSpeed, double ySpeed, double angularSpeed) {
+  @Override
+public void travelCartesian(double xSpeed, double ySpeed, double angularSpeed) {
     setVelocity(Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed), Math.atan2(ySpeed, xSpeed), angularSpeed);
   }
 
-  public synchronized void setVelocity(double linearSpeed, double direction, double angularSpeed) {
+  @Override
+public synchronized void setVelocity(double linearSpeed, double direction, double angularSpeed) {
     if (dummyWheels ==1 && (direction % 180 != 0) ) throw new RuntimeException("Invalid direction for differential a robot."); 
     // create matrices with speed and acceleration components using direction;
     Matrix motorSpeed = forward.times(toCartesianMatrix(linearSpeed, Math.toRadians(direction), angularSpeed));
@@ -410,7 +412,8 @@ public class WheeledChassis implements Chassis {
 
   // Support for move reconstruction for move based pilots
   
-  public void moveStart() {
+  @Override
+public void moveStart() {
     tachoAtMoveStart = getAttribute(TACHOCOUNT);
   }
   
@@ -527,7 +530,8 @@ public class WheeledChassis implements Chassis {
       return this;
     }
 
-    public Matrix getFactors() {
+    @Override
+	public Matrix getFactors() {
       // TODO: correct angular component when the wheel axis doesn't go through the origin of the robot
 
       Matrix factors = new Matrix(1, 3);
@@ -537,7 +541,8 @@ public class WheeledChassis implements Chassis {
       return factors;
     }
 
-    public RegulatedMotor getMotor() {
+    @Override
+	public RegulatedMotor getMotor() {
       return motor;
     }
 
@@ -625,7 +630,8 @@ public class WheeledChassis implements Chassis {
       return this;
     }
 
-    public Matrix getFactors() {
+    @Override
+	public Matrix getFactors() {
       Matrix factors = new Matrix(1, 3);
       factors.set(0, 0, (360 * gearRatio * (invert ? -1 : 1)) / (diameter * Math.PI));
       factors.set(0, 1, 0);
@@ -633,7 +639,8 @@ public class WheeledChassis implements Chassis {
       return factors;
     }
 
-    public RegulatedMotor getMotor() {
+    @Override
+	public RegulatedMotor getMotor() {
       return motor;
     }
 
@@ -704,7 +711,8 @@ public class WheeledChassis implements Chassis {
     }
 
     private class PoseTracker extends Thread {
-      public void run() {
+      @Override
+	public void run() {
         while (true) {
           updatePose();
           Delay.msDelay(time);

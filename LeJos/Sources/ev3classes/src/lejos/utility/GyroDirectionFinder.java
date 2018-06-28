@@ -80,7 +80,8 @@ public class GyroDirectionFinder implements DirectionFinder
      * Returns the current rate-of-turn in degrees, as read by the <code>GyroSensor</code>.
      * @return Heading in degrees.
      */
-    public float getDegreesCartesian() {
+    @Override
+	public float getDegreesCartesian() {
         return cartesianCalibrate - getDegrees();
     }
 
@@ -94,7 +95,8 @@ public class GyroDirectionFinder implements DirectionFinder
     /**
      * Resets the current heading to zero.
      */
-    public void resetCartesianZero() {
+    @Override
+	public void resetCartesianZero() {
         cartesianCalibrate = getDegrees();
     }
 
@@ -102,7 +104,8 @@ public class GyroDirectionFinder implements DirectionFinder
      * Find offset/bias of gyro while at rest (<u>ensure it is at rest</u>). This is done by calling the <code>recalibrateOffset()</code> method of 
      * the <code>GyroSensor</code> instance passed in the constructor. This takes 3 seconds.
      */
-    public void startCalibration() {
+    @Override
+	public void startCalibration() {
         calibrating = true;
         Delay.msDelay(2600);
     }
@@ -111,7 +114,8 @@ public class GyroDirectionFinder implements DirectionFinder
      * NO FUNCTIONALITY EQUIVALENT for <code>GyroSensor</code> so implemented just to satisfy the <code>DirectionFinder</code> interface. 
      * Does nothing.
      */
-    public void stopCalibration() {
+    @Override
+	public void stopCalibration() {
         calibrating = false;
     }
 

@@ -25,7 +25,8 @@ public class MMXMotor implements EncoderMotor {
         setPower(100);
     }
 
-    public void setPower(int power) {
+    @Override
+	public void setPower(int power) {
         power=Math.abs(power);
         if (power>100) power=100;
         mmx.doCommand(NXTMMX.CMD_SETPOWER, power, channel);
@@ -41,23 +42,28 @@ public class MMXMotor implements EncoderMotor {
     	mmx.doCommand(NXTMMX.CMD_SETRAMPING, operand, channel);
     }
     
-    public int getPower() {
+    @Override
+	public int getPower() {
         return mmx.doCommand(NXTMMX.CMD_GETPOWER, 0, channel);
     }
     
-    public void forward() {
+    @Override
+	public void forward() {
         mmx.doCommand(NXTMMX.CMD_FORWARD, 0, channel);
     }
 
-    public void backward() {
+    @Override
+	public void backward() {
         mmx.doCommand(NXTMMX.CMD_BACKWARD, 0, channel);
     }
 
-    public void stop() {
+    @Override
+	public void stop() {
         mmx.doCommand(NXTMMX.CMD_STOP, 0, channel);
     }
 
-    public void flt() {
+    @Override
+	public void flt() {
         mmx.doCommand(NXTMMX.CMD_FLT, 0, channel);
     }
     
@@ -68,14 +74,16 @@ public class MMXMotor implements EncoderMotor {
      *
      * @return <code>true</code> if the motor is executing a movement command, <code>false</code> if stopped.
      */
-    public boolean isMoving() {
+    @Override
+	public boolean isMoving() {
         return NXTMMX.MOTPARAM_OP_TRUE==mmx.doCommand(NXTMMX.CMD_ISMOVING, 0, channel);
     }
 
     /* (non-Javadoc)
      * @see lejos.robotics.Encoder#getTachoCount()
      */
-    public int getTachoCount() {
+    @Override
+	public int getTachoCount() {
         return mmx.doCommand(NXTMMX.CMD_GETTACHO, 0, channel);
     }
     
@@ -83,7 +91,8 @@ public class MMXMotor implements EncoderMotor {
      * Reset the the tachometer count. TODO verify => Calling this method will stop any current motor action. This is imposed by the HiTechic
      * Motor Controller firmware. 
      */
-    public synchronized void resetTachoCount() {
+    @Override
+	public synchronized void resetTachoCount() {
     	mmx.doCommand(NXTMMX.CMD_RESETTACHO, 0, channel);
     }
     

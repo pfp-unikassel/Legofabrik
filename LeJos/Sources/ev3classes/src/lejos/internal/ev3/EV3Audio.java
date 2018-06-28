@@ -74,7 +74,8 @@ public class EV3Audio implements Audio
      * <TR><TD>4</TD><TD>long, low buzz</TD></TR>
      * </TABLE>
      */
-    public void systemSound(int aCode)
+    @Override
+	public void systemSound(int aCode)
     {
         if (aCode == BEEP)
             playTone(600, 200);
@@ -130,14 +131,16 @@ public class EV3Audio implements Audio
      * @param aDuration The duration of the tone, in milliseconds.
      * @param aVolume The volume of the playback 100 corresponds to 100%
      */
-    public void playTone(int aFrequency, int aDuration, int aVolume)
+    @Override
+	public void playTone(int aFrequency, int aDuration, int aVolume)
     {
         playFreq(aFrequency, aDuration, aVolume);
         Delay.msDelay(aDuration);
     }
     
 
-    public void playTone(int freq, int duration)
+    @Override
+	public void playTone(int freq, int duration)
     {
         playTone(freq, duration, VOL_MAX);
     }
@@ -246,7 +249,7 @@ public class EV3Audio implements Audio
                 for(int i = 0; i < len; i++)
                 {
                     // 8 bit data is unsigned with a 128 offset, need to convert to 16 bit signed
-                    int sample = (((int)data[i] & 0xff) - 128) << 8;
+                    int sample = ((data[i] & 0xff) - 128) << 8;
                     PCMBuffer[outOffset++] = (byte)sample;
                     PCMBuffer[outOffset++] = (byte)(sample >> 8);
                 }
@@ -280,7 +283,8 @@ public class EV3Audio implements Audio
      *         there is an error.
      * @throws FileNotFoundException 
      */
-    public int playSample(File file, int vol)
+    @Override
+	public int playSample(File file, int vol)
     {
         // First check that we have a wave file. File must be at least 44 bytes
         // in size to contain a RIFF header.
@@ -396,7 +400,8 @@ public class EV3Audio implements Audio
      *         there is an error.
      * @throws FileNotFoundException 
      */
-    public int playSample(File file)
+    @Override
+	public int playSample(File file)
     {
         return playSample(file, VOL_MAX);
     }
@@ -413,7 +418,8 @@ public class EV3Audio implements Audio
      * @param vol playback volume
      * @return Number of bytes actually queued
      */
-    public int playSample(byte [] data, int offset, int len, int sampleRate, int vol)
+    @Override
+	public int playSample(byte [] data, int offset, int len, int sampleRate, int vol)
     {
         startPCMPlayback(8, sampleRate, vol);
         writePCMSamples(data, offset, len);
@@ -440,7 +446,8 @@ public class EV3Audio implements Audio
      * @param freq The note to play (in Hz)
      * @param len  The duration of the note (in ms)
      */
-    public void playNote(int[] inst, int freq, int len)
+    @Override
+	public void playNote(int[] inst, int freq, int len)
     {
         // Generate an envelope controlled note. The instrument array contains
         // the shape of the envelope. The attack period, the decay period the
@@ -537,7 +544,8 @@ public class EV3Audio implements Audio
      * Set the master volume level
      * @param vol 0-100
      */
-    public void setVolume(int vol)
+    @Override
+	public void setVolume(int vol)
     {
         if (vol > VOL_MAX) vol = VOL_MAX;
         if (vol < 0) vol = 0;
@@ -548,7 +556,8 @@ public class EV3Audio implements Audio
      * Get the current master volume level
      * @return the current master volume 0-100
      */
-    public int getVolume()
+    @Override
+	public int getVolume()
     {
         return masterVolume;
     }
@@ -558,7 +567,8 @@ public class EV3Audio implements Audio
      * automatically to initialize the class. May be called if it is required
      * to reload any settings.
      */
-    public void loadSettings()
+    @Override
+	public void loadSettings()
     {
         masterVolume = SystemSettings.getIntSetting(VOL_SETTING, 80);
     }

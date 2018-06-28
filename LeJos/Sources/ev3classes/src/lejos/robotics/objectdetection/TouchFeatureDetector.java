@@ -58,6 +58,7 @@ public class TouchFeatureDetector extends FeatureDetectorAdapter {
 		angle = robot_center.angleTo(bumper_p) - 90;
 	}
 
+	@Override
 	public Feature scan() {
 		RangeFeature rf = null;
 		if(touch_sensor.isPressed()) {

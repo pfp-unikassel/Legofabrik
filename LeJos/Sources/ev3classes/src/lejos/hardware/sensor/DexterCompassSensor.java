@@ -328,7 +328,8 @@ public class DexterCompassSensor extends I2CSensor implements SensorModes{
          * <P>
          * When the sensor is idle zeros will be returned.
          */
-        public void fetchSample(float[] sample, int offset) {
+        @Override
+		public void fetchSample(float[] sample, int offset) {
             // get raw data
             switch (operatingMode) {
                 case (SINGLE):
@@ -344,7 +345,8 @@ public class DexterCompassSensor extends I2CSensor implements SensorModes{
             }
         }
 
-        public int sampleSize() {
+        @Override
+		public int sampleSize() {
             return 3;
         }
 

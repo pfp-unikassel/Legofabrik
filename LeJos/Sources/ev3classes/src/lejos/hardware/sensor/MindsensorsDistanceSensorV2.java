@@ -176,7 +176,7 @@ private class DistanceMode implements SensorMode {
 	@Override
 	public void fetchSample(float[] sample, int offset) {
 		getData(DIST_DATA_LSB, buf, 2);
-		sample[offset] = (float) EndianTools.decodeShortLE(buf, 0) / 100f;	
+		sample[offset] = EndianTools.decodeShortLE(buf, 0) / 100f;	
 	}
 
 	@Override
@@ -203,7 +203,7 @@ private class DistanceMode implements SensorMode {
     @Override
     public void fetchSample(float[] sample, int offset) {
       getData(VOLT_DATA_LSB, buf, 2);
-      sample[offset] = (float) EndianTools.decodeShortLE(buf, 0) / 1000f;  
+      sample[offset] = EndianTools.decodeShortLE(buf, 0) / 1000f;  
     }
 
     @Override

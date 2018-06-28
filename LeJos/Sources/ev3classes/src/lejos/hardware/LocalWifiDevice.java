@@ -2,8 +2,6 @@ package lejos.hardware;
 
 import java.util.HashSet;
 
-import com.sun.jna.Memory;
-
 import lejos.internal.io.NativeWifi;
 import lejos.utility.Delay;
 

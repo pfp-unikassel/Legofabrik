@@ -16,6 +16,7 @@ public class ColorAdapter implements ColorDetector, ColorIdentifier {
 		bufID=new float[colorIdentifier.sampleSize()];
 	}
 	
+	@Override
 	public int getColorID() {
 		colorIdentifier.fetchSample(bufID, 0);
 		return (int)bufID[0];

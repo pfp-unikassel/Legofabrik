@@ -163,6 +163,7 @@ public class SteeringPilot implements ArcMoveController, RegulatedMotorListener 
 	 * Currently returns minimum steering radius for the least tight turn direction.  
 	 * @return minimum turning radius, in centimeters
 	 */
+	@Override
 	public double getMinRadius() {
 		return minTurnRadius;
 	}
@@ -191,33 +192,40 @@ public class SteeringPilot implements ArcMoveController, RegulatedMotorListener 
 		}
 	}
 	
+	@Override
 	public void arcForward(double turnRadius) {
 		 arc(turnRadius, Double.POSITIVE_INFINITY, true);
 	}
 	
+	@Override
 	public void arcBackward(double turnRadius) {
 		arc(turnRadius, Double.NEGATIVE_INFINITY, true);
 	}
 	
+	@Override
 	public void arc(double turnRadius, double arcAngle) throws IllegalArgumentException {
 		if(turnRadius == 0) throw new IllegalArgumentException("SteeringPilot can't do zero radius turns."); // Can't turn in one spot
 		 arc(turnRadius, arcAngle, false);
 	}
 
+	@Override
 	public void arc(double turnRadius, double arcAngle, boolean immediateReturn) {
 		double distance = Move.convertAngleToDistance((float)arcAngle, (float)turnRadius);
 		 travelArc(turnRadius, (float)distance, immediateReturn);
 	}
 
+	@Override
 	public void setMinRadius(double minTurnRadius) {
 		this.minTurnRadius = minTurnRadius;
 	}
 
+	@Override
 	public void travelArc(double turnRadius, double distance) {
 		travelArc(turnRadius, distance, false);
 	}
 
 	// TODO: Currently the DifferentialPilot goes forward if radius is negative. This goes backwards.
+	@Override
 	public void travelArc(double turnRadius, double distance, boolean immediateReturn) throws IllegalArgumentException {
 		
 		// Hack here because JVM causes extra decimals for Math.abs function?
@@ -250,14 +258,17 @@ public class SteeringPilot implements ArcMoveController, RegulatedMotorListener 
 		//return moveEvent;
 	}
 	
+	@Override
 	public void backward() {
 		travel(Double.NEGATIVE_INFINITY, true);
 	}
 
+	@Override
 	public void forward() {
 		travel(Double.POSITIVE_INFINITY, true);
 	}
 
+	@Override
 	public double getMaxLinearSpeed() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -265,6 +276,7 @@ public class SteeringPilot implements ArcMoveController, RegulatedMotorListener 
 
 	// TODO: This method should indicate it is not live speed. Such as getSpeedSetting(), setSpeedSetting()
 	// TODO: Many methods in MoveController have no documentation and unit specification, incl. this.
+	@Override
 	public double getLinearSpeed() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -275,15 +287,18 @@ public class SteeringPilot implements ArcMoveController, RegulatedMotorListener 
 		return 0;
 	}
 
+	@Override
 	public boolean isMoving() {
 		return isMoving;
 	}
 
+	@Override
 	public void setLinearSpeed(double speed) {
 		// TODO This should set the motor speed for the drive motor, perhaps also calculates based on wheel diameter?
 		
 	}
 
+	@Override
 	public void stop() {
 		// 1. Check if moving. If not, return?
 //		if(!isMoving()) return false; // Should return no movement? Or moveEvent? Null might be appropriate.
@@ -301,23 +316,28 @@ public class SteeringPilot implements ArcMoveController, RegulatedMotorListener 
 		//return moveEvent;
 	}
 
+	@Override
 	public void travel(double distance) {
 		 travel(distance, false);
 	}
 
+	@Override
 	public void travel(double distance, boolean immediateReturn) {
 		travelArc(Double.POSITIVE_INFINITY, distance, immediateReturn);
 	}
 
+	@Override
 	public void addMoveListener(MoveListener listener) {
 		this.listener = listener;		
 	}
 
+	@Override
 	public Move getMovement() {
 		// TODO This is probably supposed to provide the movement that has occurred since starting? (No Javadocs for this method makes it hard to figure out how to implement this method.)
 		return null;
 	}
 
+	@Override
 	public void rotationStarted(RegulatedMotor motor, int tachoCount, boolean stall, long timeStamp) {
 		isMoving = true;
 		oldTacho = tachoCount;
@@ -328,6 +348,7 @@ public class SteeringPilot implements ArcMoveController, RegulatedMotorListener 
 		}
 	}
 
+	@Override
 	public void rotationStopped(RegulatedMotor motor, int tachoCount,boolean stall, long timeStamp) {
 		isMoving = false;
 		int tachoTotal = tachoCount - oldTacho ;

@@ -40,7 +40,8 @@ public abstract class SampleBuffer extends AbstractFilter {
     return index * sampleSize + i;
   }
 
-  public void fetchSample(float[] sample, int off) {
+  @Override
+public void fetchSample(float[] sample, int off) {
     source.fetchSample(sample, off);
     for (int i = 0; i < sampleSize; i++) {
       sampleBuffer[currentPos * sampleSize + i] = sample[i + off];

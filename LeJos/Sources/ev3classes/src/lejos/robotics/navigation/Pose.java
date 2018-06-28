@@ -205,6 +205,7 @@ public String toString()
   return String.format(format, _location.x, _location.y, _heading);
 }
 
+@Override
 public void dumpObject(DataOutputStream dos) throws IOException {
 	dos.writeFloat(_location.x);
 	dos.writeFloat(_location.y);
@@ -212,6 +213,7 @@ public void dumpObject(DataOutputStream dos) throws IOException {
 	dos.flush();
 }
 
+@Override
 public void loadObject(DataInputStream dis) throws IOException {
 	_location = new Point(dis.readFloat(), dis.readFloat());
 	_heading = dis.readFloat();

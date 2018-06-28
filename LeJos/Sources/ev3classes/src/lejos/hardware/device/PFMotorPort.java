@@ -19,11 +19,13 @@ public class PFMotorPort implements BasicMotorPort {
 		this.link = link;
 	}
 	
+	@Override
 	public void controlMotor(int power, int mode) {
 		if (mode < 1 || mode > 4) return;
 		link.sendPFComboDirect(channel, (slot == 0 ? modeTranslation[mode-1] : 0), (slot == 1 ? modeTranslation[mode-1] : 0));
 	}
 
+	@Override
 	public void setPWMMode(int mode) {
 		// Not implemented
 	}

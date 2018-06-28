@@ -114,7 +114,7 @@ public class RMCSentence extends NMEASentence {
 //			}
 //		}
 		
-		return (double)(degrees + minutes * (double)(1.0 / 60.0));
+		return degrees + minutes * (1.0 / 60.0);
 	}
 
 	/*
@@ -191,6 +191,7 @@ public class RMCSentence extends NMEASentence {
 	 * 
 	 * $GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62
 	 */
+	@Override
 	public void parse (String sentence) {
 		
 		String[] parts = sentence.split(",");

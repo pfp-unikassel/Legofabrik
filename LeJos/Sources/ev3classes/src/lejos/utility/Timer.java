@@ -26,7 +26,8 @@ public class Timer
 	myListener = el;
 
 	myThread   = new Thread() {
-	    public void run() {
+	    @Override
+		public void run() {
 		int     d;
 		boolean r;
 		while(true) {

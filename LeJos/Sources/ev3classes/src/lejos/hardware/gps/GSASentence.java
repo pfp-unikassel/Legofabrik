@@ -122,6 +122,7 @@ public class GSASentence extends NMEASentence{
 	/**
 	 * Method used to parse a GGA Sentence
 	 */
+	@Override
 	public void parse(String sentence){
 		
 		//TODO StringTokenizer must not be used to parse NMEA sentences since it doesn't return empty tokens 

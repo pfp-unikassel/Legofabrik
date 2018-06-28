@@ -29,6 +29,7 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
 	}
 	
     
+	@Override
 	public void addListener(@SuppressWarnings("hiding") RegulatedMotorListener listener) {
         this.listener = listener;
     }
@@ -50,7 +51,8 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
         }
     }
     
-    public RegulatedMotorListener removeListener() {
+    @Override
+	public RegulatedMotorListener removeListener() {
         RegulatedMotorListener old = this.listener;
         this.listener = null;
         return old;
@@ -62,21 +64,25 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * 
      * @return The current rotational speed in deg/sec
      */
-    public int getRotationSpeed() {
+    @Override
+	public int getRotationSpeed() {
         return Math.round(.01f * mmx.doCommand(NXTMMX.CMD_GETSPEED, 0, channel));
     }
     
-    public void stop(boolean immediateReturn) {
+    @Override
+	public void stop(boolean immediateReturn) {
         super.stop();
         if (!immediateReturn) waitComplete();
     }
 
-    public void flt(boolean immediateReturn) {
+    @Override
+	public void flt(boolean immediateReturn) {
         super.flt();
         if (!immediateReturn) waitComplete();
     }
 
-    public synchronized void waitComplete() {
+    @Override
+	public synchronized void waitComplete() {
     	while (isMoving()) {
             Delay.msDelay(50);
         }
@@ -87,7 +93,8 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * 
      * @param angle number of degrees to rotate relative to the current position.
      */
-    public void rotate(int angle) {
+    @Override
+	public void rotate(int angle) {
         rotate(angle, false);
     }
     
@@ -96,7 +103,8 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * 
      * @param limitAngle Angle [in degrees] to rotate to.
      */
-    public void rotateTo(int limitAngle) {
+    @Override
+	public void rotateTo(int limitAngle) {
         rotateTo(limitAngle, false);
     }
     
@@ -108,7 +116,8 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * @param immediateReturn if <code>true</code>, do not wait for the move to complete. <code>false</code> will block
      * until the rotation completes.
      */
-    public void rotate(int degrees, boolean immediateReturn){
+    @Override
+	public void rotate(int degrees, boolean immediateReturn){
         mmx.doCommand(NXTMMX.CMD_ROTATE, degrees, channel);
         if (!immediateReturn) mmx.waitRotateComplete(channel);
     }
@@ -121,7 +130,8 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * @param immediateReturn if <code>true</code>, do not wait for the move to complete. <code>false</code> will block
      * until the rotation completes.
      */
-    public void rotateTo(int limitAngle, boolean immediateReturn){
+    @Override
+	public void rotateTo(int limitAngle, boolean immediateReturn){
     	mmx.doCommand(NXTMMX.CMD_ROTATE_TO, limitAngle, channel);
         if (!immediateReturn) mmx.waitRotateComplete(channel);
     }
@@ -143,7 +153,8 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * @see #getSpeed
      * @see #setPower
      */
-    public void setSpeed(int speed) {
+    @Override
+	public void setSpeed(int speed) {
     	speed=Math.abs(speed);
         if (speed > MOTOR_MAX_DPS) speed=MOTOR_MAX_DPS;
         float power=(speed-32.253f)/8.1551f;
@@ -157,23 +168,27 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * @see #setSpeed
      * @see #getPower
      */
-    public int getSpeed() {
+    @Override
+	public int getSpeed() {
     	return Math.round(8.1551f*super.getPower()+32.253f);
     }
     
-    public float getMaxSpeed() {
+    @Override
+	public float getMaxSpeed() {
         return MOTOR_MAX_DPS;
     }
     
 
-    public boolean isStalled() {
+    @Override
+	public boolean isStalled() {
     	return NXTMMX.MOTPARAM_OP_TRUE==mmx.doCommand(NXTMMX.CMD_ISSTALLED, 0, channel);
     }
     
     /**
      * NOT IMPLEMENTED as the NXTMMX motor controller does not support this command.
      */
-    public void setStallThreshold(int error, int time) {
+    @Override
+	public void setStallThreshold(int error, int time) {
     	// do nothing
     }
     
@@ -186,7 +201,8 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
      * @param acceleration >0 means NXTMMX internal ramping is enabled otherwise disabled
      * @see MMXMotor#setRamping(boolean)
      */
-   public void setAcceleration(int acceleration){
+   @Override
+public void setAcceleration(int acceleration){
        super.setRamping(acceleration>0);
    }
 
@@ -194,6 +210,7 @@ public class MMXRegulatedMotor extends MMXMotor implements RegulatedMotor {
     * Return the angle that this Motor is rotating to or last rotated to. 
     * @return angle in degrees. 0 if no rotate method has been intiated.
     */
+	@Override
 	public int getLimitAngle() {
 		return mmx.doCommand(NXTMMX.CMD_GETLIMITANGLE, 0, channel);
 	}

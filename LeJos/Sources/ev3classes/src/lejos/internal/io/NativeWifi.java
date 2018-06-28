@@ -9,12 +9,6 @@ import java.nio.channels.FileChannel;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sun.jna.LastErrorException;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
-
 public class NativeWifi {
 	
     static final int O_ACCMODE = 0003;

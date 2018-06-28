@@ -17,13 +17,15 @@ public abstract class BasicMotor extends Device implements DCMotor
     protected BasicMotorPort port;
     protected int power = 0;
 
-    public void setPower(int power)
+    @Override
+	public void setPower(int power)
     {
         this.power = power;
         port.controlMotor(power, mode);
     }
 
-    public int getPower()
+    @Override
+	public int getPower()
     {
         return power;
     }
@@ -42,6 +44,7 @@ public abstract class BasicMotor extends Device implements DCMotor
 	/**
 	 * Causes motor to rotate forward.
 	 */
+	@Override
 	public void forward()
 	{ 
 		updateState( BasicMotorPort.FORWARD);
@@ -51,6 +54,7 @@ public abstract class BasicMotor extends Device implements DCMotor
 	/**
 	 * Causes motor to rotate backwards.
 	 */
+	@Override
 	public void backward()
 	{
 		updateState( BasicMotorPort.BACKWARD);
@@ -62,6 +66,7 @@ public abstract class BasicMotor extends Device implements DCMotor
 	 * 
 	 * @return true iff the motor is currently in motion.
 	 */
+	@Override
 	public boolean isMoving()
 	{
 		return (mode == BasicMotorPort.FORWARD || mode == BasicMotorPort.BACKWARD);
@@ -73,6 +78,7 @@ public abstract class BasicMotor extends Device implements DCMotor
 	 * method if you don't want your robot to trip in
 	 * abrupt turns.
 	 */   
+	@Override
 	public void flt()
 	{
 		updateState( BasicMotorPort.FLOAT);
@@ -86,6 +92,7 @@ public abstract class BasicMotor extends Device implements DCMotor
 	 * any further motion.
 	 * Cancels any rotate() orders in progress
 	 */
+	@Override
 	public void stop()
 	{
 		updateState( BasicMotorPort.STOP);

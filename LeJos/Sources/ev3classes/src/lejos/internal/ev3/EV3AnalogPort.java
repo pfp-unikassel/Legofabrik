@@ -7,8 +7,6 @@ import lejos.hardware.port.AnalogPort;
 import lejos.internal.io.NativeDevice;
 import lejos.utility.Delay;
 
-import com.sun.jna.Pointer;
-
 /**
  * This class provides access to the EV3 Analog based sensor ports and other
  * analog data sources.
@@ -76,7 +74,7 @@ public class EV3AnalogPort extends EV3IOPort implements AnalogPort
     @Override
     public float getPin1()
     {
-        return (float)shortVals.getShort(ANALOG_PIN1_OFF + port*2)*ADC_REF/ADC_RES;
+        return shortVals.getShort(ANALOG_PIN1_OFF + port*2)*ADC_REF/ADC_RES;
     }
     
     /**
@@ -85,7 +83,7 @@ public class EV3AnalogPort extends EV3IOPort implements AnalogPort
     @Override
     public float getPin6()
     {
-        return (float)shortVals.getShort(ANALOG_PIN6_OFF + port*2)*ADC_REF/ADC_RES;
+        return shortVals.getShort(ANALOG_PIN6_OFF + port*2)*ADC_REF/ADC_RES;
     }
     
     protected void getColorData()
@@ -221,7 +219,7 @@ public class EV3AnalogPort extends EV3IOPort implements AnalogPort
             if (cnt > rawValues.length)
                 cnt = rawValues.length;
             for(int i = 0; i < cnt; i++)
-                vals[offset+i] = (float)rawValues[i]*ADC_REF/ADC_RES;
+                vals[offset+i] = rawValues[i]*ADC_REF/ADC_RES;
             offset += cnt;
             length -= cnt;
             if (length > 0)

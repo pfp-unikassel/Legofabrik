@@ -105,6 +105,7 @@ public abstract class Rectangle2D extends RectangularShape {
 		 * Get the bounds as a Rectangle2D with float coordinates
 		 * @return the bounding rectangle
 		 */
+		@Override
 		public Rectangle2D getBounds2D() {
 			return new Float(x, y, width, height);
 		}
@@ -229,6 +230,7 @@ public abstract class Rectangle2D extends RectangularShape {
 			setRect(x, y, w, h);			
 		}
 
+		@Override
 		public Rectangle2D getBounds2D() {
 			return new Double(x, y, width, height);
 		}
@@ -276,6 +278,7 @@ public abstract class Rectangle2D extends RectangularShape {
 	protected Rectangle2D() {
 	}
 	
+	@Override
 	public boolean contains(double x, double y, double w, double h) {
         if (isEmpty() || w <= 0 || h <= 0) return false;       
         double x0 = getX();
@@ -312,7 +315,8 @@ public abstract class Rectangle2D extends RectangularShape {
 	/**
 	 * Test if this Rectangle2D contains a rectangle defined by double coordinates
 	 */
-    public boolean contains(double x, double y) {
+    @Override
+	public boolean contains(double x, double y) {
         double x0 = getX();
         double y0 = getY();
         return (x >= x0 && y >= y0 &&
@@ -322,7 +326,8 @@ public abstract class Rectangle2D extends RectangularShape {
     /**
      * Test if this Rectangle2D intersects a rectangle defined by double coordinates
      */
-    public boolean intersects(double x, double y, double w, double h) {
+    @Override
+	public boolean intersects(double x, double y, double w, double h) {
         if (isEmpty() || w <= 0 || h <= 0) return false;
         double x0 = getX();
         double y0 = getY();

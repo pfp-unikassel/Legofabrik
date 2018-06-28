@@ -20,7 +20,8 @@ public class FixedRangeScanner implements RangeScanner
    * The robot rotates back to its original heading at the end.
    * @return the set of range readings
    */
-  public RangeReadings getRangeValues()
+  @Override
+public RangeReadings getRangeValues()
   {
    if (readings == null || readings.getNumReadings() != angles.length)
     {
@@ -49,7 +50,8 @@ public class FixedRangeScanner implements RangeScanner
    *
    * @param angleSet
    */
-  public void setAngles(float [] angleSet)
+  @Override
+public void setAngles(float [] angleSet)
   {
     angles = angleSet;
   }
@@ -65,7 +67,8 @@ public class FixedRangeScanner implements RangeScanner
  * returns the rangeFinder - allows other objects to get a range value.
  * @return the range finder
  */
-  public RangeFinder getRangeFinder()
+  @Override
+public RangeFinder getRangeFinder()
   {
     return rangeFinder;
   }

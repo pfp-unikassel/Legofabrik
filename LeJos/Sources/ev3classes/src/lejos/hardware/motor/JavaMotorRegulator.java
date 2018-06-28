@@ -1,5 +1,6 @@
 package lejos.hardware.motor;
 
+import lejos.hardware.port.BasicMotorPort;
 import lejos.hardware.port.TachoMotorPort;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.RegulatedMotorListener;
@@ -108,34 +109,39 @@ public class JavaMotorRegulator implements MotorRegulator
     public JavaMotorRegulator(TachoMotorPort p)
     {
         tachoPort = p;
-        tachoPort.setPWMMode(TachoMotorPort.PWM_BRAKE);
+        tachoPort.setPWMMode(BasicMotorPort.PWM_BRAKE);
         reset();
     }
     
     
-    public int getTachoCount()
+    @Override
+	public int getTachoCount()
     {
         return tachoPort.getTachoCount() - zeroTachoCnt;
     }
     
-    public synchronized void resetTachoCount()
+    @Override
+	public synchronized void resetTachoCount()
     {
         newMove(0, 1000, NO_LIMIT, false, true);
         zeroTachoCnt = tachoPort.getTachoCount();
         reset();
     }
 
-    public boolean isMoving()
+    @Override
+	public boolean isMoving()
     {
         return moving;
     }
     
-    public float getCurrentVelocity()
+    @Override
+	public float getCurrentVelocity()
     {
         return curVelocity;
     }
     
-    public void setStallThreshold(int error, int time)
+    @Override
+	public void setStallThreshold(int error, int time)
     {
         this.stallLimit = error;
         this.stallTime = time/Controller.UPDATE_PERIOD;
@@ -275,7 +281,8 @@ public class JavaMotorRegulator implements MotorRegulator
      * if needed.
      * @return the models current position
      */
-    synchronized public float getPosition()
+    @Override
+	synchronized public float getPosition()
     {
         if (!active)
         {
@@ -296,7 +303,8 @@ public class JavaMotorRegulator implements MotorRegulator
      * @param hold
      * @param waitComplete
      */
-    synchronized public void newMove(float speed, int acceleration, int limit, boolean hold, boolean waitComplete)
+    @Override
+	synchronized public void newMove(float speed, int acceleration, int limit, boolean hold, boolean waitComplete)
     {
         if (!active)
         {
@@ -350,7 +358,8 @@ public class JavaMotorRegulator implements MotorRegulator
      * regulator.
      * @param newSpeed new target speed.
      */
-    public synchronized void adjustSpeed(float newSpeed)
+    @Override
+	public synchronized void adjustSpeed(float newSpeed)
     {
         if (curTargetVelocity != 0)
         {
@@ -364,7 +373,8 @@ public class JavaMotorRegulator implements MotorRegulator
      * The target acceleration has been changed. Updated the regulator.
      * @param newAcc
      */
-    public synchronized void adjustAcceleration(int newAcc)
+    @Override
+	public synchronized void adjustAcceleration(int newAcc)
     {
         if (curTargetVelocity != 0)
         {
@@ -458,7 +468,7 @@ public class JavaMotorRegulator implements MotorRegulator
             // Allow the motor to move freely
             curCnt = tachoCnt;
             power = 0;
-            mode = TachoMotorPort.FLOAT;
+            mode = BasicMotorPort.FLOAT;
             active = false;
             cont.removeMotor(this);
         }
@@ -481,15 +491,15 @@ public class JavaMotorRegulator implements MotorRegulator
         //err2 = 0.8f * err2 + 0.2f * error; // slow smoothing
         float newPower = basePower + P * err1 + D * (err1 - err2)/time;
         basePower = basePower + I * (newPower - basePower)*time;
-        if (basePower > TachoMotorPort.MAX_POWER)
-            basePower = TachoMotorPort.MAX_POWER;
-        else if (basePower < -TachoMotorPort.MAX_POWER)
-            basePower = -TachoMotorPort.MAX_POWER;
+        if (basePower > BasicMotorPort.MAX_POWER)
+            basePower = BasicMotorPort.MAX_POWER;
+        else if (basePower < -BasicMotorPort.MAX_POWER)
+            basePower = -BasicMotorPort.MAX_POWER;
         //newPower = (float) (power*0.75 + newPower*0.25);
-        power = (newPower > TachoMotorPort.MAX_POWER ? TachoMotorPort.MAX_POWER : newPower < -TachoMotorPort.MAX_POWER ? -TachoMotorPort.MAX_POWER : Math.round(newPower));
+        power = (newPower > BasicMotorPort.MAX_POWER ? BasicMotorPort.MAX_POWER : newPower < -BasicMotorPort.MAX_POWER ? -BasicMotorPort.MAX_POWER : Math.round(newPower));
 
         //mode = (power == 0 ? TachoMotorPort.STOP : TachoMotorPort.FORWARD);
-        mode = TachoMotorPort.FORWARD;
+        mode = BasicMotorPort.FORWARD;
     }
 
 
@@ -525,7 +535,7 @@ public class JavaMotorRegulator implements MotorRegulator
          */
         synchronized void removeMotor(JavaMotorRegulator m)
         {
-            m.tachoPort.controlMotor(0, TachoMotorPort.FLOAT);
+            m.tachoPort.controlMotor(0, BasicMotorPort.FLOAT);
             JavaMotorRegulator [] newMotors = new JavaMotorRegulator[activeMotors.length-1];
             int j = 0;
             for(int i = 0; i < activeMotors.length; i++)
@@ -539,7 +549,7 @@ public class JavaMotorRegulator implements MotorRegulator
             // Shutdown all of the motors and prevent them from running
             running = false;
             for(JavaMotorRegulator m : activeMotors)
-                m.tachoPort.controlMotor(0, TachoMotorPort.FLOAT);
+                m.tachoPort.controlMotor(0, BasicMotorPort.FLOAT);
             activeMotors = new JavaMotorRegulator[0];
         }
     

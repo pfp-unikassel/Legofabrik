@@ -117,6 +117,7 @@ public class BeaconPoseProvider implements PoseProvider, MoveListener {
 		return relativeAngle;
 	}
 	
+	@Override
 	public Pose getPose() {
 	    if(moves >= scanInterval) {
 	    	ArrayList<Double> beaconAngles = bl.locate();
@@ -316,16 +317,19 @@ public class BeaconPoseProvider implements PoseProvider, MoveListener {
 		return ab;
 	}
 	
+	@Override
 	public void setPose(Pose aPose) {
 		// TODO When this is called, it sets the current robot location as 0,0 or whatever they set it as.
 		// All subsequent calculations must add this offset of both coordinates and heading.
 		// Needs to know current pose to calculate this. 
 	}
 
+	@Override
 	public void moveStarted(Move move, MoveProvider mp) {
 		
 	}
 
+	@Override
 	public void moveStopped(Move move, MoveProvider mp) {
 		// Add distance and/or rotation moved since last reset
 		distance += move.getDistanceTraveled();

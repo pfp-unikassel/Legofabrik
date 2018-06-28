@@ -22,6 +22,7 @@ public class CompassPoseProvider extends OdometryPoseProvider {
 		this.compass = compass;
 	}
 
+	@Override
 	public Pose getPose() {
 		Pose temp = super.getPose();
 		temp.setHeading(compass.getDegreesCartesian());

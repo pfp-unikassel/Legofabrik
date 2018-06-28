@@ -81,7 +81,8 @@ public class OffsetCorrectionFilter extends AbstractFilter {
     }
   }
 
-  public void fetchSample(float[] sample, int offset) {
+  @Override
+public void fetchSample(float[] sample, int offset) {
     super.fetchSample(actual, 0);
     updateStatistics();
     for (int i = 0; i < sampleSize; i++) {
@@ -132,7 +133,7 @@ public class OffsetCorrectionFilter extends AbstractFilter {
    * @param i
    */
   private void removeSample(int i) {
-    float x = (Float) buffer[i].poll();
+    float x = buffer[i].poll();
     float delta = x - mean[i];
     mean[i] -= delta / buffer[i].size();
     ;

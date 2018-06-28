@@ -84,7 +84,8 @@ public class CompassPilot extends DifferentialPilot
    * Returns the change in robot heading since the last call of reset()
    * normalized to be within -180 and _180 degrees
    */
-  public float getAngleIncrement()
+  @Override
+public float getAngleIncrement()
   {
     return normalize(getCompassHeading() - _heading0);
   }
@@ -217,7 +218,8 @@ public class CompassPilot extends DifferentialPilot
      rotate(angle, false);
   }
 
-  public void reset()
+  @Override
+public void reset()
   {
     _left.resetTachoCount();
     _right.resetTachoCount();
@@ -235,7 +237,8 @@ public class CompassPilot extends DifferentialPilot
    * Stops the robot soon after the method is executed. (It takes time for the motors
    * to slow to a halt)
    */
-  public void stop()
+  @Override
+public void stop()
   {
     super.stop();
     _traveling = false;
@@ -263,7 +266,8 @@ public class CompassPilot extends DifferentialPilot
   class Regulator extends Thread
   {
 
-    public void run()
+    @Override
+	public void run()
     {
       while (true)
       {

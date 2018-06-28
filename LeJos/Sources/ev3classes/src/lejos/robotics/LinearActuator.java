@@ -72,9 +72,11 @@ public interface LinearActuator extends Encoder {
      * 
      * @return tachometer count in encoder ticks.
      */
-    public int getTachoCount();
+    @Override
+	public int getTachoCount();
     
     /**Reset the tachometer (encoder) count to zero at the current actuator position.
      */
-    public void resetTachoCount();
+    @Override
+	public void resetTachoCount();
 }

@@ -121,7 +121,8 @@ public class Arbitrator
     boolean more = true;
     int maxPriority = _behavior.length - 1;
 
-    public void run()
+    @Override
+	public void run()
     {
       while (keepRunning)
       {

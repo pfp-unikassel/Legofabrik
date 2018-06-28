@@ -1,10 +1,7 @@
 package lejos.internal.ev3;
 
 import lejos.hardware.lcd.CommonLCD;
-import lejos.internal.io.NativeDevice;
 import lejos.utility.Delay;
-
-import com.sun.jna.Pointer;
 
 /**
  * Provide access to the EV3 LCD display
@@ -50,7 +47,8 @@ public class EV3LCD implements CommonLCD
      * @param h height of the area to copy
      * @param rop raster operation.
      */
-    public void bitBlt(byte[] src, int sw, int sh, int sx, int sy, int dx, int dy, int w, int h, int rop)
+    @Override
+	public void bitBlt(byte[] src, int sw, int sh, int sx, int sy, int dx, int dy, int w, int h, int rop)
     {
         bitBlt(src, sw, sh, sx, sy, displayBuf, SCREEN_WIDTH, SCREEN_HEIGHT, dx, dy, w, h, rop);
     }
@@ -94,7 +92,8 @@ public class EV3LCD implements CommonLCD
      * the display refresh has completed. If auto refresh is on it will return
      * immediately.
      */
-    public void refresh()
+    @Override
+	public void refresh()
     {
         layer.refresh();
     }
@@ -102,7 +101,8 @@ public class EV3LCD implements CommonLCD
     /**
      * Clear the display.
      */
-    public void clear()
+    @Override
+	public void clear()
     {
         bitBlt(null, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ROP_CLEAR);
     }
@@ -112,7 +112,8 @@ public class EV3LCD implements CommonLCD
      * and Java to make changes.
      * @return byte array that is the frame buffer.
      */
-    public byte[] getDisplay()
+    @Override
+	public byte[] getDisplay()
     {
         return displayBuf;
     }
@@ -123,7 +124,8 @@ public class EV3LCD implements CommonLCD
      * @param period time in ms
      * @return the previous refresh period.
      */
-    public int setAutoRefreshPeriod(int period)
+    @Override
+	public int setAutoRefreshPeriod(int period)
     {
         return 0;
     }
@@ -133,7 +135,8 @@ public class EV3LCD implements CommonLCD
      * auto refresh is on.
      * @param on true to enable, false to disable
      */
-    public void setAutoRefresh(boolean on)
+    @Override
+	public void setAutoRefresh(boolean on)
     {
         layer.setAutoRefresh(on);
     }
@@ -180,7 +183,8 @@ public class EV3LCD implements CommonLCD
      * @param h height of the area to copy
      * @param rop raster operation.
      */
-    public void bitBlt(byte[] src, int sw, int sh, int sx, int sy, byte dst[], int dw, int dh, int dx, int dy, int w, int h, int rop)
+    @Override
+	public void bitBlt(byte[] src, int sw, int sh, int sx, int sy, byte dst[], int dw, int dh, int dx, int dy, int w, int h, int rop)
     {
         /* This is a partial implementation of the BitBlt algorithm. It provides a
          * complete set of raster operations and handles partial and fully aligned
@@ -366,12 +370,14 @@ public class EV3LCD implements CommonLCD
      * Set the LCD contrast.
      * @param contrast 0 blank 0x60 full on
      */
-    public void setContrast(int contrast)
+    @Override
+	public void setContrast(int contrast)
     {
        // Not implemented 
     }
 
-    public byte[] getHWDisplay() {
+    @Override
+	public byte[] getHWDisplay() {
     	return lcdMan.getHWDisplay();
     }
     

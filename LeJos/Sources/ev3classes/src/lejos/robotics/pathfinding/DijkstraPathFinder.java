@@ -38,7 +38,8 @@ public DijkstraPathFinder(LineMap map)
  * @return the shortest route
  * @throws DestinationUnreachableException  if, for example, you nave not called setMap();
  */
-  public Path findRoute(Pose start, Waypoint finish) throws DestinationUnreachableException
+  @Override
+public Path findRoute(Pose start, Waypoint finish) throws DestinationUnreachableException
   {
     return findPath(start.getLocation(), finish, _map);
   }
@@ -283,12 +284,14 @@ protected  Path getRoute(Node destination)
 
   public int getNodeCount(){return _reached.size();}
 
-  public void addListener(WaypointListener wpl) {
+  @Override
+public void addListener(WaypointListener wpl) {
     if(listeners == null )listeners = new ArrayList<WaypointListener>();
     listeners.add(wpl);
   }
   
-  public void startPathFinding(Pose start, Waypoint end) {
+  @Override
+public void startPathFinding(Pose start, Waypoint end) {
 	  Collection<Waypoint> solution = null;
 	  try {
 		  solution = findPath(start.getLocation(), end, _map);
@@ -433,7 +436,8 @@ protected  Path getRoute(Node destination)
    * @return Y coordinate
    */
   public float getY(){return (float)_p.getY();}
-  public String toString(){return " "+getX()+" , "+getY()+" ";}
+  @Override
+public String toString(){return " "+getX()+" , "+getY()+" ";}
   protected Point _p;
   protected float _sourceDistance;
   protected Node _predecessor;

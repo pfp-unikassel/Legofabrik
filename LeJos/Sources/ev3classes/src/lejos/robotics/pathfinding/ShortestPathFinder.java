@@ -42,6 +42,7 @@ public class ShortestPathFinder implements PathFinder
 	 * @throws DestinationUnreachableException
 	 *             if, for example, you nave not called setMap();
 	 */
+	@Override
 	public Path findRoute(Pose start, Waypoint finish)
 			throws DestinationUnreachableException
 	{
@@ -334,6 +335,7 @@ public class ShortestPathFinder implements PathFinder
 		return _reached.size();
 	}
 
+	@Override
 	public void addListener(WaypointListener wpl)
 	{
 		if (listeners == null)
@@ -341,6 +343,7 @@ public class ShortestPathFinder implements PathFinder
 		listeners.add(wpl);
 	}
 
+	@Override
 	public void startPathFinding(Pose start, Waypoint end)
 	{
 		Path solution = null;

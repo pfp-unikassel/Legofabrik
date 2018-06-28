@@ -93,7 +93,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Close the motor regulator. Release the motor from regulation and free any
      * associated resources.
      */
-    public void close()
+    @Override
+	public void close()
     {
         suspendRegulation();
         super.close();
@@ -119,7 +120,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * @return the current tachometer count.
      * @see lejos.robotics.RegulatedMotor#getTachoCount()
      */
-    public int getTachoCount()
+    @Override
+	public int getTachoCount()
     {
         return reg.getTachoCount();
     }
@@ -141,7 +143,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
     /**
      * @see lejos.hardware.motor.BasicMotor#forward()
      */
-    public void forward()
+    @Override
+	public void forward()
     {
         reg.newMove(speed, acceleration, +NO_LIMIT, true, false);
     }
@@ -149,7 +152,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
     /**
      * @see lejos.hardware.motor.BasicMotor#backward()
      */
-    public void backward()
+    @Override
+	public void backward()
     {
         reg.newMove(speed, acceleration, -NO_LIMIT, true, false);
     }
@@ -158,7 +162,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Set the motor into float mode. This will stop the motor without braking
      * and the position of the motor will not be maintained.
      */
-    public void flt()
+    @Override
+	public void flt()
     {
         reg.newMove(0, acceleration, NO_LIMIT, false, true);
     }
@@ -168,7 +173,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * and the position of the motor will not be maintained.
      * @param immediateReturn If true do not wait for the motor to actually stop
      */
-    public void flt(boolean immediateReturn)
+    @Override
+	public void flt(boolean immediateReturn)
     {
         reg.newMove(0, acceleration, NO_LIMIT, false, !immediateReturn);
     }
@@ -180,7 +186,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * any further motion.
      * Cancels any rotate() orders in progress
      */
-    public void stop()
+    @Override
+	public void stop()
     {
         reg.newMove(0, acceleration, NO_LIMIT, true, true);
     }
@@ -193,7 +200,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Cancels any rotate() orders in progress
      * @param immediateReturn if true do not wait for the motor to actually stop
      */
-    public void stop(boolean immediateReturn)
+    @Override
+	public void stop(boolean immediateReturn)
     {
         reg.newMove(0, acceleration, NO_LIMIT, true, !immediateReturn);
     }
@@ -208,7 +216,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * be detected  by calling {@link #isStalled()};
      * @return true iff the motor is attempting to rotate.<br>
      */
-    public boolean isMoving()
+    @Override
+	public boolean isMoving()
     {
         return reg.isMoving();
     }
@@ -217,12 +226,14 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Wait until the current movement operation is complete (this can include
      * the motor stalling).
      */
-    public void waitComplete()
+    @Override
+	public void waitComplete()
     {
         reg.waitComplete();
     }
 
-    public void rotateTo(int limitAngle, boolean immediateReturn)
+    @Override
+	public void rotateTo(int limitAngle, boolean immediateReturn)
     {
         reg.newMove(speed, acceleration, limitAngle, true, !immediateReturn);
     }
@@ -233,7 +244,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * moderate load, such as a direct drive robot on the level.
      * @param speed value in degrees/sec
      */
-    public void setSpeed(int speed)
+    @Override
+	public void setSpeed(int speed)
     {
         this.speed = Math.abs(speed);
         reg.adjustSpeed(this.speed);
@@ -257,7 +269,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * at the end of a rotate() task, smoother;
      * @param acceleration
      */
-    public void setAcceleration(int acceleration)
+    @Override
+	public void setAcceleration(int acceleration)
     {
         this.acceleration = Math.abs(acceleration);
         reg.adjustAcceleration(this.acceleration);
@@ -276,7 +289,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Return the angle that this Motor is rotating to.
      * @return angle in degrees
      */
-    public int getLimitAngle()
+    @Override
+	public int getLimitAngle()
     {
         return reg.getLimitAngle();
     }
@@ -285,7 +299,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Reset the tachometer associated with this motor. Note calling this method
      * will cause any current move operation to be halted.
      */
-    public void resetTachoCount()
+    @Override
+	public void resetTachoCount()
     {
         reg.resetTachoCount();
     }
@@ -294,12 +309,14 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Add a motor listener. Move operations will be reported to this object.
      * @param listener
      */
-    public void addListener(RegulatedMotorListener listener)
+    @Override
+	public void addListener(RegulatedMotorListener listener)
     {
         reg.addListener(this, listener);
     }
     
-    public RegulatedMotorListener removeListener() 
+    @Override
+	public RegulatedMotorListener removeListener() 
     {
         return reg.removeListener();
     }
@@ -309,7 +326,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * @param angle number of degrees to rotate relative to the current position
      * @param immediateReturn if true do not wait for the move to complete
      */
-    public void rotate(int angle, boolean immediateReturn)
+    @Override
+	public void rotate(int angle, boolean immediateReturn)
     {
         rotateTo(Math.round(reg.getPosition()) + angle, immediateReturn);
     }
@@ -318,7 +336,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Rotate by the requested number of degrees. Wait for the move to complete.
      * @param angle
      */
-    public void rotate(int angle)
+    @Override
+	public void rotate(int angle)
     {
         rotate(angle, false);
     }
@@ -327,7 +346,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Rotate to the target angle. Do not return until the move is complete.
      * @param limitAngle Angle to rotate to.
      */
-    public void rotateTo(int limitAngle)
+    @Override
+	public void rotateTo(int limitAngle)
     {
         rotateTo(limitAngle, false);
     }
@@ -336,7 +356,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Return the current target speed.
      * @return the current target speed.
      */
-    public int getSpeed()
+    @Override
+	public int getSpeed()
     {
         return Math.round(speed);
     }
@@ -357,7 +378,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Return true if the motor is currently stalled.
      * @return true if the motor is stalled, else false
      */
-    public boolean isStalled()
+    @Override
+	public boolean isStalled()
     {
         return reg.isStalled();
     }
@@ -369,7 +391,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * @param error The error threshold
      * @param time The time that the error threshold needs to be exceeded for.
      */
-    public void setStallThreshold(int error, int time)
+    @Override
+	public void setStallThreshold(int error, int time)
     {
         reg.setStallThreshold(error, time);
     }
@@ -377,13 +400,15 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * Return the current velocity.
      * @return current velocity in degrees/s
      */
-    public int getRotationSpeed()
+    @Override
+	public int getRotationSpeed()
     {
         return Math.round(reg.getCurrentVelocity());
     }
 
 
-    public float getMaxSpeed() {
+    @Override
+	public float getMaxSpeed() {
         // It is generally assumed, that the maximum accurate speed of an EV3 Motor is
         // 100 degree/second * Voltage. We generalise this to other LEGO motors by returning a value
         // that is based on 90% of the maximum free running speed of the motor.
@@ -402,7 +427,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
      * that reads of the motor state will also be consistent.
      * @param syncList an array of motors to synchronize with.
      */
-    public void synchronizeWith(RegulatedMotor[] syncList)
+    @Override
+	public void synchronizeWith(RegulatedMotor[] syncList)
     {
         // Create list of regualtors and pass it on!
         MotorRegulator[] rl = new MotorRegulator[syncList.length];
@@ -414,7 +440,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
     /**
      * Begin a set of synchronized motor operations
      */
-    public void startSynchronization()
+    @Override
+	public void startSynchronization()
     {
         reg.startSynchronization();        
     }
@@ -422,7 +449,8 @@ public abstract class BaseRegulatedMotor extends Device implements RegulatedMoto
     /**
      * Complete a set of synchronized motor operations.
      */
-    public void endSynchronization()
+    @Override
+	public void endSynchronization()
     {
         reg.endSynchronization(true);        
     }

@@ -21,7 +21,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * @param x X location
      * @param y Y location
      */
-    public void drawChar(char c, int x, int y)
+    @Override
+	public void drawChar(char c, int x, int y)
     {
         bitBlt(font.glyphs, font.width * font.glyphCount, font.height, font.width * (c-32), 0, x * font.glyphWidth, y * font.height, font.width, font.height, ROP_COPY);
     }
@@ -33,7 +34,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * @param x The x character co-ordinate to display at.
      * @param y The y character co-ordinate to display at.
      */
-    public void drawString(String str, int x, int y)
+    @Override
+	public void drawString(String str, int x, int y)
     {
         char[] strData = str.toCharArray();
         // Draw the background rect
@@ -51,7 +53,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * @param x The x character co-ordinate to display at.
      * @param y The y character co-ordinate to display at.
      */
-    public void drawInt(int i, int x, int y)
+    @Override
+	public void drawInt(int i, int x, int y)
     {
         drawString(Integer.toString(i), x, y);
     }
@@ -65,7 +68,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * @param x The x character co-ordinate to display at.
      * @param y The y character co-ordinate to display at.
      */
-    public void drawInt(int i, int places, int x, int y)
+    @Override
+	public void drawInt(int i, int places, int x, int y)
     {
         drawString(String.format("%"+places+"d", i), x, y);
     }
@@ -78,7 +82,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * @param y The y character co-ordinate to display at.
      * @param inverted if true the string is displayed inverted.
      */
-    public void drawString(String str, int x, int y, boolean inverted)
+    @Override
+	public void drawString(String str, int x, int y, boolean inverted)
     {
         if (inverted)
         {
@@ -96,7 +101,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * Scrolls the screen up one text line
      *
      */
-    public void scroll()
+    @Override
+	public void scroll()
     {
         bitBlt(displayBuf, SCREEN_WIDTH, SCREEN_HEIGHT, 0, font.height,
                 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - font.height, ROP_COPY);
@@ -111,7 +117,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * @param y the y character coordinate
      * @param n the number of characters
      */
-    public void clear(int x, int y, int n) {
+    @Override
+	public void clear(int x, int y, int n) {
         bitBlt(null, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, x * font.glyphWidth, y * font.height,
                 n * font.glyphWidth, font.height, ROP_CLEAR);
     }
@@ -120,7 +127,8 @@ public class EV3TextLCD extends EV3LCD implements TextLCD {
      * Clear an LCD display row
      * @param y the row to clear
      */
-    public void clear(int y) {
+    @Override
+	public void clear(int y) {
         bitBlt(null, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, y * font.height,
                 SCREEN_WIDTH, font.height, ROP_CLEAR);      
     }

@@ -17,7 +17,8 @@ public class TetrixEncoderMotor extends TetrixMotor implements Encoder{
         super(mc, channel);
     }
     
-    public int getTachoCount() {
+    @Override
+	public int getTachoCount() {
         return (int)(mc.doCommand(TetrixMotorController.CMD_GETTACHO, 0, channel) * .25);
     }
     
@@ -25,7 +26,8 @@ public class TetrixEncoderMotor extends TetrixMotor implements Encoder{
      * Reset the the tachometer count. Calling this method will stop any current motor action. This is imposed by the HiTechic
      * Motor Controller firmware. 
      */
-    public synchronized void resetTachoCount() {
+    @Override
+	public synchronized void resetTachoCount() {
         mc.doCommand(TetrixMotorController.CMD_RESETTACHO, 0, channel);
     }
    

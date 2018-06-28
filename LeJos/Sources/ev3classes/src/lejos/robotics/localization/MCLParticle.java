@@ -133,6 +133,6 @@ public class MCLParticle {
                      (float) (pose.getY() + ym + (distanceNoiseFactor * ym * rand.nextGaussian()))));
     pose.setHeading((float) (pose.getHeading() + move.getAngleTurned()
         + (angleNoiseFactor  * rand.nextGaussian())));
-    pose.setHeading((float) ((int) (pose.getHeading() + 0.5f) % 360));
+    pose.setHeading((int) (pose.getHeading() + 0.5f) % 360);
   }
 }

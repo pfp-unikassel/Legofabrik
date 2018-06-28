@@ -110,7 +110,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * <br><b>Note</b>: This is a non standard method.
      * @return width of the surface
      */
-    public int getWidth()
+    @Override
+	public int getWidth()
     {
         return width;
     }
@@ -120,7 +121,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * <br><b>Note</b>: This is a non standard method.
      * @return height of the surface.
      */
-    public int getHeight()
+    @Override
+	public int getHeight()
     {
         return height;
     }
@@ -138,7 +140,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param anchor the anchor point for positioning the text
      * @param inverted true to invert the text display.
      */
-    public void drawString(String str, int x, int y, int anchor, boolean inverted)
+    @Override
+	public void drawString(String str, int x, int y, int anchor, boolean inverted)
     {
         x += transX;
         y += transY;
@@ -194,7 +197,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param rop drawing operation.
      * @see Image
      */
-    public void drawRegionRop(Image src, int sx, int sy, int w, int h, int x, int y, int anchor, int rop)
+    @Override
+	public void drawRegionRop(Image src, int sx, int sy, int w, int h, int x, int y, int anchor, int rop)
     {
         x = adjustX(x, w, anchor);
         y = adjustY(y, h, anchor);
@@ -220,7 +224,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param anchor type of anchor
      * @param rop raster operation used to draw the output.
      */
-    public void drawRegionRop(Image src, int sx, int sy, int w, int h, int transform, int x, int y, int anchor, int rop)
+    @Override
+	public void drawRegionRop(Image src, int sx, int sy, int w, int h, int transform, int x, int y, int anchor, int rop)
     {
         // Check for common optimized case...
         if (transform == 0)
@@ -326,7 +331,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
     /**
      * Clear the graphics surface to white.
      */
-    public void clear()
+    @Override
+	public void clear()
     {
         bitBlt(imageBuf, width, height, 0, 0, imageBuf, width, height, 0, 0, width, height, ROP_CLEAR);
     }
@@ -335,12 +341,14 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * Return the currently selected font object.
      * @return Current font.
      */
-    public Font getFont()
+    @Override
+	public Font getFont()
     {
         return font;
     }
 
-    public void setFont(Font f)
+    @Override
+	public void setFont(Font f)
     {
         font = f;
     }
@@ -363,7 +371,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * is treated as white!
      * @param rgb new color.
      */
-    public void setColor(int rgb)
+    @Override
+	public void setColor(int rgb)
     {
         rgbColor = rgb;
         if (rgbColor == BLACK)
@@ -387,7 +396,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * are outside of range <code>0-255</code>
      * @see #getColor
      */
-    public void setColor(int red, int green, int blue)
+    @Override
+	public void setColor(int red, int green, int blue)
     {
         if ((red < 0) || (red > 255)
                 || (green < 0) || (green > 255)
@@ -445,7 +455,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param y the y coordinate of the anchor point
      * @param anchor the anchor point for positioning the text
      */
-    public void drawString(String str, int x, int y, int anchor)
+    @Override
+	public void drawString(String str, int x, int y, int anchor)
     {
         drawString(str, x, y, anchor, false);
     }
@@ -459,7 +470,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param y the x coordinate of the anchor point
      * @param anchor the anchor point used to position the text.
      */
-    public void drawSubstring(String str, int offset, int len,
+    @Override
+	public void drawSubstring(String str, int offset, int len,
             int x, int y, int anchor)
     {
         // will throw NullPointerException
@@ -481,7 +493,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param y the x coordinate of the anchor point
      * @param anchor the anchor point used to position the text.
      */
-    public void drawChar(char character, int x, int y, int anchor)
+    @Override
+	public void drawChar(char character, int x, int y, int anchor)
     {
         drawString(new String(new char[]
                 {
@@ -498,7 +511,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param y the x coordinate of the anchor point
      * @param anchor the anchor point used to position the text.
      */
-    public void drawChars(char[] data, int offset, int length,
+    @Override
+	public void drawChars(char[] data, int offset, int length,
             int x, int y, int anchor)
     {
 
@@ -531,7 +545,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param anchor location of the anchor point
      * @see Image
      */
-    public void drawRegion(Image src,
+    @Override
+	public void drawRegion(Image src,
             int sx, int sy,
             int w, int h,
             int transform,
@@ -549,7 +564,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param anchor location of the anchor point
      * @see Image
      */
-    public void drawImage(Image src, int x, int y, int anchor)
+    @Override
+	public void drawImage(Image src, int x, int y, int anchor)
     {
         drawRegionRop(src, 0, 0, src.getWidth(), src.getHeight(), x, y, anchor, ROP_COPY);
     }
@@ -571,7 +587,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param x1 x end point
      * @param y1 y end point
      */
-    public void drawLine(int x0, int y0, int x1, int y1)
+    @Override
+	public void drawLine(int x0, int y0, int x1, int y1)
     {
         drawLine(x0, y0, x1, y1, strokeStyle);
     }
@@ -668,7 +685,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param startAngle
      * @param arcAngle
      */
-    public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle)
+    @Override
+	public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle)
     {
         drawArc(x, y, width, height, startAngle, arcAngle, strokeStyle, false);
     }
@@ -682,7 +700,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param startAngle
      * @param arcAngle
      */
-    public void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle)
+    @Override
+	public void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle)
     {
         // drawArc is for now only SOLID
         drawArc(x, y, width, height, startAngle, arcAngle, SOLID, true);
@@ -880,7 +899,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param arcWidth
      * @param arcHeight
      */
-    public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight)
+    @Override
+	public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight)
     {
         x += transX;
         y += transY;
@@ -958,7 +978,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param width
      * @param height
      */
-    public void drawRect(int x, int y, int width, int height)
+    @Override
+	public void drawRect(int x, int y, int width, int height)
     {
         x += transX;
         y += transY;
@@ -984,7 +1005,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param w
      * @param h
      */
-    public void fillRect(int x, int y, int w, int h)
+    @Override
+	public void fillRect(int x, int y, int w, int h)
     {
         x += transX;
         y += transY;
@@ -997,7 +1019,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * Return the current stroke style.
      * @return current style.
      */
-    public int getStrokeStyle()
+    @Override
+	public int getStrokeStyle()
     {
         return strokeStyle;
     }
@@ -1006,7 +1029,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * Set the stroke style to be used for drawing operations.
      * @param style new style.
      */
-    public void setStrokeStyle(int style)
+    @Override
+	public void setStrokeStyle(int style)
     {
         if (style != SOLID && style != DOTTED)
         {
@@ -1025,7 +1049,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @param y Destination y
      * @param anchor location of the anchor point of the destination.
      */
-    public void copyArea(int sx, int sy,
+    @Override
+	public void copyArea(int sx, int sy,
             int w, int h,
             int x, int y, int anchor)
     {
@@ -1043,7 +1068,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * @see #getTranslateX()
      * @see #getTranslateY()
      */
-    public synchronized void translate(int x, int y)
+    @Override
+	public synchronized void translate(int x, int y)
     {
         transX += x;
         transY += y;
@@ -1053,7 +1079,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * Gets the X coordinate of the translated origin of this graphics context.
      * @return X of current origin
      */
-    public synchronized int getTranslateX()
+    @Override
+	public synchronized int getTranslateX()
     {
         return transX;
     }
@@ -1062,7 +1089,8 @@ public class EV3GraphicsLCD extends EV3LCD implements GraphicsLCD
      * Gets the Y coordinate of the translated origin of this graphics context.
      * @return Y of current origin
      */
-    public synchronized int getTranslateY()
+    @Override
+	public synchronized int getTranslateY()
     {
         return transY;
     }

@@ -288,10 +288,12 @@ public class DLights {
             init();
         }
 
+		@Override
 		public void disable() {
 			setRegister(MODE1, MODE1MASK + SLEEPMODE);
 		}
 
+		@Override
 		public void enable() {
 			setRegister(MODE1, MODE1MASK);
 		}
@@ -307,6 +309,7 @@ public class DLights {
 			sendData(n, buf, 1);
 		}
 
+		@Override
 		public void setColor(int r, int g, int b) {
 			buf[0] = (byte) (r % 256);
 			buf[1] = (byte) (g % 256);
@@ -314,6 +317,7 @@ public class DLights {
 			sendData(COLOR + AUTOINCREMENT, buf, 3);
 		}
 
+		@Override
 		public void setColor(int[] rgb) {
 			for (int i=0;i<3;i++)
 			buf[i] = (byte) (rgb[i] % 256);
@@ -321,6 +325,7 @@ public class DLights {
 		}
 
 		
+		@Override
 		public void setHSLColor(int hue, int saturation, int luminosity) {
 			float _hue = (hue % 360) / 360f;
 			float _saturation = (saturation % 101) / 100f;
@@ -382,11 +387,13 @@ public class DLights {
 			setColor((int) (r * 255), (int) (g * 255), (int) (b * 255));
 		}
 
+		@Override
 		public void setExternalLED(int w) {
 			buf[0] = (byte) (w);
 			sendData(EXTERNAL, buf, 1);
 		}
 
+		@Override
 		public void setBlinkingPattern(float seconds, int percentageOn) {
 			int gdc = (int) ((255.0 * percentageOn) / 100.0);
 			int gfrq = (int) (seconds * 24 - 1);
@@ -395,31 +402,37 @@ public class DLights {
 			sendData(GRPPWM + AUTOINCREMENT, buf, 2);
 		}
 
+		@Override
 		public void enableBlinking() {
 			setRegister(LEDOUT, BLINKINGON);
 		}
 
+		@Override
 		public void disableBlinking() {
 			setRegister(LEDOUT, BLINKINGOFF);
 		}
 
+		@Override
 		public int getExternalLED() {
 			getData(EXTERNAL, buf, 1);
 			return buf[0];
 		}
 
+		@Override
 		public void getColor(int[] rgb) {
 			getData(COLOR, buf, 3);
 			for (int i = 0; i < 3; i++)
 				rgb[i] = buf[i];
 		}
 
+		@Override
 		public boolean isEnabled() {
 			getData(MODE1,buf,1);
 			if (buf[0]==MODE1MASK) return true;
 			return false;
 		}
 
+		@Override
 		public boolean isBlinkingEnabled() {
 			getData(LEDOUT,buf,1);
 			if (buf[0]==BLINKINGON) return true;

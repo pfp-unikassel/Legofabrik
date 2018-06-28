@@ -99,6 +99,7 @@ public class GSVSentence extends NMEASentence{
 	/**
 	 * Method used to parse a GSV Sentence
 	 */
+	@Override
 	public void parse(String sentence){
 
 		String[] parts = sentence.split(",");

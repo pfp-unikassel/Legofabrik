@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import lejos.internal.io.NativeDevice;
 import lejos.utility.Delay;
 
-import com.sun.jna.Pointer;
-
 /**
  * This class provides management of a set of LCD layers.<br>
  * Each layer can be used as the frame buffer for text/graphics output. Layers can be
@@ -164,7 +162,8 @@ public class EV3LCDManager
         /**
          * Background thread which provides automatic screen updates
          */
-        public void run()
+        @Override
+		public void run()
         {
             for(;;)
             {

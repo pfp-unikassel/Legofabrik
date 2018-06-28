@@ -47,14 +47,14 @@ public abstract class RCXAbstractPort {
     * @return an input stream for reading bytes from this RCXPort.
     */
    public InputStream getInputStream() {
-      return (InputStream) rcxin;
+      return rcxin;
    }
 
    /** Returns an output stream for this RCXPort.
     * @return an output stream for writing bytes to this RCXPort.
     */
    public OutputStream getOutputStream() {
-      return (OutputStream) rcxout;
+      return rcxout;
    }
 
    /**
@@ -90,7 +90,8 @@ public abstract class RCXAbstractPort {
     * Allows a maximum of two bytes in a packet.
     */
    private class Listener extends Thread {
-      public void run() {
+      @Override
+	public void run() {
          while (portOpen) {
             if (packetHandler.isPacketAvailable()) {
               int r = packetHandler.receivePacket(inPacket);
@@ -125,7 +126,8 @@ public abstract class RCXAbstractPort {
       * @throws IOException is never thrown
       * @return The number of bytes avaliable on the InputStream
       */
-      public int available() throws IOException {
+      @Override
+	public int available() throws IOException {
          if (last < current)
             return bufferSize-(current-last);
          else
@@ -137,7 +139,8 @@ public abstract class RCXAbstractPort {
       * @throws IOException is thrown when the read is timed out
       * @return A data byte from the stream
       */
-      public synchronized int read() throws IOException {
+      @Override
+	public synchronized int read() throws IOException {
          int time1 = (int)System.currentTimeMillis();
          int timeOut = dataPort.getTimeOut();
          while (available() == 0) {
@@ -191,7 +194,8 @@ public abstract class RCXAbstractPort {
       * @param b The byte.
       * @throws IOException if the byte could not be written to the stream
       */
-      public synchronized void write(int b) throws IOException {
+      @Override
+	public synchronized void write(int b) throws IOException {
          bytePacket[0] = (byte) b;
          if (!packetHandler.sendPacket(bytePacket,1)) throw ioe;
       }

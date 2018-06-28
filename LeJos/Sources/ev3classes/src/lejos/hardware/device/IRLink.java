@@ -149,6 +149,7 @@ public class IRLink extends I2CSensor implements Opcode, IRTransmitter {
 		sendData(register,buf, len+3);
 	}
 	
+	@Override
 	public void sendBytes(byte[] data, int len) {
 		byte[] buf = new byte[8];
 		int bufLen = 0;
@@ -169,6 +170,7 @@ public class IRLink extends I2CSensor implements Opcode, IRTransmitter {
 		}
 	}
 	
+	@Override
 	public void sendPacket(byte[] data) {
 		byte[] packet = new byte[data.length*2+5];
 		int checksum = 0;
@@ -195,6 +197,7 @@ public class IRLink extends I2CSensor implements Opcode, IRTransmitter {
 		sendBytes(packet,packet.length);
 	}
 	
+	@Override
 	public void sendRemoteCommand(int msg) {
 		byte[] buf = new byte[3];
 		buf[0] = OPCODE_REMOTE_COMMAND;
@@ -203,22 +206,27 @@ public class IRLink extends I2CSensor implements Opcode, IRTransmitter {
 		sendPacket(buf);
 	}
 	
+	@Override
 	public void runProgram(int programNumber) {
 		sendRemoteCommand(RCX_REMOTE_P1 << (programNumber -1));
 	}
 	
+	@Override
 	public void beep() {
 		sendRemoteCommand(RCX_REMOTE_BEEP);
 	}
 	
+	@Override
 	public void stopAllPrograms() {
 		sendRemoteCommand(RCX_REMOTE_STOP);		
 	}
 	
+	@Override
 	public void forwardStep(int motor) {
 		sendRemoteCommand(RCX_REMOTE_A_FWD << motor);
 	}
 	
+	@Override
 	public void backwardStep(int motor) {
 		sendRemoteCommand(RCX_REMOTE_A_BWD << motor);
 	}

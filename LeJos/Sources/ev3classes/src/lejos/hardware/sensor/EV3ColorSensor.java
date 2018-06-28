@@ -113,12 +113,12 @@ public class EV3ColorSensor extends UARTSensor implements LampController, ColorI
         {
             switchMode(mode, SWITCH_DELAY);
             if (sampleSize == 1)
-                sample[offset] = (float) (port.getByte() & 0xff)/100.0f;
+                sample[offset] = (port.getByte() & 0xff)/100.0f;
             else
             {
                 port.getShorts(raw, 0, raw.length);
                 for(int i = 0; i < sampleSize; i++)
-                    sample[offset+i] = (float)raw[i]/1020.0f;
+                    sample[offset+i] = raw[i]/1020.0f;
             }
         }
 

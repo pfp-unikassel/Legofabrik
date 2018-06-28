@@ -81,7 +81,8 @@ public class LnrActrFirgelliNXT implements LinearActuator{
      * @see LinearActuator#move(int,boolean)
      * @see #isStalled
      */
-    public void setPower(int power){
+    @Override
+	public void setPower(int power){
         power=Math.abs(power);
         this.motorPower = (power>100)?100:power;
         this.encoderMotor.setPower(this.motorPower);
@@ -105,14 +106,16 @@ public class LnrActrFirgelliNXT implements LinearActuator{
     * Returns the current actuator motor power setting. 
     * @return current power 0-100%
     */
-    public int getPower() {
+    @Override
+	public int getPower() {
         return this.motorPower;
     }
  
     /**Returns true if the actuator is in motion.
      * @return true if the actuator is in motion.
      */
-    public boolean isMoving() {
+    @Override
+	public boolean isMoving() {
         return this.isMoveCommand; 
     }
 
@@ -122,7 +125,8 @@ public class LnrActrFirgelliNXT implements LinearActuator{
      * @return <code>true</code> if actuator motor stalled during a movement order. <code>false</code> otherwise.
      * @see LinearActuator#move(int,boolean)
      */
-    public boolean isStalled() {
+    @Override
+	public boolean isStalled() {
         return this.isStalled; 
     }
     
@@ -154,7 +158,8 @@ public class LnrActrFirgelliNXT implements LinearActuator{
      * @see #getTachoCount
      * @see #moveTo(int,boolean)
      */
-    public synchronized void move(int distance, boolean immediateReturn ){
+    @Override
+	public synchronized void move(int distance, boolean immediateReturn ){
         // set globals
         this.dirExtend=distance>=0;
         this.distanceTicks = Math.abs(distance);
@@ -170,7 +175,8 @@ public class LnrActrFirgelliNXT implements LinearActuator{
      * @see #move(int,boolean)
      * @see #resetTachoCount
      */
-    public void moveTo(int position, boolean immediateReturn ){
+    @Override
+	public void moveTo(int position, boolean immediateReturn ){
         int distance = position - this.tachoCount;
         move(distance, immediateReturn);
     }
@@ -219,7 +225,8 @@ public class LnrActrFirgelliNXT implements LinearActuator{
     private class Actuator implements Runnable{
         private static final int STALL_COUNT = 3; 
         
-        public void run() {
+        @Override
+		public void run() {
             while(true) {
                 // wait until triggered to do an actuation
                 synchronized (LnrActrFirgelliNXT.this.actuator) {
@@ -329,7 +336,8 @@ public class LnrActrFirgelliNXT implements LinearActuator{
     /**Immediately stop any current actuator action.
      * @see LinearActuator#move(int,boolean)
      */
-    public void stop() {
+    @Override
+	public void stop() {
         this.killCurrentAction = true;
         this.isMoveCommand = false; 
         
@@ -343,14 +351,16 @@ public class LnrActrFirgelliNXT implements LinearActuator{
      * @return tachometer count in encoder ticks.
      * @see #resetTachoCount
      */
-    public int getTachoCount() {
+    @Override
+	public int getTachoCount() {
        return this.tachoCount;
     }
     
     /**Resets the tachometer (encoder) count to zero at the current actuator shaft position.
      * @see #getTachoCount
      */
-    public void resetTachoCount() {
+    @Override
+	public void resetTachoCount() {
          this.tachoCount=0;
     }
     

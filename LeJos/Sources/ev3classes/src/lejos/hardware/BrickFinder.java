@@ -43,7 +43,8 @@ public class BrickFinder {
 	        this.forward = forward;
 	    }
 	    
-	    public void run()
+	    @Override
+		public void run()
 	    {
 	        try {
                 // Keep a socket open to listen to all the UDP trafic that is
@@ -182,7 +183,7 @@ public class BrickFinder {
                     .getNetworkInterfaces();
             while (interfaces.hasMoreElements())
             {
-                NetworkInterface networkInterface = (NetworkInterface) interfaces
+                NetworkInterface networkInterface = interfaces
                         .nextElement();
 
                 if (networkInterface.isLoopback() || !networkInterface.isUp())

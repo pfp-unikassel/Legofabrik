@@ -14,6 +14,7 @@ public class RemoteI2CPort extends RemoteIOPort implements I2CPort {
 		this.rmiEV3 = rmiEV3;
 	}
 	
+	@Override
 	public boolean open(int typ, int portNum, RemotePort remotePort) {
         boolean res = super.open(typ,portNum,remotePort);
 		try {
@@ -40,13 +41,13 @@ public class RemoteI2CPort extends RemoteIOPort implements I2CPort {
 		int writeOffset, int writeLen, byte[] readBuf, int readOffset, int readLen) {
 		try {
 			byte[] res = rmi.i2cTransaction(deviceAddress, writeBuf, writeOffset, writeLen,  readLen);
-			if (res == null) throw new I2CException("RMI I2C Error");
-			System.arraycopy(res, 0, readBuf, readOffset, readLen);		
+			if (res == null) throw new I2CException("RMI I2C Error"); 
+			if (readLen > 0) System.arraycopy(res, 0, readBuf, readOffset, readLen);
 		} catch (RemoteException e) {
 			throw new PortException(e);
 		}
 	}
-	
+	 
 	@Override
 	public boolean setType(int type) {
 		try {

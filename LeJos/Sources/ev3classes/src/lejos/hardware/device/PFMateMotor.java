@@ -30,6 +30,7 @@ public class PFMateMotor implements DCMotor {
 	/**
 	 * Floats the motor
 	 */
+	@Override
 	public void flt(){
 		receiver.sendData(operReg, FLT);
 		moving = false;
@@ -39,6 +40,7 @@ public class PFMateMotor implements DCMotor {
 	 * Runs the motor forward
 	 *
 	 */
+	@Override
 	public void forward(){
 		receiver.sendData(operReg, FORWARD);
 		receiver.sendData(0x41, (byte)0x47);
@@ -49,6 +51,7 @@ public class PFMateMotor implements DCMotor {
 	 * Runs the motor backward
 	 *
 	 */
+	@Override
 	public void backward(){
 		receiver.sendData(operReg, BACKWARD);
 		receiver.sendData(0x41, (byte)0x47);
@@ -59,6 +62,7 @@ public class PFMateMotor implements DCMotor {
 	 * Stops the Motor
 	 *
 	 */
+	@Override
 	public void stop(){
 		receiver.sendData(operReg, STOP);
 		receiver.sendData(0x41, (byte)0x47);
@@ -125,16 +129,19 @@ public class PFMateMotor implements DCMotor {
 		return false;
 	}
 	
+	@Override
 	public boolean isMoving() {
 		return moving;
 	}
 
-    public void setPower(int power)
+    @Override
+	public void setPower(int power)
     {
         setSpeed((power*7)/100);
     }
 
-    public int getPower()
+    @Override
+	public int getPower()
     {
         return (getSpeed()*100)/7;
     }

@@ -147,7 +147,7 @@ public class HiTechnicColorSensor extends I2CSensor implements ColorIdentifier {
 
     @Override
     public void fetchSample(float[] sample, int offset) {
-      sample[offset] = (float) getColorID();
+      sample[offset] = getColorID();
     }
 
     @Override
@@ -167,7 +167,7 @@ public class HiTechnicColorSensor extends I2CSensor implements ColorIdentifier {
     public void fetchSample(float[] sample, int offset) {
       getData(0x43, buf, 3);
       for (int i = 0; i < 3; i++)
-        sample[offset + i] = ((float) (0xFF & buf[i])) / 256f;
+        sample[offset + i] = (0xFF & buf[i]) / 256f;
     }
 
     @Override

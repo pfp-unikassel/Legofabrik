@@ -2,10 +2,6 @@ package lejos.robotics;
 
 import java.io.Closeable;
 
-import lejos.hardware.motor.BaseRegulatedMotor;
-import lejos.hardware.motor.MotorRegulator;
-import lejos.internal.ev3.EV3MotorPort;
-
 /**
  * Interface for encoded motors without limited range of movement (e.g. NXT motor).
  * TODO: Alternate names: EncodedMotor,EncoderMotor. 
@@ -169,6 +165,7 @@ public interface RegulatedMotor extends BaseMotor, Tachometer, Closeable {
    /**
     * Close the port, the port can not be used after this call.
     */
-   public void close();
+   @Override
+public void close();
    
 }
