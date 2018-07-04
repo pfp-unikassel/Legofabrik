@@ -62,6 +62,7 @@ public class FusorDetector implements FeatureDetector, FeatureListener {
 	 * This method scans all the sensors added to this object and returns the amalgamated results.
 	 * NOTE: This method is not called by the thread code.		
 	 */
+	@Override
 	public Feature scan() {
 		RangeReadings rr = new RangeReadings(0);
 		for(FeatureDetector d : detectors) {
@@ -83,6 +84,7 @@ public class FusorDetector implements FeatureDetector, FeatureListener {
 	 * SOLUTION: Use listeners. Get max scan time (e.g. 250 ms) and wait that long for each listener to
 	 * report in before reporting all at once.		
 	 */
+	@Override
 	public void featureDetected(Feature feature, FeatureDetector detector) {
 		// 1. Need to know who is reporting this otherwise can accumulate 5 touch sensor readings (50 ms each)
 		// while range sensor produces one (250 ms). Need to ID who is reporting via comparison against set of detectors.
@@ -157,6 +159,7 @@ public class FusorDetector implements FeatureDetector, FeatureListener {
 		}
 	}
 	
+	@Override
 	public void addListener(FeatureListener listener) {
 		if(this.listeners == null )this.listeners = new ArrayList<FeatureListener>();
 		this.listeners.add(listener);
@@ -166,6 +169,7 @@ public class FusorDetector implements FeatureDetector, FeatureListener {
 	 * This method enables/disables automatic scanning and listener reporting for this object and
 	 * all FeatureDetectors used in this FusorDetector object. 
 	 */
+	@Override
 	public void enableDetection(boolean on) {
 		enabled = on;
 		for(FeatureDetector fd : detectors) {
@@ -173,14 +177,17 @@ public class FusorDetector implements FeatureDetector, FeatureListener {
 		}
 	}
 
+	@Override
 	public int getDelay() {
 		return delay;
 	}
 
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	@Override
 	public void setDelay(int delay) {
 		this.delay = delay;
 	}

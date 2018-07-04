@@ -127,7 +127,8 @@ public class TetrixMotorController extends I2CSensor {
         // out but the motors would still run if the EV3 faulted, was shutdown, etc. which could be unsafe with big,
         // metal robots with sharp slicing attachments. 
         Thread t1 = new Thread(new Runnable(){
-            public void run() {
+            @Override
+			public void run() {
                 byte[] buf1 = new byte[1];
                 for (;;){
                     getData(REG_VERSION, buf1, 0);

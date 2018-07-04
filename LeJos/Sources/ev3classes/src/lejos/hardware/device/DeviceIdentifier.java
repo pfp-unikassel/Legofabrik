@@ -38,7 +38,8 @@ public class DeviceIdentifier extends Device implements EV3SensorConstants
         openConfigPort();
     }
     
-    public void close()
+    @Override
+	public void close()
     {
         if (configPort != null)
             configPort.close();

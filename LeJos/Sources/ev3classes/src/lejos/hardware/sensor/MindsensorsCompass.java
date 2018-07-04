@@ -207,7 +207,8 @@ public class MindsensorsCompass extends I2CSensor implements Calibrate {
    * 
    * Should make 1.5 to 2 full rotations. Must call stopCalibration() when done.
    */
-  public void startCalibration() {
+  @Override
+public void startCalibration() {
     buf[0] = BEGIN_CALIBRATION;
     sendData(COMMAND, buf, 1);
   }
@@ -216,7 +217,8 @@ public class MindsensorsCompass extends I2CSensor implements Calibrate {
    * Ends calibration sequence.
    *
    */
-  public void stopCalibration() {
+  @Override
+public void stopCalibration() {
     buf[0] = END_CALIBRATION;
     sendData(COMMAND, buf, 1);
   }

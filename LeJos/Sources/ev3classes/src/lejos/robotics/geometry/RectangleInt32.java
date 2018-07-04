@@ -182,7 +182,8 @@ public class RectangleInt32 extends Rectangle2D {
         return new RectangleInt32(x, y, width, height);
     }
     
-    public Rectangle2D getBounds2D() {
+    @Override
+	public Rectangle2D getBounds2D() {
         return new Rectangle(x, y, width, height);
     }
     

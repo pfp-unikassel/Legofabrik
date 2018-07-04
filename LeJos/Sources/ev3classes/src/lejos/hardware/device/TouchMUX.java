@@ -42,7 +42,8 @@ public class TouchMUX extends AnalogSensor {
          * Check if the sensor is pressed.
          * @return <code>true</code> if sensor is pressed, <code>false</code> otherwise.
          */
-        public boolean isPressed()
+        @Override
+		public boolean isPressed()
         {
             return (readSensors() & id) != 0;
         }

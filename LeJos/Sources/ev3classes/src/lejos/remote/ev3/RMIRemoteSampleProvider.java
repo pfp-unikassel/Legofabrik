@@ -27,7 +27,7 @@ public class RMIRemoteSampleProvider extends UnicastRemoteObject implements RMIS
 			Object[] args = new Object[1];
 			args[0] = LocalEV3.get().getPort(portName);
 			sensor = (BaseSensor) con.newInstance(args);
-			if (modeName == null) provider = (SampleProvider) sensor;
+			if (modeName == null) provider = sensor;
 			else provider = sensor.getMode(modeName);
 			sampleSize = provider.sampleSize();
 		} catch (Exception e) {

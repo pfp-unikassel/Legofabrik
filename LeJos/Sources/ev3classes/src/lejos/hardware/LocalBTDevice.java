@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.sun.jna.LastErrorException;
-
 import lejos.internal.dbus.DBusBluez;
 import lejos.internal.io.NativeHCI;
 

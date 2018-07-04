@@ -49,7 +49,8 @@ public class RotatingRangeScanner implements RangeScanner
    * Returns a set of Range Readings taken the angles specified.
    * @return the set of range values
    */
-  public RangeReadings getRangeValues()
+  @Override
+public RangeReadings getRangeValues()
   {
     if (readings == null || readings.getNumReadings() != angles.length)
     {
@@ -75,7 +76,8 @@ public class RotatingRangeScanner implements RangeScanner
    * set the angles to be used by the getRangeValues() method
    * @param angles
    */
-  public void setAngles(float[] angles)
+  @Override
+public void setAngles(float[] angles)
   {
     this.angles = angles.clone();
   }
@@ -84,7 +86,8 @@ public class RotatingRangeScanner implements RangeScanner
  * returns the rangeFinder - allows other objects to get a range value.
  * @return the range finder
  */
-  public RangeFinder getRangeFinder()
+  @Override
+public RangeFinder getRangeFinder()
   {
     return rangeFinder;
   }

@@ -36,7 +36,7 @@ public class NXTe  extends I2CSensor{
         arrLSC = new ArrayList<LSC>();
         
 
-        this.sendData((int)this.REGISTER_IIC, (byte)0x0c);
+        this.sendData(this.REGISTER_IIC, (byte)0x0c);
 	    
 	}
 	/**

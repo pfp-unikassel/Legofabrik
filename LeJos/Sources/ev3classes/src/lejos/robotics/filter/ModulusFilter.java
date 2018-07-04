@@ -19,6 +19,7 @@ public class ModulusFilter extends AbstractFilter {
 		this.modulus = modulus;
 	}
 
+	@Override
 	public void fetchSample(float sample[], int offset) {
 		super.fetchSample(sample, offset);
 		for(int i=0;i<sampleSize();i++) {

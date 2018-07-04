@@ -136,7 +136,8 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
  /**
   * set the initial pose cloud with radius noise 1 and heading noise 1
   */
-  public void setPose(Pose aPose)
+  @Override
+public void setPose(Pose aPose)
   {
     setInitialPose(aPose, 1, 1);
     updated = true;
@@ -185,7 +186,8 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
   /**
   Required by MoveListener interface; does nothing
    */
-  public void moveStarted(Move event, MoveProvider mp) { updated = false;}
+  @Override
+public void moveStarted(Move event, MoveProvider mp) { updated = false;}
 
   /**
    * Required by MoveListener interface. The pose of each particle is updated
@@ -193,7 +195,8 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
    * @param event the move  just completed
    * @param mp the MoveProvider
    */
-  public void moveStopped(Move event, MoveProvider mp)
+  @Override
+public void moveStopped(Move event, MoveProvider mp)
   {
 	if (debug) System.out.println("MCL move stopped");
     //updated = false;
@@ -307,7 +310,8 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
    * Returns the best best estimate of the current pose;
    * @return the estimated pose
    */
-  public Pose getPose()
+  @Override
+public Pose getPose()
   {
    if(debug) System.out.println("Mcl call update; updated? "+updated
               +" busy "+busy);
@@ -483,7 +487,8 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
    * @param dos the data output stream
    * @throws IOException
    */
-  public void dumpObject(DataOutputStream dos) throws IOException
+  @Override
+public void dumpObject(DataOutputStream dos) throws IOException
   {
     dos.writeFloat(_x);
     dos.writeFloat(_y);
@@ -503,7 +508,8 @@ public class MCLPoseProvider implements PoseProvider, MoveListener, Transmittabl
    * @param dis the data input stream
    * @throws IOException
    */
-  public void loadObject(DataInputStream dis) throws IOException
+  @Override
+public void loadObject(DataInputStream dis) throws IOException
   {
     _x = dis.readFloat();
     _y = dis.readFloat();

@@ -211,7 +211,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
         /**
          * Thread to handle listeners.
          */
-        public synchronized void run()
+        @Override
+		public synchronized void run()
         {
             while (true)
             {
@@ -376,7 +377,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
         /**
          * Waits for the current move operation to complete
          */
-        public void waitComplete()
+        @Override
+		public void waitComplete()
         {
             for(EV3MotorRegulatorKernelModule r : syncActive)
             {
@@ -424,7 +426,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
          * @param hold
          * @param waitComplete
          */
-        public void newMove(float speed, int acceleration, int limit, boolean hold, boolean waitComplete)
+        @Override
+		public void newMove(float speed, int acceleration, int limit, boolean hold, boolean waitComplete)
         {
             synchronized(this)
             {
@@ -511,7 +514,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
          * returns the current position from the regulator
          * @return current position in degrees
          */
-        public synchronized float getPosition()
+        @Override
+		public synchronized float getPosition()
         {
             updateRegulatorInformation();
             return curPosition - zeroTachoCnt;
@@ -521,7 +525,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
          * returns the current velocity from the regulator
          * @return velocity in degrees per second
          */
-        public synchronized float getCurrentVelocity()
+        @Override
+		public synchronized float getCurrentVelocity()
         {
             updateRegulatorInformation();
             return curVelocity;
@@ -542,29 +547,34 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
             }
         }
         
-        public boolean isMoving()
+        @Override
+		public boolean isMoving()
         {
             return getRegState() >= ST_START;
         }
         
-        public boolean isStalled()
+        @Override
+		public boolean isStalled()
         {
             return getRegState() == ST_STALL;
         }
                         
-        public int getTachoCount()
+        @Override
+		public int getTachoCount()
         {
             if (syncActive.length <= 0) return curTachoCnt;
             return EV3MotorPort.this.getTachoCount() - zeroTachoCnt;
         }
         
-        public void resetTachoCount()
+        @Override
+		public void resetTachoCount()
         {
             zeroTachoCnt = EV3MotorPort.this.getTachoCount();
         }
 
         
-        public void setStallThreshold(int error, int time)
+        @Override
+		public void setStallThreshold(int error, int time)
         {
             this.stallLimit = error;
             this.stallTime = time;
@@ -576,7 +586,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
          * regulator.
          * @param newSpeed new target speed.
          */
-        public synchronized void adjustSpeed(float newSpeed)
+        @Override
+		public synchronized void adjustSpeed(float newSpeed)
         {
             if (curSpeed != 0 && newSpeed != curSpeed)
             {
@@ -594,7 +605,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
          * The target acceleration has been changed. Updated the regulator.
          * @param newAcc
          */
-        public synchronized void adjustAcceleration(int newAcc)
+        @Override
+		public synchronized void adjustAcceleration(int newAcc)
         {
             if (newAcc != curAcc)
             {
@@ -643,7 +655,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
             return limitAngle;
         }
         
-        public synchronized void synchronizeWith(MotorRegulator[] syncList)
+        @Override
+		public synchronized void synchronizeWith(MotorRegulator[] syncList)
         {
             // validate the list
             for(MotorRegulator r : syncList)
@@ -662,7 +675,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
             this.syncWith = sl;
         }
         
-        public synchronized void startSynchronization()
+        @Override
+		public synchronized void startSynchronization()
         {
             synchronized(pwm)
             {
@@ -675,7 +689,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
             }
         }
         
-        public synchronized void endSynchronization(boolean immRet)
+        @Override
+		public synchronized void endSynchronization(boolean immRet)
         {
             synchronized(pwm)
             {
@@ -755,7 +770,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
      * @see BasicMotorPort#FLOAT
      * @see BasicMotorPort#STOP
      */
-    public synchronized void controlMotor(int power, int mode)
+    @Override
+	public synchronized void controlMotor(int power, int mode)
     {
         // Convert lejos power and mode to EV3 power and mode
         if (mode >= STOP)
@@ -776,7 +792,8 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
     /**
      * returns tachometer count
      */
-    public  int getTachoCount()
+    @Override
+	public  int getTachoCount()
     {
         synchronized(ibuf)
         {
@@ -788,14 +805,16 @@ public class EV3MotorPort extends EV3IOPort implements TachoMotorPort {
     /**
      *resets the tachometer count to 0;
      */ 
-    public synchronized void resetTachoCount()
+    @Override
+	public synchronized void resetTachoCount()
     {
         cmd[0] = OUTPUT_CLR_COUNT;
         cmd[1] = (byte)port;
         pwm.write(cmd,  2);
     }
     
-    public void setPWMMode(int mode)
+    @Override
+	public void setPWMMode(int mode)
     {
     }
     

@@ -131,7 +131,8 @@ public abstract class RectangularShape implements Shape, Cloneable {
      * @param p the Point2D
      * @return true iff this shape contains the Point2D
      */
-    public boolean contains(Point2D p) {
+    @Override
+	public boolean contains(Point2D p) {
     	return contains(p.getX(), p.getY()); 	
     }
     
@@ -141,7 +142,8 @@ public abstract class RectangularShape implements Shape, Cloneable {
      * @param r the Rectangle2D
      * @return true iff this shape intersects the given Rectangle2D
      */
-    public boolean intersects(Rectangle2D r) {
+    @Override
+	public boolean intersects(Rectangle2D r) {
         return intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
     
@@ -151,7 +153,8 @@ public abstract class RectangularShape implements Shape, Cloneable {
      * @param r the Rectangle2D
      * @return true iff this shape contains the given Rectangle2D
      */
-    public boolean contains(Rectangle2D r) {
+    @Override
+	public boolean contains(Rectangle2D r) {
         return contains(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
     
@@ -159,7 +162,8 @@ public abstract class RectangularShape implements Shape, Cloneable {
      * Get the bounds of this rectangular shape as a Rectangle
      * @return the bounds as a Rectangle
      */
-    public RectangleInt32 getBounds() {
+    @Override
+	public RectangleInt32 getBounds() {
         double width = getWidth();
         double height = getHeight();
         if (width < 0 || height < 0) return new RectangleInt32(0, 0, 0, 0);

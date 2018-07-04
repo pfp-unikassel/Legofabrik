@@ -1,7 +1,6 @@
 package lejos.internal.io;
 
 import java.io.IOError;
-import com.sun.jna.Pointer;
 
 /**
  * This class provides access from Java to Linux character devices. It is intended

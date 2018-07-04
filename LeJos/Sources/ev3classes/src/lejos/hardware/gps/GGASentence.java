@@ -118,7 +118,7 @@ public class GGASentence extends NMEASentence {
 //			}
 //		}
 		
-		return (double)(degrees + minutes * (double)(1.0 / 60.0));
+		return degrees + minutes * (1.0 / 60.0);
 	}
 	
 	/*
@@ -216,6 +216,7 @@ public class GGASentence extends NMEASentence {
 	/**
 	 * Method used to parse a GGA Sentence
 	 */
+	@Override
 	public void parse(String sentence) {
 		
 		String[] parts = sentence.split(",");

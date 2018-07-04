@@ -3,9 +3,7 @@ package lejos.internal.ev3;
 import java.io.IOError;
 
 import lejos.hardware.port.ConfigurationPort;
-import lejos.hardware.sensor.EV3SensorConstants;
 import lejos.internal.io.NativeDevice;
-import lejos.utility.Delay;
 
 public class EV3ConfigurationPort extends EV3IOPort  implements ConfigurationPort
 {
@@ -35,7 +33,8 @@ public class EV3ConfigurationPort extends EV3IOPort  implements ConfigurationPor
      * this will identify the connection type (UART/IIC/Dumb/Output etc.)
      * @return The type of the port. 
      */
-    public int getPortType()
+    @Override
+	public int getPortType()
     {
         if (typ == EV3Port.MOTOR_PORT)
             return EV3AnalogPort.getMotorPortType(port);
@@ -50,7 +49,8 @@ public class EV3ConfigurationPort extends EV3IOPort  implements ConfigurationPor
      * sensor to allow it to be identified in further detail.
      * @return the sensor type
      */
-    public int getDeviceType()
+    @Override
+	public int getDeviceType()
     {
         if (typ == EV3Port.MOTOR_PORT)
             return EV3AnalogPort.getMotorType(port);

@@ -571,14 +571,18 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		airarms.turnArm();
-		
+//		airarms.turnArm();
+		airarms.armUp();
+		airarms.grabTurn();
+		airarms.grabOpen();
 
 	}
 
 	public void startSzenario3() {
 
-		airarms.turnTower();
+		airarms.armDown();
+		airarms.grabClose();
+//		airarms.turnTower();
 	}
 
 }

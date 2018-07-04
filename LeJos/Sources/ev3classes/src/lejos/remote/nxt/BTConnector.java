@@ -2,8 +2,6 @@ package lejos.remote.nxt;
 
 import java.util.Collection;
 
-import com.sun.jna.LastErrorException;
-
 import lejos.hardware.Bluetooth;
 import lejos.hardware.BluetoothException;
 import lejos.hardware.RemoteBTDevice;
@@ -13,6 +11,7 @@ import lejos.internal.io.NativeSocket;
 public class BTConnector extends NXTCommConnector  {
 	NativeSocket socket = new NativeSocket(NativeHCI.AF_BLUETOOTH, NativeHCI.SOCK_STREAM, NativeHCI.BTPROTO_RFCOMM);
 	
+	@Override
 	public BTConnection connect(String target, int mode) {
 		NativeSocket.SockAddr sa = new NativeSocket.SockAddr();
 		

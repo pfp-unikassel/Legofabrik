@@ -5,11 +5,6 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sun.jna.LastErrorException;
-import com.sun.jna.Native;
-import com.sun.jna.Structure;
-import com.sun.jna.ptr.IntByReference;
-
 public class NativeSocket {
 	
 	public static final int AF_BLUETOOTH = 31;

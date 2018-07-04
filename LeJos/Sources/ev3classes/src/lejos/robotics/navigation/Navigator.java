@@ -226,7 +226,8 @@ public class Navigator implements WaypointListener
     * 
     * @param aWaypoint  to be added
     */
-   public void addWaypoint(Waypoint aWaypoint)
+   @Override
+public void addWaypoint(Waypoint aWaypoint)
    {
 	   if(_path.isEmpty())
 		   {
@@ -315,7 +316,8 @@ public class Navigator implements WaypointListener
       return _keepGoing;
    }
    
-   public void pathGenerated() {
+   @Override
+public void pathGenerated() {
 		// Currently does nothing	
 	}
 

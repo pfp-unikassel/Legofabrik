@@ -17,6 +17,7 @@ public class RCXPlexedMotorPort implements BasicMotorPort {
 		this.id = id;
 	}
 	
+	@Override
 	public void controlMotor(int power, int mode) {
 		int mmMode = mode;
 		if (mmMode == BasicMotorPort.FLOAT) mmMode = 0; // float
@@ -27,6 +28,7 @@ public class RCXPlexedMotorPort implements BasicMotorPort {
 		plex.sendCommand(id, mmMode, mmPower);
 	}
 	
+	@Override
 	public void setPWMMode(int mode) {
 		// Not implemented
 	}

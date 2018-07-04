@@ -156,7 +156,7 @@ public class EV3IRSensor extends UARTSensor
         public void fetchSample(float[] sample, int offset) 
         {
             switchMode(IR_PROX, SWITCH_DELAY);
-            int raw=((int)port.getByte() & 0xff);
+            int raw=(port.getByte() & 0xff);
             if (raw<5) sample[offset]=0;
             else if (raw>55) sample[offset]=Float.POSITIVE_INFINITY;
             else sample[offset]=raw*toSI;
@@ -214,14 +214,14 @@ public class EV3IRSensor extends UARTSensor
               port.getBytes(seekVals, 0, seekVals.length);
               for(int i = 0; i < seekVals.length; i += 2)
               {
-                  int raw=(int)seekVals[i+1] & 0xff;
+                  int raw=seekVals[i+1] & 0xff;
                   if (raw == 128) {
                       sample[offset++] = 0; 
                       sample[offset++] = Float.POSITIVE_INFINITY; 
                   }
                   else {
                   sample[offset++] = seekVals[i] * toSI;
-                  sample[offset++] = (int)seekVals[i+1] & 0xff;
+                  sample[offset++] = seekVals[i+1] & 0xff;
                   }
               }
         }

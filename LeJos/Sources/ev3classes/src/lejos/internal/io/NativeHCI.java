@@ -9,13 +9,6 @@ import java.util.List;
 
 import lejos.hardware.RemoteBTDevice;
 
-import com.sun.jna.LastErrorException;
-import com.sun.jna.Memory;
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
-import com.sun.jna.ptr.PointerByReference;
-
 public class NativeHCI {
 	
 	public static final int PSCAN = 0x8;

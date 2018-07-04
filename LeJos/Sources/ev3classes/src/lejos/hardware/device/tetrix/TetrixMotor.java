@@ -18,29 +18,35 @@ public class TetrixMotor implements DCMotor{
         setPower(100);
     }
 
-    public void setPower(int power) {
+    @Override
+	public void setPower(int power) {
         power=Math.abs(power);
         if (power>100) power=100;
         mc.doCommand(TetrixMotorController.CMD_SETPOWER, power, channel);
     }
 
-    public int getPower() {
+    @Override
+	public int getPower() {
         return mc.doCommand(TetrixMotorController.CMD_GETPOWER, 0, channel);
     }
     
-    public void forward() {
+    @Override
+	public void forward() {
         mc.doCommand(TetrixMotorController.CMD_FORWARD, 0, channel);
     }
 
-    public void backward() {
+    @Override
+	public void backward() {
         mc.doCommand(TetrixMotorController.CMD_BACKWARD, 0, channel);
     }
 
-    public void stop() {
+    @Override
+	public void stop() {
         mc.doCommand(TetrixMotorController.CMD_STOP, 0, channel);
     }
 
-    public void flt() {
+    @Override
+	public void flt() {
         mc.doCommand(TetrixMotorController.CMD_FLT, 0, channel);
     }
     
@@ -51,7 +57,8 @@ public class TetrixMotor implements DCMotor{
      *
      * @return <code>true</code> if the motor is executing a movement command, <code>false</code> if stopped.
      */
-    public boolean isMoving() {
+    @Override
+	public boolean isMoving() {
         return TetrixMotorController.MOTPARAM_OP_TRUE==mc.doCommand(TetrixMotorController.CMD_ISMOVING, 0, channel);
     }
 

@@ -286,6 +286,7 @@ public class SimpleGPS extends Thread {
 	 * Keeps reading sentences from GPS receiver stream and extracting data.
 	 * This is a daemon thread so when program ends it won't keep running.
 	 */
+	@Override
 	public void run() {
 		while(!close) {
 			String s = getNextString();

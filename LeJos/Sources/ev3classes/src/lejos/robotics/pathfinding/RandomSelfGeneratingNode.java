@@ -72,6 +72,7 @@ public class RandomSelfGeneratingNode extends Node {
 	 * this node add each other as neighbors. 
 	 * @return a collection of RandomSelfGeneratingNode objects. 
 	 */
+	@Override
 	public Collection <Node> getNeighbors() {
 		// TODO: When to do the map geometry pruning of these?
 		if(firstCall) {

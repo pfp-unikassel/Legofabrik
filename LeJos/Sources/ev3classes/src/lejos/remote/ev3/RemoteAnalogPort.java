@@ -13,6 +13,7 @@ public class RemoteAnalogPort extends RemoteIOPort  implements AnalogPort {
 		this.rmiEV3 = rmiEV3;
 	}
 	
+	@Override
 	public boolean open(int typ, int portNum, RemotePort remotePort) {
         boolean res = super.open(typ,portNum,remotePort);
 		try {

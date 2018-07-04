@@ -37,7 +37,8 @@ public class OdometryPoseProvider implements PoseProvider, MoveListener, SampleP
    * data from its MoveProvider
    * @return pose
    */
-  public synchronized Pose getPose()
+  @Override
+public synchronized Pose getPose()
   {
     if (!current )
     {
@@ -51,7 +52,8 @@ public class OdometryPoseProvider implements PoseProvider, MoveListener, SampleP
    * @param move - the event that just started
    * @param mp the MoveProvider that called this method
    */
-  public synchronized void moveStarted(Move move, MoveProvider mp)
+  @Override
+public synchronized void moveStarted(Move move, MoveProvider mp)
   {
     angle0 = 0;
     distance0 = 0;
@@ -59,7 +61,8 @@ public class OdometryPoseProvider implements PoseProvider, MoveListener, SampleP
     this.mp = mp;
   }
   
-  public synchronized void   setPose(Pose aPose )
+  @Override
+public synchronized void   setPose(Pose aPose )
   {
     setPosition(aPose.getLocation());
     setHeading(aPose.getHeading());
@@ -70,7 +73,8 @@ public class OdometryPoseProvider implements PoseProvider, MoveListener, SampleP
    * @param move - the event that just started
    * @param mp
    */
-  public void moveStopped(Move move, MoveProvider mp)
+  @Override
+public void moveStopped(Move move, MoveProvider mp)
   {
     updatePose(move);
   }

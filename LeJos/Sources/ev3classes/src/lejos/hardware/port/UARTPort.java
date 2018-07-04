@@ -44,7 +44,8 @@ public interface UARTPort extends IOPort, BasicSensorPort
     /**
      * Return the current sensor reading to a string. 
      */
-    public String toString();
+    @Override
+	public String toString();
 
     /**
      * Initialise the attached sensor and set it to the required operating mode.<br>

@@ -27,7 +27,8 @@ public class LLCHandler extends PacketHandler {
    * @param len the number of bytes to send
    * @return true if the send was successful, else false
    */
-  public boolean sendPacket(byte [] packet, int len) {
+  @Override
+public boolean sendPacket(byte [] packet, int len) {
     synchronized (this) {
       boolean res = LLC.sendBytes(packet, len);
       Delay.msDelay(100);
@@ -39,7 +40,8 @@ public class LLCHandler extends PacketHandler {
    * @param buffer the buffer to receive the packet into
    * @return the number of bytes received
    */
-  public int receivePacket(byte [] buffer) {
+  @Override
+public int receivePacket(byte [] buffer) {
     gotPacket = false;
     for(int i=0;i<inPacketLength;i++) buffer[i] = inPacket[i];
     return inPacketLength;
@@ -49,7 +51,8 @@ public class LLCHandler extends PacketHandler {
    * @param buffer the buffer to receive the ack into
    * @return the number of bytes received
    */
-  public int receiveAck(byte [] buffer) {
+  @Override
+public int receiveAck(byte [] buffer) {
     gotAck = false;
     for(int i=0;i<2;i++) buffer[i] = ackPacket[i];
     return 2;
@@ -85,7 +88,8 @@ public class LLCHandler extends PacketHandler {
    * Check if a packet is available
    * @return true if a Packet is available, else false
    */
-  public boolean isPacketAvailable() {
+  @Override
+public boolean isPacketAvailable() {
     synchronized (this) {
       if (gotPacket) return true;
       getOp();
@@ -97,7 +101,8 @@ public class LLCHandler extends PacketHandler {
    * Check if an Ack is available
    * @return true if ack is available, else false
    */
-  public boolean isAckAvailable() {
+  @Override
+public boolean isAckAvailable() {
     synchronized (this) {
       if (gotAck) return true;
       getOp();

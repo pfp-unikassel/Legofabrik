@@ -20,6 +20,7 @@ public class RCXRemoteMotorPort implements BasicMotorPort {
 		this.link = link;
 		this.id = id;
 	}
+	@Override
 	public void controlMotor(int power, int mode) {
 		//LCD.drawInt(id, 0, 0);
 		//LCD.drawInt(power,4,0,1);
@@ -53,6 +54,7 @@ public class RCXRemoteMotorPort implements BasicMotorPort {
         Delay.msDelay(50);
 	}
 	
+	@Override
 	public void setPWMMode(int mode) {
 	}
     @Override

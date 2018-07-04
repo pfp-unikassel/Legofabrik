@@ -22,25 +22,30 @@ public abstract class FeatureDetectorAdapter implements FeatureDetector {
 		x.start();
 	}
 	
+	@Override
 	public void addListener(FeatureListener l){
 		if(listeners == null )listeners = new ArrayList<FeatureListener>();
 		listeners.add(l);
 	}
 
+	@Override
 	public void enableDetection(boolean enable) {
 		// TODO: Optionally do a real disable where it ends thread (true test in thread loop) and 
 		// enabling it will start thread (if thread is null/not running).
 		this.enabled = enable;
 	}
 
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	@Override
 	public int getDelay() {
 		return delay;
 	}
 	
+	@Override
 	public void setDelay(int delay) {
 		this.delay = delay;
 	}
@@ -84,6 +89,7 @@ public abstract class FeatureDetectorAdapter implements FeatureDetector {
 		}
 	}
 	
+	@Override
 	public abstract Feature scan();
 
 }

@@ -96,7 +96,7 @@ abstract public class NXTCommDevice
 		int addri = 0;
 
 		for(int i=0; i<ADDRESS_LEN; i++) {
-			addri = (int)addr[i] & 0xff;
+			addri = addr[i] & 0xff;
 			caddr[ci++] = cs[addri / 16];
 			caddr[ci++] = cs[addri % 16];
 		}

@@ -91,6 +91,7 @@ public class Waypoint extends Point implements Transmittable {
 		return true;
 	}
 
+	@Override
 	public void dumpObject(DataOutputStream dos) throws IOException {
 		dos.writeFloat(x);
 		dos.writeFloat(y);
@@ -99,6 +100,7 @@ public class Waypoint extends Point implements Transmittable {
 		dos.flush();
 	}
 
+	@Override
 	public void loadObject(DataInputStream dis) throws IOException {
 		x = dis.readFloat();
 		y = dis.readFloat();

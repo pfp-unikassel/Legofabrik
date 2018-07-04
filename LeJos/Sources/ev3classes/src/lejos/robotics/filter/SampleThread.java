@@ -34,7 +34,8 @@ public class SampleThread extends AbstractFilter {
     return newSampleAvailable;
   }
 
-  public synchronized void fetchSample(float[] dst, int off) {
+  @Override
+public synchronized void fetchSample(float[] dst, int off) {
     for (int axis=0;axis<sampleSize;axis++) 
       dst[axis+off]=buffer[axis];
     newSampleAvailable=false;

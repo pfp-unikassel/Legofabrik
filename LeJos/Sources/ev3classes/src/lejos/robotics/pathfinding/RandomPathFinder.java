@@ -78,6 +78,7 @@ public class RandomPathFinder implements PathFinder {
 		this.clearance = clearance;
 	}
 	
+	@Override
 	public Path findRoute(Pose start, Waypoint destination)
 			throws DestinationUnreachableException {
 		Pose pose = start;
@@ -164,12 +165,14 @@ public class RandomPathFinder implements PathFinder {
 	    return new Pose(x,y,heading);
 	}
 	
+	@Override
 	public void addListener(WaypointListener wpl) {
 	    if(listeners == null )listeners = new ArrayList<WaypointListener>();
 	    listeners.add(wpl);
 	  }
 
-	  public void startPathFinding(Pose start, Waypoint end) {
+	  @Override
+	public void startPathFinding(Pose start, Waypoint end) {
 		  Collection<Waypoint> solution = null;
 		try {
 			solution = findRoute(start, end);

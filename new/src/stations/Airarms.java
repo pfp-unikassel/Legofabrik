@@ -12,10 +12,10 @@ public class Airarms {
 	private boolean armPosition = false; // true ist ausgefahren
 	private boolean armStatus = false; // true is up false down
 
-	private boolean towerPosition = true; // to lane  , tower1 to lane
+	private boolean towerPosition = true; // to lane
 
 	private int turnDegree = -70;
-	private int towerTurnDegree =- 95;
+	private int towerTurnDegree =- 100;
 
 	RMIRegulatedMotor moveArm;
 	RMIRegulatedMotor verticalArm;
@@ -35,8 +35,8 @@ public class Airarms {
 		this.turnArm2 = turnArm2;
 		
 		try {
-			turnArm1.setSpeed(90);   // set Turnspeed 
-			turnArm2.setSpeed(90);
+			turnArm1.setSpeed(180);   // set Turnspeed 
+			turnArm2.setSpeed(180);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,8 +169,6 @@ public class Airarms {
 
 		}
 	}
-	
-
 
 	public void reset() {
 
@@ -184,30 +182,6 @@ public class Airarms {
 		}
 
 		armUp();
-	}
-	
-	public void fillLore() {  // just call this with 2 Balls at every QS 
-		
-		turnTower(); // not sure
-		
-		// Take Balls
-		
-		turnArm(); 		//ausfahren	
-		armDown();		// runter
-		grabClose();	// greifen
-		armUp();		//hoch
-		turnArm();      // einfahren
-		turnTower();	
-		
-		// set Balls in Cart
-		
-		grabTurn();		
-		armDown();
-		grabOpen();
-		armUp();
-		grabClose();
-		grabTurn();
-		
 	}
 
 	public boolean getGrabStatus() {

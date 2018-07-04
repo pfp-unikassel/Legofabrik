@@ -36,7 +36,8 @@ public class TetrixServo implements Servo{
      * @throws IllegalArgumentException if the range isn't within 750 and 2250
      * @see #setAngle
      */
-    public void setRange (int microsecLOW, int microsecHIGH, int travelRange) throws IllegalArgumentException {
+    @Override
+	public void setRange (int microsecLOW, int microsecHIGH, int travelRange) throws IllegalArgumentException {
             sc.setPulseRange(channel, microsecLOW, microsecHIGH, travelRange);
     }
     
@@ -49,7 +50,8 @@ public class TetrixServo implements Servo{
      * @see #setRange
      * @see #getAngle
      */
-    public void setAngle(float angle){
+    @Override
+	public void setAngle(float angle){
          sc.setAngle(channel, angle);
     }
     
@@ -64,7 +66,8 @@ public class TetrixServo implements Servo{
      * @see #setRange
      * @see #setAngle
      */
-    public float getAngle(){
+    @Override
+	public float getAngle(){
         return sc.getAngle(channel);
     }
 
@@ -85,11 +88,13 @@ public class TetrixServo implements Servo{
      * @throws IllegalArgumentException if the range isn't within 750 and 2250
      * @see #setRange
      */
-    public void setpulseWidth(int microSeconds) throws IllegalArgumentException {
+    @Override
+	public void setpulseWidth(int microSeconds) throws IllegalArgumentException {
         sc.setPulseWidth(channel, microSeconds);
     }
     
-    public int getpulseWidth(){
+    @Override
+	public int getpulseWidth(){
         return sc.getPulseWidth(channel);
     }
 }

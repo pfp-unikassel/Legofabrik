@@ -73,14 +73,17 @@ public class RangeFeature implements Feature, Transmittable  {
 		this.pose = pose;
 	}
 	
+	@Override
 	public RangeReading getRangeReading() {
 		return rr;
 	}
 
+	@Override
 	public long getTimeStamp() {
 		return timeStamp;
 	}
 
+	@Override
 	public RangeReadings getRangeReadings() {
 		if(rrs == null) {
 			rrs = new RangeReadings(0);
@@ -93,6 +96,7 @@ public class RangeFeature implements Feature, Transmittable  {
 		return pose;
 	}
 
+	@Override
 	public void dumpObject(DataOutputStream dos) throws IOException {
 		pose.dumpObject(dos);
 		dos.writeFloat(rr.getRange());
@@ -100,6 +104,7 @@ public class RangeFeature implements Feature, Transmittable  {
 		dos.flush();
 	}
 
+	@Override
 	public void loadObject(DataInputStream dis) throws IOException {
 		pose.loadObject(dis);
 		float range = dis.readFloat();

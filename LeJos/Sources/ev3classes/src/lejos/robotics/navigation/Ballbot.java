@@ -381,6 +381,7 @@ public class Ballbot extends Thread { // TODO: Thread should be a private inner 
 	//             KPOS       * motorPos +
 	//             KSPEED     * motorSpeed;
 	//
+	@Override
 	public void run() {
 
 		int power;

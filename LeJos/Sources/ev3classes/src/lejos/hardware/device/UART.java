@@ -7,7 +7,6 @@ import java.io.OutputStream;
 
 import lejos.hardware.port.Port;
 import lejos.hardware.port.UARTPort;
-import lejos.hardware.sensor.EV3SensorConstants;
 import lejos.utility.Delay;
 
 /**

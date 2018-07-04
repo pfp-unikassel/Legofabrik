@@ -79,18 +79,22 @@ public class RCXLink extends I2CSensor implements Opcode, IRTransmitter {
 		sendData(COMMAND, buf, 2);
 	}
 	
+	@Override
 	public void beep() {
 		runMacro(BEEP);
 	}
 	
+	@Override
 	public void runProgram(int programNumber) {
 		runMacro(RUN_PROGRAM_1 + ((programNumber-1)*4));
 	}
 	
+	@Override
 	public void forwardStep(int id) { // RCX Remote Command
 		runMacro(MOTOR_A_FORWARD + (id*8));
 	}
 	
+	@Override
 	public void backwardStep(int id) { // RCX Remote Command
 		runMacro(MOTOR_A_REVERSED + (id*8));
 	}
@@ -107,6 +111,7 @@ public class RCXLink extends I2CSensor implements Opcode, IRTransmitter {
 		runMacro(POWER_OFF_RCX);
 	}
 	
+	@Override
 	public void stopAllPrograms() {
 		runMacro(STOP_ALL_PROGRAMS);
 	}
@@ -167,10 +172,12 @@ public class RCXLink extends I2CSensor implements Opcode, IRTransmitter {
 		defineAndRun(buf,2);
 	}
 	
+	@Override
 	public void sendPacket(byte [] packet) {
 		defineAndRun(packet, packet.length);
 	}
 	
+	@Override
 	public void sendRemoteCommand(int msg) {
 		buf[0] = OPCODE_REMOTE_COMMAND;
 		buf[1] = (byte) (msg >> 8);
@@ -224,6 +231,7 @@ public class RCXLink extends I2CSensor implements Opcode, IRTransmitter {
 		sendData(COMMAND, TRANSMIT_RAW_MACRO);
 	}
 	
+	@Override
 	public void sendBytes(byte[] data, int len) {
 		sendData(TX_DATA,data,len);
 		sleep();

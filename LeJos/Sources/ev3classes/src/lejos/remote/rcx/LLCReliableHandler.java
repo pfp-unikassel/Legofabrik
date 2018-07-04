@@ -21,7 +21,8 @@ public class LLCReliableHandler extends PacketHandler {
   /**
    * Reset sequence numbers.
    **/
-  public void reset() {
+  @Override
+public void reset() {
     sequence = false;
     receiveSequence = false;
   }
@@ -31,7 +32,8 @@ public class LLCReliableHandler extends PacketHandler {
    * @param len the number of bytes to send
    * @return true if send successful, else false
    */
-  public boolean sendPacket(byte [] packet, int len) {
+  @Override
+public boolean sendPacket(byte [] packet, int len) {
     byte b = (byte) (0xf0 + len); // Send byte
     if (sequence) b |= 8;
     outPacket[0] = b;
@@ -65,7 +67,8 @@ public class LLCReliableHandler extends PacketHandler {
    * @param buffer the buffer to receive the packet into
    * @return the number of bytes received
    */
-  public int receivePacket(byte [] buffer) {
+  @Override
+public int receivePacket(byte [] buffer) {
     int temp = inPacketLength-2;
     for(int i=0;i<temp;i++) buffer[i] = inPacket[i+1];
     inPacketLength = 0;
@@ -75,7 +78,8 @@ public class LLCReliableHandler extends PacketHandler {
   /** Check if a packet is available.
    * @return true if a packet is available, else false
    */
-  public boolean isPacketAvailable() {
+  @Override
+public boolean isPacketAvailable() {
     if (inPacketLength > 0) return true;
     while (lowerHandler.isPacketAvailable()) {
       int len = lowerHandler.receivePacket(inPacket);

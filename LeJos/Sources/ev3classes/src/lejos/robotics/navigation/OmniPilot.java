@@ -291,12 +291,14 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		spinningMode = false;
 	}
 	
+	@Override
 	public synchronized void forward() {
 		spinningMode = false;
 		setSpeed(linearSpeed, 0, angularSpeed);
 		startMotors();
 	}
 
+	@Override
 	public synchronized void backward() {
 		spinningMode = false;
 		setSpeed(linearSpeed, 180, angularSpeed);
@@ -333,6 +335,7 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 //		startMotors();
 	}
 	
+	@Override
 	public synchronized void stop() {
 		motor1.stop();
 		motor2.stop();
@@ -340,15 +343,18 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		spinningMode = false;
 	}
 
+	@Override
 	public boolean isMoving() {
 		return motor1.isMoving() || motor2.isMoving() || motor3.isMoving();
 	}
 
+	@Override
 	public void setLinearSpeed(double speed) {
 		linearSpeed = Math.abs((float)speed);
 		reverse = speed<0;
 	}
 
+	@Override
 	public double getLinearSpeed() {
 		return linearSpeed;
 	}
@@ -371,6 +377,7 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		return speedVectorDirection;
 	}
 
+	@Override
 	public double getMaxLinearSpeed() {
 		// it is generally assumed, that the maximum accurate speed of Motor is
 		// 100 degree/second * Voltage
@@ -383,14 +390,17 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		// max degree/second divided by degree/unit = unit/second
 	}
 
+	@Override
 	public void setAngularSpeed(double speed) {
 		angularSpeed = (float)speed;
 	}
 	
+	@Override
 	public double getAngularSpeed() {
 		return angularSpeed;
 	}
 
+	@Override
 	public double getMaxAngularSpeed() {
 		// it is generally assumed, that the maximum accurate speed of Motor is
 		// 100 degree/second * Voltage
@@ -453,6 +463,7 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 				Thread.yield();
 	}
 	
+	@Override
 	public void travel(double distance) {
 		travel(distance, 0, false);
 	}
@@ -469,6 +480,7 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		travel(distance, direction, false);
 	}
 	
+	@Override
 	public void travel(double distance, boolean immediateReturn) {
 		travel(distance, 0, immediateReturn);
 	}
@@ -486,10 +498,12 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		move(distance, direction, 0, immediateReturn);
 	}
 
+	@Override
 	public void rotate(double angle) {
 		rotate(angle, false);
 	}
 
+	@Override
 	public void rotate(double angle, boolean immediateReturn) {
 		if (angularSpeed==0) angularSpeed = 90;
 		move(0, 0, angle, immediateReturn);
@@ -573,10 +587,12 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		arc(radius,angle,immediateReturn);
 	}
 	
+	@Override
 	public void travelArc(double radius, double distance) {
 		travelArc(radius, distance, false);
 	}
 
+	@Override
 	public void travelArc(double radius, double distance, boolean immediateReturn) {
 		travelArc(radius, distance, 0, false);
 	}
@@ -611,6 +627,7 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		arc(radius, angle, direction, immediateReturn);
 	}
 
+	@Override
 	public void arc(double radius, double angle) {
 		arc(radius, angle, 0, false);
 	}
@@ -629,6 +646,7 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 		arc(radius, angle, direction, false);
 	}
 		
+	@Override
 	public void arc(double radius, double angle, boolean immediateReturn) {
 		arc(radius,angle,0,immediateReturn);
 	}
@@ -771,30 +789,37 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 	}
 
 	
+	@Override
 	public void arcBackward(double radius) {
 		arc(radius, Double.NEGATIVE_INFINITY, true);
 	}
 
+	@Override
 	public void arcForward(double radius) {
 		arc(radius, Double.POSITIVE_INFINITY, true);
 	}
 
+	@Override
 	public double getMinRadius() {
 		return minTurnRadius;
 	}
 
+	@Override
 	public void setMinRadius(double radius) {
 		minTurnRadius = radius;
 	}
 
+	@Override
 	public void addMoveListener(MoveListener listener) {
 		listeners.add(listener);
 	}
 
+	@Override
 	public Move getMovement() {
 		return new Move(previousMoveType, getTravelDistance() - previousDistance, getAngle() - previousAngle, isMoving());
 	}
 
+	@Override
 	public void rotationStarted(RegulatedMotor motor, int tachoCount, boolean stalled, long timeStamp) {
 		// Do nothing. private move() method handles notifications. 
 	}
@@ -802,6 +827,7 @@ private void initMatrices(boolean centralWheelForward, boolean motorReverse) {
 	/**
 	 * Notify the MoveListeners when a move is completed.
 	 */
+	@Override
 	public void rotationStopped(RegulatedMotor motor, int tachoCount, boolean stalled, long timeStamp) {
 		if(!motor1.isMoving() && !motor2.isMoving() && !motor3.isMoving()) {
 			float newDistance = getTravelDistance();

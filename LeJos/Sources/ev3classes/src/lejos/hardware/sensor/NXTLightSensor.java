@@ -95,12 +95,14 @@ public class NXTLightSensor extends AnalogSensor implements LampController, Sens
         init();
     }
     
+	@Override
 	public void setFloodlight(boolean floodlight)
 	{
 	        switchType(floodlight ? TYPE_LIGHT_ACTIVE : TYPE_LIGHT_INACTIVE, SWITCH_DELAY);
 	        this.floodlight = floodlight;
 	}
 	
+	@Override
 	public boolean setFloodlight(int color) {
 		if(color == Color.RED) {
 		    setFloodlight(true);
@@ -111,6 +113,7 @@ public class NXTLightSensor extends AnalogSensor implements LampController, Sens
 		} else return false;
 	}
 
+	@Override
 	public int getFloodlight() {
 		if(this.floodlight == true)
 			return Color.RED;
@@ -118,6 +121,7 @@ public class NXTLightSensor extends AnalogSensor implements LampController, Sens
 			return Color.NONE;
 	}
 
+	@Override
 	public boolean isFloodlightOn() {
 		return this.floodlight;
 	}

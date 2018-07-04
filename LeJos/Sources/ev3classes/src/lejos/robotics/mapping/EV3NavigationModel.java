@@ -202,6 +202,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	 *
 	 */
 	class Receiver implements Runnable {
+		@Override
 		public void run() {
 			//NXTCommConnector connector = Bluetooth.getNXTCommConnector();
 			NXTCommConnector connector = new SocketConnector();
@@ -490,6 +491,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	/**
 	 * Called when the pilot starts a move
 	 */
+	@Override
 	public void moveStarted(Move event, MoveProvider mp) {
 		if (!sendMoveStart) return;
 		try {
@@ -506,6 +508,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	/**
 	 * Called when a move stops
 	 */
+	@Override
 	public void moveStopped(Move event, MoveProvider mp) {
 		if (!sendMoveStop) return;
 		try {
@@ -529,6 +532,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	 * Called when a feature is detected.
 	 * Only range features currently supported
 	 */
+	@Override
 	public void featureDetected(Feature feature, FeatureDetector detector) {
 		if (dos == null) return;
 		if (!(feature instanceof RangeFeature)) return;
@@ -551,6 +555,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	/**
 	 * Send a waypoint generated on the NXT to the PC
 	 */
+	@Override
 	public void addWaypoint(Waypoint wp) {
 		try {
 			synchronized(receiver) {
@@ -565,6 +570,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	/**
 	 * Called when a waypoint has been reached
 	 */
+	@Override
 	public void atWaypoint(Waypoint waypoint, Pose pose, int sequence) {
 		try {
 			synchronized(receiver) {
@@ -579,6 +585,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	/**
 	 * Called when a path has been completed
 	 */
+	@Override
 	public void pathComplete(Waypoint waypoint, Pose pose, int sequence) {
 		try {
 			synchronized(receiver) {
@@ -593,6 +600,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	/**
 	 * Called when a path has been interrupted
 	 */
+	@Override
 	public void pathInterrupted(Waypoint waypoint, Pose pose, int sequence) {
 		try {
 			synchronized(receiver) {
@@ -607,6 +615,7 @@ public class EV3NavigationModel extends NavigationModel implements MoveListener,
 	/**
 	 * Called when a path finder has finished generating a path
 	 */
+	@Override
 	public void pathGenerated() {
 		try {
 			synchronized(receiver) {

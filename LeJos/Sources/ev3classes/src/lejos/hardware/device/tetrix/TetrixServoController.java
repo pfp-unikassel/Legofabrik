@@ -133,7 +133,8 @@ public class TetrixServoController extends I2CSensor {
         // We could use the PWM Enable value 0xAA in REG_PWM_ENABLE to keep the controller from timing
         // out but the servos would still be powered if the EV3 faulted, was shutdown, etc. 
         Thread t1 = new Thread(new Runnable(){
-            public void run() {
+            @Override
+			public void run() {
                 byte[] buf = new byte[1];
                 for (;;){
                     getData(REG_VERSION, buf, 0);
@@ -201,15 +202,15 @@ public class TetrixServoController extends I2CSensor {
     }
     
     synchronized int getPulseWidth (int channel) {
-        return (int)((float)servoParams[SRVOPARAM_PULSEBYTE][channel] / PULSE_RESOLUTION + CONTROLLER_PULSE_RANGE_LOW);
+        return (int)(servoParams[SRVOPARAM_PULSEBYTE][channel] / PULSE_RESOLUTION + CONTROLLER_PULSE_RANGE_LOW);
     }
     
     synchronized float getAngle(int channel) {
         float servoResolution = (servoParams[SRVOPARAM_PULSEWIDTH_RANGE_HIGH][channel] 
             - (float)servoParams[SRVOPARAM_PULSEWIDTH_RANGE_LOW][channel]) / servoParams[SRVOPARAM_ROTATION_RANGE][channel];
-        float angle = (servoParams[SRVOPARAM_PULSEBYTE][channel] - (float)servoParams[SRVOPARAM_PULSEWIDTH_RANGE_LOW][channel] 
+        float angle = (servoParams[SRVOPARAM_PULSEBYTE][channel] - servoParams[SRVOPARAM_PULSEWIDTH_RANGE_LOW][channel] 
             * PULSE_RESOLUTION 
-            + (float)CONTROLLER_PULSE_RANGE_LOW * PULSE_RESOLUTION) / (servoResolution * PULSE_RESOLUTION);
+            + CONTROLLER_PULSE_RANGE_LOW * PULSE_RESOLUTION) / (servoResolution * PULSE_RESOLUTION);
         return angle;
     }
     

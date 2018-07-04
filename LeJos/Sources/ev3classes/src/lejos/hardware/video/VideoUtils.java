@@ -4,6 +4,6 @@ public class VideoUtils
 {
     public static int fourcc(char a, char b, char c, char d)
     {
-        return ((int)a & 0xff) | (((int)b & 0xff) << 8) | (((int)c & 0xff) << 16) | (((int)d & 0xff) << 24);
+        return (a & 0xff) | ((b & 0xff) << 8) | ((c & 0xff) << 16) | ((d & 0xff) << 24);
     }
 }

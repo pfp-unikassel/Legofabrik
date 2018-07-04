@@ -171,18 +171,18 @@ public class LSC extends I2CSensor {
 		byte h_byte;
 		byte l_byte;		
 		
-		sendData((int)this.SPI_PORT, (byte)0x00);
-		getData((int)this.SPI_PORT, bufReadResponse, 1);
+		sendData(this.SPI_PORT, (byte)0x00);
+		getData(this.SPI_PORT, bufReadResponse, 1);
 		
 		while(bufReadResponse[0] != 99){
-			sendData((int)this.SPI_PORT, (byte)0xFF);
-			sendData((int)this.SPI_PORT, (byte)0xFF);
-			sendData((int)this.SPI_PORT, (byte)0x7E);			
+			sendData(this.SPI_PORT, (byte)0xFF);
+			sendData(this.SPI_PORT, (byte)0xFF);
+			sendData(this.SPI_PORT, (byte)0x7E);			
 
-			sendData((int)this.SPI_PORT, (byte)0x00);
-			getData((int)this.SPI_PORT, bufReadResponse, 1);
+			sendData(this.SPI_PORT, (byte)0x00);
+			getData(this.SPI_PORT, bufReadResponse, 1);
 			
-			if((int)bufReadResponse[0] == 99){
+			if(bufReadResponse[0] == 99){
 				break;
 			}
 		}
@@ -200,10 +200,10 @@ public class LSC extends I2CSensor {
 		l_byte = (byte)channel;
 	     
 	    //High Byte Write
-		sendData((int)this.SPI_PORT, h_byte);
+		sendData(this.SPI_PORT, h_byte);
 
 	    //Low Byte Write
-		sendData((int)this.SPI_PORT, l_byte);
+		sendData(this.SPI_PORT, l_byte);
 	}
 	
 	/**
@@ -218,9 +218,9 @@ public class LSC extends I2CSensor {
 		l_byte = (byte)channel;
 	     
 	    //High Byte Write
-		sendData((int)this.SPI_PORT, h_byte);
+		sendData(this.SPI_PORT, h_byte);
 
 	    //Low Byte Write
-		sendData((int)this.SPI_PORT, l_byte);		
+		sendData(this.SPI_PORT, l_byte);		
 	}
 }

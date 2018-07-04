@@ -65,6 +65,7 @@ public abstract class Line2D implements Shape, Cloneable {
 		/**
 		 * Get the bounds of the line as a Rectangle2D
 		 */
+		@Override
 		public Rectangle2D getBounds2D() {
             float x, y, w, h;
             if (x1 < x2) {
@@ -205,6 +206,7 @@ public abstract class Line2D implements Shape, Cloneable {
 		/**
 		 * Get the bounds of the line as a Rectangle2D
 		 */
+		@Override
 		public Rectangle2D getBounds2D() {
             double x, y, w, h;
             if (x1 < x2) {
@@ -302,23 +304,28 @@ public abstract class Line2D implements Shape, Cloneable {
     	setLine(line.getX1(), line.getY1(), line.getX2(), line.getY2());
     }
     
-    public boolean contains(double x, double y) {
+    @Override
+	public boolean contains(double x, double y) {
         return false;
     }
     
+	@Override
 	public boolean contains(Point2D p) {
 		return false;
 	}
 
+	@Override
 	public boolean contains(double x, double y, double w, double h) {
 		return false;
 	}
 
+	@Override
 	public boolean contains(Rectangle2D r) {
 		return false;
 	}
 	
-    public boolean intersects(double x, double y, double w, double h) {
+    @Override
+	public boolean intersects(double x, double y, double w, double h) {
         return intersects(new Rectangle2D.Double(x, y, w, h));
     }
     
@@ -372,6 +379,7 @@ public abstract class Line2D implements Shape, Cloneable {
                  relativeCCW(x3, y3, x4, y4, x2, y2) <= 0));
     }
 
+	@Override
 	public RectangleInt32 getBounds() {
 		return getBounds2D().getBounds();
 	}
@@ -450,7 +458,8 @@ public abstract class Line2D implements Shape, Cloneable {
         return relativeCCW(getX1(), getY1(), getX2(), getY2(), px, py);
     }
 
-    public boolean intersects(Rectangle2D r) {
+    @Override
+	public boolean intersects(Rectangle2D r) {
         return r.intersectsLine(getX1(), getY1(), getX2(), getY2());
     }
 

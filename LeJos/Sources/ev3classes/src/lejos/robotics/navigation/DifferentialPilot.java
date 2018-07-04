@@ -1,8 +1,6 @@
 package lejos.robotics.navigation;
 
 import lejos.robotics.RegulatedMotor;
-import lejos.robotics.RegulatedMotorListener;
-
 import java.util.ArrayList;
 
 /**
@@ -203,6 +201,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 * @param travelSpeed
 	 *            : speed in distance (wheel diameter)units/sec
 	 */
+	@Override
 	public void setLinearSpeed(final double travelSpeed) {
 		if (!isMoving()) {
 			_robotTravelSpeed = (float) travelSpeed;
@@ -211,13 +210,14 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		} else {
 			float speedRatio = (float) travelSpeed / _robotTravelSpeed;
 			_left.startSynchronization();
-			_left.setSpeed((int) Math.round(_left.getSpeed() * speedRatio));
-			_right.setSpeed((int) Math.round(_right.getSpeed() * speedRatio));
+			_left.setSpeed(Math.round(_left.getSpeed() * speedRatio));
+			_right.setSpeed(Math.round(_right.getSpeed() * speedRatio));
 			_left.endSynchronization();
 			_robotTravelSpeed = (float) travelSpeed;
 		}
 	}
 
+	@Override
 	public double getLinearSpeed() {
 		return _robotTravelSpeed;
 	}
@@ -245,6 +245,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		_left.endSynchronization();
 	}
 
+	@Override
 	public double getMaxLinearSpeed() {
 		return Math.min(_left.getMaxSpeed(), _right.getMaxSpeed())
 				/ Math.max(_leftDegPerDistance, _rightDegPerDistance);
@@ -256,12 +257,14 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 * 
 	 * @param rotateSpeed
 	 */
+	@Override
 	public void setAngularSpeed(double rotateSpeed) {
 		_robotRotateSpeed = (float) rotateSpeed;
 		setSpeed((int) Math.round(rotateSpeed * _leftTurnRatio),
 				(int) Math.round(rotateSpeed * _rightTurnRatio));
 	}
 
+	@Override
 	public double getAngularSpeed() {
 		return _robotRotateSpeed;
 	}
@@ -272,6 +275,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		// max degree/second divided by degree/unit = unit/second
 	}
 
+	@Override
 	public double getMaxAngularSpeed() {
 		return getMaxRotateSpeed();
 	}
@@ -279,6 +283,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	/**
 	 * Starts the NXT robot moving forward.
 	 */
+	@Override
 	public void forward() {
 		waitForActiveMove();
 		_type = Move.MoveType.TRAVEL;
@@ -299,6 +304,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	/**
 	 * Starts the NXT robot moving backward.
 	 */
+	@Override
 	public void backward() {
 		waitForActiveMove();
 		_type = Move.MoveType.TRAVEL;
@@ -340,6 +346,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		movementActive();
 	}
 
+	@Override
 	public void rotateLeft() {
 		waitForActiveMove();
 		_type = Move.MoveType.ROTATE;
@@ -359,6 +366,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		movementActive();
 	}
 
+	@Override
 	public void rotateRight() {
 		waitForActiveMove();
 		_type = Move.MoveType.ROTATE;
@@ -388,6 +396,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 *            The wanted angle of rotation in degrees. Positive angle rotate
 	 *            left (anti-clockwise), negative right.
 	 */
+	@Override
 	public void rotate(final double angle) {
 		rotate(angle, false);
 	}
@@ -404,6 +413,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 * @param immediateReturn
 	 *            If true this method returns immediately.
 	 */
+	@Override
 	public void rotate(final double angle, final boolean immediateReturn) {
 		waitForActiveMove();
 		_type = Move.MoveType.ROTATE;
@@ -429,6 +439,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	/**
 	 * Stops the NXT robot. side effect: inform listeners of end of movement
 	 */
+	@Override
 	public void stop() {
 		
 //		System.out.println("stop called");
@@ -465,6 +476,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 *            The distance to move. Unit of measure for distance must be
 	 *            same as wheelDiameter and trackWidth.
 	 **/
+	@Override
 	public void travel(final double distance) {
 		travel(distance, false);
 	}
@@ -482,6 +494,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 * @param immediateReturn
 	 *            If true this method returns immediately.
 	 */
+	@Override
 	public void travel(final double distance, final boolean immediateReturn) {
 		waitForActiveMove();
 		_type = Move.MoveType.TRAVEL;
@@ -515,6 +528,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 			waitComplete();
 	}
 
+	@Override
 	public void arcForward(final double radius) {
 		waitForActiveMove();
 		_type = Move.MoveType.ARC;
@@ -541,6 +555,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		movementActive();
 	}
 
+	@Override
 	public void arcBackward(final double radius) {
 		waitForActiveMove();
 		_type = Move.MoveType.ARC;
@@ -567,10 +582,12 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		movementActive();
 	}
 
+	@Override
 	public void arc(final double radius, final double angle) {
 		arc(radius, angle, false);
 	}
 
+	@Override
 	public void arc(final double radius, final double angle,
 			final boolean immediateReturn) {
 		if (radius == Double.POSITIVE_INFINITY
@@ -582,10 +599,12 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 														// called by steer()
 	}
 
+	@Override
 	public void travelArc(double radius, double distance) {
 		travelArc(radius, distance, false);
 	}
 
+	@Override
 	public void travelArc(double radius, double distance,
 			boolean immediateReturn) {
 		waitForActiveMove();
@@ -677,6 +696,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 *            If positive, the left side of the robot is on the inside of
 	 *            the turn. If negative, the left side is on the outside.
 	 */
+	@Override
 	public void steer(double turnRate) {
 		waitForActiveMove();
 		_type = Move.MoveType.ARC;
@@ -713,6 +733,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 * 
 	 * @param turnRate
 	 */
+	@Override
 	public void steerBackward(final double turnRate) {
 		waitForActiveMove();
 		if (turnRate == 0) {
@@ -985,6 +1006,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	/**
 	 * @return true if the NXT robot is moving.
 	 **/
+	@Override
 	public boolean isMoving() {
 		return _left.isMoving() || _right.isMoving();
 	}
@@ -1040,10 +1062,12 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 	 * @param radius
 	 *            in degrees
 	 */
+	@Override
 	public void setMinRadius(double radius) {
 		_turnRadius = (float) radius;
 	}
 
+	@Override
 	public double getMinRadius() {
 		return _turnRadius;
 	}
@@ -1067,10 +1091,12 @@ public class DifferentialPilot implements  LineFollowingMoveController {
 		return /* _parity * */(((getRightCount() - _rightTC) / _rightTurnRatio) - ((getLeftCount() - _leftTC) / _leftTurnRatio)) / 2.0f;
 	}
 
+	@Override
 	public void addMoveListener(MoveListener m) {
 		_listeners.add(m);
 	}
 
+	@Override
 	public Move getMovement() {
 		return new Move(_type, getMovementIncrement(), getAngleIncrement(),
 				isMoving());
@@ -1093,6 +1119,7 @@ public class DifferentialPilot implements  LineFollowingMoveController {
             setDaemon(true);		    
 		}
 		
+		@Override
 		public synchronized void run() {
 			while (more) {
 				if (_moveActive)

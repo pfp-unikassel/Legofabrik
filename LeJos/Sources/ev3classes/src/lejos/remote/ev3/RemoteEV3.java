@@ -85,7 +85,8 @@ public class RemoteEV3 implements EV3 {
 		}
 	}
 	
-    public Audio getAudio() {
+    @Override
+	public Audio getAudio() {
         try {
             return new RemoteAudio(rmiEV3.getAudio());
         } catch (RemoteException e) {
@@ -93,11 +94,13 @@ public class RemoteEV3 implements EV3 {
         }
     }
     
-    public Video getVideo() {
+    @Override
+	public Video getVideo() {
         // TODO: Should this be remote?
         return null;
     }
     
+	@Override
 	public TextLCD getTextLCD() {
 		try {
 			return new RemoteTextLCD(rmiEV3.getTextLCD());

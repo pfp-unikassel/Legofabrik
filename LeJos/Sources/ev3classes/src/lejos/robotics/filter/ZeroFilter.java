@@ -17,6 +17,7 @@ public class ZeroFilter extends AbstractFilter {
 		this.zeroValue = zeroValue;
 	}
 
+	@Override
 	public void fetchSample(float sample[], int offset) {
 		super.fetchSample(sample, offset);
 		for(int i=0;i<sampleSize();i++) {

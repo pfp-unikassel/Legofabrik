@@ -20,6 +20,7 @@ public class RemoteNXTBattery implements Power, NXTProtocol {
 	 * The NXT uses 6 batteries of 1500 mV each.
 	 * @return Battery voltage in mV. ~9000 = full.
 	 */
+	@Override
 	public int getVoltageMilliVolt() {
 		/*
 	     * calculation from LEGO firmware
@@ -35,6 +36,7 @@ public class RemoteNXTBattery implements Power, NXTProtocol {
 	 * The NXT uses 6 batteries of 1.5 V each.
 	 * @return Battery voltage in Volt. ~9V = full.
 	 */
+	@Override
 	public float getVoltage() {
 	   return (float)(getVoltageMilliVolt() * 0.001);
 	}

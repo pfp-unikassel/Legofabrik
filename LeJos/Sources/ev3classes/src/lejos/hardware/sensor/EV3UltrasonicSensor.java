@@ -154,7 +154,7 @@ private class DistanceMode implements SampleProvider, SensorMode {
     public void fetchSample(float[] sample, int offset) {
       switchMode(MODE, SWITCHDELAY);
       int raw = port.getShort();
-      sample[offset] = (raw == 2550) ? Float.POSITIVE_INFINITY : (float) raw
+      sample[offset] = (raw == 2550) ? Float.POSITIVE_INFINITY : raw
           * toSI;
     }
 

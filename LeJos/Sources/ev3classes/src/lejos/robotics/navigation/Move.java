@@ -247,6 +247,7 @@ public class Move implements Transmittable {
 		return (float)((angle * 2 * Math.PI * turnRadius) / 360);
 	}
 
+	@Override
 	public void dumpObject(DataOutputStream dos) throws IOException {
 		dos.writeByte(moveType.ordinal());
 		dos.writeFloat(travelSpeed);
@@ -257,6 +258,7 @@ public class Move implements Transmittable {
 		dos.flush();
 	}
 
+	@Override
 	public void loadObject(DataInputStream dis) throws IOException {
 		moveType = MoveType.values()[dis.readByte()];
 		travelSpeed = dis.readFloat();

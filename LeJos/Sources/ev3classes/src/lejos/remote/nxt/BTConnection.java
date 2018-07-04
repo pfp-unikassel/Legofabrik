@@ -2,8 +2,6 @@ package lejos.remote.nxt;
 
 import java.io.IOException;
 
-import com.sun.jna.LastErrorException;
-
 import lejos.internal.io.NativeSocket;
 
 public class BTConnection extends NXTConnection {

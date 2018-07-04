@@ -116,7 +116,7 @@ public class NXTColorSensor extends AnalogSensor implements SensorConstants,  La
           //TODO: Is this the correct way to normalize this output?
           // Normalize to 3.3 the ref voltage on pin 6 on the NXT
           for(int i = 0; i < sampleSize; i++)
-              sample[offset+i] = (float)ADRaw[startOffset+i]/3.3f; 
+              sample[offset+i] = ADRaw[startOffset+i]/3.3f; 
         }
 
         @Override
@@ -229,13 +229,15 @@ public class NXTColorSensor extends AnalogSensor implements SensorConstants,  La
         port.getFloats(ADRaw, 0, ADRaw.length);
     }
 
-    public void setFloodlight(boolean floodlight)
+    @Override
+	public void setFloodlight(boolean floodlight)
     {
         setFloodlight(floodlight ? Color.RED : Color.NONE);
     }
 
 
-    public int getFloodlight()
+    @Override
+	public int getFloodlight()
     {
         switch(currentType)
         {
@@ -254,29 +256,31 @@ public class NXTColorSensor extends AnalogSensor implements SensorConstants,  La
         }
     }
 
-    public boolean isFloodlightOn()
+    @Override
+	public boolean isFloodlightOn()
     {
         return (getFloodlight() != Color.NONE);
     }
 
-    public boolean setFloodlight(int color)
+    @Override
+	public boolean setFloodlight(int color)
     {
         switch (color)
         {
             case Color.RED:
-                switchType(NXTColorSensor.TYPE_COLORRED, SWITCH_DELAY);
+                switchType(SensorConstants.TYPE_COLORRED, SWITCH_DELAY);
                 break;
             case Color.BLUE:
-                switchType(NXTColorSensor.TYPE_COLORBLUE, SWITCH_DELAY);
+                switchType(SensorConstants.TYPE_COLORBLUE, SWITCH_DELAY);
                 break;
             case Color.GREEN:
-                switchType(NXTColorSensor.TYPE_COLORGREEN, SWITCH_DELAY);
+                switchType(SensorConstants.TYPE_COLORGREEN, SWITCH_DELAY);
                 break;
             case Color.NONE:
-                switchType(NXTColorSensor.TYPE_COLORNONE, SWITCH_DELAY);
+                switchType(SensorConstants.TYPE_COLORNONE, SWITCH_DELAY);
                 break;
             case Color.WHITE:
-                switchType(NXTColorSensor.TYPE_COLORFULL, SWITCH_DELAY);
+                switchType(SensorConstants.TYPE_COLORFULL, SWITCH_DELAY);
                 break;
             default:
                 return false;
@@ -289,7 +293,8 @@ public class NXTColorSensor extends AnalogSensor implements SensorConstants,  La
      * of about 1 cm.
      * @return The color id under the sensor.
      */
-    public int getColorID()
+    @Override
+	public int getColorID()
     {
         switchType(TYPE_COLORFULL, SWITCH_DELAY);
         readFull();
@@ -306,7 +311,7 @@ public class NXTColorSensor extends AnalogSensor implements SensorConstants,  La
       @Override
       public void fetchSample(float[] sample, int offset)
       {
-          sample[offset] = (float) getColorID();
+          sample[offset] = getColorID();
       }
   
   

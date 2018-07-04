@@ -59,7 +59,8 @@ public class GyroscopeAdapter implements Gyroscope {
    * Racalibrates the gyroscope for offset error. <br>
    * Calibration takes a second during which the gyroscope must remain motionless.
    */
-  public void recalibrateOffset() {
+  @Override
+public void recalibrateOffset() {
     calibrator.startCalibration();
     Delay.msDelay(1000);
     calibrator.stopCalibration();
