@@ -9,5 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Mitarbeiter/Documents/new/resources/javafx_sdk-2_0_3-windows-x64.zip"/>
+	<classpathentry kind="src" path="/ev3classes"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

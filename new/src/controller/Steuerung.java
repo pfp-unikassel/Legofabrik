@@ -479,7 +479,7 @@ public class Steuerung {
 		return brick.getPower().getBatteryCurrent();
 	}
 	
-	public float getMotorPowerUse(RemoteEV3 brick) {
+	public float getMotorPowerUse(RemoteEV3 brick) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
 		System.out.println(brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent()+ "Amp/s Akku");
 
