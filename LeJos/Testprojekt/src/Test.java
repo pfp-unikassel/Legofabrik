@@ -12,20 +12,25 @@ import stations.Airarms;
 public class Test {
 	public static void main (String args []) throws RemoteException, MalformedURLException, NotBoundException{
 		
-		RemoteEV3 b105 = new RemoteEV3 ("192.168.0.111");
+		RemoteEV3 b105 = new RemoteEV3 ("192.168.0.115");
 		
-		RMIRegulatedMotor b105a = b105.createRegulatedMotor("A", 'M');
-		RMIRegulatedMotor b105b = b105.createRegulatedMotor("B", 'M');
-		RMIRegulatedMotor b105c = b105.createRegulatedMotor("C", 'M');
-		RMIRegulatedMotor b105d = b105.createRegulatedMotor("D", 'M');
-		
-		Airarms air = new Airarms(b105a,b105b,b105c,b105d);
-		
-		air.armUp();
+		 RMIRegulatedMotor table = b105.createRegulatedMotor("A", 'M');
+		 RMIRegulatedMotor armVertical  = b105.createRegulatedMotor("B", 'M');
+		 RMIRegulatedMotor armHorizontal = b105.createRegulatedMotor("C", 'M');
+		 RMIRegulatedMotor tower = b105.createRegulatedMotor("D", 'M');
 		
 		 
+//		 tower.rotate(360,false);
+		 
+//		 table.rotate(50, false); 										// True = programm laeuft direkt weiter, false wartet er bis er feritg ist 
+		 armHorizontal.rotate(-90 , false);
+		 armVertical.rotate(50 , false);
 		 
 		
 		
+		table.close();
+		armHorizontal.close();
+		armVertical.close();
+		tower.close();
 	}
 }
