@@ -22,7 +22,6 @@ public class Sensordeamon extends Thread {
 	private RemoteEV3 b113;
 	private RMIRegulatedMotor m;
 
-
 	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107, RemoteEV3 b113) { // ad Motor m vom
 																										// greifarm
 		setDaemon(true); // makes this thread a deamon, closes hisself after the main thread
@@ -31,13 +30,16 @@ public class Sensordeamon extends Thread {
 		this.b107 = b107;
 		this.b113 = b113;
 		this.s = s;
-		//this.m = b;
+		// this.m = b;
 	}
 
 	@Override
 	public void run() {
 
-		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor",null); // "Distance" mode instead null
+		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor", null); // "Distance"
+																														// mode
+																														// instead
+																														// null
 		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
@@ -58,13 +60,15 @@ public class Sensordeamon extends Thread {
 		float[] Sensorarray4 = new float[5];
 		float[] Sensorarray5 = new float[5];
 		float[] Sensorarray6 = new float[5];
-		
-//		try {
-//			m.setStallThreshold(1, 100); // int fehler in zeit and Motor anpassen
-//		} catch (RemoteException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} 
+
+		int[] filterArray = new int[15];
+
+		// try {
+		// m.setStallThreshold(1, 100); // int fehler in zeit and Motor anpassen
+		// } catch (RemoteException e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
 
 		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas erkennt
 
@@ -148,26 +152,27 @@ public class Sensordeamon extends Thread {
 				s.resetSensorStatus();
 			}
 
-//			if (Sensorarray6[0] == 1) {
-//				s.b1131Fired(true);
-//				System.out.println("Sensor b113 fired");
-//				Sensorarray6[0] = 0;
-//				s.resetSensorStatus();
-//			} else {
-//				s.b1131Fired(false);
-//			}
+			// if (Sensorarray6[0] == 1) {
+			// s.b1131Fired(true);
+			// System.out.println("Sensor b113 fired");
+			// Sensorarray6[0] = 0;
+			// s.resetSensorStatus();
+			// } else {
+			// s.b1131Fired(false);
+			// }
 
-//			try {
-//				if (m.isStalled()) {
-//					s.armIsStalled(true);
-//				} else {
-//					s.armIsStalled(false);
-//				}
-//			} catch (RemoteException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//
-//			}
+			// try {
+			// if (m.isStalled()) {
+			// s.armIsStalled(true);
+			// } else {
+			// s.armIsStalled(false);
+			// }
+			// } catch (RemoteException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			//
+			// }
+
 		}
 	}
 
@@ -178,6 +183,35 @@ public class Sensordeamon extends Thread {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	public int filterIds(int[] filterArray) { // TODO: Make sure there are no 0 coming, there is not allowed to have morem the 2 differten errors at the beginning
+
+		int firstId = filterArray[0];
+		int firstCounter = 1;
+		int secondId = 0;
+		int secondCounter = 0;
+		
+		for (int i = 1; i <= 7; i++) {
+
+			if(filterArray[i] == 0) {
+			if (firstId == filterArray[i]) {
+				firstCounter++;
+			} else { 											// wenn id unleich 1. Id
+				 secondId = filterArray[i];					// setze 2 id gleich diese Id
+				if (secondId == filterArray[i]) {				
+					secondCounter++;
+				} 
+
+			}
+		}
+		}
+		
+		if(firstCounter > secondCounter) {
+			return firstId;
+		}else {
+			return secondId;
 		}
 	}
 }
