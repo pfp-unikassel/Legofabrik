@@ -18,9 +18,9 @@ public class test2 {
 		// Positionen der Sensoren
 		// rfid1 = Anlieferung Kisten Serial.No: [B@421faab1
 		RFIDSensor rfid1 = new RFIDSensor(ev3.getPort("S1"));
-		RFIDSensor rfid2 = new RFIDSensor(ev3.getPort("S2"));
-		RFIDSensor rfid3 = new RFIDSensor(ev3.getPort("S3"));
-		RFIDSensor rfid4 = new RFIDSensor(ev3.getPort("S4"));
+//		RFIDSensor rfid2 = new RFIDSensor(ev3.getPort("S2"));
+//		RFIDSensor rfid3 = new RFIDSensor(ev3.getPort("S3"));
+//		RFIDSensor rfid4 = new RFIDSensor(ev3.getPort("S4"));
 
 		// rfid1.wakeUp();
 		// rfid1.startFirmware();
@@ -31,9 +31,9 @@ public class test2 {
 		// [B@5cb0d902
 
 		System.out.println(rfid1.getSerialNo()); // eindeutige Erkennung
-		System.out.println(rfid2.getSerialNo()); // eindeutige Erkennung
-		System.out.println(rfid3.getSerialNo()); // eindeutige Erkennung
-		System.out.println(rfid4.getSerialNo()); // eindeutige Erkennung
+//		System.out.println(rfid2.getSerialNo()); // eindeutige Erkennung
+//		System.out.println(rfid3.getSerialNo()); // eindeutige Erkennung
+//		System.out.println(rfid4.getSerialNo()); // eindeutige Erkennung
 
 		long id = 0;
 
@@ -45,6 +45,7 @@ public class test2 {
 
 				id = rfid1.readTransponderAsLong(true);
 				System.out.println(id);
+				System.out.println("TEST");
 
 			}
 		}
