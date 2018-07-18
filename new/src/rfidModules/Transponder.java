@@ -26,9 +26,29 @@ public class Transponder {
 	
 	public void createDefaultChildren() { // TODO: add more default boxes and Baskets
 		
-		addChild(new Box(id, destination, destination));  // default boxes and Baskets
 		
+		//baskets
+//				addChild(new Basket(5l, "origin", "destination", "owner"));  // default basket
+				addChild(new Basket(1042050255873l, "Berlin", "Berlin"));
+				addChild(new Basket(1041429498881l, "Berlin", "Berlin"));
+				addChild(new Basket(327701823605l, "Berlin", "Berlin"));
+				
+				//boxes
+//				addChild(new Box(1111111l , "origin", "destination"));  // default box
+				addChild(new Box(954362363984l , "Dortmund", "Dortmund")); 
+				addChild(new Box(141875150928l , "Dortmund", "Dortmund")); 
+				addChild(new Box(301613383760l , "Dortmund", "Dortmund")); 
+				addChild(new Box(477723820112l , "Berlin", "Berlin")); 
+				addChild(new Box(120788549712l , "Berlin", "Berlin")); 
+				addChild(new Box(473009422416l , "Kassel", "Kassel")); 
+				addChild(new Box(825230295120l , "Kassel", "Kassel")); 
+				
+	}
+	
+	public void createFabicChildren(){ // same boxes different baskets
 		
+		addChild(new Basket(2l, "fabric", null ));
+
 	}
 
 	public void addChild(Transponder t) {

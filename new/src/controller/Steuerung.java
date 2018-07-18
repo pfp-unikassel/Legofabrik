@@ -572,17 +572,32 @@ public class Steuerung {
 	public void startSzenario2() {
 
 //		airarms.turnArm();
-		airarms.armUp();
-		airarms.grabTurn();
-		airarms.grabOpen();
+//		airarms.armUp();
+//		airarms.grabTurn();
+//		airarms.grabOpen();
+		try {
+			deliverylane.openGateB();
+			deliverylane.startLineToArms(false);
+			deliverylane.startLineToEnd(false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	public void startSzenario3() {
 
-		airarms.armDown();
-		airarms.grabClose();
+//		airarms.armDown();
+//		airarms.grabClose();
 //		airarms.turnTower();
+		try {
+			deliverylane.stopLineToArms();
+			deliverylane.stopLineToEnd();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
