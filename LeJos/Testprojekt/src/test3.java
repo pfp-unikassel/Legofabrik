@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
+import lejos.remote.ev3.RMISampleProvider;
 import lejos.remote.ev3.RemoteEV3;
 
 public class test3 {
@@ -25,42 +26,28 @@ public class test3 {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-			
-		 b106a = b106.createRegulatedMotor("A", 'L');
-		 b106b = b106.createRegulatedMotor("B", 'L');
-		 b106d = b106.createRegulatedMotor("D", 'L');
-		 
-		 
-		 b106a.backward();
-//		 b106d.forward();
-//		 b106b.forward();
-		 
-		 b106port1 = b106.getPort("S1");
-		 b1061 = new EV3TouchSensor (b106port1); 
-	 
-		 
-		 float [] Sensorarray = new float [b1061.sampleSize()];
 		
+		b106b = b106.createRegulatedMotor("B", 'L');
+		
+		b106b.forward();
+		
+		
+		
+		
+//		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
+//	
+//		 float[] Sensorarray = new float[5];
+//		
+//		 
+//		 while(true) {
+//			 
+//			b1054.fetchSample();					// schreibt Sensorwert in Array [0]
+//			Sensorarray = b1054.fetchSample();
+//			System.out.println(Sensorarray[0]);
+//			
+//		 }
 		 
-		 while(Sensorarray[0] != 1.0 ) {
-			 
-			b1061.fetchSample(Sensorarray, 0);					// schreibt Sensorwert in Array [0]
-			System.out.println(Sensorarray[0]);
-			
-//			if(Sensorarray[0] != 1) {							// wenn array stelle 1 = 0 solange laufe
-//				
-//				System.out.print("Button pushed");
-//				b106a.stop(true);
-//				b106d.stop(true);
-////				b106b.stop(true);
-//				break;
-//			}
-		 }
-		 
-		 b106a.close();
-		 b106b.close();
-		 b106d.close();
-		 b1061.close();
+
 		
 		 
 		 

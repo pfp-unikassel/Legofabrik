@@ -22,9 +22,13 @@ public class Sensordeamon extends Thread {
 	private RemoteEV3 b113;
 	private RMIRegulatedMotor m;
 
-	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107, RemoteEV3 b113) { // ad Motor m vom
+	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107, RemoteEV3 b113) { // ad
+																										// Motor
+																										// m
+																										// vom
 																										// greifarm
-		setDaemon(true); // makes this thread a deamon, closes hisself after the main thread
+		setDaemon(true); // makes this thread a deamon, closes hisself after the
+							// main thread
 		this.b105 = b105;
 		this.b106 = b106;
 		this.b107 = b107;
@@ -36,20 +40,20 @@ public class Sensordeamon extends Thread {
 	@Override
 	public void run() {
 
-		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor", null); // "Distance"
+//		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor", null); // "Distance"
 																														// mode
 																														// instead
 																														// null
+		
 		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
-
-		RMISampleProvider b1131 = b105.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null); // kompressor
+		RMISampleProvider b1131 = b113.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null); // kompressor
 
 		s.addToSensorList(b1053);
 		s.addToSensorList(b1054);
-		s.addToSensorList(b1061);
+//		s.addToSensorList(b1061);
 		s.addToSensorList(b1072);
 		s.addToSensorList(b1073);
 		s.addToSensorList(b1131);
@@ -70,10 +74,11 @@ public class Sensordeamon extends Thread {
 		// e1.printStackTrace();
 		// }
 
-		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas erkennt
+		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas
+						// erkennt
 
 			try {
-				Sensorarray1 = b1061.fetchSample();
+//				Sensorarray1 = b1061.fetchSample();
 				Sensorarray2 = b1053.fetchSample();
 				Sensorarray3 = b1054.fetchSample();
 				Sensorarray4 = b1072.fetchSample();
@@ -89,7 +94,7 @@ public class Sensordeamon extends Thread {
 
 				s.b1061Fired();
 				System.out.println("Sensor b1061 fired");
-				waitSek(8);
+				waitSek(2);
 				Sensorarray1[0] = 0;
 				s.resetSensorStatus();
 
@@ -97,7 +102,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
 				System.out.println("Sensor b1053 fired");
-				waitSek(8);
+				waitSek(2);
 				Sensorarray2[0] = 0;
 				s.resetSensorStatus();
 
@@ -105,7 +110,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
 				System.out.println("Sensor b1054 fired");
-				waitSek(8);
+				waitSek(2);
 				Sensorarray3[0] = 0;
 				s.resetSensorStatus();
 
@@ -114,7 +119,6 @@ public class Sensordeamon extends Thread {
 				s.b1072Fired();
 				System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
-				;
 				s.resetSensorStatus();
 
 			}
@@ -149,7 +153,11 @@ public class Sensordeamon extends Thread {
 				}
 				s.b1073Fired(colorString);
 				waitSek(1); // TODO: maybe turn line to sensor slow
-				s.resetSensorStatus();
+				
+				if(colorString != "BLACK"){
+					s.resetSensorStatus();
+					
+				}
 			}
 
 			// if (Sensorarray6[0] == 1) {
@@ -186,32 +194,41 @@ public class Sensordeamon extends Thread {
 		}
 	}
 
-	public int filterIds(int[] filterArray) { // TODO: Make sure there are no 0 coming, there is not allowed to have morem the 2 differten errors at the beginning
-
+	
+	
+	
+	
+	
+	
+	public int filterIds(int[] filterArray) { 														
+												
 		int firstId = filterArray[0];
-		int firstCounter = 1;
+		int firstCounter = 0;
 		int secondId = 0;
 		int secondCounter = 0;
-		
-		for (int i = 1; i <= 7; i++) {
 
-			if(filterArray[i] == 0) {
-			if (firstId == filterArray[i]) {
-				firstCounter++;
-			} else { 											// wenn id unleich 1. Id
-				 secondId = filterArray[i];					// setze 2 id gleich diese Id
-				if (secondId == filterArray[i]) {				
-					secondCounter++;
-				} 
+		for (int i = 1; i < 5; i++) {																		// i< incomming values
 
+			if (filterArray[i] != 0) {																			// 0 is no value
+				if (firstId == filterArray[i]) {
+					firstCounter++;
+				} else {																								 // if id not the same as first id
+					secondId = filterArray[i]; 															// set second id
+					if (secondId == filterArray[i]) {
+						secondCounter++;
+					}
+				}
 			}
 		}
-		}
-		
-		if(firstCounter > secondCounter) {
+
+		if (firstCounter > secondCounter) {                                                        // returns most showen id 
 			return firstId;
-		}else {
+		} else {
 			return secondId;
 		}
 	}
+	
+	
+	
+	
 }

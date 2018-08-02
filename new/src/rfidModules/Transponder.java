@@ -47,7 +47,10 @@ public class Transponder {
 	
 	public void createFabicChildren(){ // same boxes different baskets
 		
-		addChild(new Basket(2l, "fabric", null ));
+		addChild(new Basket(1042050255873l, "fabric", null ));
+		addChild(new Basket(1041429498881l, "fabric", null));
+		addChild(new Basket(327701823605l, "fabric", null));
+		
 
 	}
 

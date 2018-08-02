@@ -511,7 +511,7 @@ public class Steuerung {
 					chargier.startTableLine(false);
 
 					while (!b1053Status) {
-						System.out.println("hänge in schleife 2");
+						//System.out.println("hänge in schleife 2");
 					}
 
 					chargier.stopLineToLifter();

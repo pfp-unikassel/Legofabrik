@@ -23,10 +23,14 @@ public class Test {
 //		 tower.rotate(360,false);
 		 
 //		 table.rotate(50, false); 										// True = programm laeuft direkt weiter, false wartet er bis er feritg ist 
-		 armHorizontal.rotate(-90 , false);
-		 armVertical.rotate(50 , false);
-		 
-		
+		//gut Seite
+		armHorizontal.rotate(300 , false); 
+		 //Ball Aufheben
+		 //armVertical.rotate(-350, false);
+		 //Ball Ablegen
+		 //armVertical.rotate(200, false);
+		 //ausschuss Seite
+		//armHorizontal.rotate(250 , false);
 		
 		table.close();
 		armHorizontal.close();
