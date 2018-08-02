@@ -16,17 +16,13 @@ public class Quality {
 	float color[];
 	
 	private boolean gateStatus = false; //TODO: true us open 
-	private int counterLineSpeed = 180;
-	private int lineSpeed = 45;
+	private int counterLineSpeed = 130;
+	private int lineSpeed =80;
 	private int countedBalls = 0;
 	private int goodBalls = 0;
 	private int badBalls = 0;
 	private String colorString = "";
 	
-	
-	
-
-
 
 
 	public Quality(RMIRegulatedMotor band, RMIRegulatedMotor gate, RMIRegulatedMotor counterLine) {

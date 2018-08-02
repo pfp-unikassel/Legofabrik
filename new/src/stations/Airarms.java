@@ -4,13 +4,13 @@ import java.rmi.RemoteException;
 
 import lejos.remote.ev3.RMIRegulatedMotor;
 
-public class Airarms {
+public class Airarms { // schalter rechts rechts Links links
 
 	private boolean grabStatus = true; // true is open
 	private boolean grabPosition = true; // true is || over the line
 
-	private boolean armPosition = false; // true ist ausgefahren
-	private boolean armStatus = false; // true is up false down
+	private boolean armPosition = true; // true ist ausgefahren
+	private boolean armStatus = true; // true is up false down
 
 	private boolean towerPosition = true; // to lane
 
@@ -49,7 +49,7 @@ public class Airarms {
 		if (!getArmStatus()) { // if arm is down do mit der achse gegen den uhrzeigersinn
 			setArmStatus(true);
 			try {
-				verticalArm.rotateTo(turnDegree, true);
+				verticalArm.rotateTo(turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,7 +62,7 @@ public class Airarms {
 		if (getArmStatus()) { // if arm is up do
 			setArmStatus(false);
 			try {
-				verticalArm.rotateTo(-turnDegree, true);
+				verticalArm.rotateTo(-turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -75,7 +75,7 @@ public class Airarms {
 		if (getArmPosition()) {
 			// turn to get balls
 			try {
-				moveArm.rotate(turnDegree, true);
+				moveArm.rotate(turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,7 +86,7 @@ public class Airarms {
 		} else {
 			setArmPosition(true);
 			try {
-				moveArm.rotate(-turnDegree, true);
+				moveArm.rotate(-turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -100,7 +100,7 @@ public class Airarms {
 		if (!getGrabStatus()) {
 			setGrabStatus(true);
 			try {
-				openCloseGrab.rotate(turnDegree, true);
+				openCloseGrab.rotate(turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -114,7 +114,7 @@ public class Airarms {
 		if (!getGrabStatus()) {
 			setGrabStatus(false);
 			try {
-				openCloseGrab.rotate(-turnDegree, true);
+				openCloseGrab.rotate(-turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -129,14 +129,14 @@ public class Airarms {
 			// turn = to lane
 			setGrabPosition(false);
 			try {
-				turnGrab.rotateTo(turnDegree, true);
+				turnGrab.rotateTo(turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				turnGrab.rotateTo(-turnDegree, true);
+				turnGrab.rotateTo(-turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

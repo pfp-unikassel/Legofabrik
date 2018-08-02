@@ -168,9 +168,9 @@ public class Steuerung {
 	
 	public void resetSensorStatus() {
 		b1053Status = false;
-		b1053Status = false;
-		b1053Status = false;
-		b1053Status = false;
+		b1054Status = false;
+		b1061Status = false;
+		b1072Status = false;
 		quality.resetColorString();
 	}
 
@@ -511,7 +511,7 @@ public class Steuerung {
 					chargier.startTableLine(false);
 
 					while (!b1053Status) {
-						//System.out.println("h‰nge in schleife 2");
+						System.out.println("h‰nge in schleife 2");
 					}
 
 					chargier.stopLineToLifter();
@@ -539,25 +539,26 @@ public class Steuerung {
 
 					chargier.turnTable(-1320);
 
-					chargier.startLineToStore(true); // maybe falls
+					chargier.startLineToStore(false); // maybe falls
 					chargier.startTableLine(false);
 
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					chargier.stopTableLine();
 					chargier.stopLineToStorer();
 
 					chargier.resetTable(); // turns 660 to much repair later
 					
-					Thread.sleep(10000); // wait 10 sec
+					Thread.sleep(20000); // wait 10 sec
 					
 					cleaner.stopLiftLine();
 					cleaner.stop();
 					
-					Thread.sleep(10000); // wait 10 sec
+					Thread.sleep(30000); // wait 10 sec
 					
 					quality.stopCounterLine();	
 					quality.stopLine();
 
+					System.out.println(  "N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls() );
 					
 
 				} catch (RemoteException | InterruptedException e) {
@@ -571,29 +572,28 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-//		airarms.turnArm();
-//		airarms.armUp();
-//		airarms.grabTurn();
-//		airarms.grabOpen();
-		try {
-			deliverylane.openGateB();
-			deliverylane.startLineToArms(false);
-			deliverylane.startLineToEnd(false);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		airarms.turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
+		airarms.turnTower();
+		airarms.turnArm();
+		airarms.armDown();
+		airarms.grabClose();
+		airarms.armUp();
+		airarms.turnArm();
+		airarms.turnTower();
+		airarms.turnArm();
+		airarms.grabTurn();
+		airarms.armDown();
+		airarms.grabOpen();
+		airarms.armUp();
+		
 	}
 
 	public void startSzenario3() {
 
-//		airarms.armDown();
-//		airarms.grabClose();
-//		airarms.turnTower();
 		try {
-			deliverylane.stopLineToArms();
-			deliverylane.stopLineToEnd();
+			deliverylane.openGateB();
+			deliverylane.startLineToArms(false);
+			deliverylane.startLineToEnd(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

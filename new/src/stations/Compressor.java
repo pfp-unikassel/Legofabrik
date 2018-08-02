@@ -19,10 +19,10 @@ public class Compressor {
 		this.m4 = m4;
 
 		try {			// Set Compressor speed
-			m1.setSpeed(600);
-			m2.setSpeed(600);
-			m3.setSpeed(600);
-			m4.setSpeed(600);
+			m1.setSpeed(700);
+			m2.setSpeed(700);
+			m3.setSpeed(700);
+			m4.setSpeed(700);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

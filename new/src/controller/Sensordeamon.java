@@ -102,7 +102,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
 				System.out.println("Sensor b1053 fired");
-				waitSek(2);
+				waitSek(3);
 				Sensorarray2[0] = 0;
 				s.resetSensorStatus();
 
@@ -110,7 +110,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
 				System.out.println("Sensor b1054 fired");
-				waitSek(2);
+				waitSek(3);
 				Sensorarray3[0] = 0;
 				s.resetSensorStatus();
 
@@ -160,14 +160,12 @@ public class Sensordeamon extends Thread {
 				}
 			}
 
-			// if (Sensorarray6[0] == 1) {
-			// s.b1131Fired(true);
-			// System.out.println("Sensor b113 fired");
-			// Sensorarray6[0] = 0;
-			// s.resetSensorStatus();
-			// } else {
-			// s.b1131Fired(false);
-			// }
+			 if (Sensorarray6[0] == 1) {
+			 s.b1131Fired(true);
+			 Sensorarray6[0] = 0;
+			 } else {
+			 s.b1131Fired(false);
+			 }
 
 			// try {
 			// if (m.isStalled()) {
