@@ -30,6 +30,7 @@ public class Test6 {
 
 	static float[] Sensorarray1 = new float[5];
 	static float[] Sensorarray2 = new float[5];
+	private static RFIDSensor rfid1;
 
 	public static void main(String[] args) {
 
@@ -50,9 +51,7 @@ public class Test6 {
 		b106b = b106.createRegulatedMotor("B", 'L'); // Laufband vom Drehtisch
 		b106d = b106.createRegulatedMotor("D", 'L'); // Laufband zur
 
-		RFIDSensor rfid1 = new RFIDSensor(b105.getPort("S1")); // RFID SENSOR IN
-																// PORT 1 Brick
-																// 105
+		rfid1 = new RFIDSensor(b105.getPort("S1"));
 
 		b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
 		b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
@@ -71,10 +70,11 @@ public class Test6 {
 					chargier.startTableLine(true);
 
 					while (Sensorarray1[0] != 1) {
-						System.out.println("hänge in schleife 1");
+//						System.out.println("hänge in schleife 1");
 						Sensorarray1 = b1054.fetchSample();
 					}
-
+					Sensorarray1[0] = 0;
+					
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
 					chargier.turnTable(660); // wartet bis drehung fertig ist
@@ -83,7 +83,7 @@ public class Test6 {
 					chargier.startTableLine(false);
 
 					while (Sensorarray2[0] != 1) {
-						System.out.println("hänge in schleife 2");
+//						System.out.println("hänge in schleife 2");
 						Sensorarray2 = b1053.fetchSample();
 					}
 
@@ -94,6 +94,7 @@ public class Test6 {
 					chargier.startTableLine(true);
 
 					while (Sensorarray1[0] != 1) {
+//					
 						System.out.println("hänge in schleife 3");
 						Sensorarray1 = b1054.fetchSample();
 					}

@@ -28,7 +28,7 @@ public class Test5 {
 		
 		try {
 			b107d.setSpeed(160);
-			b107d.forward();
+			b107d.backward();
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -48,11 +48,11 @@ public class Test5 {
 			if(id != 0){
 				filterArray[count] = id;
 				count++;
-				if( count == 5){                // set number of values
+				if( count == 3){                // set number of values
 					filterIds(filterArray);
 					
 					try {
-						Thread.sleep(5000);                               // warte 5 sekunden nachdem 5 werte eingelesen wurden 
+						Thread.sleep(1000);                               // warte 5 sekunden nachdem 5 werte eingelesen wurden 
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
