@@ -17,7 +17,7 @@ public class Quality {
 	
 	private boolean gateStatus = false; //TODO: true us open 
 	private int counterLineSpeed = 130;
-	private int lineSpeed =80;
+	private int lineSpeed =60;
 	private int countedBalls = 0;
 	private int goodBalls = 0;
 	private int badBalls = 0;

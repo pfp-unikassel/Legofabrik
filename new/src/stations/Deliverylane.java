@@ -14,7 +14,7 @@ public class Deliverylane {
 	RMIRegulatedMotor LineToArms;
 	
 	private int lineToArmsSpeed = 180;
-	private int lineToEndSpeed = 90;
+	private int lineToEndSpeed = 120; // 90 before
 	private int gateTurnDegree = 50;
 	
 	private boolean gateDStatus = true; // true is closed

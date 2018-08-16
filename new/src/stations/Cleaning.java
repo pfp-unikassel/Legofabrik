@@ -9,7 +9,7 @@ public class Cleaning {
 	RMIRegulatedMotor cleaner;
 	RMIRegulatedMotor liftLine;
 	private int cleanerSpeed = 360;
-	private int liftLaneSpeed = 360;
+	private int liftLaneSpeed = 260;
 	
 	public Cleaning(
 		RMIRegulatedMotor cleaner,

@@ -177,6 +177,7 @@ public class Steuerung {
 	public void initAll() {
 		System.out.println("init All");
 
+		
 		initBrick1();
 		initBrick5();
 		initBrick6();
@@ -187,12 +188,13 @@ public class Steuerung {
 		initBrick14();
 //		initBrick15();
 		initBrick16();
+	
 	}
 
 	public void initBrick1() {
 		// Brick 101
 		try {
-			b101 = new RemoteEV3("192.168.0.101");
+			b101 = new RemoteEV3("192.168.0.108");
 			getPowerLevel(b101);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -213,7 +215,7 @@ public class Steuerung {
 	public void initBrick5() {
 
 		try {
-			b105 = new RemoteEV3("192.168.0.105");
+			b105 = new RemoteEV3("192.168.0.107");
 			getPowerLevel(b105);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -231,7 +233,7 @@ public class Steuerung {
 	public void initBrick6() {
 
 		try {
-			b106 = new RemoteEV3("192.168.0.106");
+			b106 = new RemoteEV3("192.168.0.100");
 			getPowerLevel(b106);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -253,7 +255,7 @@ public class Steuerung {
 
 	public void initBrick7() {
 		try {
-			b107 = new RemoteEV3("192.168.0.107");
+			b107 = new RemoteEV3("192.168.0.104");
 			getPowerLevel(b107);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -275,7 +277,7 @@ public class Steuerung {
 	public void initBrick8() {
 		// Brick 108
 		try {
-			b108 = new RemoteEV3("192.168.0.108");
+			b108 = new RemoteEV3("192.168.0.105");
 			getPowerLevel(b108);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -296,7 +298,7 @@ public class Steuerung {
 	public void initBrick11() {
 		// Brick 111
 		try {
-			b111 = new RemoteEV3("192.168.0.111");
+			b111 = new RemoteEV3("192.168.0.103");
 			getPowerLevel(b111);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -321,7 +323,7 @@ public class Steuerung {
 	public void initBrick13() {
 		// Brick 113
 		try {
-			b113 = new RemoteEV3("192.168.0.113");
+			b113 = new RemoteEV3("192.168.0.106");
 			getPowerLevel(b113);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -346,7 +348,7 @@ public class Steuerung {
 	public void initBrick14() {
 		// Brick 114
 		try {
-			b114 = new RemoteEV3("192.168.0.114");
+			b114 = new RemoteEV3("192.168.0.102");
 			getPowerLevel(b114);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -367,7 +369,7 @@ public class Steuerung {
 	public void initBrick15() {
 		// Brick 115
 		try {
-			b115 = new RemoteEV3("192.168.0.115");
+			b115 = new RemoteEV3("192.168.0.109");
 			getPowerLevel(b115);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -380,6 +382,8 @@ public class Steuerung {
 		b115b = b115.createRegulatedMotor("B", 'M');
 		b115c = b115.createRegulatedMotor("C", 'M');
 		b115d = b115.createRegulatedMotor("D", 'M');
+		
+	
 
 		openMotorPorts.add(b115a);
 		openMotorPorts.add(b115b);
@@ -390,7 +394,7 @@ public class Steuerung {
 	public void initBrick16() {
 		// Brick 116
 		try {
-			b116 = new RemoteEV3("192.168.0.116");
+			b116 = new RemoteEV3("192.168.0.101");
 			getPowerLevel(b116);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -494,28 +498,28 @@ public class Steuerung {
 			@Override
 			public void run() {
 				try {
-					chargier.resetTable();
-					chargier.startLineToTable(false);
-					chargier.startTableLine(true);
+//					chargier.resetTable();
+//					chargier.startLineToTable(false);
+//					chargier.startTableLine(true);
 
-					// wait till Table Button is pushed, test maybe Ui freezes
-					while (!b1054Status) {
-						System.out.println("h‰nge in schleife 1");
-					}
+//					// wait till Table Button is pushed, test maybe Ui freezes
+//					while (!b1054Status) {
+//						System.out.println("h‰nge in schleife 1");
+//					}
+//
+//					chargier.stopLineToTable();
+//					chargier.stopTableLine();
+//					chargier.turnTable(660);
 
-					chargier.stopLineToTable();
-					chargier.stopTableLine();
-					chargier.turnTable(660);
-
-					chargier.startLineToLifter(false);
-					chargier.startTableLine(false);
-
-					while (!b1053Status) {
-						System.out.println("h‰nge in schleife 2");
-					}
-
-					chargier.stopLineToLifter();
-					chargier.stopTableLine();
+//					chargier.startLineToLifter(false);
+//					chargier.startTableLine(false);
+//
+//					while (!b1053Status) {
+//						System.out.println("h‰nge in schleife 2");
+//					}
+//
+//					chargier.stopLineToLifter();
+//					chargier.stopTableLine();
 
 					lift.startShaker();
 					lift.start(); // wait until it finished
@@ -524,44 +528,44 @@ public class Steuerung {
 					cleaner.startCleaner(true); //TODO: maybe falls = andere richtung
 					cleaner.startLiftLine(true); //TODO: maybe falls = andere richtung
 					
-					chargier.startLineToLifter(true);
-					chargier.startTableLine(true);
-					
+//					chargier.startLineToLifter(true);
+//					chargier.startTableLine(true);
+//					
 					 quality.startCounterLine(false); 
 					 quality.startLine(true);
 
-					while (!b1054Status) { // wait table button pushed
-						System.out.println("h‰nge in schleife 3");
-					}
+//					while (!b1054Status) { // wait table button pushed
+//						System.out.println("h‰nge in schleife 3");
+//					}
 
-					chargier.stopLineToLifter();
-					chargier.stopTableLine();
+//					chargier.stopLineToLifter();
+//					chargier.stopTableLine();
+//
+//					chargier.turnTable(-1320);
+//
+//					chargier.startLineToStore(false); // maybe falls
+//					chargier.startTableLine(false);
+//
+//					Thread.sleep(3000);
+//					chargier.stopTableLine();
+//					chargier.stopLineToStorer();
 
-					chargier.turnTable(-1320);
-
-					chargier.startLineToStore(false); // maybe falls
-					chargier.startTableLine(false);
-
-					Thread.sleep(3000);
-					chargier.stopTableLine();
-					chargier.stopLineToStorer();
-
-					chargier.resetTable(); // turns 660 to much repair later
+//					chargier.resetTable(); // turns 660 to much repair later
 					
-					Thread.sleep(20000); // wait 10 sec
+//					Thread.sleep(20000); // wait 10 sec
+//					
+//					cleaner.stopLiftLine();
+//					cleaner.stop();
+//					
+//					Thread.sleep(30000); // wait 10 sec
+//					
+//					quality.stopCounterLine();	
+//					quality.stopLine();
+//
+//					System.out.println(  "N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls() );
 					
-					cleaner.stopLiftLine();
-					cleaner.stop();
-					
-					Thread.sleep(30000); // wait 10 sec
-					
-					quality.stopCounterLine();	
-					quality.stopLine();
 
-					System.out.println(  "N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls() );
-					
-
-				} catch (RemoteException | InterruptedException e) {
+				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -572,19 +576,23 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		airarms.turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
 		airarms.turnTower();
-		airarms.turnArm();
-		airarms.armDown();
-		airarms.grabClose();
-		airarms.armUp();
-		airarms.turnArm();
-		airarms.turnTower();
-		airarms.turnArm();
-		airarms.grabTurn();
-		airarms.armDown();
-		airarms.grabOpen();
-		airarms.armUp();
+//		airarms.turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
+//		airarms.turnTower();
+//		airarms.armDown();
+//
+//	
+//		airarms.grabOpen();
+//		airarms.grabClose()
+		;
+//		airarms.armUp();
+//		airarms.turnTower();
+//		airarms.turnArm();
+//		airarms.grabTurn();
+//		airarms.armDown();
+//		airarms.grabOpen()
+//		;
+//		airarms.armUp();
 		
 	}
 
@@ -592,7 +600,7 @@ public class Steuerung {
 
 		try {
 			deliverylane.openGateB();
-			deliverylane.startLineToArms(false);
+//			deliverylane.startLineToArms(false);
 			deliverylane.startLineToEnd(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
