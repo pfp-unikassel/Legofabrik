@@ -16,7 +16,7 @@ public class Test5 {
 		// TODO Auto-generated method stub
 
 		try {
-			b107 = new RemoteEV3("192.168.0.107");
+			b107 = new RemoteEV3("192.168.0.106");
 		} catch (RemoteException | MalformedURLException | NotBoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -27,7 +27,7 @@ public class Test5 {
 		
 		
 		try {
-			b107d.setSpeed(160);
+			b107d.setSpeed(700); // set back to 160
 			b107d.backward();
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
