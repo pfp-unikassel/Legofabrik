@@ -13,11 +13,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
@@ -74,7 +71,7 @@
             </Label>
                   <Button fx:id="startButton" layoutX="16.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#startButtonClicked" prefHeight="48.0" prefWidth="144.0" text="START" />
                   <Button fx:id="stopButton" layoutX="16.0" layoutY="622.0" mnemonicParsing="false" onMouseClicked="#stopButtonClicked" prefHeight="48.0" prefWidth="144.0" text="STOP" />
-                  <Button fx:id="emptyButton" layoutX="16.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#emptyButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Disconnect" />
+                  <Button fx:id="emptyButton" layoutX="16.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#emptyButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Empty" />
                   <Button fx:id="allButton" layoutX="16.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#allButtonClicked" prefHeight="48.0" prefWidth="144.0" text="ALL" />
                   <Button fx:id="szenarioButton1" layoutX="16.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#szenarioButton1Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 1" />
                   <Button fx:id="szenarioButton2" layoutX="16.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#szenarioButton2Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 2" />
@@ -310,190 +307,9 @@
                </content>
         </ScrollPane>
         <AnchorPane prefHeight="851.0" prefWidth="217.0">
-               <children>
-                  <VBox fillWidth="false" prefHeight="851.0" prefWidth="222.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-underline: true;" text="Standart Details :" textAlignment="CENTER">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Label>
-                        <GridPane prefHeight="337.0" prefWidth="222.0" style="-fx-border-color: GREY; -fx-border-width: 2px;">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Szenario:" underline="true">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Betriebzeit:" underline="true" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Ware:" underline="true" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="I/O:" underline="true" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="NI/O:" underline="true" GridPane.rowIndex="4">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Durchsatz:" underline="true" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Puffer:" underline="true" GridPane.rowIndex="6">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Verbrauch:" underline="true" GridPane.rowIndex="7">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Versand:" underline="true" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" underline="true" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabelbetriebszeit" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabelware" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabelio" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabelnio" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabeldurchsatz" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabelpuffer" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabelverbrauch" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="defaultlabelversand" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </GridPane>
-                        <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-underline: true;" text="Station Details :" textAlignment="CENTER">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Label>
-                        <Pane prefHeight="339.0" prefWidth="222.0">
-                           <children>
-                              <ScrollPane fx:id="defaultlabelszenario" fitToWidth="true" layoutY="1.0" prefHeight="337.0" prefWidth="222.0" style="-fx-background-color: GREY; -fx-border-width: 2px;" />
-                           </children>
-                        </Pane>
-                        <GridPane prefHeight="125.0" prefWidth="222.0" style="-fx-border-color: GREY; -fx-border-width: 2px;">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label fx:id="label00" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" />
-                              <Label fx:id="label01" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="1" />
-                              <Label fx:id="label04" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="4" />
-                              <Label fx:id="label20" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.columnIndex="2" />
-                              <Label fx:id="label21" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <Label fx:id="label22" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <Label fx:id="label23" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <Label fx:id="label24" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                              <Label fx:id="label10" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="1" />
-                              <Label fx:id="label11" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="label12" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="label13" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label fx:id="label14" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label fx:id="label30" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="3" />
-                              <Label fx:id="label31" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <Label fx:id="label32" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                              <Label fx:id="label33" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                              <Label fx:id="label34" alignment="CENTER" prefHeight="17.0" prefWidth="49.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                              <Label fx:id="label02" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="2" />
-                              <Label fx:id="label03" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="3" />
-                           </children>
-                        </GridPane>
-                     </children>
-                  </VBox>
-               </children>
+          <children>
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" wrapText="false" />
+          </children>
         </AnchorPane>
       </items>
     </SplitPane>

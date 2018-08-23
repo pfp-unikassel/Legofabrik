@@ -490,7 +490,7 @@ public class Steuerung {
 
 	public float getPowerLevel(RemoteEV3 brick) {
 
-		if(brick.getPower().getVoltageMilliVolt() != null) {
+		if(brick != null) {
 			
 			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt()+ "V Akku");
 			
@@ -503,7 +503,7 @@ public class Steuerung {
 	
 	public float getPowerUse(RemoteEV3 brick) {
 
-		if(brick.getPower().getVoltageMilliVolt() != null) {
+		if(brick  != null) {
 			
 			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent()+ "Amp/s Akku"); 	// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
 			 
@@ -518,7 +518,7 @@ public class Steuerung {
 	
 	public float getMotorPowerUse(RemoteEV3 brick) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
-		if(brick.getPower().getMotorCurrent() != null) {
+		if(brick != null) {
 			
 			System.out.println(brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent()+ "Amp/s Akku");
 			return brick.getPower().getMotorCurrent();

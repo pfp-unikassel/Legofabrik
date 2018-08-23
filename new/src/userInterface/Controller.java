@@ -33,6 +33,11 @@ public class Controller implements Initializable {
 	public Label rightBottomLabel;
 	public Circle showBall;
 	
+	public Label defaultlabelbetriebszeit,defaultlabelware,defaultlabelio,defaultlabelnio,defaultlabeldurchsatz,defaultlabelpuffer,defaultlabelverbrauch,defaultlabelversand;  // Labels Default Details
+	
+	public Label label00,label01,label02,label03,label04,label10,label11,label12,label13,label14,label20,label21,label22,label23,label24,label30,label31,label32,label33,label34; // LAbel akku 
+	// 0X 2X Names 1X 3X Values
+	
 	public Circle led1,led2,led3,led4,led5,led6,led7;
 	
 	public Button test1,test2,test3,test4,test5,test6,test7;
@@ -55,7 +60,7 @@ public class Controller implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {  // gets startet with programm
 		
 		s = new Steuerung();
-		s.start();
+//		s.start();
 		
 		
 		
