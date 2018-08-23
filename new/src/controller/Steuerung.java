@@ -194,7 +194,7 @@ public class Steuerung {
 	public void initBrick1() {
 		// Brick 101
 		try {
-			b101 = new RemoteEV3("192.168.0.108");
+			b101 = new RemoteEV3("192.168.0.103");
 			getPowerLevel(b101);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -233,7 +233,7 @@ public class Steuerung {
 	public void initBrick6() {
 
 		try {
-			b106 = new RemoteEV3("192.168.0.100");
+			b106 = new RemoteEV3("192.168.0.101");
 			getPowerLevel(b106);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -255,7 +255,7 @@ public class Steuerung {
 
 	public void initBrick7() {
 		try {
-			b107 = new RemoteEV3("192.168.0.104");
+			b107 = new RemoteEV3("192.168.0.106");
 			getPowerLevel(b107);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -277,7 +277,7 @@ public class Steuerung {
 	public void initBrick8() {
 		// Brick 108
 		try {
-			b108 = new RemoteEV3("192.168.0.105");
+			b108 = new RemoteEV3("192.168.0.108");
 			getPowerLevel(b108);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -298,7 +298,7 @@ public class Steuerung {
 	public void initBrick11() {
 		// Brick 111
 		try {
-			b111 = new RemoteEV3("192.168.0.103");
+			b111 = new RemoteEV3("192.168.0.102");
 			getPowerLevel(b111);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -323,7 +323,7 @@ public class Steuerung {
 	public void initBrick13() {
 		// Brick 113
 		try {
-			b113 = new RemoteEV3("192.168.0.106");
+			b113 = new RemoteEV3("192.168.0.109");
 			getPowerLevel(b113);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -348,7 +348,7 @@ public class Steuerung {
 	public void initBrick14() {
 		// Brick 114
 		try {
-			b114 = new RemoteEV3("192.168.0.102");
+			b114 = new RemoteEV3("192.168.0.105");
 			getPowerLevel(b114);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -369,7 +369,7 @@ public class Steuerung {
 	public void initBrick15() {
 		// Brick 115
 		try {
-			b115 = new RemoteEV3("192.168.0.109");
+			b115 = new RemoteEV3("192.168.0.110");
 			getPowerLevel(b115);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -394,7 +394,7 @@ public class Steuerung {
 	public void initBrick16() {
 		// Brick 116
 		try {
-			b116 = new RemoteEV3("192.168.0.101");
+			b116 = new RemoteEV3("192.168.0.104");
 			getPowerLevel(b116);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
