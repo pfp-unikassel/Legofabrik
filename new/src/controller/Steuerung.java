@@ -90,6 +90,8 @@ public class Steuerung {
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
 	static ArrayList<RMISampleProvider> openSensorPorts = new ArrayList<>();
+	static ArrayList<RemoteEV3> bricks = new ArrayList<>();
+
 
 	static Chargier chargier;
 	static Lift lift;
@@ -189,6 +191,7 @@ public class Steuerung {
 //		initBrick15();
 		initBrick16();
 	
+		// updatePowerLevel(); // TODO: delete in every single init
 	}
 
 	public void initBrick1() {
@@ -210,6 +213,8 @@ public class Steuerung {
 		openMotorPorts.add(b101b);
 		openMotorPorts.add(b101c);
 		openMotorPorts.add(b101d);
+		
+		bricks.add(b101);
 	}
 
 	public void initBrick5() {
@@ -228,6 +233,8 @@ public class Steuerung {
 
 		openMotorPorts.add(b105c);
 		openMotorPorts.add(b105d);
+		
+		bricks.add(b105);
 	}
 
 	public void initBrick6() {
@@ -251,6 +258,7 @@ public class Steuerung {
 		openMotorPorts.add(b106b);
 		openMotorPorts.add(b106d);
 
+		bricks.add(b106);
 	}
 
 	public void initBrick7() {
@@ -272,6 +280,7 @@ public class Steuerung {
 		openMotorPorts.add(b107c);
 		openMotorPorts.add(b107d);
 
+		bricks.add(b107);
 	}
 
 	public void initBrick8() {
@@ -293,6 +302,8 @@ public class Steuerung {
 		openMotorPorts.add(b108a);
 		openMotorPorts.add(b108b);
 		openMotorPorts.add(b108c);
+		
+		bricks.add(b108);
 	}
 	
 	public void initBrick11() {
@@ -318,6 +329,7 @@ public class Steuerung {
 		openMotorPorts.add(b111c);
 		openMotorPorts.add(b111d);
 
+		bricks.add(b111);
 	}
 	
 	public void initBrick13() {
@@ -343,6 +355,7 @@ public class Steuerung {
 		openMotorPorts.add(b113c);
 		openMotorPorts.add(b113d);
 
+		bricks.add(b113);
 	}
 	
 	public void initBrick14() {
@@ -364,6 +377,8 @@ public class Steuerung {
 		openMotorPorts.add(b114a);
 		openMotorPorts.add(b114b);
 		openMotorPorts.add(b114c);
+		
+		bricks.add(b114);
 	}
 	
 	public void initBrick15() {
@@ -382,13 +397,13 @@ public class Steuerung {
 		b115b = b115.createRegulatedMotor("B", 'M');
 		b115c = b115.createRegulatedMotor("C", 'M');
 		b115d = b115.createRegulatedMotor("D", 'M');
-		
-	
 
 		openMotorPorts.add(b115a);
 		openMotorPorts.add(b115b);
 		openMotorPorts.add(b115c);
 		openMotorPorts.add(b115d);
+		
+		bricks.add(b115);
 	}
 	
 	public void initBrick16() {
@@ -412,6 +427,8 @@ public class Steuerung {
 		openMotorPorts.add(b116b);
 		openMotorPorts.add(b116c);
 		openMotorPorts.add(b116d);
+		
+		bricks.add(b116);
 	}
 
 
@@ -423,6 +440,10 @@ public class Steuerung {
 	public ArrayList<RMISampleProvider> getSensorList() {
 
 		return openSensorPorts;
+	}
+	public ArrayList<RemoteEV3> getBrickList() {
+
+		return bricks;
 	}
 
 	public static void closePorts() {
@@ -469,28 +490,59 @@ public class Steuerung {
 
 	public float getPowerLevel(RemoteEV3 brick) {
 
-		System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt()+ "V Akku");
+		if(brick.getPower().getVoltageMilliVolt() != null) {
+			
+			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt()+ "V Akku");
+			
+			return brick.getPower().getVoltageMilliVolt();
+			
+		}else return 0;
 
 		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-		return brick.getPower().getVoltageMilliVolt();
 	}
 	
 	public float getPowerUse(RemoteEV3 brick) {
 
-		System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent()+ "Amp/s Akku");
+		if(brick.getPower().getVoltageMilliVolt() != null) {
+			
+			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent()+ "Amp/s Akku"); 	// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
+			 
+			return brick.getPower().getBatteryCurrent();		
+			
+		}else return 0;
 
-		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-		return brick.getPower().getBatteryCurrent();
+
+		
+		
 	}
 	
 	public float getMotorPowerUse(RemoteEV3 brick) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
-		System.out.println(brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent()+ "Amp/s Akku");
+		if(brick.getPower().getMotorCurrent() != null) {
+			
+			System.out.println(brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent()+ "Amp/s Akku");
+			return brick.getPower().getMotorCurrent();
+		} else {
+			return 0;
+		}
 
 		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-		return brick.getPower().getMotorCurrent();
 	}
 	
+	public void updatePowerLevel() {
+		
+		int count = 0;
+		float powerLevel;
+		String brickName;
+		
+		for(RemoteEV3 b : bricks) {
+			
+			powerLevel = getPowerLevel(b);
+			brickName = b.getName();
+			// TODO update in Ui 
+			
+		}
+	}
 	
 	public void startSzenario1() {
 
