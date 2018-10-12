@@ -9,40 +9,50 @@ public class QualityStation {
 	private boolean towerStatus = false; // false off
 	private boolean armPositionVertical = false; // false up
 	private boolean armIsStalled = false;
+	private boolean armWorking=false;
+	
 	private char armPositionHorizontal = 'm'; // m mid g good b bad
 	private String colorString = "";
 	private int countedBalls = 0;
 	private int goodBalls = 0;
 	private int badBalls = 0;
-	private int armVerticalMotorAngle = 0; // TODO: set motor angle
+	private int towerSpeed =140;
+
 	private RMIRegulatedMotor table;
 	private RMIRegulatedMotor armVertical;
 	private RMIRegulatedMotor armHorizontal;
 	private RMIRegulatedMotor tower;
 
-	public QualityStation(RMIRegulatedMotor table, RMIRegulatedMotor armHorizontal, RMIRegulatedMotor armVertical,
+	public QualityStation(RMIRegulatedMotor table, RMIRegulatedMotor armVertical, RMIRegulatedMotor armHorizontal,
 			RMIRegulatedMotor tower) {
 
 		this.table = table;
 		this.armHorizontal = armHorizontal;
 		this.armVertical = armVertical;
 		this.tower = tower;
+		try {
+			tower.setSpeed(towerSpeed);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void colorSensorFired(String colorString) {
 
 		this.colorString = colorString;
-		System.out.println("erkannte Farbe ist " + colorString);
-
-		if (colorString == "White") {
-			setGoodBalls(getGoodBalls() + 1);
-
-		} else {
-			setBadBalls(getBadBalls() + 1);
-
-		}
-
-		setCountedBalls(getCountedBalls() + 1);
+		System.out.println("Station Farbe ist " + colorString);
+		
+//		if (!armWorking) {                // wenn der arm nicht schon am arbeiten ist
+//
+//			if (colorString == "White") {
+//				takeBallToBad();
+//
+//			} else {
+//				takeBallToBad();
+//
+//			}
+//		}
 	}
 
 	public void startTower() {
@@ -67,48 +77,54 @@ public class QualityStation {
 		}
 	}
 
-	public void moveArmToGood() {
+	public void moveArmToGood() throws RemoteException {
 
 		if (!getArmPositionVertical()) { // beweg dich nur wenn arm oben ist
 
 			if (getArmPositionHorizontal() == 'm') {
-				// mid wait till motor is finished
+				// mid  to good
+				armHorizontal.rotate(-350 , false);    
 			} else if (getArmPositionHorizontal() == 'g') {
-				// good
+				// good do nothing
 			} else if (getArmPositionHorizontal() == 'b') {
-				// bad
+				// bad move to good
+				armHorizontal.rotate(-550 , false); 
 			}
 
 			setArmPositionHorizontal('g');
 		}
 	}
 
-	public void moveArmToBad() {
+	public void moveArmToBad() throws RemoteException {
 
 		if (!getArmPositionVertical()) {
 
 			if (getArmPositionHorizontal() == 'm') {
 				// mid
+				armHorizontal.rotate(250 , false); 
 			} else if (getArmPositionHorizontal() == 'g') {
 				// good
+				armHorizontal.rotate(550 , false); 
 			} else if (getArmPositionHorizontal() == 'b') {
-				// bad
+				// bad do nothing
 			}
 
 			setArmPositionHorizontal('b');
 		}
 	}
 
-	public void moveArmToMid() {
+	public void moveArmToMid() throws RemoteException {
 
 		if (!getArmPositionVertical()) {
 
 			if (getArmPositionHorizontal() == 'm') {
-				// mid
+				// mid do nothing
 			} else if (getArmPositionHorizontal() == 'g') {
 				// good
+				armHorizontal.rotate(300 , false); 
 			} else if (getArmPositionHorizontal() == 'b') {
 				// bad
+				armHorizontal.rotate(-250 , false); 
 			}
 
 			setArmPositionHorizontal('m');
@@ -136,37 +152,63 @@ public class QualityStation {
 		}
 	}
 
-	public void armUp() throws RemoteException {
+	public void takeBall() throws RemoteException {
 
-		if (getArmPositionVertical()) {
+		if (!getArmPositionVertical()) {
 			// move arm up
-			armVertical.rotate(armVerticalMotorAngle);
+			armVertical.rotate(350, false);
+			armVertical.rotate(-350, false);
 		}
 	}
 
-	public void armDown() throws RemoteException {
+	public void liftTable(){
+		
+		try {
+			table.rotate(-150, false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void sinkTable(){
+		
+		try {
+			table.rotate(150, false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void freeBall() throws RemoteException {
+		
 		if (!getArmPositionVertical()) {
 			// move arm down
-			armVertical.rotate(-armVerticalMotorAngle); // rotate without true or fals should wait until it finished
+			armVertical.rotate(200, false);
+			armVertical.rotate(-200, false);// rotate without true or fals should wait until it finished
 														// rotation
 		}
 	}
 
 	public void reset() throws RemoteException {
-		armUp();
+		
 		stopTower();
 		resetArm();
+		sinkTable();
 
 	}
 
 	public void takeBallToGood() {
 
+		setArmWorking(true);
 		try {
-			armDown();
-			armUp();
+			liftTable();
+			takeBall();
 			moveArmToGood();
-			armDown();
-			armUp();
+			freeBall();
+			moveArmToMid();
+			sinkTable();
 			goodBalls++;
 			countedBalls++;
 
@@ -175,16 +217,18 @@ public class QualityStation {
 			e.printStackTrace();
 		}
 
+		setArmWorking(false);
 	}
 
 	public void takeBallToBad() {
-
+		setArmWorking(true);
 		try {
-			armDown();
-			armUp();
+			liftTable();
+			takeBall();
 			moveArmToBad();
-			armDown();
-			armUp();
+			freeBall();
+			moveArmToMid();
+			sinkTable();
 			badBalls++;
 			countedBalls++;
 
@@ -192,7 +236,7 @@ public class QualityStation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		setArmWorking(false);
 	}
 
 	public boolean getTowerStatus() {
@@ -257,6 +301,14 @@ public class QualityStation {
 
 	public void setArmIsStalled(boolean armIsStalled) {
 		this.armIsStalled = armIsStalled;
+	}
+
+	public boolean isArmWorking() {
+		return armWorking;
+	}
+
+	public void setArmWorking(boolean armWorking) {
+		this.armWorking = armWorking;
 	}
 
 }

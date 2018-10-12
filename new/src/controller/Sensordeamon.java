@@ -20,9 +20,10 @@ public class Sensordeamon extends Thread {
 	private RemoteEV3 b106;
 	private RemoteEV3 b107;
 	private RemoteEV3 b113;
+	private RemoteEV3 b115;
 	private RMIRegulatedMotor m;
 
-	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107, RemoteEV3 b113) { // ad
+	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107, RemoteEV3 b113 , RemoteEV3 b115) { // ad
 																										// Motor
 																										// m
 																										// vom
@@ -33,6 +34,7 @@ public class Sensordeamon extends Thread {
 		this.b106 = b106;
 		this.b107 = b107;
 		this.b113 = b113;
+		this.b115 = b115;
 		this.s = s;
 		// this.m = b;
 	}
@@ -48,15 +50,17 @@ public class Sensordeamon extends Thread {
 		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
 		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
-		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
 		RMISampleProvider b1131 = b113.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null); // kompressor
-
+		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
+//		RMISampleProvider b1151 = b115.createSampleProvider("S1", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
+		
 		s.addToSensorList(b1053);
 		s.addToSensorList(b1054);
 //		s.addToSensorList(b1061);
 		s.addToSensorList(b1072);
 		s.addToSensorList(b1073);
 		s.addToSensorList(b1131);
+//		s.addToSensorList(b1151);
 
 		float[] Sensorarray1 = new float[5];
 		float[] Sensorarray2 = new float[5];
@@ -64,6 +68,7 @@ public class Sensordeamon extends Thread {
 		float[] Sensorarray4 = new float[5];
 		float[] Sensorarray5 = new float[5];
 		float[] Sensorarray6 = new float[5];
+//		float[] Sensorarray7 = new float[5];
 
 		int[] filterArray = new int[15];
 
@@ -84,6 +89,7 @@ public class Sensordeamon extends Thread {
 				Sensorarray4 = b1072.fetchSample();
 				Sensorarray5 = b1073.fetchSample();
 				Sensorarray6 = b1131.fetchSample();
+//				Sensorarray7 = b1151.fetchSample();
 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -124,7 +130,6 @@ public class Sensordeamon extends Thread {
 			}
 
 			if (Sensorarray5[0] != -1) {
-				System.out.println("Farbsensor erkennt farbe");
 				int coloIndex = (int) Sensorarray5[0];
 				String colorString = "";
 				switch (coloIndex) {
@@ -167,6 +172,46 @@ public class Sensordeamon extends Thread {
 			 s.b1131Fired(false);
 			 }
 
+			 // Qualitistation
+//			 if (Sensorarray7[0] != -1) {
+//					System.out.println("Farbsensortower erkennt farbe");
+//					int coloIndex = (int) Sensorarray7[0];
+//					String colorString = "";
+//					switch (coloIndex) {
+//
+//					case Color.BLACK:
+//						colorString = "BLACK";
+//						break;
+//					case Color.BLUE:
+//						colorString = "BLUE";
+//						break;
+//					case Color.GREEN:
+//						colorString = "GREEN";
+//						break;
+//					case Color.YELLOW:
+//						colorString = "YELLOW";
+//						break;
+//					case Color.RED:
+//						colorString = "RED";
+//						break;
+//					case Color.WHITE:
+//						colorString = "WHITE";
+//						break;
+//					case Color.BROWN:
+//						colorString = "BROWN";
+//						break;
+//					}
+//					s.b1151Fired(colorString);
+//					waitSek(1); // TODO: maybe turn line to sensor slow
+//					
+//					if(colorString != "BLACK"){
+//						s.resetSensorStatus();
+//						
+//					}
+//				}
+			 
+			 
+			 
 			// try {
 			// if (m.isStalled()) {
 			// s.armIsStalled(true);

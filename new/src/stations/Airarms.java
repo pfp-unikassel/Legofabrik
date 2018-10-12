@@ -14,7 +14,7 @@ public class Airarms { // schalter rechts rechts Links links
 
 	private boolean towerPosition = true; // to lane
 
-	private int turnDegree = -70;
+	private int turnDegree = -630;  // default/old -70 
 	private int towerTurnDegree =- 100;
 
 	RMIRegulatedMotor moveArm;
@@ -49,7 +49,7 @@ public class Airarms { // schalter rechts rechts Links links
 		if (!getArmStatus()) { // if arm is down do mit der achse gegen den uhrzeigersinn
 			setArmStatus(true);
 			try {
-				verticalArm.rotateTo(turnDegree, false);
+				verticalArm.rotateTo(490, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,7 +62,7 @@ public class Airarms { // schalter rechts rechts Links links
 		if (getArmStatus()) { // if arm is up do
 			setArmStatus(false);
 			try {
-				verticalArm.rotateTo(-turnDegree, false);
+				verticalArm.rotateTo(-490, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -111,7 +111,7 @@ public class Airarms { // schalter rechts rechts Links links
 
 	public void grabClose() {
 
-		if (!getGrabStatus()) {
+		if (getGrabStatus()) {
 			setGrabStatus(false);
 			try {
 				openCloseGrab.rotate(-turnDegree, false);
@@ -129,14 +129,14 @@ public class Airarms { // schalter rechts rechts Links links
 			// turn = to lane
 			setGrabPosition(false);
 			try {
-				turnGrab.rotateTo(turnDegree, false);
+				turnGrab.rotateTo(420, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				turnGrab.rotateTo(-turnDegree, false);
+				turnGrab.rotateTo(-420, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -151,7 +151,7 @@ public class Airarms { // schalter rechts rechts Links links
 		if (towerPosition) { // true ist ausgefahren
 			try {
 				turnArm1.rotate(towerTurnDegree, false); // turn one after another
-				turnArm2.rotate(towerTurnDegree, true);
+				turnArm2.rotate(towerTurnDegree, false); // falls es probleme gibt heir war vorher true testen
 				towerPosition = false;
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -160,7 +160,7 @@ public class Airarms { // schalter rechts rechts Links links
 		} else {
 			try {
 				turnArm2.rotate(-towerTurnDegree, false);
-				turnArm1.rotate(-towerTurnDegree, true);
+				turnArm1.rotate(-towerTurnDegree, false);
 				towerPosition = true;
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

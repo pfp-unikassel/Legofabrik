@@ -19,6 +19,7 @@ import stations.Chargier;
 import stations.Lift;
 import stations.Quality;
 import stations.QualityStation;
+import stations.Stock;
 import stations.Cleaning;
 import stations.Compressor;
 import stations.Deliverylane;
@@ -35,6 +36,9 @@ public class Steuerung {
 	RemoteEV3 b114;
 	RemoteEV3 b115;
 	RemoteEV3 b116;
+	RemoteEV3 b117;
+	RemoteEV3 b118;
+	RemoteEV3 b119;
 
 
 	static RMIRegulatedMotor b101a;
@@ -86,6 +90,20 @@ public class Steuerung {
 	static RMIRegulatedMotor b116c;
 	static RMIRegulatedMotor b116d;
 	
+	static RMIRegulatedMotor b117a;
+	static RMIRegulatedMotor b117b;
+	static RMIRegulatedMotor b117c;
+	static RMIRegulatedMotor b117d;
+	
+	static RMIRegulatedMotor b118a;
+	static RMIRegulatedMotor b118b;
+	static RMIRegulatedMotor b118c;
+	static RMIRegulatedMotor b118d;
+	
+	static RMIRegulatedMotor b119a;
+	static RMIRegulatedMotor b119b;
+
+	
 	
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
@@ -100,7 +118,8 @@ public class Steuerung {
 	static Compressor compressor;
 	static Airarms airarms;
     static Deliverylane deliverylane;
-//	static QualityStation qualitystation;
+	static QualityStation qualitystation;
+	static Stock stock;
 
 	private boolean b1053Status = false; // set True if button fires
 	private boolean b1054Status = false;
@@ -123,10 +142,11 @@ public class Steuerung {
 		quality = new Quality(b107c, b107b, b107d);
 		compressor = new Compressor(b113a,b113b,b113c,b113d);
 		airarms = new Airarms(b111a,b111b,b111c,b111d,b114a,b114b);		// distanzsensor
-//		qualitystation = new QualityStation(b115a,b115b,b115c,b115d); // add Colorsensor
+		qualitystation = new QualityStation(b115a,b115b,b115c,b115d); 
 		deliverylane = new Deliverylane(b116a,b116b,b116c,b116d,b114c); 
+//		stock = new Stock();
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107,b113); // uebergebe das Object und rufe b1073  TODO: ad 114 distanz
+		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107,b113,b115); // uebergebe das Object und rufe b1073  TODO: ad 114 distanz
 		sensordeamon.start();
 	}
 
@@ -161,6 +181,10 @@ public class Steuerung {
 		compressor.pressureButtonfired(button);
 	}
 	
+	public void b1151Fired(String colorString) {
+		
+		qualitystation.colorSensorFired(colorString);
+	}
 	public void armIsStalled(boolean armIsStalled) {
 		 // QualityStation arm is stalled boolean true stalled, false nicht
 		//qulityStation.setArmIsStalled(armIsStalled);
@@ -188,8 +212,11 @@ public class Steuerung {
 		initBrick11();
 		initBrick13();
 		initBrick14();
-//		initBrick15();
+		initBrick15();
 		initBrick16();
+//		initBrick17();
+//		initBrick18();
+//		initBrick19();
 	
 		// updatePowerLevel(); // TODO: delete in every single init
 	}
@@ -430,7 +457,78 @@ public class Steuerung {
 		
 		bricks.add(b116);
 	}
+	
+	public void initBrick17() {
+		// Brick 117
+		try {
+			b117 = new RemoteEV3("192.168.0.XXX");
+			getPowerLevel(b117);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
 
+		}
+
+		b117a = b117.createRegulatedMotor("A", 'L');
+		b117b = b117.createRegulatedMotor("B", 'L');
+		b117c = b117.createRegulatedMotor("C", 'L');
+		b117d = b117.createRegulatedMotor("D", 'L');
+
+		openMotorPorts.add(b117a);
+		openMotorPorts.add(b117b);
+		openMotorPorts.add(b117c);
+		openMotorPorts.add(b117d);
+		
+		bricks.add(b117);
+	}
+	
+	public void initBrick18() {
+		// Brick 117
+		try {
+			b118 = new RemoteEV3("192.168.0.XXX");
+			getPowerLevel(b118);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
+
+		}
+
+		b118a = b118.createRegulatedMotor("A", 'L');
+		b118b = b118.createRegulatedMotor("B", 'L');
+		b118c = b118.createRegulatedMotor("C", 'L');
+		b118d = b118.createRegulatedMotor("D", 'L');
+
+		openMotorPorts.add(b118a);
+		openMotorPorts.add(b118b);
+		openMotorPorts.add(b118c);
+		openMotorPorts.add(b118d);
+		
+		bricks.add(b118);
+	}
+	
+	public void initBrick19() {
+		// Brick 119
+		try {
+			b119 = new RemoteEV3("192.168.0.XXX");
+			getPowerLevel(b119);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("B1 not Found");
+
+		}
+
+		b119a = b119.createRegulatedMotor("A", 'L');
+		b119b = b119.createRegulatedMotor("B", 'L');
+
+
+		openMotorPorts.add(b119a);
+		openMotorPorts.add(b119b);
+	
+		bricks.add(b119);
+	}
 
 	public void addToSensorList(RMISampleProvider s) {
 
@@ -550,59 +648,59 @@ public class Steuerung {
 			@Override
 			public void run() {
 				try {
-//					chargier.resetTable();
-//					chargier.startLineToTable(false);
-//					chargier.startTableLine(true);
+					chargier.resetTable();
+					chargier.startLineToTable(false);
+					chargier.startTableLine(true);
 
-//					// wait till Table Button is pushed, test maybe Ui freezes
-//					while (!b1054Status) {
-//						System.out.println("h‰nge in schleife 1");
-//					}
-//
-//					chargier.stopLineToTable();
-//					chargier.stopTableLine();
-//					chargier.turnTable(660);
+					// wait till Table Button is pushed, test maybe Ui freezes
+					while (!b1054Status) {
+						System.out.println("h‰nge in schleife 1");
+					}
 
-//					chargier.startLineToLifter(false);
-//					chargier.startTableLine(false);
-//
-//					while (!b1053Status) {
-//						System.out.println("h‰nge in schleife 2");
-//					}
-//
-//					chargier.stopLineToLifter();
-//					chargier.stopTableLine();
+					chargier.stopLineToTable();
+					chargier.stopTableLine();
+					chargier.turnTable(660);
 
-					lift.startShaker();
+					chargier.startLineToLifter(false);
+					chargier.startTableLine(false);
+
+					while (!b1053Status) {
+						System.out.println("h‰nge in schleife 2");
+					}
+//
+					chargier.stopLineToLifter();
+					chargier.stopTableLine();
+
+//					lift.startShaker();
 					lift.start(); // wait until it finished
-					lift.stopShaker();
+//					lift.stopShaker();
 
-					cleaner.startCleaner(true); //TODO: maybe falls = andere richtung
-					cleaner.startLiftLine(true); //TODO: maybe falls = andere richtung
-					
-//					chargier.startLineToLifter(true);
-//					chargier.startTableLine(true);
+//					cleaner.startCleaner(true); //TODO: maybe falls = andere richtung
+//					cleaner.startLiftLine(true); //TODO: maybe falls = andere richtung
 //					
-					 quality.startCounterLine(false); 
-					 quality.startLine(true);
+					chargier.startLineToLifter(true);
+					chargier.startTableLine(true);
+//					
+//					 quality.startCounterLine(false); 
+//					 quality.startLine(true);
 
-//					while (!b1054Status) { // wait table button pushed
-//						System.out.println("h‰nge in schleife 3");
-//					}
+					while (!b1054Status) { // wait table button pushed
+						System.out.println("h‰nge in schleife 3");
+					}
 
-//					chargier.stopLineToLifter();
-//					chargier.stopTableLine();
-//
-//					chargier.turnTable(-1320);
-//
-//					chargier.startLineToStore(false); // maybe falls
-//					chargier.startTableLine(false);
-//
-//					Thread.sleep(3000);
-//					chargier.stopTableLine();
-//					chargier.stopLineToStorer();
+					chargier.stopLineToLifter();
+					chargier.stopTableLine();
 
-//					chargier.resetTable(); // turns 660 to much repair later
+					chargier.turnTable(-1320);
+
+					chargier.startLineToStore(false); // maybe falls
+					chargier.startTableLine(false);
+
+					Thread.sleep(3000);
+					chargier.stopTableLine();
+					chargier.stopLineToStorer();
+
+					chargier.resetTable(); // turns 660 to much repair later
 					
 //					Thread.sleep(20000); // wait 10 sec
 //					
@@ -613,11 +711,14 @@ public class Steuerung {
 //					
 //					quality.stopCounterLine();	
 //					quality.stopLine();
-//
-//					System.out.println(  "N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls() );
+
+					System.out.println(  "N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls() );
 					
 
 				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -628,30 +729,48 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		airarms.turnTower();
+		
+		 qualitystation.takeBallToGood();
+
 //		airarms.turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
+//
 //		airarms.turnTower();
+//		
+//		airarms.turnArm();  
+//
 //		airarms.armDown();
 //
-//	
-//		airarms.grabOpen();
-//		airarms.grabClose()
-		;
+//		airarms.grabClose() ;
+//		
 //		airarms.armUp();
-//		airarms.turnTower();
+//		
 //		airarms.turnArm();
+//		
+//		airarms.turnTower();
+//		
 //		airarms.grabTurn();
+//		
+//		airarms.turnArm();
+//		
 //		airarms.armDown();
-//		airarms.grabOpen()
-//		;
+//		
+//		airarms.grabOpen();
+//
 //		airarms.armUp();
-		
+//		
+//		airarms.grabTurn();
+//		
 	}
 
 	public void startSzenario3() {
 
+		
 		try {
-			deliverylane.openGateB();
+			
+	 	  qualitystation.takeBallToBad();
+//			airarms.turnArm();
+//			deliverylane.startLineToArms(false);
+//			deliverylane.openGateB();
 //			deliverylane.startLineToArms(false);
 			deliverylane.startLineToEnd(false);
 		} catch (RemoteException e) {

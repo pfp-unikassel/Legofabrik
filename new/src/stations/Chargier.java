@@ -22,13 +22,10 @@ public class Chargier {
 
 	public Chargier(
 
-			//EV3UltrasonicSensor schranke, EV3TouchSensor touch, EV3TouchSensor touchEnde,
 			RMIRegulatedMotor antriebBandZumDT, RMIRegulatedMotor antriebBandProd, RMIRegulatedMotor antriebBandLeergut,
 			RMIRegulatedMotor antriebDrehtisch, RMIRegulatedMotor drehtischRotieren) {
 
-//		this.schranke = schranke;
-//		this.touch = touch;
-//		this.touchEnde = touchEnde;
+
 		this.antriebBandZumDT = antriebBandZumDT;
 		this.antriebBandProd = antriebBandProd;
 		this.antriebBandLeergut = antriebBandLeergut;
