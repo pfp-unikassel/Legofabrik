@@ -17,33 +17,33 @@ public class StockTest {
 	static RemoteEV3 b118;
 	static RemoteEV3 b119;
 
-	static RMIRegulatedMotor laneToStock1;
+	static RMIRegulatedMotor laneToStock1;   //
 	static RMIRegulatedMotor laneToStock2;
 
-	static RMIRegulatedMotor elevatorHorizontal1;
+	static RMIRegulatedMotor elevatorHorizontal1;		 // 
 	static RMIRegulatedMotor elevatorHorizontal2;
 	static RMIRegulatedMotor elevatorVertical1;
 	static RMIRegulatedMotor elevatorVertical2;
 
-	static RMIRegulatedMotor stockPlace1;
+	static RMIRegulatedMotor stockPlace1;   //1  Lager
 	static RMIRegulatedMotor stockPlace2;
 	static RMIRegulatedMotor stockPlace3;
 	static RMIRegulatedMotor stockPlace4;
 
 	private   char elevatorPositionHorizontal = 'd'; // d = down u= up
-	private  char elevatorPositionVertical = 'l'; // l = left r = right
+	private static  char elevatorPositionVertical = 'l'; // l = left r = right
 
-	private  int stockRotationDegree = 90;
-	private  int veritcalRotationDegree = 540;
-	private  int lineSpeed = 300;
+	private static  int stockRotationDegree = 160;
+	private static  int horizontalDegree = 600;
+	private static  int lineSpeed = 300;
 
 	
-	public  void main(String[] args) {
+	public  static void main(String[] args) throws RemoteException, InterruptedException {
 
 		try {
-			b117 = new RemoteEV3("192.168.0.XX");   // TODO: set Ip Adress
-			b118 = new RemoteEV3("192.168.0.XX");
-			b119 = new RemoteEV3("192.168.0.XX");
+			b117 = new RemoteEV3("192.168.0.105");   
+			b118 = new RemoteEV3("192.168.0.114");
+			b119 = new RemoteEV3("192.168.0.112");
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,40 +54,34 @@ public class StockTest {
 		stockPlace3 = b117.createRegulatedMotor("C", 'L');
 		stockPlace4 = b117.createRegulatedMotor("D", 'L');
 		
-		elevatorHorizontal1 = b118.createRegulatedMotor("A", 'L');
-		elevatorHorizontal2 = b118.createRegulatedMotor("B", 'L');
+		laneToStock1 = b118.createRegulatedMotor("A", 'L');
+		laneToStock2 = b118.createRegulatedMotor("D", 'L');
 		elevatorVertical1 = b118.createRegulatedMotor("C", 'L');
-		elevatorVertical2 = b118.createRegulatedMotor("D", 'L');
+		elevatorVertical2 = b118.createRegulatedMotor("B", 'L');
 		
-		laneToStock1 = b119.createRegulatedMotor("A", 'L');
-		laneToStock2 = b119.createRegulatedMotor("B", 'L');
+		elevatorHorizontal1 = b119.createRegulatedMotor("A", 'L');
+		elevatorHorizontal2  = b119.createRegulatedMotor("B", 'L');
 		
 		
 		//-------------------------Test Code-----------------------------------------------under this
 		
 		
-		try {       // einfach durch ein aus kommentieren die zu testenen methoden aufrufen
+		       // einfach durch ein aus kommentieren die zu testenen methoden aufrufen
 			
+//			elevatorToRight();
+//			elevatorUp();
+//			pushStock1();
 			startLineToStock(true);
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 			stopLaneToStock();
 			
-//			elevatorUp();
 //			elevatorDown();
 		
-//			elevatorToRight();
 //			elevatorToLeft();
 			
-//			pushStock1();
 		
 			
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		
 		//-------------------------Test Code-----------------------------------------------over this
@@ -125,22 +119,20 @@ public class StockTest {
     }
 	}
 
-	public void pushStock1() throws RemoteException {
+	public static void pushStock1() throws RemoteException {
 
-		if (isStock1()) {
-			stockPlace1.rotate(stockRotationDegree, false);
+		
 			stockPlace1.rotate(-stockRotationDegree, false);
-			setStock1(false);
-		} else {
-			System.out.println("Stock 1 is empty");
-		}
+			stockPlace1.rotate(stockRotationDegree, false);
+			
+	
 	}
 
 	public void pushStock2() throws RemoteException {
 
 		if (isStock2()) {
-			stockPlace2.rotate(stockRotationDegree, false);
 			stockPlace2.rotate(-stockRotationDegree, false);
+			stockPlace2.rotate(stockRotationDegree, false);
 			setStock2(false);
 		} else {
 			System.out.println("Stock 2 is empty");
@@ -150,8 +142,8 @@ public class StockTest {
 	public void pushStock3() throws RemoteException {
 
 		if (isStock3()) {
-			stockPlace3.rotate(stockRotationDegree, false);
 			stockPlace3.rotate(-stockRotationDegree, false);
+			stockPlace3.rotate(stockRotationDegree, false);
 			setStock3(false);
 		} else {
 			System.out.println("Stock 3 is empty");
@@ -161,85 +153,76 @@ public class StockTest {
 	public void pushStock4() throws RemoteException {
 
 		if (isStock4()) {
-			stockPlace4.rotate(stockRotationDegree, false);
 			stockPlace4.rotate(-stockRotationDegree, false);
+			stockPlace4.rotate(stockRotationDegree, false);
 			setStock4(false);
 		} else {
 			System.out.println("Stock 4 is empty");
 		}
 	}
 
-	public void startLineToStock(boolean direction) throws RemoteException {
+	public static void startLineToStock(boolean direction) throws RemoteException {
 
 		laneToStock1.setSpeed(getLineSpeed());
 		laneToStock2.setSpeed(getLineSpeed());
 
 		if (direction) {
 			laneToStock1.forward();
-			laneToStock2.forward();
+			laneToStock2.backward();
 		} else {
 			laneToStock1.backward();
-			laneToStock2.backward();
+			laneToStock2.forward();
 		}
 
 	}
 
-	public void stopLaneToStock() throws RemoteException {
+	public static void stopLaneToStock() throws RemoteException {
 
 		laneToStock1.stop(false); // false he waits for the motor to stop until
 									// it really finishes
 		laneToStock2.stop(false);
 	}
 
-	public void elevatorUp() throws RemoteException {
+	public static void elevatorUp() throws RemoteException {
 
-		if (getElevatorPositionVertical() == 'u') {
-			// its allready up
-		} else {
+	 // set speed up
 			elevatorVertical1.rotate(11520, true); // move both at the same time
 													// and wait for second
-			elevatorVertical2.rotate(11520, false);
-			setElevatorPositionVertical('u');
-		}
+			elevatorVertical2.rotate(-11520, false);
+	
 
 	}
 
-	public void elevatorDown() throws RemoteException {
+	public static void elevatorDown() throws RemoteException {
 
-		if (getElevatorPositionVertical() == 'd') {
-			elevatorVertical1.rotate(11520, true); // move both at the same time
+		
+			elevatorVertical1.rotate(-11520, true); // move both at the same time
 													// and wait for second
 			elevatorVertical2.rotate(11520, false);
-			setElevatorPositionVertical('d');
-		}
+			
+		
 	}
 
-	public void elevatorToLeft() throws RemoteException {
+	public static void elevatorToLeft() throws RemoteException {
 
-		if (getElevatorPositionHorizontal() == 'l') {
-			// nothing is allready left
-		} else {
-			elevatorVertical1.rotate(-veritcalRotationDegree, true); // TODO:
+	
+			elevatorHorizontal1.rotate(-horizontalDegree, true); // TODO:
 																		// vorzeichen
 																		// möglicherweise
 																		// andersherum
-			elevatorVertical2.rotate(veritcalRotationDegree, false);
-			setElevatorPositionHorizontal('l');
-		}
+			elevatorHorizontal2.rotate(horizontalDegree, false);
+		
 	}
 
-	public void elevatorToRight() throws RemoteException {
+	public static void elevatorToRight() throws RemoteException {
 
-		if (getElevatorPositionHorizontal() == 'r') {
-			// nothing is allready right
-		} else {
-			elevatorVertical1.rotate(veritcalRotationDegree, true); // TODO:
+	
+			elevatorHorizontal1.rotate(horizontalDegree, true); // TODO:
 																	// vorzeichen
 																	// möglicherweise
 																	// andersherum
-			elevatorVertical2.rotate(-veritcalRotationDegree, false);
-			setElevatorPositionHorizontal('r');
-		}
+			elevatorHorizontal2.rotate(-horizontalDegree, false);
+		
 	}
 
 	public void printElevatorPosition() {
@@ -292,7 +275,7 @@ public class StockTest {
 		this.stock4 = stock4;
 	}
 
-	public int getLineSpeed() {
+	public static int getLineSpeed() {
 		return lineSpeed;
 	}
 
@@ -308,7 +291,7 @@ public class StockTest {
 		this.elevatorPositionHorizontal = elevatorPositionHorizontal;
 	}
 
-	public char getElevatorPositionVertical() {
+	public static char getElevatorPositionVertical() {
 		return elevatorPositionVertical;
 	}
 

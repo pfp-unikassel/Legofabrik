@@ -33,12 +33,12 @@ public class Test {
 		 //Ball Aufheben
 		 //armVertical.rotate(-350, false);
 		 //Ball Ablegen
-		 armVertical.rotate(-200, false);
+		// armVertical.rotate(-200, false);
 		 //ausschuss Seite
-		armHorizontal.rotate(-250 , false);
+		//armHorizontal.rotate(-250 , false);
 	   try {
 		   
-		Thread.sleep(750);    
+		Thread.sleep(75000);    
 		// Time to wait
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block

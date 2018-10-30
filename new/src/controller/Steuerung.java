@@ -667,22 +667,22 @@ public class Steuerung {
 					while (!b1053Status) {
 						System.out.println("h‰nge in schleife 2");
 					}
-//
+
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
 
-//					lift.startShaker();
+					lift.startShaker();
 					lift.start(); // wait until it finished
-//					lift.stopShaker();
+					lift.stopShaker();
 
-//					cleaner.startCleaner(true); //TODO: maybe falls = andere richtung
-//					cleaner.startLiftLine(true); //TODO: maybe falls = andere richtung
-//					
+					cleaner.startCleaner(true); //TODO: maybe falls = andere richtung
+					cleaner.startLiftLine(true); //TODO: maybe falls = andere richtung
+					
 					chargier.startLineToLifter(true);
 					chargier.startTableLine(true);
 //					
-//					 quality.startCounterLine(false); 
-//					 quality.startLine(true);
+					 quality.startCounterLine(false); 
+					 quality.startLine(true);
 
 					while (!b1054Status) { // wait table button pushed
 						System.out.println("h‰nge in schleife 3");
@@ -702,15 +702,15 @@ public class Steuerung {
 
 					chargier.resetTable(); // turns 660 to much repair later
 					
-//					Thread.sleep(20000); // wait 10 sec
+					Thread.sleep(20000); // wait 10 sec
 //					
-//					cleaner.stopLiftLine();
-//					cleaner.stop();
+					cleaner.stopLiftLine();
+					cleaner.stop();
 //					
-//					Thread.sleep(30000); // wait 10 sec
+					Thread.sleep(30000); // wait 10 sec
 //					
-//					quality.stopCounterLine();	
-//					quality.stopLine();
+					quality.stopCounterLine();	
+					quality.stopLine();
 
 					System.out.println(  "N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls() );
 					
@@ -730,53 +730,81 @@ public class Steuerung {
 	public void startSzenario2() {
 
 		
-		 qualitystation.takeBallToGood();
+//		 qualitystation.takeBallToGood();
 
-//		airarms.turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
-//
-//		airarms.turnTower();
-//		
-//		airarms.turnArm();  
-//
-//		airarms.armDown();
-//
-//		airarms.grabClose() ;
-//		
-//		airarms.armUp();
-//		
-//		airarms.turnArm();
-//		
-//		airarms.turnTower();
-//		
-//		airarms.grabTurn();
-//		
-//		airarms.turnArm();
-//		
-//		airarms.armDown();
-//		
-//		airarms.grabOpen();
-//
-//		airarms.armUp();
-//		
-//		airarms.grabTurn();
-//		
-	}
+		try {
+			deliverylane.startLineToEnd(false);
+			deliverylane.turnLineToArms(-1048);
+		
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		airarms.turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
 
-	public void startSzenario3() {
+		airarms.turnTower();
+		
+		airarms.turnArm();  
 
+		airarms.armDown();
+
+		airarms.grabClose() ;
+		
+		airarms.armUp();
+		
+		airarms.turnArm();
+		
+		airarms.turnTower();
+		
+		airarms.grabTurn();
+		
+		airarms.turnArm();
+		
+		airarms.armDown();
+		
+		airarms.grabOpen();
+
+		airarms.armUp();
+		
+		airarms.grabTurn();  // just to cover the new start position
+		
+		
+		
+		deliverylane.openGateB();
+		deliverylane.openGateD();
 		
 		try {
-			
-	 	  qualitystation.takeBallToBad();
-//			airarms.turnArm();
-//			deliverylane.startLineToArms(false);
-//			deliverylane.openGateB();
-//			deliverylane.startLineToArms(false);
-			deliverylane.startLineToEnd(false);
-		} catch (RemoteException e) {
+			Thread.sleep(2500);
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 
+		deliverylane.closeGateB();
+		
+		try {
+			Thread.sleep(4500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		deliverylane.closeGateD();
+		
+		
+	}
+
+	public void startSzenario3() {
+	
+		qualitystation.takeBallToGood();
+		qualitystation.takeBallToBad();
+	
+		
+//			airarms.turnArm();
+//			deliverylane.startLineToArms(false);
+//			deliverylane.openGateB();
 	}
 
 }

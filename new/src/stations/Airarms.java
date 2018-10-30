@@ -6,7 +6,7 @@ import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Airarms { // schalter rechts rechts Links links
 
-	private boolean grabStatus = true; // true is open
+	private boolean grabStatus = true; // true is open   just set to 
 	private boolean grabPosition = true; // true is || over the line
 
 	private boolean armPosition = true; // true ist ausgefahren
@@ -49,7 +49,7 @@ public class Airarms { // schalter rechts rechts Links links
 		if (!getArmStatus()) { // if arm is down do mit der achse gegen den uhrzeigersinn
 			setArmStatus(true);
 			try {
-				verticalArm.rotateTo(490, false);
+				verticalArm.rotateTo(450, false); //490
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,7 +62,7 @@ public class Airarms { // schalter rechts rechts Links links
 		if (getArmStatus()) { // if arm is up do
 			setArmStatus(false);
 			try {
-				verticalArm.rotateTo(-490, false);
+				verticalArm.rotateTo(-450, false); //490
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -129,20 +129,21 @@ public class Airarms { // schalter rechts rechts Links links
 			// turn = to lane
 			setGrabPosition(false);
 			try {
-				turnGrab.rotateTo(420, false);
+				turnGrab.rotateTo(420, false); 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				turnGrab.rotateTo(-420, false);
+				// || to lane
+				setGrabPosition(true);
+				turnGrab.rotateTo(-420, false); 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// || to lane
-			setGrabPosition(true);
+	
 		}
 	}
 

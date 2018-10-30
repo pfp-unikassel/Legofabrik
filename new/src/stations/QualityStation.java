@@ -32,6 +32,7 @@ public class QualityStation {
 		this.tower = tower;
 		try {
 			tower.setSpeed(towerSpeed);
+			armHorizontal.setSpeed(600);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,12 +84,12 @@ public class QualityStation {
 
 			if (getArmPositionHorizontal() == 'm') {
 				// mid  to good
-				armHorizontal.rotate(-350 , false);    
+				armHorizontal.rotate(-350 , false);     //-350
 			} else if (getArmPositionHorizontal() == 'g') {
 				// good do nothing
 			} else if (getArmPositionHorizontal() == 'b') {
 				// bad move to good
-				armHorizontal.rotate(-550 , false); 
+				armHorizontal.rotate(-550 , false);  //-550
 			}
 
 			setArmPositionHorizontal('g');
@@ -121,7 +122,7 @@ public class QualityStation {
 				// mid do nothing
 			} else if (getArmPositionHorizontal() == 'g') {
 				// good
-				armHorizontal.rotate(300 , false); 
+				armHorizontal.rotate(370 , false); 
 			} else if (getArmPositionHorizontal() == 'b') {
 				// bad
 				armHorizontal.rotate(-250 , false); 
