@@ -184,6 +184,37 @@ public class Airarms { // schalter rechts rechts Links links
 
 		armUp();
 	}
+	
+	public void runAirArms() {
+		
+		turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
+
+		turnTower();
+		
+		turnArm();  
+
+		armDown();
+
+		grabClose() ;
+		
+		armUp();
+		
+		turnArm();
+		
+		turnTower();
+		
+		grabTurn();
+		
+		turnArm();
+		
+		armDown();
+		
+		grabOpen();
+
+		armUp();
+		
+		grabTurn();  // just to cover the new start position
+	}
 
 	public boolean getGrabStatus() {
 		return grabStatus;

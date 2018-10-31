@@ -242,6 +242,10 @@ public class StockTest {
 
 		}
 	}
+	
+	public void storeBox() {
+		
+	}
 
 	public boolean isStock1() {
 		return stock1;

@@ -6,17 +6,17 @@ import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Deliverylane {
 
-	
 	RMIRegulatedMotor lineToEnd;
 	RMIRegulatedMotor gateB;
 	RMIRegulatedMotor gateC;
 	RMIRegulatedMotor gateD;
 	RMIRegulatedMotor LineToArms;
-	
+
 	private int lineToArmsSpeed = 180;
 	private int lineToEndSpeed = 120; // 90 before
 	private int gateTurnDegree = 50;
-	
+	private int gateCounter = 0;
+
 	private boolean gateDStatus = true; // true is closed
 	private boolean gateBStatus = true; // true is closed
 	private boolean gateCStatus = true; // true is closed
@@ -33,14 +33,15 @@ public class Deliverylane {
 
 	public void ultraSonicFired() {
 
-		// is not needed, just turn the line a complete round after the Gate B ist opend, 
+		// is not needed, just turn the line a complete round after the Gate B ist
+		// opend,
 		// Gate B is Opend right after the Airarms placed the balls
 		// if distance less then 30cm stop and rotate x (guess 180) degree and wait
 		// until gate b opens
 
 	}
 
-	public void startLineToArms(boolean direction) throws RemoteException {  //false is the right direction
+	public void startLineToArms(boolean direction) throws RemoteException { // false is the right direction
 
 		LineToArms.setSpeed(getLineToArmsSpeed());
 		if (direction) {
@@ -50,7 +51,7 @@ public class Deliverylane {
 
 		}
 	}
-	
+
 	public void turnLineToArms(int degree) throws RemoteException {
 		LineToArms.setSpeed(getLineToArmsSpeed());
 		LineToArms.rotate(degree, false);
@@ -61,7 +62,7 @@ public class Deliverylane {
 		LineToArms.stop(true);
 	}
 
-	public void startLineToEnd(boolean direction) throws RemoteException {  // false is the right direction
+	public void startLineToEnd(boolean direction) throws RemoteException { // false is the right direction
 
 		lineToEnd.setSpeed(getLineToEndSpeed());
 		if (direction) {
@@ -155,7 +156,7 @@ public class Deliverylane {
 		if (!getGateCStatus()) {
 			// close
 			try {
-				gateD.rotate(-gateTurnDegree, true);
+				gateC.rotate(-gateTurnDegree, true);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -163,6 +164,24 @@ public class Deliverylane {
 
 			gateCStatus = true;
 		}
+	}
+
+	public void openEquallyGate() {
+
+		if (gateCounter % 3 == 0) {
+			openGateC();
+		} else {
+			if (gateCounter % 3 == 1) {
+				openGateD();
+			}
+		}
+		
+	}
+	
+	public void closeGates() {
+		closeGateB();
+		closeGateC();
+		closeGateD();
 	}
 
 	public void stop() throws RemoteException {
