@@ -230,7 +230,15 @@ public class Controller implements Initializable {
 
 		s.runAirarms(false);
 	}
+	public void deliveryTest() {
 
+		s.runDelivery(true);
+	}
+
+	public void deliveryStop() {
+
+		s.runDelivery(false);
+	}
 	public void stockTest() {
 
 		s.runStock(true);
