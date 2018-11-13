@@ -20,6 +20,7 @@ import stations.Lift;
 import stations.Quality;
 import stations.QualityStation;
 import stations.Stock;
+import userInterface.Controller;
 import stations.Cleaning;
 import stations.Compressor;
 import stations.Deliverylane;
@@ -39,7 +40,6 @@ public class Steuerung {
 	RemoteEV3 b117;
 	RemoteEV3 b118;
 	RemoteEV3 b119;
-
 
 	static RMIRegulatedMotor b101a;
 	static RMIRegulatedMotor b101b;
@@ -65,51 +65,47 @@ public class Steuerung {
 	static RMIRegulatedMotor b108b;
 	static RMIRegulatedMotor b108c;
 	static RMIRegulatedMotor b108d;
-	
+
 	static RMIRegulatedMotor b111a;
 	static RMIRegulatedMotor b111b;
 	static RMIRegulatedMotor b111c;
 	static RMIRegulatedMotor b111d;
-	
+
 	static RMIRegulatedMotor b113a;
 	static RMIRegulatedMotor b113b;
 	static RMIRegulatedMotor b113c;
 	static RMIRegulatedMotor b113d;
-	
+
 	static RMIRegulatedMotor b114a;
 	static RMIRegulatedMotor b114b;
 	static RMIRegulatedMotor b114c;
-	
+
 	static RMIRegulatedMotor b115a;
 	static RMIRegulatedMotor b115b;
 	static RMIRegulatedMotor b115c;
 	static RMIRegulatedMotor b115d;
-	
+
 	static RMIRegulatedMotor b116a;
 	static RMIRegulatedMotor b116b;
 	static RMIRegulatedMotor b116c;
 	static RMIRegulatedMotor b116d;
-	
+
 	static RMIRegulatedMotor b117a;
 	static RMIRegulatedMotor b117b;
 	static RMIRegulatedMotor b117c;
 	static RMIRegulatedMotor b117d;
-	
+
 	static RMIRegulatedMotor b118a;
 	static RMIRegulatedMotor b118b;
 	static RMIRegulatedMotor b118c;
 	static RMIRegulatedMotor b118d;
-	
+
 	static RMIRegulatedMotor b119a;
 	static RMIRegulatedMotor b119b;
-
-	
-	
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
 	static ArrayList<RMISampleProvider> openSensorPorts = new ArrayList<>();
 	static ArrayList<RemoteEV3> bricks = new ArrayList<>();
-
 
 	static Chargier chargier;
 	static Lift lift;
@@ -117,7 +113,7 @@ public class Steuerung {
 	static Quality quality;
 	static Compressor compressor;
 	static Airarms airarms;
-    static Deliverylane deliverylane;
+	static Deliverylane deliverylane;
 	static QualityStation qualitystation;
 	static Stock stock;
 
@@ -126,12 +122,15 @@ public class Steuerung {
 	private boolean b1061Status = false;
 	private boolean b1072Status = false;
 
+	private Controller c;
+	
 	public static void main(String[] args) throws RemoteException {
 
 	}
 
-	public void start() {
+	public void start(Controller c1) {
 
+		c = c1;
 		initAll();
 		System.out.println("steuerung start");
 
@@ -140,13 +139,15 @@ public class Steuerung {
 		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
 		cleaner = new Cleaning(b108b, b108c);
 		quality = new Quality(b107c, b107b, b107d);
-		compressor = new Compressor(b113a,b113b,b113c,b113d);
-		airarms = new Airarms(b111a,b111b,b111c,b111d,b114a,b114b);		// distanzsensor
-		qualitystation = new QualityStation(b115a,b115b,b115c,b115d); 
-		deliverylane = new Deliverylane(b116a,b116b,b116c,b116d,b114c); 
-//		stock = new Stock();
+		compressor = new Compressor(b113a, b113b, b113c, b113d);
+		airarms = new Airarms(b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
+		qualitystation = new QualityStation(b115a, b115b, b115c, b115d);
+		deliverylane = new Deliverylane(b116a, b116b, b116c, b116d, b114c);
+		// stock = new Stock();
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107,b113,b115); // uebergebe das Object und rufe b1073  TODO: ad 114 distanz
+		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe das Object und
+																							// rufe b1073 TODO: ad 114
+																							// distanz
 		sensordeamon.start();
 	}
 
@@ -170,28 +171,28 @@ public class Steuerung {
 		quality.counterSensorFired();
 		b1072Status = true;
 	}
-	
+
 	public void b1073Fired(String colorString) {
-		
+
 		quality.colorSensorFired(colorString);
 	}
-	
+
 	public void b1131Fired(boolean button) {
-		
+
 		compressor.pressureButtonfired(button);
 	}
-	
+
 	public void b1151Fired(String colorString) {
-		
+
 		qualitystation.colorSensorFired(colorString);
 	}
+
 	public void armIsStalled(boolean armIsStalled) {
-		 // QualityStation arm is stalled boolean true stalled, false nicht
-		//qulityStation.setArmIsStalled(armIsStalled);
+		// QualityStation arm is stalled boolean true stalled, false nicht
+		// qulityStation.setArmIsStalled(armIsStalled);
 
 	}
 
-	
 	public void resetSensorStatus() {
 		b1053Status = false;
 		b1054Status = false;
@@ -203,7 +204,6 @@ public class Steuerung {
 	public void initAll() {
 		System.out.println("init All");
 
-		
 		initBrick1();
 		initBrick5();
 		initBrick6();
@@ -214,10 +214,10 @@ public class Steuerung {
 		initBrick14();
 		initBrick15();
 		initBrick16();
-//		initBrick17();
-//		initBrick18();
-//		initBrick19();
-	
+		// initBrick17();
+		// initBrick18();
+		// initBrick19();
+
 		// updatePowerLevel(); // TODO: delete in every single init
 	}
 
@@ -240,7 +240,7 @@ public class Steuerung {
 		openMotorPorts.add(b101b);
 		openMotorPorts.add(b101c);
 		openMotorPorts.add(b101d);
-		
+
 		bricks.add(b101);
 	}
 
@@ -260,7 +260,7 @@ public class Steuerung {
 
 		openMotorPorts.add(b105c);
 		openMotorPorts.add(b105d);
-		
+
 		bricks.add(b105);
 	}
 
@@ -329,10 +329,10 @@ public class Steuerung {
 		openMotorPorts.add(b108a);
 		openMotorPorts.add(b108b);
 		openMotorPorts.add(b108c);
-		
+
 		bricks.add(b108);
 	}
-	
+
 	public void initBrick11() {
 		// Brick 111
 		try {
@@ -350,7 +350,6 @@ public class Steuerung {
 		b111c = b111.createRegulatedMotor("C", 'M');
 		b111d = b111.createRegulatedMotor("D", 'M');
 
-
 		openMotorPorts.add(b111a);
 		openMotorPorts.add(b111b);
 		openMotorPorts.add(b111c);
@@ -358,7 +357,7 @@ public class Steuerung {
 
 		bricks.add(b111);
 	}
-	
+
 	public void initBrick13() {
 		// Brick 113
 		try {
@@ -376,7 +375,6 @@ public class Steuerung {
 		b113c = b113.createRegulatedMotor("C", 'L');
 		b113d = b113.createRegulatedMotor("D", 'L');
 
-
 		openMotorPorts.add(b113a);
 		openMotorPorts.add(b113b);
 		openMotorPorts.add(b113c);
@@ -384,7 +382,7 @@ public class Steuerung {
 
 		bricks.add(b113);
 	}
-	
+
 	public void initBrick14() {
 		// Brick 114
 		try {
@@ -404,10 +402,10 @@ public class Steuerung {
 		openMotorPorts.add(b114a);
 		openMotorPorts.add(b114b);
 		openMotorPorts.add(b114c);
-		
+
 		bricks.add(b114);
 	}
-	
+
 	public void initBrick15() {
 		// Brick 115
 		try {
@@ -429,10 +427,10 @@ public class Steuerung {
 		openMotorPorts.add(b115b);
 		openMotorPorts.add(b115c);
 		openMotorPorts.add(b115d);
-		
+
 		bricks.add(b115);
 	}
-	
+
 	public void initBrick16() {
 		// Brick 116
 		try {
@@ -454,10 +452,10 @@ public class Steuerung {
 		openMotorPorts.add(b116b);
 		openMotorPorts.add(b116c);
 		openMotorPorts.add(b116d);
-		
+
 		bricks.add(b116);
 	}
-	
+
 	public void initBrick17() {
 		// Brick 117
 		try {
@@ -479,10 +477,10 @@ public class Steuerung {
 		openMotorPorts.add(b117b);
 		openMotorPorts.add(b117c);
 		openMotorPorts.add(b117d);
-		
+
 		bricks.add(b117);
 	}
-	
+
 	public void initBrick18() {
 		// Brick 117
 		try {
@@ -504,10 +502,10 @@ public class Steuerung {
 		openMotorPorts.add(b118b);
 		openMotorPorts.add(b118c);
 		openMotorPorts.add(b118d);
-		
+
 		bricks.add(b118);
 	}
-	
+
 	public void initBrick19() {
 		// Brick 119
 		try {
@@ -523,10 +521,9 @@ public class Steuerung {
 		b119a = b119.createRegulatedMotor("A", 'L');
 		b119b = b119.createRegulatedMotor("B", 'L');
 
-
 		openMotorPorts.add(b119a);
 		openMotorPorts.add(b119b);
-	
+
 		bricks.add(b119);
 	}
 
@@ -539,6 +536,7 @@ public class Steuerung {
 
 		return openSensorPorts;
 	}
+
 	public ArrayList<RemoteEV3> getBrickList() {
 
 		return bricks;
@@ -588,37 +586,47 @@ public class Steuerung {
 
 	public float getPowerLevel(RemoteEV3 brick) {
 
-		if(brick != null) {
-			
-			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt()+ "V Akku");
-			
+		if (brick != null) {
+
+			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt() + "V Akku");
+
 			return brick.getPower().getVoltageMilliVolt();
-			
-		}else return 0;
+
+		} else
+			return 0;
 
 		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
 	}
-	
+
 	public float getPowerUse(RemoteEV3 brick) {
 
-		if(brick  != null) {
-			
-			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent()+ "Amp/s Akku"); 	// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-			 
-			return brick.getPower().getBatteryCurrent();		
-			
-		}else return 0;
+		if (brick != null) {
 
+			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
+																														// PoverLevel
+																														// in
+																														// %
+																														// umrechnen,
+																														// wenn
+																														// unter
+																														// wert
+																														// x
+																														// dann
+																														// alarm
 
-		
-		
+			return brick.getPower().getBatteryCurrent();
+
+		} else
+			return 0;
+
 	}
-	
-	public float getMotorPowerUse(RemoteEV3 brick) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
-		if(brick != null) {
-			
-			System.out.println(brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent()+ "Amp/s Akku");
+	public float getMotorPowerUse(RemoteEV3 brick) {
+
+		if (brick != null) {
+
+			System.out.println(
+					brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent() + "Amp/s Akku");
 			return brick.getPower().getMotorCurrent();
 		} else {
 			return 0;
@@ -626,22 +634,187 @@ public class Steuerung {
 
 		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
 	}
-	
+
 	public void updatePowerLevel() {
-		
+
 		int count = 0;
 		float powerLevel;
 		String brickName;
-		
-		for(RemoteEV3 b : bricks) {
-			
+
+		for (RemoteEV3 b : bricks) {
+
 			powerLevel = getPowerLevel(b);
 			brickName = b.getName();
-			// TODO update in Ui 
-			
+			// TODO update in Ui
+			c.getLabel00().setText(brickName);
+
 		}
 	}
-	
+	// ------------------------help methods with
+	// stations------------------------------
+
+	public void runDelivery() {
+
+		deliverylane.startLineToEnd(false);
+		deliverylane.closeGates();
+		deliverylane.turnLineToArms(-1048);
+		airarms.runAirArms();
+		deliverylane.openGateB();
+		deliverylane.openEquallyGate();
+
+	}
+
+	public void runChargier(boolean mode) { // True starts false stops
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				try {
+					if (mode == true) {
+						chargier.resetTable();
+						chargier.startLineToTable(false);
+						chargier.startTableLine(true);
+
+						// wait till Table Button is pushed, test maybe Ui freezes
+						while (!b1054Status) {
+							System.out.println("h‰nge in schleife 1");
+						}
+
+						chargier.stopLineToTable();
+						chargier.stopTableLine();
+						chargier.turnTable(660);
+
+						chargier.startLineToLifter(false);
+						chargier.startTableLine(false);
+
+						while (!b1053Status) {
+							System.out.println("h‰nge in schleife 2");
+						}
+						chargier.stopLineToLifter();
+						chargier.stopTableLine();
+						chargier.startLineToLifter(true);
+						chargier.startTableLine(true);
+
+						while (!b1054Status) { // wait table button pushed
+							System.out.println("h‰nge in schleife 3");
+						}
+
+						chargier.stopLineToLifter();
+						chargier.stopTableLine();
+
+						chargier.turnTable(-1320);
+
+						chargier.startLineToStore(false); // maybe falls
+						chargier.startTableLine(false);
+
+						Thread.sleep(3000);
+						chargier.stopTableLine();
+						chargier.stopLineToStorer();
+
+						chargier.resetTable(); // turns 660 to much repair later
+
+					} else {
+						chargier.stop();
+					}
+
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000);
+	}
+
+	public void runCleaner(boolean mode) {
+
+		if (mode == true) {
+			cleaner.startLiftLine(true);
+			cleaner.startCleaner(true);
+		} else {
+			cleaner.stop();
+		}
+	}
+
+	public void runShaker(boolean mode) {
+
+		if (mode == true) {
+			lift.startShaker();
+		} else {
+			lift.stopShaker();
+		}
+	}
+
+	public void runLift(boolean mode) {
+
+		if (mode == true) {
+			lift.start();
+		} else {
+
+		}
+	}
+
+	public void runQuality(boolean mode) {
+
+		if (mode == true) {
+			quality.startCounterLine(false);
+			quality.startLine(true);
+		} else {
+			quality.stop();
+		}
+	}
+
+	public void runAirarms(boolean mode) {
+
+		if (mode == true) {
+			airarms.runAirArms();
+		} else {
+			airarms.reset();
+		}
+	}
+
+	public void runStock(boolean mode) {
+
+		if (mode == true) {
+			stock.elevatorUp();
+			stock.elevatorToRight();
+			stock.elevatorDown();
+			stock.elevatorToLeft();
+		} else {
+			stock.reset();
+		}
+	}
+
+	public void runDelivery(boolean mode) {
+
+		if (mode == true) {
+			deliverylane.startLineToEnd(false);
+			deliverylane.turnLineToArms(-1048);
+		} else {
+			deliverylane.stopLineToEnd();
+		}
+	}
+
+	public void runGates(boolean mode) {
+
+		if (mode == true) {
+			deliverylane.openGateB();
+			deliverylane.openEquallyGate();
+		} else {
+			deliverylane.closeGates();
+		}
+	}
+
+	// public void runShaker(boolean mode) {
+	//
+	// if (mode == true) {
+	// lift.startShaker();
+	// } else {
+	// lift.stopShaker();
+	// }
+	// }
+
 	public void startSzenario1() {
 
 		new java.util.Timer().schedule(new java.util.TimerTask() {
@@ -675,14 +848,14 @@ public class Steuerung {
 					lift.start(); // wait until it finished
 					lift.stopShaker();
 
-					cleaner.startCleaner(true); //TODO: maybe falls = andere richtung
-					cleaner.startLiftLine(true); //TODO: maybe falls = andere richtung
-					
+					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung
+					cleaner.startLiftLine(true); // TODO: maybe falls = andere richtung
+
 					chargier.startLineToLifter(true);
 					chargier.startTableLine(true);
-//					
-					 quality.startCounterLine(false); 
-					 quality.startLine(true);
+					//
+					quality.startCounterLine(false);
+					quality.startLine(true);
 
 					while (!b1054Status) { // wait table button pushed
 						System.out.println("h‰nge in schleife 3");
@@ -701,19 +874,18 @@ public class Steuerung {
 					chargier.stopLineToStorer();
 
 					chargier.resetTable(); // turns 660 to much repair later
-					
+
 					Thread.sleep(20000); // wait 10 sec
-//					
+					//
 					cleaner.stopLiftLine();
 					cleaner.stop();
-//					
+					//
 					Thread.sleep(30000); // wait 10 sec
-//					
-					quality.stopCounterLine();	
+					//
+					quality.stopCounterLine();
 					quality.stopLine();
 
-					System.out.println(  "N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls() );
-					
+					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
 
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
@@ -729,82 +901,80 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		
-//		 qualitystation.takeBallToGood();
+		// calibrate Airarms first
+		runDelivery();
 
-		try {
-			deliverylane.startLineToEnd(false);
-			deliverylane.turnLineToArms(-1048);
-		
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		airarms.turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
+		// qualitystation.takeBallToGood();
+		//
+		// try {
+		// deliverylane.startLineToEnd(false);
+		// deliverylane.turnLineToArms(-1048);
+		//
+		// } catch (RemoteException e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
+		//
+		// airarms.runAirArms();
 
-		airarms.turnTower();
-		
-		airarms.turnArm();  
+		// airarms.turnArm(); // einfarhen / tower drehen / ausfahren / arm runter/ grab
+		// schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab
+		// drehen / runter / aufmachen
+		//
+		// airarms.turnTower();
+		//
+		// airarms.turnArm();
+		//
+		// airarms.armDown();
+		//
+		// airarms.grabClose() ;
+		//
+		// airarms.armUp();
+		//
+		// airarms.turnArm();
+		//
+		// airarms.turnTower();
+		//
+		// airarms.grabTurn();
+		//
+		// airarms.turnArm();
+		//
+		// airarms.armDown();
+		//
+		// airarms.grabOpen();
+		//
+		// airarms.armUp();
+		//
+		// airarms.grabTurn(); // just to cover the new start position
+		//
 
-		airarms.armDown();
+		// deliverylane.openGateB();
+		// deliverylane.openGateD();
+		//
+		// try {
+		// Thread.sleep(2500);
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// deliverylane.closeGateB();
+		//
+		// try {
+		// Thread.sleep(4500);
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// deliverylane.closeGateD();
 
-		airarms.grabClose() ;
-		
-		airarms.armUp();
-		
-		airarms.turnArm();
-		
-		airarms.turnTower();
-		
-		airarms.grabTurn();
-		
-		airarms.turnArm();
-		
-		airarms.armDown();
-		
-		airarms.grabOpen();
-
-		airarms.armUp();
-		
-		airarms.grabTurn();  // just to cover the new start position
-		
-		
-		
-		deliverylane.openGateB();
-		deliverylane.openGateD();
-		
-		try {
-			Thread.sleep(2500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
-		deliverylane.closeGateB();
-		
-		try {
-			Thread.sleep(4500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		deliverylane.closeGateD();
-		
-		
 	}
 
 	public void startSzenario3() {
-	
-		qualitystation.takeBallToGood();
-		qualitystation.takeBallToBad();
-	
-		
-//			airarms.turnArm();
-//			deliverylane.startLineToArms(false);
-//			deliverylane.openGateB();
+
+		// qualitystation.takeBallToGood();
+		// qualitystation.takeBallToBad();
+
 	}
 
 }

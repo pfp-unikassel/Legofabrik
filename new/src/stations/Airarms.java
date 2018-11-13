@@ -182,7 +182,51 @@ public class Airarms { // schalter rechts rechts Links links
 			turnArm();
 		}
 
+		if (!isTowerPosition()) {
+			turnTower();
+		}
+		
 		armUp();
+	}
+	
+	public void hardReset() { // turning motors but has no sa
+		
+		turnGrab.rotateTo(-420, false);
+		openCloseGrab.rotate(turnDegree, false);
+		moveArm.rotate(-turnDegree, false);
+		verticalArm.rotateTo(450, false); //490
+		
+	}
+	
+	public void runAirArms() {
+		
+		turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
+
+		turnTower();
+		
+		turnArm();  
+
+		armDown();
+
+		grabClose() ;
+		
+		armUp();
+		
+		turnArm();
+		
+		turnTower();
+		
+		grabTurn();
+		
+		turnArm();
+		
+		armDown();
+		
+		grabOpen();
+
+		armUp();
+		
+		grabTurn();  // just to cover the new start position
 	}
 
 	public boolean getGrabStatus() {
@@ -215,5 +259,13 @@ public class Airarms { // schalter rechts rechts Links links
 
 	public void setArmStatus(boolean armStatus) {
 		this.armStatus = armStatus;
+	}
+
+	public boolean isTowerPosition() {
+		return towerPosition;
+	}
+
+	public void setTowerPosition(boolean towerPosition) {
+		this.towerPosition = towerPosition;
 	}
 }
