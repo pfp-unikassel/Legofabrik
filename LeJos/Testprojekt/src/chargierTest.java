@@ -8,7 +8,7 @@ import lejos.remote.ev3.RMISampleProvider;
 import lejos.remote.ev3.RemoteEV3;
 import stations.Chargier;
 
-public class Test6 {
+public class chargierTest {
 
 	static RemoteEV3 b106;
 	static RemoteEV3 b105;
@@ -61,6 +61,18 @@ public class Test6 {
 		// -----------------------------------------------------------
 		// ausfuehrung
 
+		// Einkommentieren wenn standart Werte überarbeitet werden sollen
+//		try {
+//			
+//			b105c.setSpeed(720);  // drehtsich speed
+//			chargier.setLineSpeed(300); // kaufband geschwindigkeit
+//			
+//			
+//		} catch (RemoteException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {

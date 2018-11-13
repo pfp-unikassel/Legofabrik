@@ -33,15 +33,16 @@ public class StockTest {
 	private   char elevatorPositionHorizontal = 'd'; // d = down u= up
 	private static  char elevatorPositionVertical = 'l'; // l = left r = right
 
-	private static  int stockRotationDegree = 160;
+	private static  int stockRotationDegree = 160; // is allready callibrated
 	private static  int horizontalDegree = 600;
-	private static  int lineSpeed = 300;
+	
+	private static  int lineSpeed = 300;    // line spped of elevator can be changed as u want
 
 	
 	public  static void main(String[] args) throws RemoteException, InterruptedException {
 
 		try {
-			b117 = new RemoteEV3("192.168.0.105");   
+			b117 = new RemoteEV3("192.168.0.111");   
 			b118 = new RemoteEV3("192.168.0.114");
 			b119 = new RemoteEV3("192.168.0.112");
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
@@ -68,16 +69,16 @@ public class StockTest {
 		
 		       // einfach durch ein aus kommentieren die zu testenen methoden aufrufen
 			
-//			elevatorToRight();
-//			elevatorUp();
-//			pushStock1();
-			startLineToStock(true);
-			Thread.sleep(2000);
+			elevatorToRight();
+			elevatorUp();
+			pushStock1();   // dont use 4
+			startLineToStock(true);  // true is to store false is to charge
+			Thread.sleep(2000);                              // wait for X millis so 1000 = 1 sec
 			stopLaneToStock();
 			
-//			elevatorDown();
+			elevatorToLeft();
+			elevatorDown();
 		
-//			elevatorToLeft();
 			
 		
 			
@@ -128,37 +129,28 @@ public class StockTest {
 	
 	}
 
-	public void pushStock2() throws RemoteException {
+	public static void pushStock2() throws RemoteException {
 
-		if (isStock2()) {
+		
 			stockPlace2.rotate(-stockRotationDegree, false);
 			stockPlace2.rotate(stockRotationDegree, false);
-			setStock2(false);
-		} else {
-			System.out.println("Stock 2 is empty");
-		}
+			
+		
 	}
+	public static void pushStock3() throws RemoteException {
 
-	public void pushStock3() throws RemoteException {
-
-		if (isStock3()) {
+		
 			stockPlace3.rotate(-stockRotationDegree, false);
 			stockPlace3.rotate(stockRotationDegree, false);
-			setStock3(false);
-		} else {
-			System.out.println("Stock 3 is empty");
-		}
+		
 	}
 
-	public void pushStock4() throws RemoteException {
+	public static void pushStock4() throws RemoteException {
 
-		if (isStock4()) {
+			stockPlace4.setSpeed(1);
 			stockPlace4.rotate(-stockRotationDegree, false);
 			stockPlace4.rotate(stockRotationDegree, false);
-			setStock4(false);
-		} else {
-			System.out.println("Stock 4 is empty");
-		}
+
 	}
 
 	public static void startLineToStock(boolean direction) throws RemoteException {
