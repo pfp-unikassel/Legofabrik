@@ -51,7 +51,7 @@ public class Stock {
 
 	}
 
-	public void pushBoxFromStock(int stock) throws RemoteException {
+	public void pushBoxFromStock(int stock) throws RemoteException, InterruptedException {
 
 		switch (stock) {
 		case 1:
@@ -226,11 +226,16 @@ public class Stock {
 	
 	public void reset() {
 		
-		elevatorDown();
-		elevatorToLeft();
+		try {
+			elevatorDown();
+			elevatorToLeft();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public void storeBox() {
+	public void storeBox() throws RemoteException, InterruptedException {
 
 		if (isStock1() == false) {
 			storeIn1();
@@ -253,7 +258,7 @@ public class Stock {
 
 	}
 
-	private void storeIn1() {
+	private void storeIn1() throws RemoteException, InterruptedException {
 		if (isStock1() == false) {
 			elevatorUp();
 			startLineToStock(true); // Change to degree later
@@ -265,7 +270,7 @@ public class Stock {
 
 	}
 
-	private void storeIn2() {
+	private void storeIn2() throws RemoteException, InterruptedException {
 		if (isStock2() == false) {
 			elevatorToRight();
 			elevatorUp();
@@ -279,7 +284,7 @@ public class Stock {
 
 	}
 
-	private void storeIn3() {
+	private void storeIn3() throws RemoteException, InterruptedException {
 		if (isStock3() == false) {
 			startLineToStock(true); // Change to degree later
 			Thread.sleep(2000);
@@ -289,7 +294,7 @@ public class Stock {
 
 	}
 
-	private void storeIn4() {
+	private void storeIn4() throws RemoteException, InterruptedException {
 
 		if (isStock4() == false) {
 			elevatorToRight();
@@ -319,14 +324,14 @@ public class Stock {
 		}
 	}
 	
-	public void takeBoxOnElevator() {
+	public void takeBoxOnElevator() throws InterruptedException, RemoteException {
 		
 		startLineToStock(true); // Change to degree later
 		Thread.sleep(1500);  
 		stopLaneToStock();
 	}
 	
-	public void takeBoxFromElevatorToTable() {
+	public void takeBoxFromElevatorToTable() throws RemoteException, InterruptedException {
 		startLineToStock(false); // Change to degree later
 		Thread.sleep(2000);
 		stopLaneToStock();

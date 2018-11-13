@@ -191,10 +191,15 @@ public class Airarms { // schalter rechts rechts Links links
 	
 	public void hardReset() { // turning motors but has no sa
 		
-		turnGrab.rotateTo(-420, false);
-		openCloseGrab.rotate(turnDegree, false);
-		moveArm.rotate(-turnDegree, false);
-		verticalArm.rotateTo(450, false); //490
+		try {
+			turnGrab.rotateTo(-420, false);
+			openCloseGrab.rotate(turnDegree, false);
+			moveArm.rotate(-turnDegree, false);
+			verticalArm.rotateTo(450, false); //490
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

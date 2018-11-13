@@ -218,7 +218,7 @@ public class Steuerung {
 		// initBrick18();
 		// initBrick19();
 
-		// updatePowerLevel(); // TODO: delete in every single init
+		 updatePowerLevel(); // TODO: delete in every single init
 	}
 
 	public void initBrick1() {
@@ -252,7 +252,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B5 not Found");
 		}
 
 		b105c = b105.createRegulatedMotor("C", 'L'); // Motor Drehtisch
@@ -272,7 +272,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B6 not Found");
 
 		}
 
@@ -295,7 +295,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B7 not Found");
 
 		}
 
@@ -318,7 +318,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B8 not Found");
 
 		}
 
@@ -341,7 +341,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B11 not Found");
 
 		}
 
@@ -366,7 +366,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B13 not Found");
 
 		}
 
@@ -391,7 +391,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B14 not Found");
 
 		}
 
@@ -414,7 +414,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B15 not Found");
 
 		}
 
@@ -439,7 +439,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B16 not Found");
 
 		}
 
@@ -464,7 +464,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B17 not Found");
 
 		}
 
@@ -489,7 +489,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B18 not Found");
 
 		}
 
@@ -514,7 +514,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("B1 not Found");
+			System.out.println("B19 not Found");
 
 		}
 
@@ -603,16 +603,7 @@ public class Steuerung {
 		if (brick != null) {
 
 			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
-																														// PoverLevel
-																														// in
-																														// %
-																														// umrechnen,
-																														// wenn
-																														// unter
-																														// wert
-																														// x
-																														// dann
-																														// alarm
+
 
 			return brick.getPower().getBatteryCurrent();
 
@@ -655,16 +646,22 @@ public class Steuerung {
 
 	public void runDelivery() {
 
-		deliverylane.startLineToEnd(false);
-		deliverylane.closeGates();
-		deliverylane.turnLineToArms(-1048);
-		airarms.runAirArms();
-		deliverylane.openGateB();
-		deliverylane.openEquallyGate();
+		try {
+			deliverylane.startLineToEnd(false);
+			deliverylane.closeGates();
+			deliverylane.turnLineToArms(-1048);
+			airarms.runAirArms();
+			deliverylane.openGateB();
+			deliverylane.openEquallyGate();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	public void runChargier(boolean mode) { // True starts false stops
+		
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
@@ -730,26 +727,51 @@ public class Steuerung {
 	public void runCleaner(boolean mode) {
 
 		if (mode == true) {
-			cleaner.startLiftLine(true);
-			cleaner.startCleaner(true);
+			try {
+				cleaner.startLiftLine(true);
+				cleaner.startCleaner(true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
-			cleaner.stop();
+			try {
+				cleaner.stop();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void runShaker(boolean mode) {
 
 		if (mode == true) {
-			lift.startShaker();
+			try {
+				lift.startShaker();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
-			lift.stopShaker();
+			try {
+				lift.stopShaker();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void runLift(boolean mode) {
 
 		if (mode == true) {
+			new java.util.Timer().schedule(new java.util.TimerTask() {
+				@Override
+				public void run() {
 			lift.start();
+				}
+			}, 1000);
 		} else {
 
 		}
@@ -758,10 +780,20 @@ public class Steuerung {
 	public void runQuality(boolean mode) {
 
 		if (mode == true) {
-			quality.startCounterLine(false);
-			quality.startLine(true);
+			try {
+				quality.startCounterLine(false);
+				quality.startLine(true);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
-			quality.stop();
+			try {
+				quality.stop();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -777,10 +809,15 @@ public class Steuerung {
 	public void runStock(boolean mode) {
 
 		if (mode == true) {
-			stock.elevatorUp();
-			stock.elevatorToRight();
-			stock.elevatorDown();
-			stock.elevatorToLeft();
+			try {
+				stock.elevatorUp();
+				stock.elevatorToRight();
+				stock.elevatorDown();
+				stock.elevatorToLeft();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			stock.reset();
 		}
@@ -789,10 +826,20 @@ public class Steuerung {
 	public void runDelivery(boolean mode) {
 
 		if (mode == true) {
-			deliverylane.startLineToEnd(false);
-			deliverylane.turnLineToArms(-1048);
+			try {
+				deliverylane.startLineToEnd(false);
+				deliverylane.turnLineToArms(-1048);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
-			deliverylane.stopLineToEnd();
+			try {
+				deliverylane.stopLineToEnd();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

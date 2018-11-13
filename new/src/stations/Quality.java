@@ -206,7 +206,7 @@ public class Quality {
 
 
 
-	public void stop() {
+	public void stop() throws RemoteException {
 		
 		stopCounterLine();
 		stopLine();

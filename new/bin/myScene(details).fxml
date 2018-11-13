@@ -102,9 +102,9 @@
                               </ImageView>
                               <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                  <children>
-                                    <Button fx:id="test1" mnemonicParsing="false" onMouseClicked="#chargierTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button fx:id="test1" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                    <Button fx:id="stop1" mnemonicParsing="false" onMouseClicked="#chargierStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
+                                    <Button fx:id="stop1" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                     <CheckBox fx:id="box1" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                  </children>
                                  <opaqueInsets>
@@ -133,9 +133,9 @@
                               </ImageView>
                               <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                  <children>
-                                    <Button fx:id="test2" mnemonicParsing="false" onMouseClicked="#liftTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button fx:id="test2" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                    <Button fx:id="stop2" mnemonicParsing="false" onMouseClicked="#liftStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
+                                    <Button fx:id="stop2" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                     <CheckBox fx:id="box2" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                  </children>
                                  <opaqueInsets>
@@ -164,9 +164,9 @@
                               </ImageView>
                               <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                  <children>
-                                    <Button fx:id="test3" mnemonicParsing="false" onMouseClicked="#shakerTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button fx:id="test3" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                    <Button fx:id="stop3" mnemonicParsing="false" onMouseClicked="#shakerStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
+                                    <Button fx:id="stop3" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                     <CheckBox fx:id="box3" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                  </children>
                                  <opaqueInsets>
