@@ -202,4 +202,15 @@ public class Quality {
 		this.colorString = "";
 		
 	}
+
+
+
+
+	public void stop() {
+		
+		stopCounterLine();
+		stopLine();
+		reset();
+		
+	}
 }

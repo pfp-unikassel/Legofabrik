@@ -178,6 +178,7 @@ public class Deliverylane {
 		
 	}
 	
+
 	public void closeGates() {
 		closeGateB();
 		closeGateC();
@@ -191,10 +192,9 @@ public class Deliverylane {
 	}
 
 	public void reset() {
-		closeGateD();
-		closeGateB();
-		closeGateC();
-
+		closeGates();
+		gateCounter = 0;
+		
 	}
 
 	public int getLineToArmsSpeed() {

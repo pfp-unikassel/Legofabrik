@@ -223,6 +223,12 @@ public class Stock {
 			setElevatorPositionHorizontal('r');
 		}
 	}
+	
+	public void reset() {
+		
+		elevatorDown();
+		elevatorToLeft();
+	}
 
 	public void storeBox() {
 

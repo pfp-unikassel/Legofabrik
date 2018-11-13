@@ -20,6 +20,7 @@ import stations.Lift;
 import stations.Quality;
 import stations.QualityStation;
 import stations.Stock;
+import userInterface.Controller;
 import stations.Cleaning;
 import stations.Compressor;
 import stations.Deliverylane;
@@ -121,12 +122,15 @@ public class Steuerung {
 	private boolean b1061Status = false;
 	private boolean b1072Status = false;
 
+	private Controller c;
+	
 	public static void main(String[] args) throws RemoteException {
 
 	}
 
-	public void start() {
+	public void start(Controller c1) {
 
+		c = c1;
 		initAll();
 		System.out.println("steuerung start");
 
@@ -642,6 +646,7 @@ public class Steuerung {
 			powerLevel = getPowerLevel(b);
 			brickName = b.getName();
 			// TODO update in Ui
+			c.getLabel00().setText(brickName);
 
 		}
 	}
@@ -658,6 +663,157 @@ public class Steuerung {
 		deliverylane.openEquallyGate();
 
 	}
+
+	public void runChargier(boolean mode) { // True starts false stops
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				try {
+					if (mode == true) {
+						chargier.resetTable();
+						chargier.startLineToTable(false);
+						chargier.startTableLine(true);
+
+						// wait till Table Button is pushed, test maybe Ui freezes
+						while (!b1054Status) {
+							System.out.println("hänge in schleife 1");
+						}
+
+						chargier.stopLineToTable();
+						chargier.stopTableLine();
+						chargier.turnTable(660);
+
+						chargier.startLineToLifter(false);
+						chargier.startTableLine(false);
+
+						while (!b1053Status) {
+							System.out.println("hänge in schleife 2");
+						}
+						chargier.stopLineToLifter();
+						chargier.stopTableLine();
+						chargier.startLineToLifter(true);
+						chargier.startTableLine(true);
+
+						while (!b1054Status) { // wait table button pushed
+							System.out.println("hänge in schleife 3");
+						}
+
+						chargier.stopLineToLifter();
+						chargier.stopTableLine();
+
+						chargier.turnTable(-1320);
+
+						chargier.startLineToStore(false); // maybe falls
+						chargier.startTableLine(false);
+
+						Thread.sleep(3000);
+						chargier.stopTableLine();
+						chargier.stopLineToStorer();
+
+						chargier.resetTable(); // turns 660 to much repair later
+
+					} else {
+						chargier.stop();
+					}
+
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000);
+	}
+
+	public void runCleaner(boolean mode) {
+
+		if (mode == true) {
+			cleaner.startLiftLine(true);
+			cleaner.startCleaner(true);
+		} else {
+			cleaner.stop();
+		}
+	}
+
+	public void runShaker(boolean mode) {
+
+		if (mode == true) {
+			lift.startShaker();
+		} else {
+			lift.stopShaker();
+		}
+	}
+
+	public void runLift(boolean mode) {
+
+		if (mode == true) {
+			lift.start();
+		} else {
+
+		}
+	}
+
+	public void runQuality(boolean mode) {
+
+		if (mode == true) {
+			quality.startCounterLine(false);
+			quality.startLine(true);
+		} else {
+			quality.stop();
+		}
+	}
+
+	public void runAirarms(boolean mode) {
+
+		if (mode == true) {
+			airarms.runAirArms();
+		} else {
+			airarms.reset();
+		}
+	}
+
+	public void runStock(boolean mode) {
+
+		if (mode == true) {
+			stock.elevatorUp();
+			stock.elevatorToRight();
+			stock.elevatorDown();
+			stock.elevatorToLeft();
+		} else {
+			stock.reset();
+		}
+	}
+
+	public void runDelivery(boolean mode) {
+
+		if (mode == true) {
+			deliverylane.startLineToEnd(false);
+			deliverylane.turnLineToArms(-1048);
+		} else {
+			deliverylane.stopLineToEnd();
+		}
+	}
+
+	public void runGates(boolean mode) {
+
+		if (mode == true) {
+			deliverylane.openGateB();
+			deliverylane.openEquallyGate();
+		} else {
+			deliverylane.closeGates();
+		}
+	}
+
+	// public void runShaker(boolean mode) {
+	//
+	// if (mode == true) {
+	// lift.startShaker();
+	// } else {
+	// lift.stopShaker();
+	// }
+	// }
 
 	public void startSzenario1() {
 
@@ -816,7 +972,6 @@ public class Steuerung {
 
 	public void startSzenario3() {
 
-		
 		// qualitystation.takeBallToGood();
 		// qualitystation.takeBallToBad();
 

@@ -126,6 +126,7 @@ public class Chargier {
 		stopLineToStorer();
 		stopLineToTable();
 		stopTableLine();
+		resetTable();
 	}
 
 	public int getTablePostion() {
