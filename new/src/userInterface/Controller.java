@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import controller.RemoteEV3;
 import controller.Steuerung;
 import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
@@ -33,10 +32,13 @@ public class Controller implements Initializable {
 	public Circle showBall;
 
 	public Label defaultlabelbetriebszeit, defaultlabelware, defaultlabelio, defaultlabelnio, defaultlabeldurchsatz,
-			defaultlabelpuffer, defaultlabelverbrauch, defaultlabelversand; // Labels Default Details
+			defaultlabelpuffer, defaultlabelverbrauch, defaultlabelversand; // Labels
+																			// Default
+																			// Details
 
 	public Label label00, label01, label02, label03, label04, label10, label11, label12, label13, label14, label20,
-			label21, label22, label23, label24, label30, label31, label32, label33, label34; // LAbel akku
+			label21, label22, label23, label24, label30, label31, label32, label33, label34; // LAbel
+																								// akku
 	// 0X 2X Names 1X 3X Values
 
 	public Circle led1, led2, led3, led4, led5, led6, led7;
@@ -59,7 +61,10 @@ public class Controller implements Initializable {
 	public Steuerung s;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) { // gets startet with programm
+	public void initialize(URL location, ResourceBundle resources) { // gets
+																		// startet
+																		// with
+																		// programm
 
 		s = new Steuerung();
 		s.start(this);
@@ -86,7 +91,8 @@ public class Controller implements Initializable {
 
 	}
 
-	private void addBrickLabeltoList() { // care add order has to be name into Amper
+	private void addBrickLabeltoList() { // care add order has to be name into
+											// Amper
 
 		brickLabels.add(label00);
 		brickLabels.add(label10);
@@ -112,23 +118,23 @@ public class Controller implements Initializable {
 
 	public void updatePowerLevel() {
 
-		int counter = 0;
+		int brickCounter = 0;
 		float powerLevel;
 		String brickName;
 
-		for (RemoteEV3 b : s.getBrickList()) {
+		for (lejos.remote.ev3.RemoteEV3 b : s.getBrickList()) {
 
-			powerLevel = getPowerLevel(b);
+			powerLevel = b.getPower().getVoltageMilliVolt();
 			brickName = b.getName();
 			// TODO update in Ui
-			for (Label l : brickLabels) {
-				if(counter %2 == 0) {
-					l.setText("B"+brickName);					
-				}else {
-					l.setText(powerLevel + "");
-				}
-				counter++;
-			}
+
+			Label l = brickLabels.get(brickCounter);
+
+			l.setText("B" + brickName);
+			brickCounter++;
+			l = brickLabels.get(brickCounter);
+			l.setText(powerLevel + "");
+			brickCounter++;
 		}
 	}
 
@@ -172,7 +178,8 @@ public class Controller implements Initializable {
 		System.out.println("pauseButtonClicked clicked");
 
 		if (running) { // just can pause game if its allready runs
-			if (paused) { // if game is paused right now and button get clicked again
+			if (paused) { // if game is paused right now and button get clicked
+							// again
 				readyLabel.setText("Running");
 				// startTimer();
 				showBall.setFill(javafx.scene.paint.Color.GREEN);
@@ -253,7 +260,7 @@ public class Controller implements Initializable {
 		s.runCleaner(true);
 	}
 
-	public void cleaneStop() {
+	public void cleanerStop() {
 
 		s.runCleaner(false);
 	}

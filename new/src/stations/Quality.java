@@ -106,16 +106,16 @@ public class Quality {
 	public void colorSensorFired(String colorString) {
 
 		this.colorString = colorString;
-		System.out.println("Quality Farbe ist " + colorString);
+//		System.out.println("Quality Farbe ist " + colorString);
 		
 		if(colorString == "WHITE") {   // if ball is white close gate 
 			openGate();		
 			setGoodBalls(getGoodBalls()+1);
-			System.out.println(" White open gate");
+//			System.out.println(" White open gate");
 		}else {						 // if ball is not white open gate 
 			closeGate();
 			setBadBalls(getBadBalls()+1);
-			System.out.println(" not white close gate");
+//			System.out.println(" not white close gate");
 		}
 	}
 

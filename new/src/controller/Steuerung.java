@@ -218,7 +218,6 @@ public class Steuerung {
 		// initBrick18();
 		// initBrick19();
 
-		 updatePowerLevel(); // TODO: delete in every single init
 	}
 
 	public void initBrick1() {
@@ -832,12 +831,14 @@ public class Steuerung {
 			try {
 				deliverylane.startLineToEnd(false);
 				deliverylane.turnLineToArms(-1048);
+				runGates(true);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
 			try {
+				runGates(false);
 				deliverylane.stopLineToEnd();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

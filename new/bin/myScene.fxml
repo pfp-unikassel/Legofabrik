@@ -88,6 +88,37 @@
                <content>
                   <VBox prefHeight="863.0" prefWidth="478.0">
                      <children>
+                        <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="397.0" prefHeight="130.0" prefWidth="478.0" spacing="10.0" style="-fx-border-style: solid inside; -fx-border-width: 1.5; -fx-border-color: GREY;">
+                           <children>
+                              <Circle fx:id="led41" fill="#f50202" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+                                 <HBox.margin>
+                                    <Insets right="20.0" top="10.0" />
+                                 </HBox.margin>
+                              </Circle>
+                              <ImageView fitHeight="120.0" fitWidth="253.0" onMouseClicked="#stockTest" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@lager.jpg" />
+                                 </image>
+                              </ImageView>
+                              <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
+                                 <children>
+                                    <Button fx:id="test41" mnemonicParsing="false" onMouseClicked="#stockTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                    <Button fx:id="stop41" mnemonicParsing="false" onMouseClicked="#stockStop" prefHeight="25.0" prefWidth="117.0" text="Reset" />
+                                    <CheckBox fx:id="box41" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets left="10.0" />
+                                 </opaqueInsets>
+                              </VBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets top="2.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="130.0" prefWidth="478.0" spacing="10.0" style="-fx-border-style: solid inside; -fx-border-width: 1.5; -fx-border-color: GREY;">
                            <children>
                               <Circle fx:id="led1" fill="#f50202" radius="10.0" stroke="BLACK" strokeType="INSIDE">
@@ -195,9 +226,9 @@
                               </ImageView>
                               <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                  <children>
-                                    <Button fx:id="test4" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button fx:id="test4" mnemonicParsing="false" onMouseClicked="#cleanerTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                    <Button fx:id="stop4" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Stop" />
+                                    <Button fx:id="stop4" mnemonicParsing="false" onMouseClicked="#cleanerStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                     <CheckBox fx:id="box4" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                  </children>
                                  <opaqueInsets>
@@ -221,14 +252,14 @@
                               </Circle>
                               <ImageView fitHeight="120.0" fitWidth="253.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@pic1.png" />
+                                    <Image url="@quality.jpg" />
                                  </image>
                               </ImageView>
                               <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                  <children>
-                                    <Button fx:id="test5" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button fx:id="test5" mnemonicParsing="false" onMouseClicked="#qualityTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                    <Button fx:id="stop5" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Stop" />
+                                    <Button fx:id="stop5" mnemonicParsing="false" onMouseClicked="#qualityStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                     <CheckBox fx:id="box5" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                  </children>
                                  <opaqueInsets>
@@ -252,14 +283,14 @@
                               </Circle>
                               <ImageView fitHeight="120.0" fitWidth="253.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@pic1.png" />
+                                    <Image url="@airarms.jpg" />
                                  </image>
                               </ImageView>
                               <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                  <children>
-                                    <Button fx:id="test6" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button fx:id="test6" mnemonicParsing="false" onMouseClicked="#airarmsTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                    <Button fx:id="stop6" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Stop" />
+                                    <Button fx:id="stop6" mnemonicParsing="false" onMouseClicked="#airarmsTest" prefHeight="25.0" prefWidth="117.0" text="Reset" />
                                     <CheckBox fx:id="box6" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                  </children>
                                  <opaqueInsets>
@@ -283,14 +314,14 @@
                               </Circle>
                               <ImageView fitHeight="120.0" fitWidth="253.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@pic1.png" />
+                                    <Image url="@delivery.jpg" />
                                  </image>
                               </ImageView>
                               <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                  <children>
-                                    <Button fx:id="test7" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Test" />
+                                    <Button fx:id="test7" mnemonicParsing="false" onMouseClicked="#deliveryTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                     <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                    <Button fx:id="stop7" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Stop" />
+                                    <Button fx:id="stop7" mnemonicParsing="false" onMouseClicked="#deliveryStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                     <CheckBox fx:id="box7" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                  </children>
                                  <opaqueInsets>
