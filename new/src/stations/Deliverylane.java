@@ -16,6 +16,7 @@ public class Deliverylane {
 	private int lineToEndSpeed = 120; // 90 before
 	private int gateTurnDegree = 50;
 	private int gateCounter = 0;
+	private int gatesUsed = 0 ;
 
 	private boolean gateDStatus = true; // true is closed
 	private boolean gateBStatus = true; // true is closed
@@ -176,8 +177,12 @@ public class Deliverylane {
 			}
 		}
 		
+		gatesUsed++;
 	}
 	
+	public int getGatesUsed() {
+		return gatesUsed;
+	}
 
 	public void closeGates() {
 		closeGateB();
@@ -194,6 +199,7 @@ public class Deliverylane {
 	public void reset() {
 		closeGates();
 		gateCounter = 0;
+		gatesUsed = 0;
 		
 	}
 

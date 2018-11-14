@@ -583,6 +583,9 @@ public class Steuerung {
 	public Quality getQuality() {
 		return quality;
 	}
+	public Deliverylane getDelivery() {
+		return deliverylane;
+	}
 
 	public float getPowerLevel(RemoteEV3 brick) {
 
@@ -948,8 +951,8 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		// calibrate Airarms first
-		runDelivery();
+		c.updatePowerLevel();
+//		runDelivery();
 
 		// qualitystation.takeBallToGood();
 		//
@@ -1019,6 +1022,7 @@ public class Steuerung {
 
 	public void startSzenario3() {
 
+		c.updateLabels();
 		// qualitystation.takeBallToGood();
 		// qualitystation.takeBallToBad();
 

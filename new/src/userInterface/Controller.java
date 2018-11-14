@@ -4,8 +4,10 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import controller.RemoteEV3;
 import controller.Steuerung;
 import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
@@ -52,6 +54,8 @@ public class Controller implements Initializable {
 	private Timeline timeline;
 	private float timer = 0;
 
+	private ArrayList<Label> brickLabels;
+
 	public Steuerung s;
 
 	@Override
@@ -60,9 +64,72 @@ public class Controller implements Initializable {
 		s = new Steuerung();
 		s.start(this);
 
+		brickLabels = new ArrayList<>();
+		addBrickLabeltoList();
 		paused = false;
 		running = false;
 
+	}
+
+	public void updateLabels() { // should be called by clock later on
+		defaultlabelbetriebszeit.setText("");
+		if (s.getQuality() != null) {
+			defaultlabelware.setText(s.getQuality().getCountedBalls() + "");
+			defaultlabelio.setText(s.getQuality().getGoodBalls() + "");
+			defaultlabelnio.setText(s.getQuality().getBadBalls() + "");
+		}
+		defaultlabeldurchsatz.setText("");
+		if (s.getDelivery() != null) {
+			defaultlabelpuffer.setText(20 - s.getDelivery().getGatesUsed() + "");
+			defaultlabelversand.setText(s.getDelivery().getGatesUsed() + "");
+		}
+
+	}
+
+	private void addBrickLabeltoList() { // care add order has to be name into Amper
+
+		brickLabels.add(label00);
+		brickLabels.add(label10);
+		brickLabels.add(label01);
+		brickLabels.add(label11);
+		brickLabels.add(label02);
+		brickLabels.add(label12);
+		brickLabels.add(label03);
+		brickLabels.add(label13);
+		brickLabels.add(label04);
+		brickLabels.add(label14);
+		brickLabels.add(label20);
+		brickLabels.add(label30);
+		brickLabels.add(label21);
+		brickLabels.add(label31);
+		brickLabels.add(label22);
+		brickLabels.add(label32);
+		brickLabels.add(label23);
+		brickLabels.add(label33);
+		brickLabels.add(label24);
+		brickLabels.add(label34);
+	}
+
+	public void updatePowerLevel() {
+
+		int counter = 0;
+		float powerLevel;
+		String brickName;
+
+		for (RemoteEV3 b : s.getBrickList()) {
+
+			powerLevel = getPowerLevel(b);
+			brickName = b.getName();
+			// TODO update in Ui
+			for (Label l : brickLabels) {
+				if(counter %2 == 0) {
+					l.setText("B"+brickName);					
+				}else {
+					l.setText(powerLevel + "");
+				}
+				counter++;
+			}
+		}
 	}
 
 	public void startButtonClicked() {
@@ -230,6 +297,7 @@ public class Controller implements Initializable {
 
 		s.runAirarms(false);
 	}
+
 	public void deliveryTest() {
 
 		s.runDelivery(true);
@@ -239,6 +307,7 @@ public class Controller implements Initializable {
 
 		s.runDelivery(false);
 	}
+
 	public void stockTest() {
 
 		s.runStock(true);
@@ -925,5 +994,13 @@ public class Controller implements Initializable {
 
 	public void setS(Steuerung s) {
 		this.s = s;
+	}
+
+	public ArrayList<Label> getBrickLabels() {
+		return brickLabels;
+	}
+
+	public void setBrickLabels(ArrayList<Label> brickLabels) {
+		this.brickLabels = brickLabels;
 	}
 }
