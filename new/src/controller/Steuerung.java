@@ -151,6 +151,14 @@ public class Steuerung {
 		sensordeamon.start();
 	}
 
+	//--------------Controller interactions----------------------
+	
+	public void updateLabelInController() {
+		
+		c.updateLabels();
+	}
+	//--------------------------------------------------------
+	
 	public void b1053Fired() { // lift schalter
 		chargier.touchLiftfired();
 		b1053Status = true;

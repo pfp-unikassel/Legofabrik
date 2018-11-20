@@ -74,9 +74,12 @@ public class Controller implements Initializable {
 		paused = false;
 		running = false;
 
+		
 	}
 
 	public void updateLabels() { // should be called by clock later on
+
+		updateTime();
 		defaultlabelbetriebszeit.setText("");
 		if (s.getQuality() != null) {
 			defaultlabelware.setText(s.getQuality().getCountedBalls() + "");
@@ -326,16 +329,11 @@ public class Controller implements Initializable {
 	}
 
 	// ----------------------------------------------TEST&STOP------------------------------------------------------------------
+	// ------------------------------------------------Timer-------------------------------------------------------------------
+	
 	private void startTimer() {
 
-		if (paused) {
-			timeline.play();
-			// just start timer from last count
-		} else {
-			timeline.play();
-
-			// restart timer from 0
-		}
+		
 
 	}
 
@@ -343,18 +341,21 @@ public class Controller implements Initializable {
 
 	}
 
+	
 	private void updateTime() {
 
 		DateFormat timeFormat = new SimpleDateFormat("mm:ss");
+		timer = timer + 1000;
 		if (timer < 0) {
 			leftBottomLabel.setText(timeFormat.format(0));
 		} else {
 			leftBottomLabel.setText(timeFormat.format(timer));
 		}
-		timer = timer + 1000;
 
 	}
 
+	// ------------------------------------------------Timer-----------------------------------------------------------------------
+	
 	public Button getStartButton() {
 		return startButton;
 	}

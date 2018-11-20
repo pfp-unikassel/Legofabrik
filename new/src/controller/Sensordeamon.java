@@ -15,7 +15,8 @@ import lejos.robotics.Color;
 public class Sensordeamon extends Thread {
 
 	private Steuerung s;
-
+	private int counter=0;
+	
 	private RemoteEV3 b105;
 	private RemoteEV3 b106;
 	private RemoteEV3 b107;
@@ -224,6 +225,16 @@ public class Sensordeamon extends Thread {
 			//
 			// }
 
+ //-------------UI changes--------------------------------------------------------------------------------------------
+			 
+			 s.updateLabelInController(); 
+			 
+			 if(counter == 100 ) {
+				 counter=0;
+				 s.updatePowerLevel();
+			 }
+			 
+//-------------UI changes----------------------------------------------------------------------------------------------
 		}
 	}
 
@@ -237,11 +248,6 @@ public class Sensordeamon extends Thread {
 		}
 	}
 
-	
-	
-	
-	
-	
 	
 	public int filterIds(int[] filterArray) { 														
 												
