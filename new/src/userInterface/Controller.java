@@ -75,7 +75,9 @@ public class Controller implements Initializable {
 		addBrickLabeltoList();
 		paused = false;
 		running = false;
-//		startTimer();
+		
+		updatePowerLevel();
+		startTimer();
 
 		
 	}
@@ -238,7 +240,7 @@ public class Controller implements Initializable {
 
 		showBall.setFill(javafx.scene.paint.Color.RED);
 		readyLabel.setText("ERROR !!");
-		stopTimer();
+		
 	}
 
 	public void error(String msg) { // error with Message
@@ -246,7 +248,7 @@ public class Controller implements Initializable {
 		showBall.setFill(javafx.scene.paint.Color.RED);
 		readyLabel.setText("ERROR !!"); // TODO: change ERROR!! to error code
 		System.out.println(msg);
-		stopTimer();
+		
 
 	}
 

@@ -8,7 +8,7 @@ import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RMISampleProvider;
 import lejos.remote.ev3.RemoteEV3;
 
-public class test3 {
+public class innsertTest {
 	
 	static RemoteEV3 b106;
 	
@@ -21,15 +21,36 @@ public class test3 {
 	public static void main(String args []) throws RemoteException {
 		
 		try {
-			b106 = new RemoteEV3 ("192.168.0.106");
+			b106 = new RemoteEV3 ("192.168.0.115");
 		} catch (RemoteException | MalformedURLException | NotBoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		b106b = b106.createRegulatedMotor("B", 'L');
+		b106a = b106.createRegulatedMotor("A", 'L');
 		
-		b106b.forward();
+		
+		//----------------------------------------------- Values to change ---------------
+		
+		b106a.setSpeed(100);
+	b106a.forward();
+		//b106a.backward();
+		
+		//b106a.rotate(360);
+		
+//--------------------------------------------------------		
+		
+		try {
+			Thread.sleep(30000);     // set runtime 1000=1 sec
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+		b106a.close();
+		
+		
+		
 		
 		
 		

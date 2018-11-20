@@ -2,6 +2,7 @@ package controller;
 
 import java.rmi.RemoteException;
 
+import javafx.application.Platform;
 import lejos.hardware.sensor.BaseSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
@@ -100,7 +101,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray1[0] == 1) { // wenn schalter gedrueckt wurde dann
 
 				s.b1061Fired();
-				System.out.println("Sensor b1061 fired");
+//				System.out.println("Sensor b1061 fired");
 				waitSek(2);
 				Sensorarray1[0] = 0;
 				s.resetSensorStatus();
@@ -108,7 +109,7 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
-				System.out.println("Sensor b1053 fired");
+//				System.out.println("Sensor b1053 fired");
 				waitSek(3);
 				Sensorarray2[0] = 0;
 				s.resetSensorStatus();
@@ -116,7 +117,7 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
-				System.out.println("Sensor b1054 fired");
+//				System.out.println("Sensor b1054 fired");
 				waitSek(3);
 				Sensorarray3[0] = 0;
 				s.resetSensorStatus();
@@ -124,7 +125,7 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray4[0] == 1) { // counter sensor
 				s.b1072Fired();
-				System.out.println("Sensor b1072 fired");
+//				System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
 				s.resetSensorStatus();
 
@@ -227,12 +228,18 @@ public class Sensordeamon extends Thread {
 
  //-------------UI changes--------------------------------------------------------------------------------------------
 			 
-			 s.updateLabelInController(); 
 			 
-			 if(counter == 100 ) {
-				 counter=0;
-				 s.updatePowerLevel();
-			 }
+			 Platform.runLater(                //  rows this in Ui Thread Q, maybe to much actions
+					  () -> {
+						  s.updateLabelInController(); 
+							 
+							 if(counter == 100 ) {
+								 counter=0;
+								 s.updatePowerLevel();
+							 }
+					  }
+					);
+			
 			 
 //-------------UI changes----------------------------------------------------------------------------------------------
 		}
