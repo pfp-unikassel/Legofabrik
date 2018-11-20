@@ -55,7 +55,9 @@ public class Controller implements Initializable {
 	public boolean running;
 	private Timeline timeline;
 	private float timer = 0;
-
+	long startTime;
+	DateFormat timeFormat = new SimpleDateFormat("mm:ss");
+	
 	private ArrayList<Label> brickLabels;
 
 	public Steuerung s;
@@ -73,6 +75,7 @@ public class Controller implements Initializable {
 		addBrickLabeltoList();
 		paused = false;
 		running = false;
+//		startTimer();
 
 		
 	}
@@ -332,27 +335,22 @@ public class Controller implements Initializable {
 	// ------------------------------------------------Timer-------------------------------------------------------------------
 	
 	private void startTimer() {
-
-		
-
+		long startTime = System.currentTimeMillis();
+		updateTime();
 	}
 
-	private void stopTimer() {
-
+	private void resetTimer() {
+		startTime= System.currentTimeMillis();
+		updateTime();
 	}
 
-	
 	private void updateTime() {
+		
+	   long time = startTime-System.currentTimeMillis();
+	   leftBottomLabel.setText(timeFormat.format(time));
+	   }
+	
 
-		DateFormat timeFormat = new SimpleDateFormat("mm:ss");
-		timer = timer + 1000;
-		if (timer < 0) {
-			leftBottomLabel.setText(timeFormat.format(0));
-		} else {
-			leftBottomLabel.setText(timeFormat.format(timer));
-		}
-
-	}
 
 	// ------------------------------------------------Timer-----------------------------------------------------------------------
 	
