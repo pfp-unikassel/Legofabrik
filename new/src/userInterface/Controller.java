@@ -337,7 +337,7 @@ public class Controller implements Initializable {
 	// ------------------------------------------------Timer-------------------------------------------------------------------
 	
 	private void startTimer() {
-		long startTime = System.currentTimeMillis();
+	 startTime = System.currentTimeMillis();
 		updateTime();
 	}
 
@@ -348,7 +348,7 @@ public class Controller implements Initializable {
 
 	private void updateTime() {
 		
-	   long time = startTime-System.currentTimeMillis();
+	   long time = System.currentTimeMillis() - startTime;
 	   leftBottomLabel.setText(timeFormat.format(time));
 	   }
 	
