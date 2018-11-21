@@ -156,8 +156,16 @@ public class Steuerung {
 	public void updateLabelInController() {
 		
 		c.updateLabels();
+		System.exit( 0 ); // schlieﬂt program
 	}
+	
+	
 	//--------------------------------------------------------
+	
+	public void abort() {
+		
+		closePorts();
+	}
 	
 	public void b1053Fired() { // lift schalter
 		chargier.touchLiftfired();

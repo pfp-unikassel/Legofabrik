@@ -22,7 +22,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.Controller">
    <content>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="905.0">
@@ -76,15 +75,15 @@
                     </font>
                   </Label>
                         <Button fx:id="startButton" layoutX="16.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#startButtonClicked" prefHeight="48.0" prefWidth="144.0" text="START" />
-                        <Button fx:id="stopButton" layoutX="16.0" layoutY="622.0" mnemonicParsing="false" onMouseClicked="#stopButtonClicked" prefHeight="48.0" prefWidth="144.0" text="STOP" />
+                        <Button fx:id="stopButton" layoutX="16.0" layoutY="701.0" mnemonicParsing="false" onMouseClicked="#stopButtonClicked" prefHeight="48.0" prefWidth="144.0" text="STOP" />
                         <Button fx:id="emptyButton" layoutX="16.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#emptyButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Disconnect" />
                         <Button fx:id="allButton" layoutX="16.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#allButtonClicked" prefHeight="48.0" prefWidth="144.0" text="ALL" />
                         <Button fx:id="szenarioButton1" layoutX="16.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#szenarioButton1Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 1" />
-                        <Button fx:id="szenarioButton2" layoutX="16.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#szenarioButton2Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 2" />
-                        <Button fx:id="szenarioButton3" layoutX="16.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#szenarioButton3Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 3" />
+                        <Button fx:id="szenarioButton2" layoutX="16.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#szenarioButton2Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 2" />
+                        <Button fx:id="szenarioButton3" layoutX="16.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#szenarioButton3Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 3" />
                         <Circle fx:id="showBall" fill="#1faaff" layoutX="88.0" layoutY="141.0" radius="82.0" stroke="BLACK" strokeType="INSIDE" />
                         <Label fx:id="readyLabel" alignment="CENTER" layoutX="16.0" layoutY="117.0" prefHeight="48.0" prefWidth="144.0" style="-fx-font-size: 24; -fx-border-color: Black;" text="Ready" />
-                        <Button fx:id="pauseButton" layoutX="16.0" layoutY="692.0" mnemonicParsing="false" onMouseClicked="#pauseButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Pause" />
+                        <Button fx:id="abortButton" layoutX="16.0" layoutY="640.0" mnemonicParsing="false" onMouseClicked="#abortButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Notaus" />
                 </children>
               </AnchorPane>
               <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
@@ -108,7 +107,7 @@
                                           <Button fx:id="test41" mnemonicParsing="false" onMouseClicked="#stockTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop41" mnemonicParsing="false" onMouseClicked="#stockStop" prefHeight="25.0" prefWidth="117.0" text="Reset" />
-                                          <CheckBox fx:id="box41" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="stockbox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />
@@ -139,7 +138,7 @@
                                           <Button fx:id="test1" mnemonicParsing="false" onMouseClicked="#chargierTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop1" mnemonicParsing="false" onMouseClicked="#chargierStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
-                                          <CheckBox fx:id="box1" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="chargierbox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />
@@ -170,7 +169,7 @@
                                           <Button fx:id="test2" mnemonicParsing="false" onMouseClicked="#liftTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop2" mnemonicParsing="false" onMouseClicked="#liftStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
-                                          <CheckBox fx:id="box2" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="liftbox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />
@@ -201,7 +200,7 @@
                                           <Button fx:id="test3" mnemonicParsing="false" onMouseClicked="#shakerTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop3" mnemonicParsing="false" onMouseClicked="#shakerStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
-                                          <CheckBox fx:id="box3" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="shakerbox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />
@@ -232,7 +231,7 @@
                                           <Button fx:id="test4" mnemonicParsing="false" onMouseClicked="#cleanerTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop4" mnemonicParsing="false" onMouseClicked="#cleanerStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
-                                          <CheckBox fx:id="box4" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="cleanerbox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />
@@ -263,7 +262,7 @@
                                           <Button fx:id="test5" mnemonicParsing="false" onMouseClicked="#qualityTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop5" mnemonicParsing="false" onMouseClicked="#qualityStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
-                                          <CheckBox fx:id="box5" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="qualitybox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />
@@ -294,7 +293,7 @@
                                           <Button fx:id="test6" mnemonicParsing="false" onMouseClicked="#airarmsTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop6" mnemonicParsing="false" onMouseClicked="#airarmsTest" prefHeight="25.0" prefWidth="117.0" text="Reset" />
-                                          <CheckBox fx:id="box6" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="airarmsbox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />
@@ -325,7 +324,7 @@
                                           <Button fx:id="test7" mnemonicParsing="false" onMouseClicked="#deliveryTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
                                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop7" mnemonicParsing="false" onMouseClicked="#deliveryStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
-                                          <CheckBox fx:id="box7" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
+                                          <CheckBox fx:id="deliverybox" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />

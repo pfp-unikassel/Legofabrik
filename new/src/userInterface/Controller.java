@@ -19,7 +19,7 @@ public class Controller implements Initializable {
 
 	public Button startButton;
 	public Button stopButton;
-	public Button pauseButton;
+	public Button abortButton;
 	public Button emptyButton;
 	public Button allButton;
 	public Button szenarioButton1;
@@ -49,7 +49,7 @@ public class Controller implements Initializable {
 
 	public Button stop1, stop2, stop3, stop4, stop5, stop6, stop7;
 
-	public CheckBox box1, box2, box3, box4, box5, box6, box7;
+	public CheckBox chargierbox, stockbox, liftbox, shakerbox, cleanerbox, qualitybox, airarmsbox, deliverybox;
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
@@ -57,7 +57,7 @@ public class Controller implements Initializable {
 	private float timer = 0;
 	long startTime;
 	DateFormat timeFormat = new SimpleDateFormat("mm:ss");
-	
+
 	private ArrayList<Label> brickLabels;
 
 	public Steuerung s;
@@ -75,17 +75,15 @@ public class Controller implements Initializable {
 		addBrickLabeltoList();
 		paused = false;
 		running = false;
-		
+
 		updatePowerLevel();
 		startTimer();
 
-		
 	}
 
 	public void updateLabels() { // should be called by clock later on
 
 		updateTime();
-		defaultlabelbetriebszeit.setText("");
 		if (s.getQuality() != null) {
 			defaultlabelware.setText(s.getQuality().getCountedBalls() + "");
 			defaultlabelio.setText(s.getQuality().getGoodBalls() + "");
@@ -127,6 +125,8 @@ public class Controller implements Initializable {
 	public void updatePowerLevel() {
 
 		int brickCounter = 0;
+		float fullpower = 8400;
+		float emptypower = 6000;
 		float powerLevel;
 		String brickName;
 
@@ -141,7 +141,7 @@ public class Controller implements Initializable {
 			l.setText("B" + brickName);
 			brickCounter++;
 			l = brickLabels.get(brickCounter);
-			l.setText(powerLevel + "");
+			l.setText((fullpower-emptypower) / (powerLevel-emptypower) + "%");
 			brickCounter++;
 		}
 	}
@@ -177,35 +177,18 @@ public class Controller implements Initializable {
 		// stopTimer();
 		running = false;
 		paused = true;
-		pauseButton.setText("Pause");
 
 	}
 
-	public void pauseButtonClicked() {
+	public void abortButtonClicked() {
 
-		System.out.println("pauseButtonClicked clicked");
+		System.out.println("abortButtonClicked clicked");
 
-		if (running) { // just can pause game if its allready runs
-			if (paused) { // if game is paused right now and button get clicked
-							// again
-				readyLabel.setText("Running");
-				// startTimer();
-				showBall.setFill(javafx.scene.paint.Color.GREEN);
-				pauseButton.setText("Pause");
-				paused = false;
-
-			} else {
-
-				showBall.setFill(javafx.scene.paint.Color.YELLOW);
-				readyLabel.setText("Paused ");
-				// stopTimer();
-				pauseButton.setText("Resume");
-				paused = true;
-			}
-
-		} else { // pushed break without running game
-
-		}
+		showBall.setFill(javafx.scene.paint.Color.RED);
+		readyLabel.setText("ERROR !!");
+		running = false;
+		
+		s.abort();
 
 	}
 
@@ -223,24 +206,29 @@ public class Controller implements Initializable {
 	public void szenarioButton1Clicked() {
 		System.out.println("szenarioButton1Clicked clicked");
 		s.startSzenario1();
+		resetTimer();
 
 	}
 
 	public void szenarioButton2Clicked() {
 		System.out.println("szenarioButton2Clicked clicked");
 		s.startSzenario2();
+		resetTimer();
+
 	}
 
 	public void szenarioButton3Clicked() {
 		System.out.println("szenarioButton3Clicked clicked");
 		s.startSzenario3();
+		resetTimer();
+
 	}
 
 	public void error() {
 
 		showBall.setFill(javafx.scene.paint.Color.RED);
 		readyLabel.setText("ERROR !!");
-		
+
 	}
 
 	public void error(String msg) { // error with Message
@@ -248,7 +236,6 @@ public class Controller implements Initializable {
 		showBall.setFill(javafx.scene.paint.Color.RED);
 		readyLabel.setText("ERROR !!"); // TODO: change ERROR!! to error code
 		System.out.println(msg);
-		
 
 	}
 
@@ -335,27 +322,26 @@ public class Controller implements Initializable {
 
 	// ----------------------------------------------TEST&STOP------------------------------------------------------------------
 	// ------------------------------------------------Timer-------------------------------------------------------------------
-	
+
 	private void startTimer() {
-	 startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		updateTime();
 	}
 
 	private void resetTimer() {
-		startTime= System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		updateTime();
 	}
 
 	private void updateTime() {
-		
-	   long time = System.currentTimeMillis() - startTime;
-	   leftBottomLabel.setText(timeFormat.format(time));
-	   }
-	
 
+		long time = System.currentTimeMillis() - startTime;
+		leftBottomLabel.setText(timeFormat.format(time));
+		defaultlabelbetriebszeit.setText(timeFormat.format(time));
+	}
 
 	// ------------------------------------------------Timer-----------------------------------------------------------------------
-	
+
 	public Button getStartButton() {
 		return startButton;
 	}
@@ -372,12 +358,12 @@ public class Controller implements Initializable {
 		this.stopButton = stopButton;
 	}
 
-	public Button getPauseButton() {
-		return pauseButton;
+	public Button getAbortButton1() {
+		return abortButton;
 	}
 
-	public void setPauseButton(Button pauseButton) {
-		this.pauseButton = pauseButton;
+	public void setAbortButton1(Button abortButton) {
+		this.abortButton = abortButton;
 	}
 
 	public Button getEmptyButton() {
@@ -908,61 +894,7 @@ public class Controller implements Initializable {
 		this.stop7 = stop7;
 	}
 
-	public CheckBox getBox1() {
-		return box1;
-	}
 
-	public void setBox1(CheckBox box1) {
-		this.box1 = box1;
-	}
-
-	public CheckBox getBox2() {
-		return box2;
-	}
-
-	public void setBox2(CheckBox box2) {
-		this.box2 = box2;
-	}
-
-	public CheckBox getBox3() {
-		return box3;
-	}
-
-	public void setBox3(CheckBox box3) {
-		this.box3 = box3;
-	}
-
-	public CheckBox getBox4() {
-		return box4;
-	}
-
-	public void setBox4(CheckBox box4) {
-		this.box4 = box4;
-	}
-
-	public CheckBox getBox5() {
-		return box5;
-	}
-
-	public void setBox5(CheckBox box5) {
-		this.box5 = box5;
-	}
-
-	public CheckBox getBox6() {
-		return box6;
-	}
-
-	public void setBox6(CheckBox box6) {
-		this.box6 = box6;
-	}
-
-	public CheckBox getBox7() {
-		return box7;
-	}
-
-	public void setBox7(CheckBox box7) {
-		this.box7 = box7;
-	}
 
 	public boolean isPaused() {
 		return paused;
@@ -1010,5 +942,77 @@ public class Controller implements Initializable {
 
 	public void setBrickLabels(ArrayList<Label> brickLabels) {
 		this.brickLabels = brickLabels;
+	}
+
+	public Button getAbortButton() {
+		return abortButton;
+	}
+
+	public void setAbortButton(Button abortButton) {
+		this.abortButton = abortButton;
+	}
+
+	public CheckBox getChargierbox() {
+		return chargierbox;
+	}
+
+	public void setChargierbox(CheckBox chargierbox) {
+		this.chargierbox = chargierbox;
+	}
+
+	public CheckBox getStockbox() {
+		return stockbox;
+	}
+
+	public void setStockbox(CheckBox stockbox) {
+		this.stockbox = stockbox;
+	}
+
+	public CheckBox getLiftbox() {
+		return liftbox;
+	}
+
+	public void setLiftbox(CheckBox liftbox) {
+		this.liftbox = liftbox;
+	}
+
+	public CheckBox getShakerbox() {
+		return shakerbox;
+	}
+
+	public void setShakerbox(CheckBox shakerbox) {
+		this.shakerbox = shakerbox;
+	}
+
+	public CheckBox getCleanerbox() {
+		return cleanerbox;
+	}
+
+	public void setCleanerbox(CheckBox cleanerbox) {
+		this.cleanerbox = cleanerbox;
+	}
+
+	public CheckBox getQualitybox() {
+		return qualitybox;
+	}
+
+	public void setQualitybox(CheckBox qualitybox) {
+		this.qualitybox = qualitybox;
+	}
+
+	public CheckBox getAirarmsbox() {
+		return airarmsbox;
+	}
+
+	public void setAirarmsbox(CheckBox airarmsbox) {
+		this.airarmsbox = airarmsbox;
+	}
+
+	public CheckBox getDeliverybox() {
+		return deliverybox;
+	}
+
+	public void setDeliverybox(CheckBox deliverybox) {
+		this.deliverybox = deliverybox;
 	}
 }
