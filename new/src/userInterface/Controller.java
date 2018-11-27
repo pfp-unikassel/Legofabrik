@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.shape.Circle;
 
 public class Controller implements Initializable {
@@ -50,6 +51,8 @@ public class Controller implements Initializable {
 	public Button stop1, stop2, stop3, stop4, stop5, stop6, stop7;
 
 	public CheckBox chargierbox, stockbox, liftbox, shakerbox, cleanerbox, qualitybox, airarmsbox, deliverybox;
+	
+	public ScrollPane detailpane1;
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
@@ -66,7 +69,7 @@ public class Controller implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) { // gets
 																		// startet
 																		// with
-																		// programm
+																	// programm
 
 		s = new Steuerung();
 		s.start(this);
@@ -200,6 +203,12 @@ public class Controller implements Initializable {
 
 	public void allButtonClicked() {
 		System.out.println("allButtonClicked clicked");
+		
+		if(detailpane1.isVisible()) {
+			detailpane1.setVisible(false);			
+		}else {
+			detailpane1.setVisible(true);
+		}
 
 	}
 

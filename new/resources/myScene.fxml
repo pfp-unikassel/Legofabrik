@@ -484,7 +484,10 @@
                               </Label>
                               <Pane prefHeight="339.0" prefWidth="222.0">
                                  <children>
-                                    <ScrollPane fx:id="defaultlabelszenario" fitToWidth="true" layoutY="1.0" prefHeight="337.0" prefWidth="222.0" style="-fx-background-color: GREY; -fx-border-width: 2px;" />
+                                    <ScrollPane fx:id="detailpane1" fitToWidth="true" layoutY="1.0" prefHeight="337.0" prefWidth="222.0" style="-fx-background-color: GREY; -fx-border-width: 2px;">
+                                       <content>
+                                          <Label text="TEST" />
+                                       </content></ScrollPane>
                                  </children>
                               </Pane>
                               <GridPane prefHeight="125.0" prefWidth="222.0" style="-fx-border-color: GREY; -fx-border-width: 2px;">
