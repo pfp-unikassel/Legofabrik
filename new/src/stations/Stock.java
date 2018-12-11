@@ -19,7 +19,7 @@ public class Stock {
 	RMIRegulatedMotor stockPlace3;
 	RMIRegulatedMotor stockPlace4;
 
-	private boolean stock1 = false; // topleft false = empty
+	private boolean stock1 = true; // topleft false = empty
 	private boolean stock2 = false; // topright
 	private boolean stock3 = false; // downleft
 	private boolean stock4 = false; // downright

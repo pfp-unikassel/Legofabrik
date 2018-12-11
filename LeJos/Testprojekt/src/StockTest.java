@@ -276,7 +276,7 @@ public class StockTest {
 	}
 
 	public void setLineSpeed(int lineSpeed) {
-		this.lineSpeed = lineSpeed;
+		StockTest.lineSpeed = lineSpeed;
 	}
 
 	public char getElevatorPositionHorizontal() {
@@ -292,7 +292,7 @@ public class StockTest {
 	}
 
 	public void setElevatorPositionVertical(char elevatorPositionVertical) {
-		this.elevatorPositionVertical = elevatorPositionVertical;
+		StockTest.elevatorPositionVertical = elevatorPositionVertical;
 	}
 	
 	
