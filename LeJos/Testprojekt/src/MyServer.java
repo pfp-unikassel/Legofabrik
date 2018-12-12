@@ -19,6 +19,7 @@ public class MyServer {
 				out.println("good bye");
 				break;
 			}
+			System.out.println(inputLine);
 			out.println(inputLine);
 		}
 	}

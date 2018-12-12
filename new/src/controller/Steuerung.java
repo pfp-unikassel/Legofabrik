@@ -156,16 +156,8 @@ public class Steuerung {
 	public void updateLabelInController() {
 		
 		c.updateLabels();
-		System.exit( 0 ); // schlieﬂt program
 	}
-	
-	
 	//--------------------------------------------------------
-	
-	public void abort() {
-		
-		closePorts();
-	}
 	
 	public void b1053Fired() { // lift schalter
 		chargier.touchLiftfired();
@@ -935,9 +927,6 @@ public class Steuerung {
 
 					chargier.startLineToStore(false); // maybe falls
 					chargier.startTableLine(false);
-					
-//					stock.takeBoxOnElevator();
-//					stock.storeBox();
 
 					Thread.sleep(3000);
 					chargier.stopTableLine();
@@ -971,7 +960,7 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		
+		c.updatePowerLevel();
 //		runDelivery();
 
 		// qualitystation.takeBallToGood();
@@ -1042,6 +1031,7 @@ public class Steuerung {
 
 	public void startSzenario3() {
 
+		c.updateLabels();
 		// qualitystation.takeBallToGood();
 		// qualitystation.takeBallToBad();
 
