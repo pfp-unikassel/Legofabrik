@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Compressor {
@@ -11,8 +12,12 @@ public class Compressor {
 	RMIRegulatedMotor m2;
 	RMIRegulatedMotor m3;
 	RMIRegulatedMotor m4;
+	
+	private Steuerung s;
 
-	public Compressor(RMIRegulatedMotor m1, RMIRegulatedMotor m2, RMIRegulatedMotor m3, RMIRegulatedMotor m4) {
+	public Compressor(Steuerung s,RMIRegulatedMotor m1, RMIRegulatedMotor m2, RMIRegulatedMotor m3, RMIRegulatedMotor m4) {
+		
+		this.s = s;
 		this.m1 = m1;
 		this.m2 = m2;
 		this.m3 = m3;

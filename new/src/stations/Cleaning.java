@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Cleaning {
@@ -11,10 +12,13 @@ public class Cleaning {
 	private int cleanerSpeed = 360;
 	private int liftLaneSpeed = 260;
 	
-	public Cleaning(
+	private Steuerung s;
+	
+	public Cleaning(Steuerung s,
 		RMIRegulatedMotor cleaner,
 		RMIRegulatedMotor liftLine) {
 		
+		this.s = s;
 		this.cleaner = cleaner;
 		this.liftLine = liftLine;
 	}
@@ -45,6 +49,8 @@ public class Cleaning {
 		}else {
 			cleaner.backward();
 		}
+		
+		s.sendMessage("WS");
 	}
 	
 	public void stopCleaner() throws RemoteException{

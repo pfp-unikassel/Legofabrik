@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class QualityStation {
@@ -22,10 +23,13 @@ public class QualityStation {
 	private RMIRegulatedMotor armVertical;
 	private RMIRegulatedMotor armHorizontal;
 	private RMIRegulatedMotor tower;
+	
+	private Steuerung s;
 
-	public QualityStation(RMIRegulatedMotor table, RMIRegulatedMotor armVertical, RMIRegulatedMotor armHorizontal,
+	public QualityStation(Steuerung s,RMIRegulatedMotor table, RMIRegulatedMotor armVertical, RMIRegulatedMotor armHorizontal,
 			RMIRegulatedMotor tower) {
 
+		this.s = s;
 		this.table = table;
 		this.armHorizontal = armHorizontal;
 		this.armVertical = armVertical;

@@ -32,7 +32,7 @@ public class Sensordeamon extends Thread {
 																										// greifarm
 		setDaemon(true); // makes this thread a deamon, closes hisself after the
 							// main thread
-		this.b105 = b105;
+		this.b105 = b105; // turntable
 		this.b106 = b106;
 		this.b107 = b107;
 		this.b113 = b113;
@@ -49,9 +49,9 @@ public class Sensordeamon extends Thread {
 																														// instead
 																														// null
 		
-		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null);
-		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null);
-		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null);
+		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null); // drehtisch
+		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null); // lift
+		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null); // counter
 		RMISampleProvider b1131 = b113.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null); // kompressor
 		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
 //		RMISampleProvider b1151 = b115.createSampleProvider("S1", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
@@ -113,6 +113,7 @@ public class Sensordeamon extends Thread {
 				waitSek(3);
 				Sensorarray2[0] = 0;
 				s.resetSensorStatus();
+				s.sendMessage("TF");
 
 			}
 			if (Sensorarray3[0] == 1) {
@@ -121,14 +122,14 @@ public class Sensordeamon extends Thread {
 				waitSek(3);
 				Sensorarray3[0] = 0;
 				s.resetSensorStatus();
-
+				s.sendMessage("LF");
 			}
 			if (Sensorarray4[0] == 1) { // counter sensor
 				s.b1072Fired();
 //				System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
 				s.resetSensorStatus();
-
+				s.sendMessage("CF");
 			}
 
 			if (Sensorarray5[0] != -1) {
@@ -138,6 +139,7 @@ public class Sensordeamon extends Thread {
 
 				case Color.BLACK:
 					colorString = "BLACK";
+					s.sendMessage("S0");
 					break;
 				case Color.BLUE:
 					colorString = "BLUE";
@@ -150,9 +152,11 @@ public class Sensordeamon extends Thread {
 					break;
 				case Color.RED:
 					colorString = "RED";
+					s.sendMessage("R0");
 					break;
 				case Color.WHITE:
 					colorString = "WHITE";
+					s.sendMessage("W1");
 					break;
 				case Color.BROWN:
 					colorString = "BROWN";
@@ -183,6 +187,7 @@ public class Sensordeamon extends Thread {
 //
 //					case Color.BLACK:
 //						colorString = "BLACK";
+//			 s.sendMessage("B3");
 //						break;
 //					case Color.BLUE:
 //						colorString = "BLUE";
@@ -195,9 +200,12 @@ public class Sensordeamon extends Thread {
 //						break;
 //					case Color.RED:
 //						colorString = "RED";
+//			 s.sendMessage("R3");
 //						break;
 //					case Color.WHITE:
 //						colorString = "WHITE";
+//			 			s.sendMessage("W2");
+
 //						break;
 //					case Color.BROWN:
 //						colorString = "BROWN";

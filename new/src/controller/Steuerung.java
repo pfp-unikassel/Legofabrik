@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import communication.LegoClient;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.BaseSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -123,6 +124,11 @@ public class Steuerung {
 	private boolean b1072Status = false;
 
 	private Controller c;
+	private static LegoClient legoClient;
+	private String lastRecivedMessage;
+	private int sendErrorCounter = 0;
+	private int numberOfSendTrys = 5;
+	
 	
 	public static void main(String[] args) throws RemoteException {
 
@@ -135,14 +141,14 @@ public class Steuerung {
 		System.out.println("steuerung start");
 
 		chargier = new Chargier(// b1061, b1054, b1053,
-				b106a, b106d, b106b, b105d, b105c);
-		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
-		cleaner = new Cleaning(b108b, b108c);
-		quality = new Quality(b107c, b107b, b107d);
-		compressor = new Compressor(b113a, b113b, b113c, b113d);
-		airarms = new Airarms(b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
-		qualitystation = new QualityStation(b115a, b115b, b115c, b115d);
-		deliverylane = new Deliverylane(b116a, b116b, b116c, b116d, b114c);
+				this,b106a, b106d, b106b, b105d, b105c);
+		lift = new Lift(this,b101a, b101b, b101c, b101d, b108a);
+		cleaner = new Cleaning(this,b108b, b108c);
+		quality = new Quality(this,b107c, b107b, b107d);
+		compressor = new Compressor(this,b113a, b113b, b113c, b113d);
+		airarms = new Airarms(this,b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
+		qualitystation = new QualityStation(this,b115a, b115b, b115c, b115d);
+		deliverylane = new Deliverylane(this,b116a, b116b, b116c, b116d, b114c);
 		// stock = new Stock();
 
 		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe das Object und
@@ -151,6 +157,50 @@ public class Steuerung {
 		sensordeamon.start();
 	}
 
+	//---Communication interactions---------------------------------
+	
+	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be used
+		
+		legoClient = new LegoClient(ip,port);
+	}
+	
+	
+	public void deleteLegoClient() {
+		legoClient = null;
+	}
+	
+	public boolean isConnected() {
+		
+		if(legoClient == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	public LegoClient getLegoClient() {
+		return legoClient;
+	}
+	
+	public void sendMessage(String message) {
+		
+		if(isConnected()) {
+			lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
+			
+			if(lastRecivedMessage == null && sendErrorCounter  > numberOfSendTrys) {						// try again
+				sendErrorCounter++;
+				sendMessage(message);
+			}
+			if(lastRecivedMessage != null) {
+				System.out.println( "Erfoglreich gesendet" + message );
+				System.out.println("Empfangen" + lastRecivedMessage);
+				sendErrorCounter = 0;										// after succesfully send a message reset error counter
+			}
+		}else {
+			System.out.println("No Client available");
+		}
+	}
+	
 	//--------------Controller interactions----------------------
 	
 	public void updateLabelInController() {
@@ -876,7 +926,10 @@ public class Steuerung {
 
 	public void startSzenario1() {
 
-		new java.util.Timer().schedule(new java.util.TimerTask() {
+		sendMessage("ST"); // send start Message should be infront of every normal szenario
+		sendMessage("CA"); // Send everytime 1 new Container gets delivered, not implemented atm
+		
+			new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				try {

@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Stock {
@@ -19,6 +20,7 @@ public class Stock {
 	RMIRegulatedMotor stockPlace3;
 	RMIRegulatedMotor stockPlace4;
 
+	private Steuerung s;
 	private boolean stock1 = false; // topleft false = empty
 	private boolean stock2 = false; // topright
 	private boolean stock3 = false; // downleft
@@ -31,11 +33,12 @@ public class Stock {
 	private int horizontalRotationDegree = 600;
 	private int lineSpeed = 300;
 
-	public Stock(RMIRegulatedMotor laneToStock1, RMIRegulatedMotor laneToStock2, RMIRegulatedMotor elevatorHorizontal1,
+	public Stock(Steuerung s,RMIRegulatedMotor laneToStock1, RMIRegulatedMotor laneToStock2, RMIRegulatedMotor elevatorHorizontal1,
 			RMIRegulatedMotor elevatorHorizontal2, RMIRegulatedMotor elevatorVertical1,
 			RMIRegulatedMotor elevatorVertical2, RMIRegulatedMotor stockPlace1, RMIRegulatedMotor stockPlace2,
 			RMIRegulatedMotor stockPlace3, RMIRegulatedMotor stockPlace4) {
 
+		this.s = s;
 		this.stockPlace1 = stockPlace1;
 		this.stockPlace2 = stockPlace2;
 		this.stockPlace3 = stockPlace3;
@@ -109,6 +112,7 @@ public class Stock {
 			stockPlace1.rotate(-stockRotationDegree, false);
 			stockPlace1.rotate(stockRotationDegree, false);
 			setStock1(false);
+			s.sendMessage("U1");
 		} else {
 			System.out.println("Stock 1 is empty");
 		}
@@ -120,6 +124,7 @@ public class Stock {
 			stockPlace2.rotate(-stockRotationDegree, false);
 			stockPlace2.rotate(stockRotationDegree, false);
 			setStock2(false);
+			s.sendMessage("U2");
 		} else {
 			System.out.println("Stock 2 is empty");
 		}
@@ -131,6 +136,7 @@ public class Stock {
 			stockPlace3.rotate(-stockRotationDegree, false);
 			stockPlace3.rotate(stockRotationDegree, false);
 			setStock3(false);
+			s.sendMessage("U3");
 		} else {
 			System.out.println("Stock 3 is empty");
 		}
@@ -142,6 +148,7 @@ public class Stock {
 			stockPlace4.rotate(-stockRotationDegree, false);
 			stockPlace4.rotate(stockRotationDegree, false);
 			setStock4(false);
+			s.sendMessage("U4");
 		} else {
 			System.out.println("Stock 4 is empty");
 		}
@@ -266,6 +273,7 @@ public class Stock {
 			stopLaneToStock();
 			elevatorDown();
 			setStock1(true);
+			s.sendMessage("L1");
 		}
 
 	}
@@ -280,6 +288,7 @@ public class Stock {
 			elevatorDown();
 			elevatorToLeft();
 			setStock2(true);
+			s.sendMessage("L2");
 		}
 
 	}
@@ -290,6 +299,7 @@ public class Stock {
 			Thread.sleep(2000);
 			stopLaneToStock();
 			setStock3(true);
+			s.sendMessage("L3");
 		}
 
 	}
@@ -303,6 +313,7 @@ public class Stock {
 			stopLaneToStock();
 			elevatorToLeft();
 			setStock4(true);
+			s.sendMessage("L4");
 		}
 	}
 

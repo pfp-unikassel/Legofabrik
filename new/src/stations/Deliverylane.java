@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Deliverylane {
@@ -12,6 +13,8 @@ public class Deliverylane {
 	RMIRegulatedMotor gateD;
 	RMIRegulatedMotor LineToArms;
 
+	private Steuerung s;
+	
 	private int lineToArmsSpeed = 180;
 	private int lineToEndSpeed = 120; // 90 before
 	private int gateTurnDegree = 50;
@@ -22,9 +25,10 @@ public class Deliverylane {
 	private boolean gateBStatus = true; // true is closed
 	private boolean gateCStatus = true; // true is closed
 
-	public Deliverylane(RMIRegulatedMotor lineToEnd, RMIRegulatedMotor gateB, RMIRegulatedMotor gateC,
+	public Deliverylane(Steuerung s,RMIRegulatedMotor lineToEnd, RMIRegulatedMotor gateB, RMIRegulatedMotor gateC,
 			RMIRegulatedMotor gateD, RMIRegulatedMotor LineToArms) {
 
+		this.s = s;
 		this.lineToEnd = lineToEnd;
 		this.gateB = gateB; // stoping boxes
 		this.gateC = gateC; // customer 1
@@ -56,6 +60,7 @@ public class Deliverylane {
 	public void turnLineToArms(int degree) throws RemoteException {
 		LineToArms.setSpeed(getLineToArmsSpeed());
 		LineToArms.rotate(degree, false);
+		s.sendMessage("BL");
 	}
 
 	public void stopLineToArms() throws RemoteException {
@@ -85,6 +90,7 @@ public class Deliverylane {
 			// open
 			try {
 				gateD.rotate(gateTurnDegree, true);
+				s.sendMessage("K2");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -144,6 +150,7 @@ public class Deliverylane {
 			// open
 			try {
 				gateC.rotate(gateTurnDegree, true);
+				s.sendMessage("K1");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -174,6 +181,8 @@ public class Deliverylane {
 		} else {
 			if (gateCounter % 3 == 1) {
 				openGateD();
+			}else {
+				s.sendMessage("K3");
 			}
 		}
 		
