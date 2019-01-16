@@ -1,5 +1,14 @@
 package controller;
 
+/**
+ *  wird vom Controller des Ui´s initialisiert.
+ *  Steuerung ist das Hauptprogramm welches alle anderen subprogramme verbindet und steuert.
+ *	Es Initialisiert die Lego Bricks, hier müssen auch die Ip´s hinterlegt werden.
+ * 	Initialisiert ebenfalls den SensorDeamon, die Station und den LegoClient
+ * 
+ */
+
+
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -129,6 +138,10 @@ public class Steuerung {
 //	private int sendErrorCounter = 0;
 //	private int numberOfSendTrys = 5;
 	
+	public Steuerung(Controller c) {
+		this.c = c; 
+		start(c);
+	}
 	
 	public static void main(String[] args) throws RemoteException {
 
@@ -136,6 +149,10 @@ public class Steuerung {
 
 	public void start(Controller c1) {
 
+		/**@param Initialsiert alle Stations und den Sensordeamon
+		 * sollte vom Controller ausgeführt werden oder dieser übergeben.
+		 */
+		
 		c = c1;
 		initAll();
 		System.out.println("steuerung start");
@@ -170,6 +187,8 @@ public class Steuerung {
 	}
 	
 	public boolean isConnected() {
+		/**@param kontrolliert ob der Client vorhanden ist
+		 */
 		
 		if(legoClient == null) {
 			return false;
@@ -204,7 +223,9 @@ public class Steuerung {
 	//--------------Controller interactions----------------------
 	
 	public void updateLabelInController() {
-		
+		/**@param
+		 * laesst den Controller alle Labels updaten
+		 */
 		c.updateLabels();
 	}
 	//--------------------------------------------------------
@@ -260,6 +281,9 @@ public class Steuerung {
 	}
 
 	public void initAll() {
+		/**@param
+		 * Initioalisiert alle Bricks
+		 */
 		System.out.println("init All");
 
 		initBrick1();
@@ -281,7 +305,7 @@ public class Steuerung {
 	public void initBrick1() {
 		// Brick 101
 		try {
-			b101 = new RemoteEV3("192.168.0.103");
+			b101 = new RemoteEV3("192.168.0.103");  // hier muessen alle Brick Ips eingetragen werden
 			getPowerLevel(b101);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -600,6 +624,10 @@ public class Steuerung {
 	}
 
 	public static void closePorts() {
+		/**@param
+		 * schliesst alle Motorports7Sensorports der Bricks aus der Liste
+		 * muss bei jedem programm Ende gemacht werden
+		 */
 
 		for (RMIRegulatedMotor temp : openMotorPorts) { // close every open
 														// Motor
@@ -645,7 +673,9 @@ public class Steuerung {
 	}
 
 	public float getPowerLevel(RemoteEV3 brick) {
-
+		/**@param
+		 * Gibt Akkustand aus und zurueck
+		 */
 		if (brick != null) {
 
 			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt() + "V Akku");
@@ -660,6 +690,9 @@ public class Steuerung {
 
 	public float getPowerUse(RemoteEV3 brick) {
 
+		/**@param
+		 * gibt momentanen akku verbrauch
+		 */
 		if (brick != null) {
 
 			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
@@ -674,6 +707,9 @@ public class Steuerung {
 
 	public float getMotorPowerUse(RemoteEV3 brick) {
 
+		/**@param
+		 * gibt Motor verbrauch zurueck
+		 */
 		if (brick != null) {
 
 			System.out.println(
@@ -687,7 +723,9 @@ public class Steuerung {
 	}
 
 	public void updatePowerLevel() {
-
+		/**@param
+		 * updated powerlevel anzeige im controller
+		 */
 		int count = 0;
 		float powerLevel;
 		String brickName;
@@ -702,6 +740,7 @@ public class Steuerung {
 		}
 	}
 	// ------------------------help methods with
+	//  werden durch test Button im UI aufgerufen und fuehren standart ablauf durch 
 	// stations------------------------------
 
 	public void runDelivery() {

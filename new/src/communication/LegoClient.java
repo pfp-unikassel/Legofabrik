@@ -57,6 +57,11 @@ public class LegoClient {
 
 	public String sendMessage(String message) {
 
+		/**@param sendet Nachricht and Server
+		 *  versucht dies X und meldet Fehler falls es nicht funktionier
+		 *  gibt die empfangene antwort zurück ans Hauptprogramm
+		 *  Speichert gesendete und empfangen Nachrichten im Array
+		 */
 		String ip = targetIP;
 		int port = targetPort;
 		String empfangeneNachricht;
@@ -107,6 +112,9 @@ public class LegoClient {
 
 	public void writeSentMessageInFile() {
 
+		/** @param opens SaveInFile.java und speicher gesendete Nachrichten in SentMessages.txt
+		 * 
+		 */
 		for (String s : getSentMessages()) {
 			SaveInFile.saveInFile("SentMessages.txt", s);
 		}

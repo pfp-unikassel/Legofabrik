@@ -1,5 +1,12 @@
 package controller;
 
+/**
+ *  Der Sensordeamon ist ein eigener Thread welche die Sensoren der Bricks abfragt und die Werte and die Steuerung weitergibt.
+ *  Er schliesst sich automatisch beim beenden
+ *  Er initialisiert die Sensoren der Bricks als RMISampleProvider, denn man kann sonst nur 4 (Bug in Lego Libary)
+ *  normale Sensoren benutzen.
+ *  z.B. RFID Sensoren sind externe Sensoren welche nicht als RMISampleProvider angelegt werden koennen.
+ */
 import java.rmi.RemoteException;
 
 import javafx.application.Platform;
@@ -16,8 +23,8 @@ import lejos.robotics.Color;
 public class Sensordeamon extends Thread {
 
 	private Steuerung s;
-	private int counter=0;
-	
+	private int counter = 0;
+
 	private RemoteEV3 b105;
 	private RemoteEV3 b106;
 	private RemoteEV3 b107;
@@ -25,11 +32,11 @@ public class Sensordeamon extends Thread {
 	private RemoteEV3 b115;
 	private RMIRegulatedMotor m;
 
-	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107, RemoteEV3 b113 , RemoteEV3 b115) { // ad
-																										// Motor
-																										// m
-																										// vom
-																										// greifarm
+	public Sensordeamon(Steuerung s, RemoteEV3 b105, RemoteEV3 b106, RemoteEV3 b107, RemoteEV3 b113, RemoteEV3 b115) { // ad
+		// Motor
+		// m
+		// vom
+		// greifarm
 		setDaemon(true); // makes this thread a deamon, closes hisself after the
 							// main thread
 		this.b105 = b105; // turntable
@@ -44,25 +51,27 @@ public class Sensordeamon extends Thread {
 	@Override
 	public void run() {
 
-//		RMISampleProvider b1061 = b106.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor", null); // "Distance"
-																														// mode
-																														// instead
-																														// null
-		
+		// RMISampleProvider b1061 = b106.createSampleProvider("S1",
+		// "lejos.hardware.sensor.EV3UltrasonicSensor", null); // "Distance"
+		// mode
+		// instead
+		// null
+
 		RMISampleProvider b1053 = b105.createSampleProvider("S3", "lejos.hardware.sensor.EV3TouchSensor", null); // drehtisch
 		RMISampleProvider b1054 = b105.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null); // lift
 		RMISampleProvider b1072 = b107.createSampleProvider("S2", "lejos.hardware.sensor.EV3TouchSensor", null); // counter
 		RMISampleProvider b1131 = b113.createSampleProvider("S1", "lejos.hardware.sensor.EV3TouchSensor", null); // kompressor
 		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
-//		RMISampleProvider b1151 = b115.createSampleProvider("S1", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
-		
+		// RMISampleProvider b1151 = b115.createSampleProvider("S1",
+		// "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
+
 		s.addToSensorList(b1053);
 		s.addToSensorList(b1054);
-//		s.addToSensorList(b1061);
+		// s.addToSensorList(b1061);
 		s.addToSensorList(b1072);
 		s.addToSensorList(b1073);
 		s.addToSensorList(b1131);
-//		s.addToSensorList(b1151);
+		// s.addToSensorList(b1151);
 
 		float[] Sensorarray1 = new float[5];
 		float[] Sensorarray2 = new float[5];
@@ -70,7 +79,7 @@ public class Sensordeamon extends Thread {
 		float[] Sensorarray4 = new float[5];
 		float[] Sensorarray5 = new float[5];
 		float[] Sensorarray6 = new float[5];
-//		float[] Sensorarray7 = new float[5];
+		// float[] Sensorarray7 = new float[5];
 
 		int[] filterArray = new int[15];
 
@@ -85,13 +94,13 @@ public class Sensordeamon extends Thread {
 						// erkennt
 
 			try {
-//				Sensorarray1 = b1061.fetchSample();
+				// Sensorarray1 = b1061.fetchSample();
 				Sensorarray2 = b1053.fetchSample();
 				Sensorarray3 = b1054.fetchSample();
 				Sensorarray4 = b1072.fetchSample();
 				Sensorarray5 = b1073.fetchSample();
 				Sensorarray6 = b1131.fetchSample();
-//				Sensorarray7 = b1151.fetchSample();
+				// Sensorarray7 = b1151.fetchSample();
 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -101,7 +110,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray1[0] == 1) { // wenn schalter gedrueckt wurde dann
 
 				s.b1061Fired();
-//				System.out.println("Sensor b1061 fired");
+				// System.out.println("Sensor b1061 fired");
 				waitSek(2);
 				Sensorarray1[0] = 0;
 				s.resetSensorStatus();
@@ -109,7 +118,7 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
-//				System.out.println("Sensor b1053 fired");
+				// System.out.println("Sensor b1053 fired");
 				waitSek(3);
 				Sensorarray2[0] = 0;
 				s.resetSensorStatus();
@@ -118,7 +127,7 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
-//				System.out.println("Sensor b1054 fired");
+				// System.out.println("Sensor b1054 fired");
 				waitSek(3);
 				Sensorarray3[0] = 0;
 				s.resetSensorStatus();
@@ -126,7 +135,7 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray4[0] == 1) { // counter sensor
 				s.b1072Fired();
-//				System.out.println("Sensor b1072 fired");
+				// System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
 				s.resetSensorStatus();
 				s.sendMessage("CF");
@@ -164,64 +173,62 @@ public class Sensordeamon extends Thread {
 				}
 				s.b1073Fired(colorString);
 				waitSek(1); // TODO: maybe turn line to sensor slow
-				
-				if(colorString != "BLACK"){
+
+				if (colorString != "BLACK") {
 					s.resetSensorStatus();
-					
+
 				}
 			}
 
-			 if (Sensorarray6[0] == 1) {
-			 s.b1131Fired(true);
-			 Sensorarray6[0] = 0;
-			 } else {
-			 s.b1131Fired(false);
-			 }
+			if (Sensorarray6[0] == 1) {
+				s.b1131Fired(true);
+				Sensorarray6[0] = 0;
+			} else {
+				s.b1131Fired(false);
+			}
 
-			 // Qualitistation
-//			 if (Sensorarray7[0] != -1) {
-//					System.out.println("Farbsensortower erkennt farbe");
-//					int coloIndex = (int) Sensorarray7[0];
-//					String colorString = "";
-//					switch (coloIndex) {
-//
-//					case Color.BLACK:
-//						colorString = "BLACK";
-//			 s.sendMessage("B3");
-//						break;
-//					case Color.BLUE:
-//						colorString = "BLUE";
-//						break;
-//					case Color.GREEN:
-//						colorString = "GREEN";
-//						break;
-//					case Color.YELLOW:
-//						colorString = "YELLOW";
-//						break;
-//					case Color.RED:
-//						colorString = "RED";
-//			 s.sendMessage("R3");
-//						break;
-//					case Color.WHITE:
-//						colorString = "WHITE";
-//			 			s.sendMessage("W2");
+			// Qualitistation
+			// if (Sensorarray7[0] != -1) {
+			// System.out.println("Farbsensortower erkennt farbe");
+			// int coloIndex = (int) Sensorarray7[0];
+			// String colorString = "";
+			// switch (coloIndex) {
+			//
+			// case Color.BLACK:
+			// colorString = "BLACK";
+			// s.sendMessage("B3");
+			// break;
+			// case Color.BLUE:
+			// colorString = "BLUE";
+			// break;
+			// case Color.GREEN:
+			// colorString = "GREEN";
+			// break;
+			// case Color.YELLOW:
+			// colorString = "YELLOW";
+			// break;
+			// case Color.RED:
+			// colorString = "RED";
+			// s.sendMessage("R3");
+			// break;
+			// case Color.WHITE:
+			// colorString = "WHITE";
+			// s.sendMessage("W2");
 
-//						break;
-//					case Color.BROWN:
-//						colorString = "BROWN";
-//						break;
-//					}
-//					s.b1151Fired(colorString);
-//					waitSek(1); // TODO: maybe turn line to sensor slow
-//					
-//					if(colorString != "BLACK"){
-//						s.resetSensorStatus();
-//						
-//					}
-//				}
-			 
-			 
-			 
+			// break;
+			// case Color.BROWN:
+			// colorString = "BROWN";
+			// break;
+			// }
+			// s.b1151Fired(colorString);
+			// waitSek(1); // TODO: maybe turn line to sensor slow
+			//
+			// if(colorString != "BLACK"){
+			// s.resetSensorStatus();
+			//
+			// }
+			// }
+
 			// try {
 			// if (m.isStalled()) {
 			// s.armIsStalled(true);
@@ -234,22 +241,25 @@ public class Sensordeamon extends Thread {
 			//
 			// }
 
- //-------------UI changes--------------------------------------------------------------------------------------------
-			 
-			 
-			 Platform.runLater(                //  rows this in Ui Thread Q, maybe to much actions
-					  () -> {
-						  s.updateLabelInController(); 
-							 
-							 if(counter == 100 ) {
-								 counter=0;
-								 s.updatePowerLevel();
-							 }
-					  }
-					);
-			
-			 
-//-------------UI changes----------------------------------------------------------------------------------------------
+			// -------------UI
+			// changes--------------------------------------------------------------------------------------------
+			/**
+			 * @param ruft die Labelupdate Methode jedesmal in einem Platformthread auf
+			 * Ruft die Update Powerlevel nur bei jedem 100 durchlauf auf
+			 */
+
+			Platform.runLater( // rows this in Ui Thread Q, maybe to much actions
+					() -> {
+						s.updateLabelInController();
+
+						if (counter == 100) {
+							counter = 0;
+							s.updatePowerLevel();
+						}
+					});
+
+			// -------------UI
+			// changes----------------------------------------------------------------------------------------------
 		}
 	}
 
@@ -263,21 +273,23 @@ public class Sensordeamon extends Thread {
 		}
 	}
 
-	
-	public int filterIds(int[] filterArray) { 														
-												
+	public int filterIds(int[] filterArray) {
+
+		/** Filtert int Array mit 5 werten und gibt den heufigsten wieder
+		 * wird bei der verwendung der RFID sensoren gebraucht
+		 */
 		int firstId = filterArray[0];
 		int firstCounter = 0;
 		int secondId = 0;
 		int secondCounter = 0;
 
-		for (int i = 1; i < 5; i++) {																		// i< incomming values
+		for (int i = 1; i < 5; i++) { // i< incomming values
 
-			if (filterArray[i] != 0) {																			// 0 is no value
+			if (filterArray[i] != 0) { // 0 is no value
 				if (firstId == filterArray[i]) {
 					firstCounter++;
-				} else {																								 // if id not the same as first id
-					secondId = filterArray[i]; 															// set second id
+				} else { // if id not the same as first id
+					secondId = filterArray[i]; // set second id
 					if (secondId == filterArray[i]) {
 						secondCounter++;
 					}
@@ -285,14 +297,11 @@ public class Sensordeamon extends Thread {
 			}
 		}
 
-		if (firstCounter > secondCounter) {                                                        // returns most showen id 
+		if (firstCounter > secondCounter) { // returns most showen id
 			return firstId;
 		} else {
 			return secondId;
 		}
 	}
-	
-	
-	
-	
+
 }
