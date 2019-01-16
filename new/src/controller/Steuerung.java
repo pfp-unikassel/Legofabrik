@@ -126,8 +126,8 @@ public class Steuerung {
 	private Controller c;
 	private static LegoClient legoClient;
 	private String lastRecivedMessage;
-	private int sendErrorCounter = 0;
-	private int numberOfSendTrys = 5;
+//	private int sendErrorCounter = 0;
+//	private int numberOfSendTrys = 5;
 	
 	
 	public static void main(String[] args) throws RemoteException {
@@ -187,14 +187,14 @@ public class Steuerung {
 		if(isConnected()) {
 			lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
 			
-			if(lastRecivedMessage == null && sendErrorCounter  > numberOfSendTrys) {						// try again
-				sendErrorCounter++;
-				sendMessage(message);
-			}
-			if(lastRecivedMessage != null) {
+//			if(lastRecivedMessage == null && sendErrorCounter  > numberOfSendTrys) {						// try again
+//				sendErrorCounter++;
+//				sendMessage(message);
+//			}
+			if(!lastRecivedMessage.equals("")) { // last message not empty or null
 				System.out.println( "Erfoglreich gesendet" + message );
 				System.out.println("Empfangen" + lastRecivedMessage);
-				sendErrorCounter = 0;										// after succesfully send a message reset error counter
+//				sendErrorCounter = 0;										// after succesfully send a message reset error counter
 			}
 		}else {
 			System.out.println("No Client available");
