@@ -157,16 +157,6 @@ public class Controller implements Initializable {
 			// startTimer();
 			running = true;
 			paused = false;
-
-			try {
-				s.getChargier().startLineToLifter(true);
-				// s.getChargier().startLineToStore(true);
-				// s.getChargier().startLineToTable(true);
-				// s.getLift().startShaker();
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 
 	}

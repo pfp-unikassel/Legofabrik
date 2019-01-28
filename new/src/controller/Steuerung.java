@@ -1260,7 +1260,7 @@ public class Steuerung {
 					
 					
 					lift.startShaker();
-					lift.start(); // wait until it finished
+					lift.start(false); // wait until it finished
 					lift.stopShaker();
 
 					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung

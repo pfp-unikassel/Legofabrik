@@ -78,6 +78,29 @@ public class Chargier {
 		tablePosition = tablePosition + degree;
 	}
 
+	public void turnToStock(boolean instantReturn) {
+		if(getTablePostion() == -660) {
+			//is allready in position
+		}else {
+			
+			turnTable(-getTablePostion()+-660, instantReturn);
+		}
+	}
+	
+	public void turnToCar(boolean instantReturn) {
+		
+		resetTable(instantReturn);
+	}
+	public void turnToLift(boolean instantReturn) {
+		
+		if(getTablePostion() == 660) {
+			//is allready in position
+		}else {
+			
+			turnTable(-getTablePostion()+660, instantReturn);
+		}
+	}
+	
 	public void resetTable(boolean instantReturn) throws RemoteException { // turns table back to start position
 
 		drehtischRotieren.rotate(tablePosition, instantReturn);
