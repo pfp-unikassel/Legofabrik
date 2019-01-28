@@ -2,6 +2,8 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.sound.sampled.LineUnavailableException;
+
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RMISampleProvider;
 import lejos.remote.ev3.RemoteEV3;
@@ -34,7 +36,7 @@ public class StockTest {
 	private static  char elevatorPositionVertical = 'l'; // l = left r = right
 
 	private static  int stockRotationDegree = 160; // is allready callibrated
-	private static  int horizontalDegree = 600;
+	private static  int horizontalDegree = 600; // 
 	
 	private static  int lineSpeed = 300;    // line spped of elevator can be changed as u want
 
@@ -68,16 +70,23 @@ public class StockTest {
 		
 		
 		       // einfach durch ein aus kommentieren die zu testenen methoden aufrufen
+//		  rotateLineToStock(350); 	
+//		elevatorToRight();
+		//elevatorUp();
+//			elevatorVertical1.rotate(11520, true); // move both at the same time
+			// and wait for second
+//            elevatorVertical2.rotate(-11520, false);
+	//	pushStock1();   // dont use 4
+//            rotateLineToStock(-1200); 
+			// rotateLineToStock(-500); // how much degree the line should rotate
+		
+		//	startLineToStock(true);  // true is to store false is to charge
+		//	Thread.sleep(2000);                              // wait for X millis so 1000 = 1 sec
+		//	stopLaneToStock();
 			
-			elevatorToRight();
-			elevatorUp();
-			pushStock1();   // dont use 4
-			startLineToStock(true);  // true is to store false is to charge
-			Thread.sleep(2000);                              // wait for X millis so 1000 = 1 sec
-			stopLaneToStock();
-			
-			elevatorToLeft();
-			elevatorDown();
+		elevatorToLeft();
+//			elevatorDown();
+			// rotateLineToStock(-1050); 
 		
 			
 		
@@ -105,6 +114,27 @@ public class StockTest {
 		}
 	}
 	
+	private static void rotateLineToStock(int degree) {
+		
+
+		try {
+			laneToStock1.setSpeed(getLineSpeed());
+			laneToStock2.setSpeed(getLineSpeed());
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	try {
+		laneToStock1.rotate(degree, true);
+		laneToStock2.rotate(-degree, false);
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	}
+
 	public void pushBoxFromStock(int stock) throws RemoteException {
 
 		switch (stock) {
@@ -177,10 +207,10 @@ public class StockTest {
 
 	public static void elevatorUp() throws RemoteException {
 
-	 // set speed up
-			elevatorVertical1.rotate(11520, true); // move both at the same time
-													// and wait for second
-			elevatorVertical2.rotate(-11520, false);
+	//  set speed up
+	//		elevatorVertical1.rotate(152, true); // move both at the same time
+		//											// and wait for second
+			//elevatorVertical2.rotate(-152, false);
 	
 
 	}

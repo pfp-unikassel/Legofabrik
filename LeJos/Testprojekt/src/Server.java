@@ -15,7 +15,7 @@ public class Server {
 	}
 
 	void test() throws IOException {
-		int port = 11111;
+		int port = 33333;
 		java.net.ServerSocket serverSocket = new java.net.ServerSocket(port);
 		java.net.Socket client = warteAufAnmeldung(serverSocket);
 		String nachricht = leseNachricht(client);

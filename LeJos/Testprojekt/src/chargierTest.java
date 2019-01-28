@@ -68,7 +68,8 @@ public class chargierTest {
 //			chargier.setLineSpeed(300); // kaufband geschwindigkeit
 //			
 //			
-//		} catch (RemoteException e1) {
+//		}
+//		catch (RemoteException e1) {
 //			// TODO Auto-generated catch block
 //			e1.printStackTrace();
 //		}
@@ -89,7 +90,8 @@ public class chargierTest {
 					
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
-					chargier.turnTable(660); // wartet bis drehung fertig ist
+					b105c.setSpeed(100); // 720 speed of the turntable 
+					chargier.turnTable(660); // wartet bis drehung fertig ist 660
 
 					chargier.startLineToLifter(false);
 					chargier.startTableLine(false);
