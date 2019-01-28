@@ -23,7 +23,7 @@ public class SaveInFile {
 			File recivedMessagesFile = new File("/"+fileName); // creates File if its not allready there
 
 			if (recivedMessagesFile.isFile()) {
-				PrintWriter out = new PrintWriter(s);
+				PrintWriter out = new PrintWriter(s+"\n");
 				out.close();
 			}
 		} catch (FileNotFoundException e) {
@@ -31,5 +31,7 @@ public class SaveInFile {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 }

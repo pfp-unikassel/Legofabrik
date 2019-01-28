@@ -147,7 +147,7 @@ public class Steuerung {
 
 	}
 
-	public void start(Controller c1) {
+	public void start(Controller c1) { 
 
 		/**@param Initialsiert alle Stations und den Sensordeamon
 		 * sollte vom Controller ausgeführt werden oder dieser übergeben.

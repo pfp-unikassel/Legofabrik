@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="settingsController">
+   <children>
+      <ScrollPane prefHeight="381.0" prefWidth="600.0">
+        <content>
+          <AnchorPane prefHeight="419.0" prefWidth="581.0">
+               <children>
+                  <VBox prefHeight="419.0" prefWidth="582.0">
+                     <children>
+                        <HBox prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel1" text="Brick 1 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield1" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel2" text="Brick 2 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield2" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="66.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel3" text="Brick 3 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield3" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="122.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel4" text="Brick 4 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield4" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="122.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel5" text="Brick 5 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield5" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="122.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel6" text="Brick 6 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield6" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="122.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel7" text="Brick 7 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield7" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="178.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel8" text="Brick 8 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield8" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="166.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel9" text="Brick 9 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield9" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="148.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel10" text="Brick 10 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield10" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="304.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel11" text="Brick 11 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield11" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="136.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel12" text="Brick 12 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield12" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="136.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel13" text="Brick 13 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield13" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="178.0" prefHeight="56.0" prefWidth="582.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="BrickLabel14" text="Brick 14 IP: ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="Bricktextfield14" prefHeight="32.0" prefWidth="247.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+        </content>
+      </ScrollPane>
+      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0" spacing="30.0">
+         <children>
+            <Button fx:id="defaultButton" mnemonicParsing="false" onAction="#defaultButtonPushed" prefHeight="25.0" prefWidth="100.0" text="Default" />
+            <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyButtonPushed" prefHeight="25.0" prefWidth="100.0" text="Apply" />
+            <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonPushed" prefHeight="25.0" prefWidth="100.0" text="Close" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

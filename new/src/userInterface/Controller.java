@@ -9,10 +9,12 @@ import java.util.ResourceBundle;
 
 import controller.Steuerung;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Circle;
 
 public class Controller implements Initializable {
@@ -37,7 +39,7 @@ public class Controller implements Initializable {
 																			// Details
 
 	public Label label00, label01, label02, label03, label04, label10, label11, label12, label13, label14, label20,
-			label21, label22, label23, label24, label30, label31, label32, label33, label34; // LAbel
+			label21, label22, label23, label24, label30, label31, label32, label33, label34, label05,label15,label25,label35; // LAbel
 																								// akku
 	// 0X 2X Names 1X 3X Values
 
@@ -50,6 +52,8 @@ public class Controller implements Initializable {
 	public Button stop1, stop2, stop3, stop4, stop5, stop6, stop7;
 
 	public CheckBox box1, box2, box3, box4, box5, box6, box7;
+	
+	public MenuItem settings;
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
@@ -69,7 +73,6 @@ public class Controller implements Initializable {
 																		// programm
 
 		s = new Steuerung(this);
-//		s.start(this);
 
 		brickLabels = new ArrayList<>();
 		addBrickLabeltoList();
@@ -81,7 +84,31 @@ public class Controller implements Initializable {
 
 		
 	}
+	
+	//--------------------------------------------Menu-------------------------------------------
+	
+	settings.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent event) {
+	        Parent root;
+	        try {
+	            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
+	            Stage stage = new Stage();
+	            stage.setTitle("Settings");
+	            stage.setScene(new Scene(root, 450, 450));
+	            stage.show();
+	            // Hide this current window (if this is what you want)
+	            ((Node)(event.getSource())).getScene().getWindow().hide();
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
+	//--------------------------------------------Menu---------------------------------------------
 
+	//-------------------------------------------------Steuerung-------------------------------------------
+	
 	public void updateLabels() { // should be called by clock later on
 
 		updateTime();
@@ -112,6 +139,8 @@ public class Controller implements Initializable {
 		brickLabels.add(label13);
 		brickLabels.add(label04);
 		brickLabels.add(label14);
+		brickLabels.add(label05);
+		brickLabels.add(label15);
 		brickLabels.add(label20);
 		brickLabels.add(label30);
 		brickLabels.add(label21);
@@ -122,6 +151,8 @@ public class Controller implements Initializable {
 		brickLabels.add(label33);
 		brickLabels.add(label24);
 		brickLabels.add(label34);
+		brickLabels.add(label25);
+		brickLabels.add(label35);
 	}
 
 	public void updatePowerLevel() {
@@ -147,6 +178,8 @@ public class Controller implements Initializable {
 //		}
 	}
 
+	//-------------------------------------------------Steuerung-------------------------------------------
+	
 	public void startButtonClicked() {
 		if (running) { // if game runs allready do nothing
 
