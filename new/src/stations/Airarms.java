@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Airarms { // schalter rechts rechts Links links
@@ -16,6 +17,7 @@ public class Airarms { // schalter rechts rechts Links links
 
 	private int turnDegree = -630;  // default/old -70 
 	private int towerTurnDegree =- 100;
+	private Steuerung s;
 
 	RMIRegulatedMotor moveArm;
 	RMIRegulatedMotor verticalArm;
@@ -24,9 +26,10 @@ public class Airarms { // schalter rechts rechts Links links
 	RMIRegulatedMotor turnArm1;
 	RMIRegulatedMotor turnArm2;
 
-	public Airarms(RMIRegulatedMotor airLine1, RMIRegulatedMotor airLine2, RMIRegulatedMotor airLine3,
+	public Airarms(Steuerung s,RMIRegulatedMotor airLine1, RMIRegulatedMotor airLine2, RMIRegulatedMotor airLine3,
 			RMIRegulatedMotor airLine4, RMIRegulatedMotor turnArm1, RMIRegulatedMotor turnArm2) {
-
+		
+		this.s = s;
 		this.moveArm = airLine1; // ausfahren
 		this.verticalArm = airLine2;
 		this.turnGrab = airLine3;

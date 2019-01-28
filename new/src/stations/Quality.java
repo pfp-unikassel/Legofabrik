@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
@@ -23,10 +24,11 @@ public class Quality {
 	private int badBalls = 0;
 	private String colorString = "";
 	
+	private Steuerung s1;
 
+	public Quality(Steuerung s,RMIRegulatedMotor band, RMIRegulatedMotor gate, RMIRegulatedMotor counterLine) {
 
-	public Quality(RMIRegulatedMotor band, RMIRegulatedMotor gate, RMIRegulatedMotor counterLine) {
-
+		this.s1 = s;
 		this.line = band;
 		this.gate = gate;
 		this.counterLine = counterLine;

@@ -1,10 +1,20 @@
 package controller;
 
+/**
+ *  wird vom Controller des Ui´s initialisiert.
+ *  Steuerung ist das Hauptprogramm welches alle anderen subprogramme verbindet und steuert.
+ *	Es Initialisiert die Lego Bricks, hier müssen auch die Ip´s hinterlegt werden.
+ * 	Initialisiert ebenfalls den SensorDeamon, die Station und den LegoClient
+ * 
+ */
+
+
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import communication.LegoClient;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.BaseSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -123,6 +133,15 @@ public class Steuerung {
 	private boolean b1072Status = false;
 
 	private Controller c;
+	private static LegoClient legoClient;
+	private String lastRecivedMessage;
+//	private int sendErrorCounter = 0;
+//	private int numberOfSendTrys = 5;
+	
+	public Steuerung(Controller c) {
+		this.c = c; 
+		start(c);
+	}
 	
 	public static void main(String[] args) throws RemoteException {
 
@@ -130,20 +149,25 @@ public class Steuerung {
 
 	public void start(Controller c1) {
 
+		/**@param Initialsiert alle Stations und den Sensordeamon
+		 * sollte vom Controller ausgeführt werden oder dieser übergeben.
+		 */
+		
 		c = c1;
 		initAll();
 		System.out.println("steuerung start");
 
-		chargier = new Chargier(// b1061, b1054, b1053,
-				b106a, b106d, b106b, b105d, b105c);
-		lift = new Lift(b101a, b101b, b101c, b101d, b108a);
-		cleaner = new Cleaning(b108b, b108c);
-		quality = new Quality(b107c, b107b, b107d);
-		compressor = new Compressor(b113a, b113b, b113c, b113d);
-		airarms = new Airarms(b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
-		qualitystation = new QualityStation(b115a, b115b, b115c, b115d);
-		deliverylane = new Deliverylane(b116a, b116b, b116c, b116d, b114c);
-		 stock = new Stock(b118a,b118d,b119a,b119b,b118c,b118b,b117a,b117b,b117c,b117d);
+		chargier = new Chargier(
+				this,b106a, b106d, b106b, b105d, b105c);
+		lift = new Lift(this,b101a, b101b, b101c, b101d, b108a);
+		cleaner = new Cleaning(this,b108b, b108c);
+		quality = new Quality(this,b107c, b107b, b107d);
+		compressor = new Compressor(this,b113a, b113b, b113c, b113d);
+		airarms = new Airarms(this,b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
+		qualitystation = new QualityStation(this,b115a, b115b, b115c, b115d);
+		deliverylane = new Deliverylane(this,b116a, b116b, b116c, b116d, b114c);
+		stock = new Stock(this,b118a, b118d ,b119a ,b119b ,b118c , b118b,b117a,b117b,b117c,b117d);
+
 
 		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe das Object und
 																							// rufe b1073 TODO: ad 114
@@ -151,10 +175,58 @@ public class Steuerung {
 		sensordeamon.start();
 	}
 
+	//---Communication interactions---------------------------------
+	
+	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be used
+		
+		legoClient = new LegoClient(ip,port);
+	}
+	
+	
+	public void deleteLegoClient() {
+		legoClient = null;
+	}
+	
+	public boolean isConnected() {
+		/**@param kontrolliert ob der Client vorhanden ist
+		 */
+		
+		if(legoClient == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	public LegoClient getLegoClient() {
+		return legoClient;
+	}
+	
+	public void sendMessage(String message) {
+		
+		if(isConnected()) {
+			lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
+			
+//			if(lastRecivedMessage == null && sendErrorCounter  > numberOfSendTrys) {						// try again
+//				sendErrorCounter++;
+//				sendMessage(message);
+//			}
+			if(!lastRecivedMessage.equals("")) { // last message not empty or null
+				System.out.println( "Erfoglreich gesendet" + message );
+				System.out.println("Empfangen" + lastRecivedMessage);
+//				sendErrorCounter = 0;										// after succesfully send a message reset error counter
+			}
+		}else {
+			System.out.println("No Client available");
+		}
+	}
+	
 	//--------------Controller interactions----------------------
 	
 	public void updateLabelInController() {
-		
+		/**@param
+		 * laesst den Controller alle Labels updaten
+		 */
 		c.updateLabels();
 	}
 	//--------------------------------------------------------
@@ -210,6 +282,9 @@ public class Steuerung {
 	}
 
 	public void initAll() {
+		/**@param
+		 * Initioalisiert alle Bricks
+		 */
 		System.out.println("init All");
 
 		initBrick1();
@@ -231,7 +306,7 @@ public class Steuerung {
 	public void initBrick1() {
 		// Brick 101
 		try {
-			b101 = new RemoteEV3("192.168.0.103");
+			b101 = new RemoteEV3("192.168.0.103");  // hier muessen alle Brick Ips eingetragen werden
 			getPowerLevel(b101);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -550,6 +625,10 @@ public class Steuerung {
 	}
 
 	public static void closePorts() {
+		/**@param
+		 * schliesst alle Motorports7Sensorports der Bricks aus der Liste
+		 * muss bei jedem programm Ende gemacht werden
+		 */
 
 		for (RMIRegulatedMotor temp : openMotorPorts) { // close every open
 														// Motor
@@ -595,7 +674,9 @@ public class Steuerung {
 	}
 
 	public float getPowerLevel(RemoteEV3 brick) {
-
+		/**@param
+		 * Gibt Akkustand aus und zurueck
+		 */
 		if (brick != null) {
 
 			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt() + "V Akku");
@@ -610,6 +691,9 @@ public class Steuerung {
 
 	public float getPowerUse(RemoteEV3 brick) {
 
+		/**@param
+		 * gibt momentanen akku verbrauch
+		 */
 		if (brick != null) {
 
 			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
@@ -624,6 +708,9 @@ public class Steuerung {
 
 	public float getMotorPowerUse(RemoteEV3 brick) {
 
+		/**@param
+		 * gibt Motor verbrauch zurueck
+		 */
 		if (brick != null) {
 
 			System.out.println(
@@ -637,7 +724,9 @@ public class Steuerung {
 	}
 
 	public void updatePowerLevel() {
-
+		/**@param
+		 * updated powerlevel anzeige im controller
+		 */
 		int count = 0;
 		float powerLevel;
 		String brickName;
@@ -652,6 +741,7 @@ public class Steuerung {
 		}
 	}
 	// ------------------------help methods with
+	//  werden durch test Button im UI aufgerufen und fuehren standart ablauf durch 
 	// stations------------------------------
 
 	public void runDelivery() {
@@ -876,7 +966,10 @@ public class Steuerung {
 
 	public void startSzenario1() {
 
-		new java.util.Timer().schedule(new java.util.TimerTask() {
+		sendMessage("ST"); // send start Message should be infront of every normal szenario
+		sendMessage("CA"); // Send everytime 1 new Container gets delivered, not implemented atm
+		
+			new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				try {

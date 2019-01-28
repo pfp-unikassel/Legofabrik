@@ -68,8 +68,8 @@ public class Controller implements Initializable {
 																		// with
 																		// programm
 
-		s = new Steuerung();
-		s.start(this);
+		s = new Steuerung(this);
+//		s.start(this);
 
 		brickLabels = new ArrayList<>();
 		addBrickLabeltoList();

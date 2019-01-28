@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
@@ -19,13 +20,15 @@ public class Chargier {
 
 	private int tablePosition = 0;
 	private int lineSpeed = 300; // TODO: change to default speed
+	
+	private Steuerung s;
 
 	public Chargier(
 
-			RMIRegulatedMotor antriebBandZumDT, RMIRegulatedMotor antriebBandProd, RMIRegulatedMotor antriebBandLeergut,
+			Steuerung s,RMIRegulatedMotor antriebBandZumDT, RMIRegulatedMotor antriebBandProd, RMIRegulatedMotor antriebBandLeergut,
 			RMIRegulatedMotor antriebDrehtisch, RMIRegulatedMotor drehtischRotieren) {
 
-
+		this.s = s;
 		this.antriebBandZumDT = antriebBandZumDT;
 		this.antriebBandProd = antriebBandProd;
 		this.antriebBandLeergut = antriebBandLeergut;

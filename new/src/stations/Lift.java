@@ -2,6 +2,7 @@ package stations;
 
 import java.rmi.RemoteException;
 
+import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Lift {
@@ -18,13 +19,14 @@ public class Lift {
 	private int shakerSpeed = 700;
 	private boolean running = false;
 		
-
+	private Steuerung s;
 	
-	public Lift(	RMIRegulatedMotor greifenLinks,
+	public Lift(	Steuerung s,RMIRegulatedMotor greifenLinks,
 			RMIRegulatedMotor greifenRechts,
 			RMIRegulatedMotor hebenLinks, 
 			RMIRegulatedMotor hebenRechts,
 			RMIRegulatedMotor shaker) {
+		this.s = s;
 		this.greifenLinks=greifenLinks;
 		this.greifenRechts=greifenRechts;
 		this.hebenLinks=hebenLinks;
