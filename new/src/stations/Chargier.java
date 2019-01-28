@@ -114,6 +114,14 @@ public class Chargier {
 
 	}
 
+	public void takeBoxFromElevator(){
+		try {
+			antriebBandLeergut.rotate(720,true); 
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void stopLineToStorer() throws RemoteException { // stop line from Table to Store
 
 		antriebBandLeergut.stop(false);

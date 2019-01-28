@@ -143,7 +143,7 @@ public class Steuerung {
 		airarms = new Airarms(b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
 		qualitystation = new QualityStation(b115a, b115b, b115c, b115d);
 		deliverylane = new Deliverylane(b116a, b116b, b116c, b116d, b114c);
-		// stock = new Stock();
+		 stock = new Stock(b118a,b118d,b119a,b119b,b118c,b118b,b117a,b117b,b117c,b117d);
 
 		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe das Object und
 																							// rufe b1073 TODO: ad 114
@@ -222,9 +222,9 @@ public class Steuerung {
 		initBrick14();
 		initBrick15();
 		initBrick16();
-		// initBrick17();
-		// initBrick18();
-		// initBrick19();
+		 initBrick17();
+		 initBrick18();
+		 initBrick19();
 
 	}
 
@@ -466,7 +466,7 @@ public class Steuerung {
 	public void initBrick17() {
 		// Brick 117
 		try {
-			b117 = new RemoteEV3("192.168.0.XXX");
+			b117 = new RemoteEV3("192.168.0.111");
 			getPowerLevel(b117);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -491,7 +491,7 @@ public class Steuerung {
 	public void initBrick18() {
 		// Brick 117
 		try {
-			b118 = new RemoteEV3("192.168.0.XXX");
+			b118 = new RemoteEV3("192.168.0.114");
 			getPowerLevel(b118);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -516,7 +516,7 @@ public class Steuerung {
 	public void initBrick19() {
 		// Brick 119
 		try {
-			b119 = new RemoteEV3("192.168.0.XXX");
+			b119 = new RemoteEV3("192.168.0.112");
 			getPowerLevel(b119);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -960,7 +960,51 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
-		c.updatePowerLevel();
+	//	c.updatePowerLevel();
+		
+		
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				try {
+					chargier.resetTable();
+					chargier.startLineToTable(false);
+					chargier.startTableLine(true);
+
+					// wait till Table Button is pushed, test maybe Ui freezes
+					while (!b1054Status) {
+						System.out.println("hänge in schleife 1");
+					}
+
+					chargier.stopLineToTable();
+					chargier.stopTableLine();
+	
+
+					chargier.turnTable(-660);
+
+					chargier.startLineToStore(false); // maybe falls
+					chargier.startTableLine(false);
+					Thread.sleep(2000);
+					
+					stock.storeBox();
+					
+					chargier.stopTableLine();
+					chargier.stopLineToStorer();
+
+					chargier.resetTable(); // turns 660 to much repair later
+
+					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
+
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000);
+
 //		runDelivery();
 
 		// qualitystation.takeBallToGood();
@@ -1031,9 +1075,149 @@ public class Steuerung {
 
 	public void startSzenario3() {
 
-		c.updateLabels();
+		//c.updateLabels();
 		// qualitystation.takeBallToGood();
 		// qualitystation.takeBallToBad();
+		
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				try {
+					chargier.resetTable();
+					
+					// Volle Kiste steht auf dem Band und Leere im Lager
+					
+					chargier.startLineToTable(false);
+					chargier.startTableLine(true);
+					
+					//positioniere leere kiste auf dem Laufband vor dem Elevator
+					// Gleichzeitiger ablauf änder es spaeter im code  solange neuen Thread erstellen unsauber
+					new java.util.Timer().schedule(new java.util.TimerTask() {
+						@Override
+						public void run() {
+					try {
+						
+						stock.pushBoxFromStock(2);         //box from Store on Elevator and elevator in postion
+//						chargier.startLineToStore(true);       // start line before u take the box from the elevator
+//						chargier.takeBoxFromElevator(); // dont need solange der tisch vorher in position ist
+						chargier.startLineToStore(true);
+						stock.pushBoxFromElevatorToLine();  // push Box from Elevator
+//						chargier.stopLineToStorer();
+						
+						
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}   
+						}}, 1000); 
+					
+
+					// wait till Table Button is pushed, test maybe Ui freezes
+					while (!b1054Status) {
+						System.out.println("hänge in schleife 1");
+					}
+					chargier.stopLineToStorer();
+					
+					chargier.stopLineToTable();
+					chargier.stopTableLine();
+					chargier.turnTable(660);
+
+					chargier.startLineToLifter(false);
+					chargier.startTableLine(false);
+
+					while (!b1053Status) {
+						System.out.println("hänge in schleife 2");
+					}
+
+					chargier.stopLineToLifter();
+					chargier.stopTableLine();
+					
+					new java.util.Timer().schedule(new java.util.TimerTask() { // neuer thread da simultan unsauber
+						@Override
+						public void run() {
+					try {
+						 
+						chargier.turnTable(-1320);  // dreh zum store
+						chargier.startLineToStore(true); // auf Tisch
+						chargier.startTableLine(true);
+						
+						while (!b1054Status) { // wait table button pushed
+							System.out.println("hänge in schleife 3");
+						}
+						chargier.stopLineToStorer();
+						chargier.stopTableLine();
+						chargier.turnTable(660);
+						chargier.startTableLine(false);
+						chargier.startLineToTable(true);
+						Thread.sleep(4000);
+						chargier.stopLineToTable();
+						chargier.stopTableLine();
+						
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}   
+						}}, 1000); 
+					
+					
+					lift.startShaker();
+					lift.start(); // wait until it finished
+					lift.stopShaker();
+
+					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung
+					cleaner.startLiftLine(true); // TODO: maybe falls = andere richtung
+
+//					chargier.startLineToLifter(true);
+//					chargier.startTableLine(true);
+//					//
+//					quality.startCounterLine(false);
+//					quality.startLine(true);
+//
+//					while (!b1054Status) { // wait table button pushed
+//						System.out.println("hänge in schleife 3");
+//					}
+//
+//					chargier.stopLineToLifter();
+//					chargier.stopTableLine();
+//
+//					chargier.turnTable(-1320);
+//
+//					chargier.startLineToStore(false); // maybe falls
+//					chargier.startTableLine(false);
+//
+//					Thread.sleep(3000);
+//					chargier.stopTableLine();
+//					chargier.stopLineToStorer();
+//
+//					chargier.resetTable(); // turns 660 to much repair later
+//
+//					Thread.sleep(20000); // wait 10 sec
+//					//
+					cleaner.stopLiftLine();
+					cleaner.stop();
+					//
+					Thread.sleep(30000); // wait 10 sec
+					//
+					quality.stopCounterLine();
+					quality.stopLine();
+
+					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
+
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000);
 
 	}
 

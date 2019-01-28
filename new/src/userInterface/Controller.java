@@ -130,20 +130,21 @@ public class Controller implements Initializable {
 		float powerLevel;
 		String brickName;
 
-		for (lejos.remote.ev3.RemoteEV3 b : s.getBrickList()) {
-
-			powerLevel = b.getPower().getVoltageMilliVolt();
-			brickName = b.getName();
-			// TODO update in Ui
-
-			Label l = brickLabels.get(brickCounter);
-
-			l.setText("B" + brickName);
-			brickCounter++;
-			l = brickLabels.get(brickCounter);
-			l.setText(powerLevel + "");
-			brickCounter++;
-		}
+		// nicht Genug felder für Namen, schmeisst out of bouce index aus wenn zu viele namen
+//		for (lejos.remote.ev3.RemoteEV3 b : s.getBrickList()) {
+//
+//			powerLevel = b.getPower().getVoltageMilliVolt();
+//			brickName = b.getName();
+//			// TODO update in Ui
+//
+//			Label l = brickLabels.get(brickCounter);
+//
+//			l.setText("B" + brickName);
+//			brickCounter++;
+//			l = brickLabels.get(brickCounter);
+//			l.setText(powerLevel + "");
+//			brickCounter++;
+//		}
 	}
 
 	public void startButtonClicked() {

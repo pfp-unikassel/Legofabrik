@@ -20,15 +20,20 @@ public class Stock {
 	RMIRegulatedMotor stockPlace4;
 
 	private boolean stock1 = false; // topleft false = empty
-	private boolean stock2 = false; // topright
+	private boolean stock2 = true; // topright
 	private boolean stock3 = false; // downleft
 	private boolean stock4 = false; // downright
+	
+	private int bandPosition  =  0;   // True is startposition, ready to take box from store on line
+	
+	private char elevatorPositionHorizontal = 'l'; // l = left r = right 
+	private char elevatorPositionVertical = 'd'; // d = down u= up
 
-	private char elevatorPositionHorizontal = 'd'; // d = down u= up
-	private char elevatorPositionVertical = 'l'; // l = left r = right
-
-	private int stockRotationDegree = 160;
-	private int horizontalRotationDegree = 600;
+	private int elevatorHorizontalSpeed = 300;
+	private int elevatorVerticalSpeed = 720;
+	private int storeLineRotateDegree = 550;   // motor turn degree from line on Elevator to get Box from store or in store
+	private int stockRotationDegree = 160;   // motor tur´n degree from push mechanism
+	private int horizontalRotationDegree = 600;	// Elevator motor turndegree
 	private int lineSpeed = 300;
 
 	public Stock(RMIRegulatedMotor laneToStock1, RMIRegulatedMotor laneToStock2, RMIRegulatedMotor elevatorHorizontal1,
@@ -50,6 +55,16 @@ public class Stock {
 		this.elevatorHorizontal2 = elevatorHorizontal2;
 
 	}
+	
+	public void pushBoxFromElevatorToStore(){ // have to make sure box is on elevator
+		
+		rotateLineToStock(1550-storeLineRotateDegree);  // Rotation 1550 - 350o from before is a 360° turn, so it ends where it starts
+	}
+	
+	public void pushBoxFromElevatorToLine(){ // have to make sure Box is on elevator
+		
+		rotateLineToStock(-1550+storeLineRotateDegree); 
+	}
 
 	public void pushBoxFromStock(int stock) throws RemoteException, InterruptedException {
 
@@ -58,11 +73,13 @@ public class Stock {
 			if (isStock1() == true) {
 				elevatorUp();
 				pushStock1();
-				startLineToStock(false); // Change to degree later
-				Thread.sleep(2000);
-				stopLaneToStock();
+				placeBoxFromStoreOnElevatorline();	
+			//	startLineToStock(false); // Change to degree later
+			//	Thread.sleep(2000);// 2000
+				//stopLaneToStock();
 				elevatorDown();
 				setStock1(false);
+				
 			}
 			break;
 		case 2:
@@ -70,9 +87,10 @@ public class Stock {
 				elevatorToRight();
 				elevatorUp();
 				pushStock2();
-				startLineToStock(false); // Change to degree later
-				Thread.sleep(2000);
-				stopLaneToStock();
+				placeBoxFromStoreOnElevatorline();
+				//startLineToStock(false); // Change to degree later
+			//	Thread.sleep(2000);
+			//	stopLaneToStock();
 				elevatorDown();
 				elevatorToLeft();
 				setStock2(false);
@@ -81,9 +99,10 @@ public class Stock {
 		case 3:
 			if (isStock3() == true) {
 				pushStock3();
-				startLineToStock(false); // Change to degree later
-				Thread.sleep(2000);
-				stopLaneToStock();
+				placeBoxFromStoreOnElevatorline();
+				//startLineToStock(false); // Change to degree later
+				//Thread.sleep(2000);
+//				stopLaneToStock();
 				setStock3(false);
 			}
 			break;
@@ -91,9 +110,10 @@ public class Stock {
 			if (isStock4() == true) {
 				elevatorToRight();
 				pushStock4();
-				startLineToStock(false); // Change to degree later
-				Thread.sleep(2000);
-				stopLaneToStock();
+				placeBoxFromStoreOnElevatorline();	
+			//	startLineToStock(false); // Change to degree later
+			//	Thread.sleep(2000);
+//				stopLaneToStock();
 				elevatorToLeft();
 				setStock4(false);
 			}
@@ -101,6 +121,44 @@ public class Stock {
 		default:
 			break;
 		}
+	}
+
+	public void placeBoxFromStoreOnElevatorline(){
+		
+		
+			rotateLineToStock(-storeLineRotateDegree);
+		
+	}
+	
+public void placeBoxFromLineOnElevatorline(){
+		
+	
+			rotateLineToStock(storeLineRotateDegree);
+		
+	}
+	
+	public void rotateLineToStock(int degree) {
+
+		try {
+			laneToStock1.setSpeed(getLineSpeed());
+			laneToStock2.setSpeed(getLineSpeed());
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			laneToStock1.rotate(degree, true);
+			laneToStock2.rotate(-degree, false);
+			bandPosition += degree;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void resetElevatorLinePosition(){
+		rotateLineToStock(-bandPosition);
 	}
 
 	public void pushStock1() throws RemoteException {
@@ -155,13 +213,13 @@ public class Stock {
 		if (direction) {
 			laneToStock1.forward();
 			laneToStock2.backward();
-//			laneToStock1.rotate(2000,true);
-//			laneToStock2.rotate(-2000,false);
+			// laneToStock1.rotate(2000,true);
+			// laneToStock2.rotate(-2000,false);
 		} else {
 			laneToStock1.backward();
 			laneToStock2.forward();
-//			laneToStock1.rotate(-2000,true);
-//			laneToStock2.rotate(2000,false);
+			// laneToStock1.rotate(-2000,true);
+			// laneToStock2.rotate(2000,false);
 		}
 
 	}
@@ -178,8 +236,12 @@ public class Stock {
 		if (getElevatorPositionVertical() == 'u') {
 			// its allready up
 		} else {
-			elevatorVertical1.rotate(11520, true); // move both at the same time
-													// and wait for second
+			elevatorVertical1.setSpeed(elevatorVerticalSpeed);
+			elevatorVertical2.setSpeed(elevatorVerticalSpeed);
+			
+			elevatorVertical1.rotate(11620, true); // move both at the same time
+												// 11520
+												// and wait for second
 			elevatorVertical2.rotate(-11520, false);
 			setElevatorPositionVertical('u');
 		}
@@ -188,8 +250,12 @@ public class Stock {
 
 	public void elevatorDown() throws RemoteException {
 
-		if (getElevatorPositionVertical() == 'd') {
-			elevatorVertical1.rotate(-11520, true); // move both at the same time
+		if (getElevatorPositionVertical() == 'u') {
+			elevatorVertical1.setSpeed(elevatorVerticalSpeed);
+			elevatorVertical2.setSpeed(elevatorVerticalSpeed);
+
+			elevatorVertical1.rotate(-11620, true); // move both at the same
+													// time
 													// and wait for second
 			elevatorVertical2.rotate(11520, false);
 			setElevatorPositionVertical('d');
@@ -201,11 +267,14 @@ public class Stock {
 		if (getElevatorPositionHorizontal() == 'l') {
 			// nothing is allready left
 		} else {
-			elevatorVertical1.rotate(-horizontalRotationDegree, true); // TODO:
+			elevatorHorizontal1.setSpeed(elevatorHorizontalSpeed);
+			elevatorHorizontal2.setSpeed(elevatorHorizontalSpeed);
+			
+			elevatorHorizontal1.rotate(-horizontalRotationDegree, true); // TODO:
 																		// vorzeichen
 																		// möglicherweise
 																		// andersherum
-			elevatorVertical2.rotate(horizontalRotationDegree, false);
+			elevatorHorizontal2.rotate(horizontalRotationDegree, false);
 			setElevatorPositionHorizontal('l');
 		}
 	}
@@ -215,17 +284,21 @@ public class Stock {
 		if (getElevatorPositionHorizontal() == 'r') {
 			// nothing is allready right
 		} else {
-			elevatorVertical1.rotate(horizontalRotationDegree, true); // TODO:
+			elevatorHorizontal1.setSpeed(elevatorHorizontalSpeed);
+			elevatorHorizontal2.setSpeed(elevatorHorizontalSpeed);
+			
+			elevatorHorizontal1.rotate(horizontalRotationDegree, true); // TODO:
 																		// vorzeichen
 																		// möglicherweise
 																		// andersherum
-			elevatorVertical2.rotate(-horizontalRotationDegree, false);
+			elevatorHorizontal2.rotate(-horizontalRotationDegree, false);
 			setElevatorPositionHorizontal('r');
 		}
 	}
-	
+
+
 	public void reset() {
-		
+
 		try {
 			elevatorDown();
 			elevatorToLeft();
@@ -260,10 +333,10 @@ public class Stock {
 
 	private void storeIn1() throws RemoteException, InterruptedException {
 		if (isStock1() == false) {
+			placeBoxFromLineOnElevatorline();
 			elevatorUp();
-			startLineToStock(true); // Change to degree later
+			pushBoxFromElevatorToStore();
 			Thread.sleep(2000);
-			stopLaneToStock();
 			elevatorDown();
 			setStock1(true);
 		}
@@ -272,11 +345,11 @@ public class Stock {
 
 	private void storeIn2() throws RemoteException, InterruptedException {
 		if (isStock2() == false) {
+			placeBoxFromLineOnElevatorline();
 			elevatorToRight();
 			elevatorUp();
-			startLineToStock(true); // Change to degree later
+			pushBoxFromElevatorToStore();
 			Thread.sleep(2000);
-			stopLaneToStock();
 			elevatorDown();
 			elevatorToLeft();
 			setStock2(true);
@@ -286,9 +359,9 @@ public class Stock {
 
 	private void storeIn3() throws RemoteException, InterruptedException {
 		if (isStock3() == false) {
-			startLineToStock(true); // Change to degree later
-			Thread.sleep(2000);
-			stopLaneToStock();
+			 placeBoxFromLineOnElevatorline();
+				pushBoxFromElevatorToStore();
+				Thread.sleep(2000);
 			setStock3(true);
 		}
 
@@ -297,10 +370,10 @@ public class Stock {
 	private void storeIn4() throws RemoteException, InterruptedException {
 
 		if (isStock4() == false) {
+			placeBoxFromLineOnElevatorline();
 			elevatorToRight();
-			startLineToStock(true); // Change to degree later
+			pushBoxFromElevatorToStore();
 			Thread.sleep(2000);
-			stopLaneToStock();
 			elevatorToLeft();
 			setStock4(true);
 		}
@@ -323,14 +396,14 @@ public class Stock {
 
 		}
 	}
-	
+
 	public void takeBoxOnElevator() throws InterruptedException, RemoteException {
-		
+
 		startLineToStock(true); // Change to degree later
-		Thread.sleep(1500);  
+		Thread.sleep(1500);
 		stopLaneToStock();
 	}
-	
+
 	public void takeBoxFromElevatorToTable() throws RemoteException, InterruptedException {
 		startLineToStock(false); // Change to degree later
 		Thread.sleep(2000);
