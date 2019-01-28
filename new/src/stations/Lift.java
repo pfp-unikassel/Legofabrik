@@ -34,34 +34,34 @@ public class Lift {
 		this.shaker = shaker;
 	}
 	
-	public void startGrab() throws RemoteException {  
+	public void startGrab(boolean instantReturn) throws RemoteException {  
 		
 		greifenLinks.rotate(winkelGreifen,true);
-		greifenRechts.rotate(-winkelGreifen);
+		greifenRechts.rotate(-winkelGreifen,instantReturn);
 	}
 	
-	public void releaseGrab() throws RemoteException { 
+	public void releaseGrab(boolean instantReturn) throws RemoteException { 
 		
 		greifenLinks.rotate(-winkelGreifen,true);
-		greifenRechts.rotate(winkelGreifen);
+		greifenRechts.rotate(winkelGreifen,instantReturn);
 	}
-	public void startLiftUp() throws RemoteException {   // start lift/elevator and hold him up
+	public void startLiftUp(boolean instantReturn) throws RemoteException {   // start lift/elevator and hold him up
 		
 		hebenLinks.setSpeed(liftSpeed);
 		hebenRechts.setSpeed(liftSpeed);
 		
 		hebenLinks.rotate(winkelHeben,true);
-		hebenRechts.rotate(winkelHeben);
+		hebenRechts.rotate(winkelHeben,instantReturn);
 		
 	}
 	
-	public void startLiftDown() throws RemoteException { // brings box and elevator/lift back down 
+	public void startLiftDown(boolean instantReturn) throws RemoteException { // brings box and elevator/lift back down 
 		
 		hebenLinks.setSpeed(liftSpeed);
 		hebenRechts.setSpeed(liftSpeed);
 		
 		hebenLinks.rotate(-winkelHeben,true);
-		hebenRechts.rotate(-winkelHeben);
+		hebenRechts.rotate(-winkelHeben,instantReturn);
 		
 	}
 	
@@ -93,18 +93,18 @@ public class Lift {
 		this.shakerSpeed = shakerSpeed;
 	}
 	
-	public void start() {
+	public void start(boolean instantReturn) {
 		
 		try {
 			setRunning(true);
-			startGrab();
+			startGrab(instantReturn);
 			
 
-			startLiftUp();
+			startLiftUp(instantReturn);
 			Thread.sleep(4000);			
-			startLiftDown();
+			startLiftDown(instantReturn);
 	
-		    releaseGrab();
+		    releaseGrab(instantReturn);
 			setRunning(false);
 				
 			

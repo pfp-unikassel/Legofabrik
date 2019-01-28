@@ -72,15 +72,15 @@ public class Chargier {
 		antriebDrehtisch.stop(false);
 	}
 
-	public void turnTable(int degree) throws RemoteException { // turn Table around degree
+	public void turnTable(int degree , boolean instantReturn) throws RemoteException { // turn Table around degree
 
-		drehtischRotieren.rotate(-degree); // maybe - degree depends on motor settings
+		drehtischRotieren.rotate(-degree , instantReturn); // maybe - degree depends on motor settings
 		tablePosition = tablePosition + degree;
 	}
 
-	public void resetTable() throws RemoteException { // turns table back to start position
+	public void resetTable(boolean instantReturn) throws RemoteException { // turns table back to start position
 
-		drehtischRotieren.rotate(tablePosition);
+		drehtischRotieren.rotate(tablePosition, instantReturn);
 		tablePosition = 0;
 	}
 
@@ -117,9 +117,9 @@ public class Chargier {
 
 	}
 
-	public void takeBoxFromElevator(){
+	public void takeBoxFromElevator(boolean instantReturn){
 		try {
-			antriebBandLeergut.rotate(720,true); 
+			antriebBandLeergut.rotate(720,instantReturn); 
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,7 +137,7 @@ public class Chargier {
 		stopLineToStorer();
 		stopLineToTable();
 		stopTableLine();
-		resetTable();
+		resetTable(true);
 	}
 
 	public int getTablePostion() {

@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import controller.RemoteEV3;
+//import controller.RemoteEV3;
 
 public class LegoClient {
 
@@ -64,7 +64,8 @@ public class LegoClient {
 		 */
 		String ip = targetIP;
 		int port = targetPort;
-		String empfangeneNachricht;
+		String empfangeneNachricht = "";
+		
 		try {
 			java.net.Socket socket = new java.net.Socket(ip, port);
 			schreibeNachricht(socket, message);
@@ -113,7 +114,7 @@ public class LegoClient {
 	public void writeSentMessageInFile() {
 
 		/** @param opens SaveInFile.java und speicher gesendete Nachrichten in SentMessages.txt
-		 * 
+0		 * 
 		 */
 		for (String s : getSentMessages()) {
 			SaveInFile.saveInFile("SentMessages.txt", s);

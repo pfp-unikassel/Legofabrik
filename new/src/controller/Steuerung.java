@@ -767,7 +767,7 @@ public class Steuerung {
 			public void run() {
 				try {
 					if (mode == true) {
-						chargier.resetTable();
+						chargier.resetTable(true);
 						chargier.startLineToTable(false);
 						chargier.startTableLine(true);
 
@@ -778,7 +778,7 @@ public class Steuerung {
 
 						chargier.stopLineToTable();
 						chargier.stopTableLine();
-						chargier.turnTable(660);
+						chargier.turnTable(660,false);
 
 						chargier.startLineToLifter(false);
 						chargier.startTableLine(false);
@@ -798,7 +798,7 @@ public class Steuerung {
 						chargier.stopLineToLifter();
 						chargier.stopTableLine();
 
-						chargier.turnTable(-1320);
+						chargier.turnTable(-1320,false);
 
 						chargier.startLineToStore(false); // maybe falls
 						chargier.startTableLine(false);
@@ -807,7 +807,7 @@ public class Steuerung {
 						chargier.stopTableLine();
 						chargier.stopLineToStorer();
 
-						chargier.resetTable(); // turns 660 to much repair later
+						chargier.resetTable(true); // turns 660 to much repair later
 
 					} else {
 						chargier.stop();
@@ -869,7 +869,7 @@ public class Steuerung {
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
 				public void run() {
-			lift.start();
+			lift.start(false);
 				}
 			}, 1000);
 		} else {
@@ -910,10 +910,10 @@ public class Steuerung {
 
 		if (mode == true) {
 			try {
-				stock.elevatorUp();
-				stock.elevatorToRight();
-				stock.elevatorDown();
-				stock.elevatorToLeft();
+				stock.elevatorToRight(true);
+				stock.elevatorUp(false);
+				stock.elevatorToLeft(true);
+				stock.elevatorDown(false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -973,7 +973,7 @@ public class Steuerung {
 			@Override
 			public void run() {
 				try {
-					chargier.resetTable();
+					chargier.resetTable(false);
 					chargier.startLineToTable(false);
 					chargier.startTableLine(true);
 
@@ -984,7 +984,7 @@ public class Steuerung {
 
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
-					chargier.turnTable(660);
+					chargier.turnTable(660,false);
 
 					chargier.startLineToLifter(false);
 					chargier.startTableLine(false);
@@ -997,7 +997,7 @@ public class Steuerung {
 					chargier.stopTableLine();
 
 					lift.startShaker();
-					lift.start(); // wait until it finished
+					lift.start(false); // wait until it finished
 					lift.stopShaker();
 
 					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung
@@ -1016,7 +1016,7 @@ public class Steuerung {
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
 
-					chargier.turnTable(-1320);
+					chargier.turnTable(-1320,false);
 
 					chargier.startLineToStore(false); // maybe falls
 					chargier.startTableLine(false);
@@ -1025,7 +1025,7 @@ public class Steuerung {
 					chargier.stopTableLine();
 					chargier.stopLineToStorer();
 
-					chargier.resetTable(); // turns 660 to much repair later
+					chargier.resetTable(true); // turns 660 to much repair later
 
 					Thread.sleep(20000); // wait 10 sec
 					//
@@ -1060,7 +1060,7 @@ public class Steuerung {
 			@Override
 			public void run() {
 				try {
-					chargier.resetTable();
+					chargier.resetTable(true);
 					chargier.startLineToTable(false);
 					chargier.startTableLine(true);
 
@@ -1073,18 +1073,18 @@ public class Steuerung {
 					chargier.stopTableLine();
 	
 
-					chargier.turnTable(-660);
+					chargier.turnTable(-660, false);
 
 					chargier.startLineToStore(false); // maybe falls
 					chargier.startTableLine(false);
 					Thread.sleep(2000);
 					
-					stock.storeBox();
+					stock.storeBox(false);
 					
 					chargier.stopTableLine();
 					chargier.stopLineToStorer();
 
-					chargier.resetTable(); // turns 660 to much repair later
+					chargier.resetTable(false); // turns 660 to much repair later
 
 					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
 
@@ -1176,7 +1176,7 @@ public class Steuerung {
 			@Override
 			public void run() {
 				try {
-					chargier.resetTable();
+					chargier.resetTable(false);
 					
 					// Volle Kiste steht auf dem Band und Leere im Lager
 					
@@ -1190,11 +1190,11 @@ public class Steuerung {
 						public void run() {
 					try {
 						
-						stock.pushBoxFromStock(2);         //box from Store on Elevator and elevator in postion
+						stock.pushBoxFromStock(2,false);         //box from Store on Elevator and elevator in postion
 //						chargier.startLineToStore(true);       // start line before u take the box from the elevator
 //						chargier.takeBoxFromElevator(); // dont need solange der tisch vorher in position ist
 						chargier.startLineToStore(true);
-						stock.pushBoxFromElevatorToLine();  // push Box from Elevator
+						stock.pushBoxFromElevatorToLine(false);  // push Box from Elevator
 //						chargier.stopLineToStorer();
 						
 						
@@ -1216,7 +1216,7 @@ public class Steuerung {
 					
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
-					chargier.turnTable(660);
+					chargier.turnTable(660,false);
 
 					chargier.startLineToLifter(false);
 					chargier.startTableLine(false);
@@ -1233,7 +1233,7 @@ public class Steuerung {
 						public void run() {
 					try {
 						 
-						chargier.turnTable(-1320);  // dreh zum store
+						chargier.turnTable(-1320,false);  // dreh zum store
 						chargier.startLineToStore(true); // auf Tisch
 						chargier.startTableLine(true);
 						
@@ -1242,7 +1242,7 @@ public class Steuerung {
 						}
 						chargier.stopLineToStorer();
 						chargier.stopTableLine();
-						chargier.turnTable(660);
+						chargier.turnTable(660,false);
 						chargier.startTableLine(false);
 						chargier.startLineToTable(true);
 						Thread.sleep(4000);
