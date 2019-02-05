@@ -1,5 +1,6 @@
 package userInterface;
 
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.DateFormat;
@@ -9,13 +10,18 @@ import java.util.ResourceBundle;
 
 import controller.Steuerung;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 public class Controller implements Initializable {
 
@@ -83,28 +89,30 @@ public class Controller implements Initializable {
 		startTimer();
 
 		
-	}
+	
 	
 	//--------------------------------------------Menu-------------------------------------------
 	
-//	settings.setOnAction(new EventHandler<ActionEvent>() {
-//	    public void handle(ActionEvent event) {
-//	        Parent root;
-//	        try {
-//	            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
-//	            Stage stage = new Stage();
-//	            stage.setTitle("Settings");
-//	            stage.setScene(new Scene(root, 450, 450));
-//	            stage.show();
-//	            // Hide this current window (if this is what you want)
+	settings.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent event) { 
+	        Parent root;
+	        try {
+	            root = FXMLLoader.load(getClass().getResource("/settings.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+	            Stage stage = new Stage();
+	            stage.setTitle("Settings");
+	            stage.setScene(new Scene(root, 450, 450));
+	            stage.show();
+	            // Hide this current window (if this is what you want)
 //	            ((Node)(event.getSource())).getScene().getWindow().hide();
-//	        }
-//	        catch (IOException e) {
-//	            e.printStackTrace();
-//	        }
-//	    }
-//	}
-	
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	});
+	  
+
+	}
 	//--------------------------------------------Menu---------------------------------------------
 
 	//-------------------------------------------------Steuerung-------------------------------------------
@@ -161,7 +169,7 @@ public class Controller implements Initializable {
 		float powerLevel;
 		String brickName;
 
-		// nicht Genug felder für Namen, schmeisst out of bouce index aus wenn zu viele namen
+//		// nicht Genug felder für Namen, schmeisst out of bouce index aus wenn zu viele namen
 //		for (lejos.remote.ev3.RemoteEV3 b : s.getBrickList()) {
 //
 //			powerLevel = b.getPower().getVoltageMilliVolt();

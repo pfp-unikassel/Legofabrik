@@ -60,7 +60,7 @@ public class Deliverylane {
 	public void turnLineToArms(int degree) throws RemoteException {
 		LineToArms.setSpeed(getLineToArmsSpeed());
 		LineToArms.rotate(degree, false);
-		s.sendMessage("BL");
+		//  s.sendMessage("BL");
 	}
 
 	public void stopLineToArms() throws RemoteException {

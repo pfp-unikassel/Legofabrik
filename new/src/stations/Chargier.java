@@ -143,7 +143,7 @@ public class Chargier {
 
 	public void startLineToStore(boolean direction) throws RemoteException { // start line from Table to Store if
 																				// direction true turn forword
-
+		s.sendMessage("BL");
 		antriebBandLeergut.setSpeed(getLineSpeed());
 
 		if (direction) {

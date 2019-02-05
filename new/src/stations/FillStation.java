@@ -18,6 +18,12 @@ public class FillStation {
 	public void rotateWheel(int degree , boolean instantReturn){
 		
 		try {
+			wheel.setSpeed(60);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
 			wheel.rotate(degree,instantReturn);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -28,5 +34,8 @@ public class FillStation {
 	
 	public void loadCar(){
 		
+		rotateWheel(300, false);
 	}
+	
+	
 }

@@ -15,6 +15,7 @@ public class Car{
 		this.s=s;
 	}
 	
+	
 	public void carToLeft(boolean instantReturn){
 		if(carPostition == true){
 			// car is allready left

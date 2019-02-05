@@ -14,7 +14,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import communication.BrickConfig;
 import communication.LegoClient;
+import javafx.scene.control.Label;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.BaseSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -34,6 +36,7 @@ import userInterface.Controller;
 import stations.Cleaning;
 import stations.Compressor;
 import stations.Deliverylane;
+import stations.FillStation;
 
 public class Steuerung {
 
@@ -50,6 +53,7 @@ public class Steuerung {
 	RemoteEV3 b117;
 	RemoteEV3 b118;
 	RemoteEV3 b119;
+//	RemoteEV3 b120;
 
 	static RMIRegulatedMotor b101a;
 	static RMIRegulatedMotor b101b;
@@ -116,6 +120,7 @@ public class Steuerung {
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
 	static ArrayList<RMISampleProvider> openSensorPorts = new ArrayList<>();
 	static ArrayList<RemoteEV3> bricks = new ArrayList<>();
+	private ArrayList<String> brickIps = new ArrayList<>();
 
 	static Chargier chargier;
 	static Lift lift;
@@ -126,6 +131,9 @@ public class Steuerung {
 	static Deliverylane deliverylane;
 	static QualityStation qualitystation;
 	static Stock stock;
+	static FillStation fillStation;
+	
+	static BrickConfig config;
 
 	private boolean b1053Status = false; // set True if button fires
 	private boolean b1054Status = false;
@@ -167,7 +175,10 @@ public class Steuerung {
 		qualitystation = new QualityStation(this,b115a, b115b, b115c, b115d);
 		deliverylane = new Deliverylane(this,b116a, b116b, b116c, b116d, b114c);
 		stock = new Stock(this,b118a, b118d ,b119a ,b119b ,b118c , b118b,b117a,b117b,b117c,b117d);
-
+		fillStation = new FillStation(this,b105a);
+		
+//		config = new BrickConfig(this);
+//		getBrickIpsFromConfig();
 
 		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe das Object und
 																							// rufe b1073 TODO: ad 114
@@ -176,6 +187,22 @@ public class Steuerung {
 	}
 
 	//---Communication interactions---------------------------------
+	
+	
+	public ArrayList<String> getBrickIpsFromConfig(){
+		brickIps = config.getBrickips();
+		return config.getBrickips();
+	}
+	
+	public void saveBrickIps(){ // saves BrickIps arraylist, so new ips have to be there 
+		config.setBrickips(brickIps);
+		config.writeIps();
+	}
+	
+	public void changeBrickIps( ArrayList<String> newBrickIps){
+		brickIps = newBrickIps;
+		saveBrickIps();
+	}
 	
 	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be used
 		
@@ -202,6 +229,31 @@ public class Steuerung {
 		return legoClient;
 	}
 	
+	public void sendPowerLevels(){
+		
+		String message,brickName;
+		String powerLevel;
+		char[] c = new char[5];
+		
+		for (lejos.remote.ev3.RemoteEV3 b : getBrickList()) {
+
+			powerLevel =  String.valueOf(b.getPower().getVoltageMilliVolt());  // int in String
+			powerLevel.getChars(0, 4, c, 0);	// get first 4 chars
+			brickName = b.getName();
+			
+			if(brickName.length() != 3){
+				System.out.println("Fehler Brickname muss 3 stellig sein, fuer dig zwilling ");
+			}
+			
+			message = ("B" +brickName + c.toString()); //  message looks like: b100XXX
+		
+//			sendMessage(message);
+			//TEST delete later
+			 System.out.println(message);
+			
+		}
+		
+	}
 	public void sendMessage(String message) {
 		
 		if(isConnected()) {
@@ -219,6 +271,68 @@ public class Steuerung {
 		}else {
 			System.out.println("No Client available");
 		}
+	}
+	
+	// ---------------------Brick interactions------------------------
+	
+	public float getPowerLevel(RemoteEV3 brick) {
+		/**@param
+		 * Gibt Akkustand aus und zurueck
+		 */
+		if (brick != null) {
+
+			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt() + "V Akku");
+
+			return brick.getPower().getVoltageMilliVolt();
+
+		} else
+			return 0;
+
+		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
+	}
+
+	public float getPowerUse(RemoteEV3 brick) {
+
+		/**@param
+		 * gibt momentanen akku verbrauch
+		 */
+		if (brick != null) {
+
+			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
+
+
+			return brick.getPower().getBatteryCurrent();
+
+		} else
+			return 0;
+
+	}
+
+	public float getMotorPowerUse(RemoteEV3 brick) {
+
+		/**@param
+		 * gibt Motor verbrauch zurueck
+		 */
+		if (brick != null) {
+
+			System.out.println(
+					brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent() + "Amp/s Akku");
+			return brick.getPower().getMotorCurrent();
+		} else {
+			return 0;
+		}
+
+		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
+	}
+
+	public void updatePowerLevel() {
+		/**@param
+		 * updated powerlevel anzeige im controller and sends thems
+		 */
+		
+		c.updatePowerLevel();
+		sendPowerLevels();
+	
 	}
 	
 	//--------------Controller interactions----------------------
@@ -337,8 +451,10 @@ public class Steuerung {
 			System.out.println("B5 not Found");
 		}
 
+		b105a = b105.createRegulatedMotor("A", 'L'); // Motor Fillstation
 		b105c = b105.createRegulatedMotor("C", 'L'); // Motor Drehtisch
 		b105d = b105.createRegulatedMotor("D", 'L'); // Motor Räder Drehtisch
+		
 
 		openMotorPorts.add(b105c);
 		openMotorPorts.add(b105d);
@@ -673,73 +789,8 @@ public class Steuerung {
 		return deliverylane;
 	}
 
-	public float getPowerLevel(RemoteEV3 brick) {
-		/**@param
-		 * Gibt Akkustand aus und zurueck
-		 */
-		if (brick != null) {
-
-			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt() + "V Akku");
-
-			return brick.getPower().getVoltageMilliVolt();
-
-		} else
-			return 0;
-
-		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-	}
-
-	public float getPowerUse(RemoteEV3 brick) {
-
-		/**@param
-		 * gibt momentanen akku verbrauch
-		 */
-		if (brick != null) {
-
-			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
-
-
-			return brick.getPower().getBatteryCurrent();
-
-		} else
-			return 0;
-
-	}
-
-	public float getMotorPowerUse(RemoteEV3 brick) {
-
-		/**@param
-		 * gibt Motor verbrauch zurueck
-		 */
-		if (brick != null) {
-
-			System.out.println(
-					brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent() + "Amp/s Akku");
-			return brick.getPower().getMotorCurrent();
-		} else {
-			return 0;
-		}
-
-		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-	}
-
-	public void updatePowerLevel() {
-		/**@param
-		 * updated powerlevel anzeige im controller
-		 */
-		int count = 0;
-		float powerLevel;
-		String brickName;
-
-		for (RemoteEV3 b : bricks) {
-
-			powerLevel = getPowerLevel(b);
-			brickName = b.getName();
-			// TODO update in Ui
-			c.getLabel00().setText(brickName);
-
-		}
-	}
+	
+	
 	// ------------------------help methods with
 	//  werden durch test Button im UI aufgerufen und fuehren standart ablauf durch 
 	// stations------------------------------
@@ -966,13 +1017,11 @@ public class Steuerung {
 
 	public void startSzenario1() {
 
-		try {
-			stock.setStock1(true);
-			stock.pushStock1(true);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		sendMessage("ST");
+//		sendPowerLevels();
+		
+		fillStation.rotateWheel(360, false);
+		
 //		sendMessage("ST"); // send start Message should be infront of every normal szenario
 //		sendMessage("CA"); // Send everytime 1 new Container gets delivered, not implemented atm
 //		
@@ -1060,6 +1109,7 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
+		sendMessage("ST");
 	//	c.updatePowerLevel();
 		
 		
@@ -1175,8 +1225,7 @@ public class Steuerung {
 	public void startSzenario3() {
 
 		//c.updateLabels();
-		// qualitystation.takeBallToGood();
-		// qualitystation.takeBallToBad();
+//		sendMessage("ST");
 		
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
@@ -1184,8 +1233,8 @@ public class Steuerung {
 				try {
 					chargier.resetTable(false);
 					
+					fillStation.rotateWheel(360, false);
 					// Volle Kiste steht auf dem Band und Leere im Lager
-					
 					chargier.startLineToTable(false);
 					chargier.startTableLine(true);
 					
