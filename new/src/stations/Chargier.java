@@ -83,13 +83,23 @@ public class Chargier {
 			//is allready in position
 		}else {
 			
-			turnTable(-getTablePostion()+-660, instantReturn);
+			try {
+				turnTable(-getTablePostion()+-660, instantReturn);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public void turnToCar(boolean instantReturn) {
 		
-		resetTable(instantReturn);
+		try {
+			resetTable(instantReturn);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void turnToLift(boolean instantReturn) {
 		
@@ -97,7 +107,12 @@ public class Chargier {
 			//is allready in position
 		}else {
 			
-			turnTable(-getTablePostion()+660, instantReturn);
+			try {
+				turnTable(-getTablePostion()+660, instantReturn);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

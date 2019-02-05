@@ -87,23 +87,23 @@ public class Controller implements Initializable {
 	
 	//--------------------------------------------Menu-------------------------------------------
 	
-	settings.setOnAction(new EventHandler<ActionEvent>() {
-	    public void handle(ActionEvent event) {
-	        Parent root;
-	        try {
-	            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
-	            Stage stage = new Stage();
-	            stage.setTitle("Settings");
-	            stage.setScene(new Scene(root, 450, 450));
-	            stage.show();
-	            // Hide this current window (if this is what you want)
-	            ((Node)(event.getSource())).getScene().getWindow().hide();
-	        }
-	        catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	}
+//	settings.setOnAction(new EventHandler<ActionEvent>() {
+//	    public void handle(ActionEvent event) {
+//	        Parent root;
+//	        try {
+//	            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
+//	            Stage stage = new Stage();
+//	            stage.setTitle("Settings");
+//	            stage.setScene(new Scene(root, 450, 450));
+//	            stage.show();
+//	            // Hide this current window (if this is what you want)
+//	            ((Node)(event.getSource())).getScene().getWindow().hide();
+//	        }
+//	        catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+//	    }
+//	}
 	
 	//--------------------------------------------Menu---------------------------------------------
 

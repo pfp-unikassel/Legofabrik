@@ -34,7 +34,7 @@ public class Stock {
 	private int elevatorHorizontalSpeed = 300;
 	private int elevatorVerticalSpeed = 720;
 	private int storeLineRotateDegree = 550;   // motor turn degree from line on Elevator to get Box from store or in store
-	private int stockRotationDegree = 160;   // motor tur´n degree from push mechanism
+	private int stockRotationDegree = 140;   // motor tur´n degree from push mechanism
 	private int horizontalRotationDegree = 600;	// Elevator motor turndegree
 	private int lineSpeed = 300;
 
@@ -74,13 +74,13 @@ public class Stock {
 		switch (stock) {
 		case 1:
 			if (isStock1() == true) {
-				elevatorUp(instantReturn);
-				pushStock1(instantReturn);
-				placeBoxFromStoreOnElevatorline(instantReturn);	
+				elevatorUp(false);
+				pushStock1(false);
+				placeBoxFromStoreOnElevatorline(false);	
 			//	startLineToStock(false); // Change to degree later
 			//	Thread.sleep(2000);// 2000
 				//stopLaneToStock();
-				elevatorDown(instantReturn);
+				elevatorDown(false);
 				setStock1(false);
 				
 			}
@@ -88,21 +88,21 @@ public class Stock {
 		case 2:
 			if (isStock2() == true) {
 				elevatorToRight(instantReturn);
-				elevatorUp(instantReturn);
-				pushStock2(instantReturn);
-				placeBoxFromStoreOnElevatorline(instantReturn);
+				elevatorUp(false);
+				pushStock2(false);
+				placeBoxFromStoreOnElevatorline(false);
 				//startLineToStock(false); // Change to degree later
 			//	Thread.sleep(2000);
 			//	stopLaneToStock();
-				elevatorDown(instantReturn);
 				elevatorToLeft(instantReturn);
+				elevatorDown(false);
 				setStock2(false);
 			}
 			break;
 		case 3:
 			if (isStock3() == true) {
-				pushStock3(instantReturn);
-				placeBoxFromStoreOnElevatorline(instantReturn);
+				pushStock3(false);
+				placeBoxFromStoreOnElevatorline(false);
 				//startLineToStock(false); // Change to degree later
 				//Thread.sleep(2000);
 //				stopLaneToStock();
@@ -111,13 +111,13 @@ public class Stock {
 			break;
 		case 4:
 			if (isStock4() == true) {
-				elevatorToRight(instantReturn);
-				pushStock4(instantReturn);
-				placeBoxFromStoreOnElevatorline(instantReturn);	
+				elevatorToRight(false);
+				pushStock4(false);
+				placeBoxFromStoreOnElevatorline(false);	
 			//	startLineToStock(false); // Change to degree later
 			//	Thread.sleep(2000);
 //				stopLaneToStock();
-				elevatorToLeft(instantReturn);
+				elevatorToLeft(false);
 				setStock4(false);
 			}
 			break;
@@ -167,7 +167,8 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 	public void pushStock1(boolean instantReturn) throws RemoteException {
 
 		if (isStock1()) {
-			stockPlace1.rotate(-stockRotationDegree, instantReturn);
+			stockPlace1.setSpeed(180);
+			stockPlace1.rotate(-stockRotationDegree, false);
 			stockPlace1.rotate(stockRotationDegree, instantReturn);
 			setStock1(false);
 			s.sendMessage("U1");
@@ -179,7 +180,8 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 	public void pushStock2(boolean instantReturn) throws RemoteException {
 
 		if (isStock2()) {
-			stockPlace2.rotate(-stockRotationDegree, instantReturn);
+			stockPlace2.setSpeed(180);
+			stockPlace2.rotate(-stockRotationDegree, false);
 			stockPlace2.rotate(stockRotationDegree, instantReturn);
 			setStock2(false);
 			s.sendMessage("U2");
@@ -191,7 +193,8 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 	public void pushStock3(boolean instantReturn) throws RemoteException {
 
 		if (isStock3()) {
-			stockPlace3.rotate(-stockRotationDegree, instantReturn);
+			stockPlace3.setSpeed(180);
+			stockPlace3.rotate(-stockRotationDegree, false);
 			stockPlace3.rotate(stockRotationDegree, instantReturn);
 			setStock3(false);
 			s.sendMessage("U3");
@@ -203,7 +206,8 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 	public void pushStock4(boolean instantReturn) throws RemoteException {
 
 		if (isStock4()) {
-			stockPlace4.rotate(-stockRotationDegree, instantReturn);
+			stockPlace4.setSpeed(180);
+			stockPlace4.rotate(-stockRotationDegree, false);
 			stockPlace4.rotate(stockRotationDegree, instantReturn);
 			setStock4(false);
 			s.sendMessage("U4");
@@ -246,7 +250,7 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 			elevatorVertical1.setSpeed(elevatorVerticalSpeed);
 			elevatorVertical2.setSpeed(elevatorVerticalSpeed);
 			
-			elevatorVertical1.rotate(11620, true); // move both at the same time
+			elevatorVertical1.rotate(11520, true); // move both at the same time
 												// 11520
 												// and wait for second
 			elevatorVertical2.rotate(-11520, instantReturn);
@@ -261,7 +265,7 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 			elevatorVertical1.setSpeed(elevatorVerticalSpeed);
 			elevatorVertical2.setSpeed(elevatorVerticalSpeed);
 
-			elevatorVertical1.rotate(-11620, true); // move both at the same
+			elevatorVertical1.rotate(-11520, true); // move both at the same
 													// time
 													// and wait for second
 			elevatorVertical2.rotate(11520, instantReturn);
@@ -331,14 +335,37 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 		}
 
 	}
+	
+	public void PushBox(boolean instantReturn) throws RemoteException, InterruptedException {
+
+		if (isStock1() == true) {
+			pushBoxFromStock(1, instantReturn);
+		} else {
+			if (isStock2() == true) {
+				pushBoxFromStock(2, instantReturn);
+			} else {
+				if (isStock3() == true) {
+					pushBoxFromStock(3, instantReturn);
+				} else {
+					if (isStock4() == true) {
+						pushBoxFromStock(4, instantReturn);
+					} else {
+						System.out.println("Error Lager leer");
+					}
+				}
+			}
+
+		}
+
+	}
 
 	private void storeIn1(boolean instantReturn) throws RemoteException, InterruptedException {
 		if (isStock1() == false) {
 			placeBoxFromLineOnElevatorline(false);
-			elevatorUp(instantReturn);
+			elevatorUp(false);
 			pushBoxFromElevatorToStore(instantReturn);
 			Thread.sleep(2000);
-			elevatorDown(instantReturn);
+			elevatorDown(false);
 			setStock1(true);
 			s.sendMessage("L1");
 		}
@@ -349,11 +376,11 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 		if (isStock2() == false) {
 			placeBoxFromLineOnElevatorline(false);
 			elevatorToRight(instantReturn);
-			elevatorUp(instantReturn);
+			elevatorUp(false);
 			pushBoxFromElevatorToStore(false);
 			Thread.sleep(2000);
-			elevatorDown(instantReturn);
 			elevatorToLeft(instantReturn);
+			elevatorDown(false);
 			setStock2(true);
 			s.sendMessage("L2");
 		}
@@ -375,7 +402,7 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 
 		if (isStock4() == false) {
 			placeBoxFromLineOnElevatorline(false);
-			elevatorToRight(instantReturn);
+			elevatorToRight(false);
 			pushBoxFromElevatorToStore(false);
 			Thread.sleep(2000);
 			elevatorToLeft(instantReturn);

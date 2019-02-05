@@ -143,9 +143,9 @@ public class Steuerung {
 		start(c);
 	}
 	
-	public static void main(String[] args) throws RemoteException {
-
-	}
+//	public static void main(String[] args) throws RemoteException {
+//
+//	}
 
 	public void start(Controller c1) { 
 
@@ -966,88 +966,95 @@ public class Steuerung {
 
 	public void startSzenario1() {
 
-		sendMessage("ST"); // send start Message should be infront of every normal szenario
-		sendMessage("CA"); // Send everytime 1 new Container gets delivered, not implemented atm
-		
-			new java.util.Timer().schedule(new java.util.TimerTask() {
-			@Override
-			public void run() {
-				try {
-					chargier.resetTable(false);
-					chargier.startLineToTable(false);
-					chargier.startTableLine(true);
-
-					// wait till Table Button is pushed, test maybe Ui freezes
-					while (!b1054Status) {
-						System.out.println("hänge in schleife 1");
-					}
-
-					chargier.stopLineToTable();
-					chargier.stopTableLine();
-					chargier.turnTable(660,false);
-
-					chargier.startLineToLifter(false);
-					chargier.startTableLine(false);
-
-					while (!b1053Status) {
-						System.out.println("hänge in schleife 2");
-					}
-
-					chargier.stopLineToLifter();
-					chargier.stopTableLine();
-
-					lift.startShaker();
-					lift.start(false); // wait until it finished
-					lift.stopShaker();
-
-					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung
-					cleaner.startLiftLine(true); // TODO: maybe falls = andere richtung
-
-					chargier.startLineToLifter(true);
-					chargier.startTableLine(true);
-					//
-					quality.startCounterLine(false);
-					quality.startLine(true);
-
-					while (!b1054Status) { // wait table button pushed
-						System.out.println("hänge in schleife 3");
-					}
-
-					chargier.stopLineToLifter();
-					chargier.stopTableLine();
-
-					chargier.turnTable(-1320,false);
-
-					chargier.startLineToStore(false); // maybe falls
-					chargier.startTableLine(false);
-
-					Thread.sleep(3000);
-					chargier.stopTableLine();
-					chargier.stopLineToStorer();
-
-					chargier.resetTable(true); // turns 660 to much repair later
-
-					Thread.sleep(20000); // wait 10 sec
-					//
-					cleaner.stopLiftLine();
-					cleaner.stop();
-					//
-					Thread.sleep(30000); // wait 10 sec
-					//
-					quality.stopCounterLine();
-					quality.stopLine();
-
-					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
-
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}, 1000);
+		try {
+			stock.setStock1(true);
+			stock.pushStock1(true);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		sendMessage("ST"); // send start Message should be infront of every normal szenario
+//		sendMessage("CA"); // Send everytime 1 new Container gets delivered, not implemented atm
+//		
+//			new java.util.Timer().schedule(new java.util.TimerTask() {
+//			@Override
+//			public void run() {
+//				try {
+//					chargier.resetTable(false);
+//					chargier.startLineToTable(false);
+//					chargier.startTableLine(true);
+//
+//					// wait till Table Button is pushed, test maybe Ui freezes
+//					while (!b1054Status) {
+//						System.out.println("hänge in schleife 1");
+//					}
+//
+//					chargier.stopLineToTable();
+//					chargier.stopTableLine();
+//					chargier.turnTable(660,false);
+//
+//					chargier.startLineToLifter(false);
+//					chargier.startTableLine(false);
+//
+//					while (!b1053Status) {
+//						System.out.println("hänge in schleife 2");
+//					}
+//
+//					chargier.stopLineToLifter();
+//					chargier.stopTableLine();
+//
+//					lift.startShaker();
+//					lift.start(false); // wait until it finished
+//					lift.stopShaker();
+//
+//					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung
+//					cleaner.startLiftLine(true); // TODO: maybe falls = andere richtung
+//
+//					chargier.startLineToLifter(true);
+//					chargier.startTableLine(true);
+//					//
+//					quality.startCounterLine(false);
+//					quality.startLine(true);
+//
+//					while (!b1054Status) { // wait table button pushed
+//						System.out.println("hänge in schleife 3");
+//					}
+//
+//					chargier.stopLineToLifter();
+//					chargier.stopTableLine();
+//
+//					chargier.turnTable(-1320,false);
+//
+//					chargier.startLineToStore(false); // maybe falls
+//					chargier.startTableLine(false);
+//
+//					Thread.sleep(3000);
+//					chargier.stopTableLine();
+//					chargier.stopLineToStorer();
+//
+//					chargier.resetTable(true); // turns 660 to much repair later
+//
+//					Thread.sleep(20000); // wait 10 sec
+//					//
+//					cleaner.stopLiftLine();
+//					cleaner.stop();
+//					//
+//					Thread.sleep(30000); // wait 10 sec
+//					//
+//					quality.stopCounterLine();
+//					quality.stopLine();
+//
+//					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
+//
+//				} catch (RemoteException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}, 1000);
 
 	}
 
@@ -1060,20 +1067,19 @@ public class Steuerung {
 			@Override
 			public void run() {
 				try {
-					chargier.resetTable(true);
-					chargier.startLineToTable(false);
+				
+					chargier.turnToLift(false);
+					chargier.startLineToLifter(true);
 					chargier.startTableLine(true);
-
 					// wait till Table Button is pushed, test maybe Ui freezes
 					while (!b1054Status) {
 						System.out.println("hänge in schleife 1");
 					}
 
-					chargier.stopLineToTable();
+					chargier.stopLineToLifter();
 					chargier.stopTableLine();
 	
-
-					chargier.turnTable(-660, false);
+					chargier.turnToStock(false);
 
 					chargier.startLineToStore(false); // maybe falls
 					chargier.startTableLine(false);
@@ -1189,8 +1195,8 @@ public class Steuerung {
 						@Override
 						public void run() {
 					try {
-						
-						stock.pushBoxFromStock(2,false);         //box from Store on Elevator and elevator in postion
+						stock.PushBox(true);
+//						stock.pushBoxFromStock(2,true);         //box from Store on Elevator and elevator in postion
 //						chargier.startLineToStore(true);       // start line before u take the box from the elevator
 //						chargier.takeBoxFromElevator(); // dont need solange der tisch vorher in position ist
 						chargier.startLineToStore(true);
@@ -1216,7 +1222,9 @@ public class Steuerung {
 					
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
-					chargier.turnTable(660,false);
+					
+					chargier.turnToLift(false);
+//					chargier.turnTable(660,false); ersetzt durch turnToLift
 
 					chargier.startLineToLifter(false);
 					chargier.startTableLine(false);
@@ -1233,21 +1241,47 @@ public class Steuerung {
 						public void run() {
 					try {
 						 
-						chargier.turnTable(-1320,false);  // dreh zum store
+						chargier.turnToStock(false);
+						//chargier.turnTable(-1320,false);  // dreh zum store
 						chargier.startLineToStore(true); // auf Tisch
 						chargier.startTableLine(true);
+						
 						
 						while (!b1054Status) { // wait table button pushed
 							System.out.println("hänge in schleife 3");
 						}
 						chargier.stopLineToStorer();
 						chargier.stopTableLine();
-						chargier.turnTable(660,false);
+						chargier.turnToCar(false);
 						chargier.startTableLine(false);
 						chargier.startLineToTable(true);
-						Thread.sleep(4000);
+						Thread.sleep(2000);
 						chargier.stopLineToTable();
 						chargier.stopTableLine();
+						
+						chargier.turnToLift(false);
+						chargier.startLineToLifter(true);
+						chargier.startTableLine(true);
+						// wait till Table Button is pushed, test maybe Ui freezes
+						while (!b1054Status) {
+							System.out.println("hänge in schleife 1");
+						}
+
+						chargier.stopLineToLifter();
+						chargier.stopTableLine();
+		
+						chargier.turnToStock(false);
+
+						chargier.startLineToStore(false); // maybe falls
+						chargier.startTableLine(false);
+						Thread.sleep(2000);
+						
+						stock.storeBox(false);
+						
+						chargier.stopTableLine();
+						chargier.stopLineToStorer();
+
+						chargier.resetTable(false); // turns 660 to much repair later
 						
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block

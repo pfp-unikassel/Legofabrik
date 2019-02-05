@@ -6,7 +6,7 @@ import lejos.hardware.sensor.RFIDSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 
-public class Test5 {
+public class FillStationTest {
 
 	static RemoteEV3 b107;
 	static RMIRegulatedMotor b107d;
@@ -16,19 +16,30 @@ public class Test5 {
 		// TODO Auto-generated method stub
 
 		try {
-			b107 = new RemoteEV3("192.168.0.106");
+			b107 = new RemoteEV3("192.168.0.115");
 		} catch (RemoteException | MalformedURLException | NotBoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		b107d = b107.createRegulatedMotor("D", 'L');
 		
-		RFIDSensor rfid1 = new RFIDSensor(b107.getPort("S1"));            // make sure RFID is in Port 1 in Brick 107
+//		RFIDSensor rfid1 = new RFIDSensor(b107.getPort("S1"));            // make sure RFID is in Port 1 in Brick 107
 		
 		
 		try {
-			b107d.setSpeed(700); // set back to 160
-			b107d.backward();
+			
+			//---------------------------------test fill Station test 
+			
+			
+			b107d.setSpeed(90); // set back to 160
+			
+			b107d.forward();  // runs forward without end
+			
+//			b107d.rotate(360); // rotate a solid value
+			
+			
+			 //------------------------------------
+			
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -41,30 +52,30 @@ public class Test5 {
 
 		while (true) {
 
-			id = rfid1.readTransponderAsLong(true);
-
-			System.out.println(id);
-
-			if(id != 0){
-				filterArray[count] = id;
-				count++;
-				if( count == 3){                // set number of values
-					filterIds(filterArray);
+//			id = rfid1.readTransponderAsLong(true);
+//
+//			System.out.println(id);
+//
+//			if(id != 0){
+//				filterArray[count] = id;
+//				count++;
+//				if( count == 3){                // set number of values
+//					filterIds(filterArray);
+//					
+//					try {
+//						Thread.sleep(1000);                               // warte 5 sekunden nachdem 5 werte eingelesen wurden 
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					
+//					count= 0;
+//					for(int m = 0; m<5 ; m++){
+//						filterArray[m] = 0;
+//					}
 					
-					try {
-						Thread.sleep(1000);                               // warte 5 sekunden nachdem 5 werte eingelesen wurden 
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					count= 0;
-					for(int m = 0; m<5 ; m++){
-						filterArray[m] = 0;
-					}
-					
-				}
-			}
+//				}
+//			}
 			
 		}
 
