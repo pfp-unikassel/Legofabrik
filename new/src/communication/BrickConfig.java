@@ -23,7 +23,9 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 			if(new File("/Brickconfig.txt").exists()) {
 				readIps();
 			}else {
-				readDefaultIps();
+				if(new File("/BrickDefaultconfig.txt").exists()) {
+					readDefaultIps();					
+				}
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -35,6 +37,7 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 	}
 
 	private ArrayList<String> brickips = new ArrayList<>();
+	private ArrayList<String> defaultBrickips = new ArrayList<>();
 
 	public void readIps() throws FileNotFoundException, IOException {
 
@@ -75,7 +78,7 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 			String line;
 			while ((line = br.readLine()) != null) {
 
-				brickips.add(line);
+				defaultBrickips.add(line);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -86,6 +89,10 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 		}
 	}
 
+	public ArrayList<String> getDefaultBrickips() {
+		return defaultBrickips;
+	}
+	
 	public ArrayList<String> getBrickips() {
 		return brickips;
 	}

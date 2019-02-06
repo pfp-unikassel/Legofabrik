@@ -204,6 +204,11 @@ public class Steuerung {
 		saveBrickIps();
 	}
 	
+	public ArrayList<String> getDefaultIps() {
+		return config.getDefaultBrickips();
+	}
+	
+	
 	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be used
 		
 		legoClient = new LegoClient(ip,port);

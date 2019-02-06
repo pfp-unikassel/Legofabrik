@@ -1,8 +1,10 @@
 package userInterface;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import controller.Steuerung;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,20 +17,38 @@ public class settingsController implements Initializable {
 	public TextField Bricktextfield1, Bricktextfield2, Bricktextfield3, Bricktextfield4, Bricktextfield5,
 			Bricktextfield6, Bricktextfield7, Bricktextfield8, Bricktextfield9, Bricktextfield10, Bricktextfield11,
 			Bricktextfield12, Bricktextfield13, Bricktextfield14;
+	private Steuerung s;
+	private ArrayList<String> brickIps;
+	private ArrayList<TextField> textFields = new ArrayList<>();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		
+		s = (Steuerung)stage.getUserData();
+		brickIps = s.getBrickIpsFromConfig();
 	}
 
 	public void updateTextfields() {
+		
+		for(int i = 0; i <= textFields.size(); i++) {
+			
+			textFields.get(i).setText(brickIps.get(i));   // hol text aus dem Array und zeig ihn im Fenster
+		}
 		
 		//TODO: show BrickIp in Textfields
 	}
 	
 	public void applyButtonPushed() {
 
+		for(int i = 0; i <= textFields.size(); i++) {
+			
+			brickIps.set(i, textFields.get(i).getText());   // hol aus den Textfenstern den Text und speicher ihn im array
+			
+		}
+		s.changeBrickIps(brickIps);
 		
 	}
 
@@ -40,6 +60,29 @@ public class settingsController implements Initializable {
 
 	public void defaultButtonPushed() {
 
+		for(int i = 0; i <= textFields.size(); i++) {
+			
+			textFields.get(i).setText(s.getDefaultIps().get(i));   // hol text aus dem Array und zeig ihn im Fenster
+		}
 	}
+	
+	public void addTextFieldsToList() {
+		
+		textFields.add(Bricktextfield1);
+		textFields.add(Bricktextfield2);
+		textFields.add(Bricktextfield3);
+		textFields.add(Bricktextfield4);
+		textFields.add(Bricktextfield5);
+		textFields.add(Bricktextfield6);
+		textFields.add(Bricktextfield7);
+		textFields.add(Bricktextfield8);
+		textFields.add(Bricktextfield9);
+		textFields.add(Bricktextfield10);
+		textFields.add(Bricktextfield11);
+		textFields.add(Bricktextfield12);
+		textFields.add(Bricktextfield13);
+		textFields.add(Bricktextfield14);
+	}
+	
 	
 }
