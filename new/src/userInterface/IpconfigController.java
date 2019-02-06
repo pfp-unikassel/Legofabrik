@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class settingsController implements Initializable {
+public class IpconfigController implements Initializable {
 
 	public Button applyButton, closeButton, defaulButton;
 	public TextField Bricktextfield1, Bricktextfield2, Bricktextfield3, Bricktextfield4, Bricktextfield5,

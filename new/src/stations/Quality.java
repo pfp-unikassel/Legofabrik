@@ -23,6 +23,7 @@ public class Quality {
 	private int goodBalls = 0;
 	private int badBalls = 0;
 	private String colorString = "";
+	private String ioColor ="WHITE";
 	
 	private Steuerung s1;
 
@@ -110,7 +111,7 @@ public class Quality {
 		this.colorString = colorString;
 //		System.out.println("Quality Farbe ist " + colorString);
 		
-		if(colorString == "WHITE") {   // if ball is white close gate 
+		if(colorString == ioColor) {   // if ball is white close gate 
 			openGate();		
 			setGoodBalls(getGoodBalls()+1);
 //			System.out.println(" White open gate");
@@ -214,5 +215,19 @@ public class Quality {
 		stopLine();
 		reset();
 		
+	}
+
+
+
+
+	public String getIoColor() {
+		return ioColor;
+	}
+
+
+
+
+	public void setIoColor(String ioClore) {
+		this.ioColor = ioClore;
 	}
 }

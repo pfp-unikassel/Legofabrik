@@ -1402,4 +1402,20 @@ public class Steuerung {
 
 	}
 
+	public Stock getStock() {
+		return stock;
+	}
+
+	public static void setStock(Stock stock) {
+		Steuerung.stock = stock;
+	}
+
+	public  FillStation getFillStation() {
+		return fillStation;
+	}
+
+	public static void setFillStation(FillStation fillStation) {
+		Steuerung.fillStation = fillStation;
+	}
+
 }

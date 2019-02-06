@@ -59,7 +59,7 @@ public class Controller implements Initializable {
 
 	public CheckBox box1, box2, box3, box4, box5, box6, box7;
 	
-	public MenuItem settings;
+	public MenuItem ipconfig,motorSettings;
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
@@ -93,14 +93,33 @@ public class Controller implements Initializable {
 	
 	//--------------------------------------------Menu-------------------------------------------
 	
-	settings.setOnAction(new EventHandler<ActionEvent>() {
+	ipconfig.setOnAction(new EventHandler<ActionEvent>() {
+	    public void handle(ActionEvent event) { 
+	        Parent root;
+	        try {
+	            root = FXMLLoader.load(getClass().getResource("/ipconfig.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+	            Stage stage = new Stage();
+	            stage.setTitle("Ip Config");
+	            stage.setScene(new Scene(root, 600, 650));
+	            stage.setUserData(s);
+	            stage.show();
+	            // Hide this current window (if this is what you want)
+//	            ((Node)(event.getSource())).getScene().getWindow().hide();
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	});
+	
+	motorSettings.setOnAction(new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent event) { 
 	        Parent root;
 	        try {
 	            root = FXMLLoader.load(getClass().getResource("/settings.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
 	            Stage stage = new Stage();
 	            stage.setTitle("Settings");
-	            stage.setScene(new Scene(root, 450, 450));
+	            stage.setScene(new Scene(root, 600, 650));
 	            stage.setUserData(s);
 	            stage.show();
 	            // Hide this current window (if this is what you want)

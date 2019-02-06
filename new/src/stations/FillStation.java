@@ -9,6 +9,8 @@ public class FillStation {
 
 	private Steuerung s;
 	private RMIRegulatedMotor wheel;
+	private int wheelspeed =60;
+	private int numberOfTurns = 1; // 1 turn 360degree
 	
 	public FillStation(Steuerung s, RMIRegulatedMotor m){
 		this.s=s;
@@ -18,7 +20,7 @@ public class FillStation {
 	public void rotateWheel(int degree , boolean instantReturn){
 		
 		try {
-			wheel.setSpeed(60);
+			wheel.setSpeed(wheelspeed);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -34,7 +36,23 @@ public class FillStation {
 	
 	public void loadCar(){
 		
-		rotateWheel(300, false);
+		rotateWheel(360, false);
+	}
+
+	public int getWheelspeed() {
+		return wheelspeed;
+	}
+
+	public void setWheelspeed(int wheelspeed) {
+		this.wheelspeed = wheelspeed;
+	}
+
+	public int getNumberOfTurns() {
+		return numberOfTurns;
+	}
+
+	public void setNumberOfTurns(int numberOfTurns) {
+		this.numberOfTurns = numberOfTurns;
 	}
 	
 	
