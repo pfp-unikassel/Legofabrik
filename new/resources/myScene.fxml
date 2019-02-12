@@ -487,7 +487,7 @@
                                     <ScrollPane fx:id="defaultlabelszenario" fitToWidth="true" layoutY="1.0" prefHeight="337.0" prefWidth="222.0" style="-fx-background-color: GREY; -fx-border-width: 2px;" />
                                  </children>
                               </Pane>
-                              <GridPane prefHeight="125.0" prefWidth="222.0" style="-fx-border-color: GREY; -fx-border-width: 2px;">
+                              <GridPane prefHeight="173.0" prefWidth="222.0" style="-fx-border-color: GREY; -fx-border-width: 2px;">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -501,6 +501,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label fx:id="label00" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" />
@@ -524,9 +525,13 @@
                                     <Label fx:id="label02" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="2" />
                                     <Label fx:id="label03" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="3" />
                                     <Label fx:id="label05" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="5" />
-                                    <Label fx:id="label15" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Label" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="label15" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <Label fx:id="label25" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                                    <Label fx:id="label35" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Label" underline="true" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                    <Label fx:id="label35" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                    <Label fx:id="label06" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.rowIndex="6" />
+                                    <Label fx:id="label16" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label fx:id="label26" alignment="CENTER" layoutX="120.0" layoutY="124.0" prefHeight="17.0" prefWidth="55.0" text="Brick:" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                    <Label fx:id="label36" alignment="CENTER" layoutX="175.0" layoutY="124.0" prefHeight="17.0" prefWidth="55.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                                  </children>
                               </GridPane>
                            </children>

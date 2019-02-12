@@ -22,9 +22,9 @@ public class MotorSettingsController implements Initializable {
 			hebebandv, filldrehgescwindigkeit, anzahldrehungen, bandzumarmv, auslieferbandv, hebegeschwindigkeit,
 			shaker;
 
-	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14;
+	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14,zwillingOff,zwillingOn;
 
-	public ToggleGroup g1, g2, g3, g4;
+	public ToggleGroup g1, g2, g3, g4,g5;
 
 	public ComboBox<String> farbe, drehtischposition;
 
@@ -41,6 +41,16 @@ public class MotorSettingsController implements Initializable {
 
 		updateFromLiveModel();
 
+	}
+	
+	public void setOffline() {
+		s.setOffline();
+		zwillingOff.setSelected(true);
+	}
+	
+	public void setOnline() {
+		s.setOnline();
+		zwillingOn.setSelected(true);
 	}
 
 	public void updateFromLiveModel() { // gets every value from Steuerung

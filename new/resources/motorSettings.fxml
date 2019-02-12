@@ -33,6 +33,24 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Digital Zwilling :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="zwillingOn" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Online">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g5" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="zwillingOff" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Offline" toggleGroup="$g5" />
+                           </children>
+                        </HBox>
                         <HBox prefHeight="42.0" prefWidth="581.0" spacing="30.0">
                            <children>
                               <Label prefHeight="24.0" prefWidth="163.0" text="IO Farbe :">

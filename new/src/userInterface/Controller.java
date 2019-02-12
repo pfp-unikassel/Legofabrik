@@ -45,7 +45,7 @@ public class Controller implements Initializable {
 																			// Details
 
 	public Label label00, label01, label02, label03, label04, label10, label11, label12, label13, label14, label20,
-			label21, label22, label23, label24, label30, label31, label32, label33, label34, label05,label15,label25,label35; // LAbel
+			label21, label22, label23, label24, label30, label31, label32, label33, label34, label05,label15,label25,label35,label06,label16,label26,label36; // LAbel
 																								// akku
 	// 0X 2X Names 1X 3X Values
 
@@ -169,6 +169,8 @@ public class Controller implements Initializable {
 		brickLabels.add(label14);
 		brickLabels.add(label05);
 		brickLabels.add(label15);
+		brickLabels.add(label06);
+		brickLabels.add(label16);
 		brickLabels.add(label20);
 		brickLabels.add(label30);
 		brickLabels.add(label21);
@@ -181,6 +183,8 @@ public class Controller implements Initializable {
 		brickLabels.add(label34);
 		brickLabels.add(label25);
 		brickLabels.add(label35);
+		brickLabels.add(label26);
+		brickLabels.add(label36);
 	}
 
 	public void updatePowerLevel() {
@@ -189,21 +193,21 @@ public class Controller implements Initializable {
 		float powerLevel;
 		String brickName;
 
-//		// nicht Genug felder für Namen, schmeisst out of bouce index aus wenn zu viele namen
-//		for (lejos.remote.ev3.RemoteEV3 b : s.getBrickList()) {
-//
-//			powerLevel = b.getPower().getVoltageMilliVolt();
-//			brickName = b.getName();
-//			// TODO update in Ui
-//
-//			Label l = brickLabels.get(brickCounter);
-//
-//			l.setText("B" + brickName);
-//			brickCounter++;
-//			l = brickLabels.get(brickCounter);
-//			l.setText(powerLevel + "");
-//			brickCounter++;
-//		}
+		// nicht Genug felder für Namen, schmeisst out of bouce index aus wenn zu viele namen
+		for (lejos.remote.ev3.RemoteEV3 b : s.getBrickList()) {
+
+			powerLevel = b.getPower().getVoltageMilliVolt();
+			brickName = b.getName();
+			// TODO update in Ui
+
+			Label l = brickLabels.get(brickCounter);
+
+			l.setText("B" + brickName);
+			brickCounter++;
+			l = brickLabels.get(brickCounter);
+			l.setText(powerLevel + "");
+			brickCounter++;
+		}
 	}
 
 	//-------------------------------------------------Steuerung-------------------------------------------
