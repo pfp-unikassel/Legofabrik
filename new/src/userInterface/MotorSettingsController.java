@@ -13,11 +13,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MotorSettingsController implements Initializable {
 
-	private AnchorPane ap;
+	private VBox vbox;
 	public Button applyButton, closeButton, defaulButton;
 
 	public TextField zahlbandv, sensorbandv, lieferbandv, fahrstuhlhorizont, fahrstuhlvertikal, drehgeschwindigkeit,
@@ -39,7 +40,7 @@ public class MotorSettingsController implements Initializable {
 		drehtischposition.getItems().addAll("Anlieferung", "Lager", "Lift");
 		
 		
-		Stage stage = (Stage) ap.getScene().getWindow();
+		Stage stage = (Stage) vbox.getScene().getWindow();
 	
 		s = (Steuerung) stage.getUserData();
 

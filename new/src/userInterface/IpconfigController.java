@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class IpconfigController implements Initializable {
@@ -20,13 +21,14 @@ public class IpconfigController implements Initializable {
 	private Steuerung s;
 	private ArrayList<String> brickIps;
 	private ArrayList<TextField> textFields = new ArrayList<>();
-
+	private VBox vbox;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 
-		Stage stage = (Stage) closeButton.getScene().getWindow();
 		
+		Stage stage = (Stage) vbox.getScene().getWindow();
 		s = (Steuerung)stage.getUserData();
 		brickIps = s.getBrickIpsFromConfig();
 	}
