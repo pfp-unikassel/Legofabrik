@@ -119,26 +119,26 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
 				// System.out.println("Sensor b1053 fired");
+				s.sendMessage("LF");
 				waitSek(3);
 				Sensorarray2[0] = 0;
 				s.resetSensorStatus();
-				s.sendMessage("TF");
 
 			}
 			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
 				// System.out.println("Sensor b1054 fired");
+				s.sendMessage("TF");
 				waitSek(3);
 				Sensorarray3[0] = 0;
 				s.resetSensorStatus();
-				s.sendMessage("LF");
 			}
 			if (Sensorarray4[0] == 1) { // counter sensor
 				s.b1072Fired();
+				s.sendMessage("CF");
 				// System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
 				s.resetSensorStatus();
-				s.sendMessage("CF");
 			}
 
 			if (Sensorarray5[0] != -1) {
@@ -148,7 +148,7 @@ public class Sensordeamon extends Thread {
 
 				case Color.BLACK:
 					colorString = "BLACK";
-					s.sendMessage("S0");
+//					s.sendMessage("S0");  bring it back in after the Line is yello/ not black anymore
 					break;
 				case Color.BLUE:
 					colorString = "BLUE";

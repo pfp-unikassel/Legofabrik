@@ -44,13 +44,13 @@ public class Cleaning {
 		
 		cleaner.setSpeed(cleanerSpeed);
 		
+		s.sendMessage("WS");
 		if(direction) {
 			cleaner.forward();
 		}else {
 			cleaner.backward();
 		}
 		
-		s.sendMessage("WS");
 	}
 	
 	public void stopCleaner() throws RemoteException{

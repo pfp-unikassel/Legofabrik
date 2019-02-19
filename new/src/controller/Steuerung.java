@@ -8,7 +8,6 @@ package controller;
  * 
  */
 
-
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -53,7 +52,7 @@ public class Steuerung {
 	RemoteEV3 b117;
 	RemoteEV3 b118;
 	RemoteEV3 b119;
-//	RemoteEV3 b120;
+	// RemoteEV3 b120;
 
 	static RMIRegulatedMotor b101a;
 	static RMIRegulatedMotor b101b;
@@ -132,7 +131,7 @@ public class Steuerung {
 	static QualityStation qualitystation;
 	static Stock stock;
 	static FillStation fillStation;
-	
+
 	static BrickConfig config;
 
 	private boolean b1053Status = false; // set True if button fires
@@ -143,141 +142,179 @@ public class Steuerung {
 	private Controller c;
 	private static LegoClient legoClient;
 	private String lastRecivedMessage;
-//	private int sendErrorCounter = 0;
-//	private int numberOfSendTrys = 5;
-	
+	private int sendErrorCounter = 0;
+	private int numberOfSendTrys = 5;
+
 	public Steuerung(Controller c) {
-		this.c = c; 
+		this.c = c;
 		start(c);
 	}
-	
-//	public static void main(String[] args) throws RemoteException {
-//
-//	}
 
-	public void start(Controller c1) { 
+	// public static void main(String[] args) throws RemoteException {
+	//
+	// }
 
-		/**@param Initialsiert alle Stations und den Sensordeamon
-		 * sollte vom Controller ausgeführt werden oder dieser übergeben.
+	public void start(Controller c1) {
+
+		/**
+		 * @param Initialsiert
+		 *            alle Stations und den Sensordeamon sollte vom Controller
+		 *            ausgeführt werden oder dieser übergeben.
 		 */
-		
+
 		c = c1;
 		initAll();
 		System.out.println("steuerung start");
 
-		chargier = new Chargier(
-				this,b106a, b106d, b106b, b105d, b105c);
-		lift = new Lift(this,b101a, b101b, b101c, b101d, b108a);
-		cleaner = new Cleaning(this,b108b, b108c);
-		quality = new Quality(this,b107c, b107b, b107d);
-		compressor = new Compressor(this,b113a, b113b, b113c, b113d);
-		airarms = new Airarms(this,b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
-		qualitystation = new QualityStation(this,b115a, b115b, b115c, b115d);
-		deliverylane = new Deliverylane(this,b116a, b116b, b116c, b116d, b114c);
-		stock = new Stock(this,b118a, b118d ,b119a ,b119b ,b118c , b118b,b117a,b117b,b117c,b117d);
-		fillStation = new FillStation(this,b105a);
-		
-//		config = new BrickConfig(this);
-//		getBrickIpsFromConfig();
+		chargier = new Chargier(this, b106a, b106d, b106b, b105d, b105c);
+		lift = new Lift(this, b101a, b101b, b101c, b101d, b108a);
+		cleaner = new Cleaning(this, b108b, b108c);
+		quality = new Quality(this, b107c, b107b, b107d);
+		compressor = new Compressor(this, b113a, b113b, b113c, b113d);
+		airarms = new Airarms(this, b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
+		qualitystation = new QualityStation(this, b115a, b115b, b115c, b115d);
+		deliverylane = new Deliverylane(this, b116a, b116b, b116c, b116d, b114c);
+		stock = new Stock(this, b118a, b118d, b119a, b119b, b118c, b118b, b117a, b117b, b117c, b117d);
+		fillStation = new FillStation(this, b105a);
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe das Object und
-																							// rufe b1073 TODO: ad 114
+		// config = new BrickConfig(this);
+		// getBrickIpsFromConfig();
+
+		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe
+																							// das
+																							// Object
+																							// und
+																							// rufe
+																							// b1073
+																							// TODO:
+																							// ad
+																							// 114
 																							// distanz
 		sensordeamon.start();
+		resetDigitalTwin(); // brings digital twin in start position
+		sendPowerLevels(); // sends brick powerlevel to dig twin
 	}
 
-	//---Communication interactions---------------------------------
-	
-	
-	public ArrayList<String> getBrickIpsFromConfig(){
+	// ---Communication interactions---------------------------------
+
+	public ArrayList<String> getBrickIpsFromConfig() {
 		brickIps = config.getBrickips();
 		return config.getBrickips();
 	}
-	
-	public void saveBrickIps(){ // saves BrickIps arraylist, so new ips have to be there 
+
+	public void saveBrickIps() { // saves BrickIps arraylist, so new ips have to
+									// be there
 		config.setBrickips(brickIps);
 		config.writeIps();
 	}
-	
-	public void changeBrickIps( ArrayList<String> newBrickIps){
+
+	public void changeBrickIps(ArrayList<String> newBrickIps) {
 		brickIps = newBrickIps;
 		saveBrickIps();
 	}
-	
-	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be used
-		
-		legoClient = new LegoClient(ip,port);
+
+	public void createLegoClient(String ip, int port) { // ip and port can be
+														// null in this case
+														// default values will
+														// be used
+
+		legoClient = new LegoClient(ip, port);
 	}
-	
-	
+
 	public void deleteLegoClient() {
 		legoClient = null;
 	}
-	
+
 	public boolean isConnected() {
-		/**@param kontrolliert ob der Client vorhanden ist
+		/**
+		 * @param kontrolliert
+		 *            ob der Client vorhanden ist
 		 */
-		
-		if(legoClient == null) {
+
+		if (legoClient == null) {
 			return false;
-		}else {
+		} else {
 			return true;
 		}
 	}
-	
+
 	public LegoClient getLegoClient() {
 		return legoClient;
 	}
-	
-	public void sendPowerLevels(){
-		
-		String message,brickName;
+
+	public void sendPowerLevels() {
+
+		String message, brickName;
 		String powerLevel;
 		char[] c = new char[5];
-		
+
 		for (lejos.remote.ev3.RemoteEV3 b : getBrickList()) {
 
-			powerLevel =  String.valueOf(b.getPower().getVoltageMilliVolt());  // int in String
-			powerLevel.getChars(0, 4, c, 0);	// get first 4 chars
+			// int akkustand = b.getPower().getVoltageMilliVolt();
+			//
+			// powerLevel = String.valueOf(b.getPower().getVoltageMilliVolt());
+			// // int in String
+			// powerLevel.getChars(0, 4, c, 0); // get first 4 chars
 			brickName = b.getName();
-			
-			if(brickName.length() != 3){
+
+			if (brickName.length() != 3) {
 				System.out.println("Fehler Brickname muss 3 stellig sein, fuer dig zwilling ");
 			}
-			
-			message = ("B" +brickName + c.toString()); //  message looks like: b100XXX
-		
-//			sendMessage(message);
-			//TEST delete later
-			 System.out.println(message);
-			
+
+			message = ("B" + brickName + "-" + b.getPower().getVoltageMilliVolt()); // message
+																					// looks
+																					// like:
+																					// B100XXX
+
+			sendMessage(message);
+			// TEST delete later
+			System.out.println(message);
+
 		}
-		
+
 	}
-	public void sendMessage(String message) {
-		
-		if(isConnected()) {
-			lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
-			
-//			if(lastRecivedMessage == null && sendErrorCounter  > numberOfSendTrys) {						// try again
-//				sendErrorCounter++;
-//				sendMessage(message);
-//			}
-			if(!lastRecivedMessage.equals("")) { // last message not empty or null
-				System.out.println( "Erfoglreich gesendet" + message );
-				System.out.println("Empfangen" + lastRecivedMessage);
-//				sendErrorCounter = 0;										// after succesfully send a message reset error counter
+
+	public void resetDigitalTwin() {
+		sendMessage("ST");
+	}
+
+	public void sendMessage(String message) { // vergesse nicht vorher ein  client aufzumachen
+
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+
+				legoClient = new LegoClient("192.168.0.117", 33333);
+
+				if (isConnected()) {
+					lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
+
+					// if(lastRecivedMessage == null && sendErrorCounter >
+					// numberOfSendTrys) { // try again
+					// sendErrorCounter++;
+					// sendMessage(message);
+					// }
+					// if(!lastRecivedMessage.equals("")) { // last message not
+					// empty or null
+					// System.out.println( "Erfoglreich gesendet" + message );
+					// System.out.println("Empfangen" + lastRecivedMessage);
+					// sendErrorCounter = 0; // after succesfully send a message
+					// reset error counter
+					// }
+					// }else {
+					// System.out.println("No Client available");
+				}
 			}
-		}else {
-			System.out.println("No Client available");
-		}
+		}, 10);
+
 	}
-	
+
 	// ---------------------Brick interactions------------------------
-	
+
 	public float getPowerLevel(RemoteEV3 brick) {
-		/**@param
-		 * Gibt Akkustand aus und zurueck
+		/**
+		 * @param Gibt
+		 *            Akkustand aus und zurueck
 		 */
 		if (brick != null) {
 
@@ -293,13 +330,13 @@ public class Steuerung {
 
 	public float getPowerUse(RemoteEV3 brick) {
 
-		/**@param
-		 * gibt momentanen akku verbrauch
+		/**
+		 * @param gibt
+		 *            momentanen akku verbrauch
 		 */
 		if (brick != null) {
 
 			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
-
 
 			return brick.getPower().getBatteryCurrent();
 
@@ -310,8 +347,9 @@ public class Steuerung {
 
 	public float getMotorPowerUse(RemoteEV3 brick) {
 
-		/**@param
-		 * gibt Motor verbrauch zurueck
+		/**
+		 * @param gibt
+		 *            Motor verbrauch zurueck
 		 */
 		if (brick != null) {
 
@@ -326,25 +364,26 @@ public class Steuerung {
 	}
 
 	public void updatePowerLevel() {
-		/**@param
-		 * updated powerlevel anzeige im controller and sends thems
+		/**
+		 * @param updated
+		 *            powerlevel anzeige im controller and sends thems
 		 */
-		
+
 		c.updatePowerLevel();
-		sendPowerLevels();
-	
+
 	}
-	
-	//--------------Controller interactions----------------------
-	
+
+	// --------------Controller interactions----------------------
+
 	public void updateLabelInController() {
-		/**@param
-		 * laesst den Controller alle Labels updaten
+		/**
+		 * @param laesst
+		 *            den Controller alle Labels updaten
 		 */
 		c.updateLabels();
 	}
-	//--------------------------------------------------------
-	
+	// --------------------------------------------------------
+
 	public void b1053Fired() { // lift schalter
 		chargier.touchLiftfired();
 		b1053Status = true;
@@ -396,8 +435,9 @@ public class Steuerung {
 	}
 
 	public void initAll() {
-		/**@param
-		 * Initioalisiert alle Bricks
+		/**
+		 * @param Initioalisiert
+		 *            alle Bricks
 		 */
 		System.out.println("init All");
 
@@ -411,16 +451,16 @@ public class Steuerung {
 		initBrick14();
 		initBrick15();
 		initBrick16();
-		 initBrick17();
-		 initBrick18();
-		 initBrick19();
+		initBrick17();
+		initBrick18();
+		initBrick19();
 
 	}
 
 	public void initBrick1() {
 		// Brick 101
 		try {
-			b101 = new RemoteEV3("192.168.0.103");  // hier muessen alle Brick Ips eingetragen werden
+			b101 = new RemoteEV3("192.168.0.103"); // hier muessen alle Brick  Ips eingetragen werden
 			getPowerLevel(b101);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -454,8 +494,8 @@ public class Steuerung {
 		b105a = b105.createRegulatedMotor("A", 'L'); // Motor Fillstation
 		b105c = b105.createRegulatedMotor("C", 'L'); // Motor Drehtisch
 		b105d = b105.createRegulatedMotor("D", 'L'); // Motor Räder Drehtisch
-		
 
+		openMotorPorts.add(b105a);
 		openMotorPorts.add(b105c);
 		openMotorPorts.add(b105d);
 
@@ -680,7 +720,7 @@ public class Steuerung {
 	}
 
 	public void initBrick18() {
-		// Brick 117
+		// Brick 118
 		try {
 			b118 = new RemoteEV3("192.168.0.114");
 			getPowerLevel(b118);
@@ -741,9 +781,10 @@ public class Steuerung {
 	}
 
 	public static void closePorts() {
-		/**@param
-		 * schliesst alle Motorports7Sensorports der Bricks aus der Liste
-		 * muss bei jedem programm Ende gemacht werden
+		/**
+		 * @param schliesst
+		 *            alle Motorports7Sensorports der Bricks aus der Liste muss
+		 *            bei jedem programm Ende gemacht werden
 		 */
 
 		for (RMIRegulatedMotor temp : openMotorPorts) { // close every open
@@ -785,14 +826,14 @@ public class Steuerung {
 	public Quality getQuality() {
 		return quality;
 	}
+
 	public Deliverylane getDelivery() {
 		return deliverylane;
 	}
 
-	
-	
 	// ------------------------help methods with
-	//  werden durch test Button im UI aufgerufen und fuehren standart ablauf durch 
+	// werden durch test Button im UI aufgerufen und fuehren standart ablauf
+	// durch
 	// stations------------------------------
 
 	public void runDelivery() {
@@ -812,7 +853,7 @@ public class Steuerung {
 	}
 
 	public void runChargier(boolean mode) { // True starts false stops
-		
+
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
@@ -822,14 +863,15 @@ public class Steuerung {
 						chargier.startLineToTable(false);
 						chargier.startTableLine(true);
 
-						// wait till Table Button is pushed, test maybe Ui freezes
+						// wait till Table Button is pushed, test maybe Ui
+						// freezes
 						while (!b1054Status) {
 							System.out.println("hänge in schleife 1");
 						}
 
 						chargier.stopLineToTable();
 						chargier.stopTableLine();
-						chargier.turnTable(660,false);
+						chargier.turnTable(660, false);
 
 						chargier.startLineToLifter(false);
 						chargier.startTableLine(false);
@@ -849,7 +891,7 @@ public class Steuerung {
 						chargier.stopLineToLifter();
 						chargier.stopTableLine();
 
-						chargier.turnTable(-1320,false);
+						chargier.turnTable(-1320, false);
 
 						chargier.startLineToStore(false); // maybe falls
 						chargier.startTableLine(false);
@@ -858,7 +900,8 @@ public class Steuerung {
 						chargier.stopTableLine();
 						chargier.stopLineToStorer();
 
-						chargier.resetTable(true); // turns 660 to much repair later
+						chargier.resetTable(true); // turns 660 to much repair
+													// later
 
 					} else {
 						chargier.stop();
@@ -920,7 +963,7 @@ public class Steuerung {
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
 				public void run() {
-			lift.start(false);
+					lift.start(false);
 				}
 			}, 1000);
 		} else {
@@ -1017,130 +1060,83 @@ public class Steuerung {
 
 	public void startSzenario1() {
 
-//		sendMessage("ST");
-//		sendPowerLevels();
-		
-		fillStation.rotateWheel(360, false);
-		
-//		sendMessage("ST"); // send start Message should be infront of every normal szenario
-//		sendMessage("CA"); // Send everytime 1 new Container gets delivered, not implemented atm
-//		
-//			new java.util.Timer().schedule(new java.util.TimerTask() {
-//			@Override
-//			public void run() {
-//				try {
-//					chargier.resetTable(false);
-//					chargier.startLineToTable(false);
-//					chargier.startTableLine(true);
-//
-//					// wait till Table Button is pushed, test maybe Ui freezes
-//					while (!b1054Status) {
-//						System.out.println("hänge in schleife 1");
-//					}
-//
-//					chargier.stopLineToTable();
-//					chargier.stopTableLine();
-//					chargier.turnTable(660,false);
-//
-//					chargier.startLineToLifter(false);
-//					chargier.startTableLine(false);
-//
-//					while (!b1053Status) {
-//						System.out.println("hänge in schleife 2");
-//					}
-//
-//					chargier.stopLineToLifter();
-//					chargier.stopTableLine();
-//
-//					lift.startShaker();
-//					lift.start(false); // wait until it finished
-//					lift.stopShaker();
-//
-//					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung
-//					cleaner.startLiftLine(true); // TODO: maybe falls = andere richtung
-//
-//					chargier.startLineToLifter(true);
-//					chargier.startTableLine(true);
-//					//
-//					quality.startCounterLine(false);
-//					quality.startLine(true);
-//
-//					while (!b1054Status) { // wait table button pushed
-//						System.out.println("hänge in schleife 3");
-//					}
-//
-//					chargier.stopLineToLifter();
-//					chargier.stopTableLine();
-//
-//					chargier.turnTable(-1320,false);
-//
-//					chargier.startLineToStore(false); // maybe falls
-//					chargier.startTableLine(false);
-//
-//					Thread.sleep(3000);
-//					chargier.stopTableLine();
-//					chargier.stopLineToStorer();
-//
-//					chargier.resetTable(true); // turns 660 to much repair later
-//
-//					Thread.sleep(20000); // wait 10 sec
-//					//
-//					cleaner.stopLiftLine();
-//					cleaner.stop();
-//					//
-//					Thread.sleep(30000); // wait 10 sec
-//					//
-//					quality.stopCounterLine();
-//					quality.stopLine();
-//
-//					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
-//
-//				} catch (RemoteException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		}, 1000);
+		// sendMessage("ST");
+		// sendPowerLevels();
 
-	}
+		// fillStation.rotateWheel(360, false);
 
-	public void startSzenario2() {
+		sendMessage("CA"); // Send everytime 1 new Container gets delivered, not
+							// implemented atm
 
-		sendMessage("ST");
-	//	c.updatePowerLevel();
-		
-		
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				try {
-				
-					chargier.turnToLift(false);
-					chargier.startLineToLifter(true);
+
+					chargier.resetTable(true);
+					chargier.startLineToTable(false);
 					chargier.startTableLine(true);
+
 					// wait till Table Button is pushed, test maybe Ui freezes
 					while (!b1054Status) {
 						System.out.println("hänge in schleife 1");
 					}
 
+					chargier.stopLineToTable();
+					chargier.stopTableLine();
+					chargier.turnTable(660, false);
+
+					chargier.startLineToLifter(false);
+					chargier.startTableLine(false);
+
+					while (!b1053Status) {
+						System.out.println("hänge in schleife 2");
+					}
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
-	
-					chargier.turnToStock(false);
+
+					lift.startShaker();
+					lift.start(false); // wait until it finished
+					lift.stopShaker();
+
+					cleaner.startCleaner(true); // TODO: maybe falls = andere
+												// richtung
+					cleaner.startLiftLine(true); // TODO: maybe falls = andere
+													// richtung
+
+					chargier.startLineToLifter(true);
+					chargier.startTableLine(true);
+
+					quality.startCounterLine(false);
+					quality.startLine(true);
+
+					while (!b1054Status) { // wait table button pushed
+						System.out.println("hänge in schleife 3");
+					}
+
+					chargier.stopLineToLifter();
+					chargier.stopTableLine();
+
+					chargier.turnTable(-1320, false);
 
 					chargier.startLineToStore(false); // maybe falls
 					chargier.startTableLine(false);
-					Thread.sleep(2000);
-					
-					stock.storeBox(false);
-					
+
+					Thread.sleep(3000);
 					chargier.stopTableLine();
 					chargier.stopLineToStorer();
 
-					chargier.resetTable(false); // turns 660 to much repair later
+					chargier.resetTable(true); // turns 660 to much repair later
+
+					Thread.sleep(20000); // wait 10 sec
+					//
+					cleaner.stopLiftLine();
+					cleaner.stop();
+					//
+					Thread.sleep(30000); // wait 10 sec
+					//
+					quality.stopCounterLine();
+					quality.stopLine();
 
 					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
 
@@ -1154,7 +1150,59 @@ public class Steuerung {
 			}
 		}, 1000);
 
-//		runDelivery();
+	}
+
+	public void startSzenario2() {
+
+		sendMessage("TF");
+
+		// sendMessage("ST");
+		// // c.updatePowerLevel();
+		//
+		//
+		// new java.util.Timer().schedule(new java.util.TimerTask() {
+		// @Override
+		// public void run() {
+		// try {
+		//
+		// chargier.turnToLift(false);
+		// chargier.startLineToLifter(true);
+		// chargier.startTableLine(true);
+		// // wait till Table Button is pushed, test maybe Ui freezes
+		// while (!b1054Status) {
+		// System.out.println("hänge in schleife 1");
+		// }
+		//
+		// chargier.stopLineToLifter();
+		// chargier.stopTableLine();
+		//
+		// chargier.turnToStock(false);
+		//
+		// chargier.startLineToStore(false); // maybe falls
+		// chargier.startTableLine(false);
+		// Thread.sleep(2000);
+		//
+		// stock.storeBox(false);
+		//
+		// chargier.stopTableLine();
+		// chargier.stopLineToStorer();
+		//
+		// chargier.resetTable(false); // turns 660 to much repair later
+		//
+		// System.out.println("N/IO: " + quality.getBadBalls() + " IO: " +
+		// quality.getGoodBalls());
+		//
+		// } catch (RemoteException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+		// }, 1000);
+
+		// runDelivery();
 
 		// qualitystation.takeBallToGood();
 		//
@@ -1169,8 +1217,10 @@ public class Steuerung {
 		//
 		// airarms.runAirArms();
 
-		// airarms.turnArm(); // einfarhen / tower drehen / ausfahren / arm runter/ grab
-		// schließen / arm up / arm einfahren / turm drehen / arm ausfahren / grab
+		// airarms.turnArm(); // einfarhen / tower drehen / ausfahren / arm
+		// runter/ grab
+		// schließen / arm up / arm einfahren / turm drehen / arm ausfahren /
+		// grab
 		// drehen / runter / aufmachen
 		//
 		// airarms.turnTower();
@@ -1224,157 +1274,174 @@ public class Steuerung {
 
 	public void startSzenario3() {
 
-		//c.updateLabels();
-//		sendMessage("ST");
-		
+		// c.updateLabels();
+		// sendMessage("ST");
+
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				try {
 					chargier.resetTable(false);
-					
+
 					fillStation.rotateWheel(360, false);
 					// Volle Kiste steht auf dem Band und Leere im Lager
 					chargier.startLineToTable(false);
 					chargier.startTableLine(true);
-					
-					//positioniere leere kiste auf dem Laufband vor dem Elevator
-					// Gleichzeitiger ablauf änder es spaeter im code  solange neuen Thread erstellen unsauber
+
+					// positioniere leere kiste auf dem Laufband vor dem
+					// Elevator
+					// Gleichzeitiger ablauf änder es spaeter im code solange
+					// neuen Thread erstellen unsauber
 					new java.util.Timer().schedule(new java.util.TimerTask() {
 						@Override
 						public void run() {
-					try {
-						stock.PushBox(true);
-//						stock.pushBoxFromStock(2,true);         //box from Store on Elevator and elevator in postion
-//						chargier.startLineToStore(true);       // start line before u take the box from the elevator
-//						chargier.takeBoxFromElevator(); // dont need solange der tisch vorher in position ist
-						chargier.startLineToStore(true);
-						stock.pushBoxFromElevatorToLine(false);  // push Box from Elevator
-//						chargier.stopLineToStorer();
-						
-						
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}   
-						}}, 1000); 
-					
+							try {
+								stock.PushBox(true);
+								// stock.pushBoxFromStock(2,true); //box from
+								// Store on Elevator and elevator in postion
+								// chargier.startLineToStore(true); // start
+								// line before u take the box from the elevator
+								// chargier.takeBoxFromElevator(); // dont need
+								// solange der tisch vorher in position ist
+								chargier.startLineToStore(true);
+								stock.pushBoxFromElevatorToLine(false); // push
+																		// Box
+																		// from
+																		// Elevator
+								// chargier.stopLineToStorer();
+
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}, 1000);
 
 					// wait till Table Button is pushed, test maybe Ui freezes
 					while (!b1054Status) {
-						System.out.println("hänge in schleife 1");
+						// System.out.println("hänge in schleife 1");
 					}
 					chargier.stopLineToStorer();
-					
+
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
-					
+
 					chargier.turnToLift(false);
-//					chargier.turnTable(660,false); ersetzt durch turnToLift
+					// chargier.turnTable(660,false); ersetzt durch turnToLift
 
 					chargier.startLineToLifter(false);
 					chargier.startTableLine(false);
 
 					while (!b1053Status) {
-						System.out.println("hänge in schleife 2");
+						// System.out.println("hänge in schleife 2");
 					}
 
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
-					
-					new java.util.Timer().schedule(new java.util.TimerTask() { // neuer thread da simultan unsauber
+
+					new java.util.Timer().schedule(new java.util.TimerTask() { // neuer
+																				// thread
+																				// da
+																				// simultan
+																				// unsauber
 						@Override
 						public void run() {
-					try {
-						 
-						chargier.turnToStock(false);
-						//chargier.turnTable(-1320,false);  // dreh zum store
-						chargier.startLineToStore(true); // auf Tisch
-						chargier.startTableLine(true);
-						
-						
-						while (!b1054Status) { // wait table button pushed
-							System.out.println("hänge in schleife 3");
+							try {
+
+								chargier.turnToStock(false);
+								// chargier.turnTable(-1320,false); // dreh zum
+								// store
+								chargier.startLineToStore(true); // auf Tisch
+								chargier.startTableLine(true);
+
+								while (!b1054Status) { // wait table button
+														// pushed
+									// System.out.println("hänge in schleife
+									// 3");
+								}
+								chargier.stopLineToStorer();
+								chargier.stopTableLine();
+								chargier.turnToCar(false);
+								chargier.startTableLine(false);
+								chargier.startLineToTable(true);
+								Thread.sleep(2000);
+								chargier.stopLineToTable();
+								chargier.stopTableLine();
+
+								chargier.turnToLift(false);
+								chargier.startLineToLifter(true);
+								chargier.startTableLine(true);
+								// wait till Table Button is pushed, test maybe
+								// Ui freezes
+								while (!b1054Status) {
+									System.out.println("hänge in schleife 1");
+								}
+
+								chargier.stopLineToLifter();
+								chargier.stopTableLine();
+
+								chargier.turnToStock(false);
+
+								chargier.startLineToStore(false); // maybe falls
+								chargier.startTableLine(false);
+								Thread.sleep(2000);
+
+								stock.storeBox(false);
+
+								chargier.stopTableLine();
+								chargier.stopLineToStorer();
+
+								chargier.resetTable(false); // turns 660 to much
+															// repair later
+
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
-						chargier.stopLineToStorer();
-						chargier.stopTableLine();
-						chargier.turnToCar(false);
-						chargier.startTableLine(false);
-						chargier.startLineToTable(true);
-						Thread.sleep(2000);
-						chargier.stopLineToTable();
-						chargier.stopTableLine();
-						
-						chargier.turnToLift(false);
-						chargier.startLineToLifter(true);
-						chargier.startTableLine(true);
-						// wait till Table Button is pushed, test maybe Ui freezes
-						while (!b1054Status) {
-							System.out.println("hänge in schleife 1");
-						}
+					}, 1000);
 
-						chargier.stopLineToLifter();
-						chargier.stopTableLine();
-		
-						chargier.turnToStock(false);
-
-						chargier.startLineToStore(false); // maybe falls
-						chargier.startTableLine(false);
-						Thread.sleep(2000);
-						
-						stock.storeBox(false);
-						
-						chargier.stopTableLine();
-						chargier.stopLineToStorer();
-
-						chargier.resetTable(false); // turns 660 to much repair later
-						
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}   
-						}}, 1000); 
-					
-					
 					lift.startShaker();
 					lift.start(false); // wait until it finished
 					lift.stopShaker();
 
-					cleaner.startCleaner(true); // TODO: maybe falls = andere richtung
-					cleaner.startLiftLine(true); // TODO: maybe falls = andere richtung
+					cleaner.startCleaner(true); // TODO: maybe falls = andere
+												// richtung
+					cleaner.startLiftLine(true); // TODO: maybe falls = andere
+													// richtung
 
-//					chargier.startLineToLifter(true);
-//					chargier.startTableLine(true);
-//					//
-//					quality.startCounterLine(false);
-//					quality.startLine(true);
-//
-//					while (!b1054Status) { // wait table button pushed
-//						System.out.println("hänge in schleife 3");
-//					}
-//
-//					chargier.stopLineToLifter();
-//					chargier.stopTableLine();
-//
-//					chargier.turnTable(-1320);
-//
-//					chargier.startLineToStore(false); // maybe falls
-//					chargier.startTableLine(false);
-//
-//					Thread.sleep(3000);
-//					chargier.stopTableLine();
-//					chargier.stopLineToStorer();
-//
-//					chargier.resetTable(); // turns 660 to much repair later
-//
-//					Thread.sleep(20000); // wait 10 sec
-//					//
+					// chargier.startLineToLifter(true);
+					// chargier.startTableLine(true);
+					// //
+					// quality.startCounterLine(false);
+					// quality.startLine(true);
+					//
+					// while (!b1054Status) { // wait table button pushed
+					// System.out.println("hänge in schleife 3");
+					// }
+					//
+					// chargier.stopLineToLifter();
+					// chargier.stopTableLine();
+					//
+					// chargier.turnTable(-1320);
+					//
+					// chargier.startLineToStore(false); // maybe falls
+					// chargier.startTableLine(false);
+					//
+					// Thread.sleep(3000);
+					// chargier.stopTableLine();
+					// chargier.stopLineToStorer();
+					//
+					// chargier.resetTable(); // turns 660 to much repair later
+					//
+					// Thread.sleep(20000); // wait 10 sec
+					// //
 					cleaner.stopLiftLine();
 					cleaner.stop();
 					//

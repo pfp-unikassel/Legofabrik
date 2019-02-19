@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class LegoClient {
 
-	private String targetIP = "localhost";
-	private int targetPort = 11111;
+	private String targetIP = "192.168.0.117";//"localhost";
+	private int targetPort = 33333;
 	private int sendErrorCounter = 0;
 	private int numberOfSendTrys = 3;
 	private static ArrayList<String> recivedMessages = new ArrayList<>();
@@ -51,8 +51,8 @@ public class LegoClient {
 																// Server
 		String zuSendendeNachricht = "hallo";
 		schreibeNachricht(socket, zuSendendeNachricht);
-		String empfangeneNachricht = leseNachricht(socket);
-		System.out.println(empfangeneNachricht);
+//		String empfangeneNachricht = leseNachricht(socket);
+//		System.out.println(empfangeneNachricht);
 	}
 
 	public String sendMessage(String message) {
@@ -62,6 +62,7 @@ public class LegoClient {
 		 *  gibt die empfangene antwort zurück ans Hauptprogramm
 		 *  Speichert gesendete und empfangen Nachrichten im Array
 		 */
+		
 		String ip = targetIP;
 		int port = targetPort;
 		String empfangeneNachricht = "";
@@ -69,7 +70,10 @@ public class LegoClient {
 		try {
 			java.net.Socket socket = new java.net.Socket(ip, port);
 			schreibeNachricht(socket, message);
-			empfangeneNachricht = leseNachricht(socket);
+//			empfangeneNachricht = leseNachricht(socket);
+//			getSentMessages().add(message);
+//			writeSentMessageInFile();
+			socket.close();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,17 +82,17 @@ public class LegoClient {
 			e.printStackTrace();
 		}
 
-		if (!empfangeneNachricht.equals("")) {
-			sendErrorCounter = 0;
-			recivedMessages.add(empfangeneNachricht);          // add recivedmessages to Arraylist
-			sentMessages.add(message);
-		}
-
-		if (empfangeneNachricht.equals("") && sendErrorCounter > numberOfSendTrys) { // try again recursiv
-			sendErrorCounter++;
-			empfangeneNachricht = sendMessage(message);
-			sentMessages.add("nicht empfangen: " +message);
-		}
+//		if (!empfangeneNachricht.equals("")) {
+//			sendErrorCounter = 0;
+//			recivedMessages.add(empfangeneNachricht);          // add recivedmessages to Arraylist
+//			sentMessages.add(message);
+//		}
+//
+//		if (empfangeneNachricht.equals("") && sendErrorCounter > numberOfSendTrys) { // try again recursiv
+//			sendErrorCounter++;
+//			empfangeneNachricht = sendMessage(message);
+//			sentMessages.add("nicht empfangen: " +message);
+//		}
 		
 		
 		return empfangeneNachricht;
@@ -99,17 +103,18 @@ public class LegoClient {
 		printWriter.print(nachricht);
 		printWriter.flush();
 	}
+	
 
-	public String leseNachricht(java.net.Socket socket) throws IOException {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		char[] buffer = new char[200];
-		int anzahlZeichen = bufferedReader.read(buffer, 0, 200); // blockiert
-																	// bis
-																	// Nachricht
-																	// empfangen
-		String nachricht = new String(buffer, 0, anzahlZeichen);
-		return nachricht;
-	}
+//	public String leseNachricht(java.net.Socket socket) throws IOException {
+//		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//		char[] buffer = new char[200];
+//		int anzahlZeichen = bufferedReader.read(buffer, 0, 200); // blockiert
+//																	// bis
+//																	// Nachricht
+//																	// empfangen
+//		String nachricht = new String(buffer, 0, anzahlZeichen);
+//		return nachricht;
+//	}
 
 	public void writeSentMessageInFile() {
 

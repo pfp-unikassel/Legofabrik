@@ -15,12 +15,12 @@ public class Client {
 
 	void test() throws IOException {  // wenn nach 5 sec keine antwort kommt shicke nachricht nochmal
 
-		String ip = "10.10.144.129";  //10.10.144.129
+		String ip = "192.168.0.117";  //10.10.144.129
 		int port = 33333;
 		java.net.Socket socket = new java.net.Socket(ip, port); // verbindet
 																// sich mit
 																// Server
-		String zuSendendeNachricht = "CF";
+		String zuSendendeNachricht = "CA";
 		schreibeNachricht(socket, zuSendendeNachricht);
 		String empfangeneNachricht = leseNachricht(socket);
 		System.out.println("empfangen : " +empfangeneNachricht);
