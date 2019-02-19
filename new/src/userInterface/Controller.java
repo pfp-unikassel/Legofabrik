@@ -92,17 +92,36 @@ public class Controller implements Initializable {
 	
 	
 	//--------------------------------------------Menu-------------------------------------------
+		motorSettings.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) { 
+				Parent root;
+				try {
+					root = FXMLLoader.load(getClass().getResource("/motorSettings.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+					Stage stage = new Stage();
+					stage.setTitle("Settings");
+					stage.setScene(new Scene(root, 600, 650));
+					stage.setUserData(s);
+					stage.show();
+					// Hide this current window (if this is what you want)
+//	            ((Node)(event.getSource())).getScene().getWindow().hide();
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	
 	ipconfig.setOnAction(new EventHandler<ActionEvent>() {
 	    public void handle(ActionEvent event) { 
-	        Parent root;
+	        Parent root1;
 	        try {
-	            root = FXMLLoader.load(getClass().getResource("/ipconfig.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
-	            Stage stage = new Stage();
-	            stage.setTitle("Ip Config");
-	            stage.setScene(new Scene(root, 600, 650));
-	            stage.setUserData(s);
-	            stage.show();
+	            root1 = FXMLLoader.load(getClass().getResource("/ipconfig.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+	            Stage stage1 = new Stage();
+	            stage1.setTitle("Ip Config");
+	            stage1.setScene(new Scene(root1, 600, 650));
+	            stage1.setUserData(s);
+	            stage1.show();
 	            // Hide this current window (if this is what you want)
 //	            ((Node)(event.getSource())).getScene().getWindow().hide();
 	        }
@@ -112,25 +131,6 @@ public class Controller implements Initializable {
 	    }
 	});
 	
-	motorSettings.setOnAction(new EventHandler<ActionEvent>() {
-	    public void handle(ActionEvent event) { 
-	        Parent root;
-	        try {
-	            root = FXMLLoader.load(getClass().getResource("/settings.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
-	            Stage stage = new Stage();
-	            stage.setTitle("Settings");
-	            stage.setScene(new Scene(root, 600, 650));
-	            stage.setUserData(s);
-	            stage.show();
-	            // Hide this current window (if this is what you want)
-//	            ((Node)(event.getSource())).getScene().getWindow().hide();
-	        }
-	        catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	});
-	  
 
 	}
 	//--------------------------------------------Menu---------------------------------------------

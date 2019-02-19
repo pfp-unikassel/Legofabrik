@@ -141,6 +141,7 @@ public class Steuerung {
 
 	private Controller c;
 	private static LegoClient legoClient;
+	private boolean twinConnection =false;
 	private String lastRecivedMessage;
 	private int sendErrorCounter = 0;
 	private int numberOfSendTrys = 5;
@@ -191,6 +192,7 @@ public class Steuerung {
 																							// 114
 																							// distanz
 		sensordeamon.start();
+		
 		resetDigitalTwin(); // brings digital twin in start position
 		sendPowerLevels(); // sends brick powerlevel to dig twin
 	}
@@ -199,11 +201,11 @@ public class Steuerung {
 	//---Communication interactions---------------------------------
 	
 	public void setOnline() {
-		
+		setTwinConnection(true);
 	}
 	
 	public void setOffline() {
-		
+		setTwinConnection(false);
 	}
 	
 	public ArrayList<String> getBrickIpsFromConfig(){
@@ -236,18 +238,19 @@ public class Steuerung {
 		legoClient = null;
 	}
 
-	public boolean isConnected() {
-		/**
-		 * @param kontrolliert
-		 *            ob der Client vorhanden ist
-		 */
-
-		if (legoClient == null) {
-			return false;
-		} else {
-			return true;
-		}
+	public void setTwinConnection(boolean twinConnection){
+		this.twinConnection = twinConnection;
 	}
+	
+	public boolean getTwinConnection(){
+		return twinConnection;
+	}
+	
+	public boolean isConnected() {
+	
+		return twinConnection;
+	}
+	
 
 	public LegoClient getLegoClient() {
 		return legoClient;
@@ -278,8 +281,6 @@ public class Steuerung {
 																					// B100XXX
 
 			sendMessage(message);
-			// TEST delete later
-			System.out.println(message);
 
 		}
 
@@ -291,13 +292,13 @@ public class Steuerung {
 
 	public void sendMessage(String message) { // vergesse nicht vorher ein  client aufzumachen
 
+		if (isConnected()) {
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 
 				legoClient = new LegoClient("192.168.0.117", 33333);
 
-				if (isConnected()) {
 					lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
 
 					// if(lastRecivedMessage == null && sendErrorCounter >
@@ -314,9 +315,9 @@ public class Steuerung {
 					// }
 					// }else {
 					// System.out.println("No Client available");
-				}
 			}
 		}, 10);
+		}
 
 	}
 

@@ -23,7 +23,7 @@ public class Main extends Application {
 
 	    Parent root = FXMLLoader.load(getClass().getResource("/myScene.fxml"));
 		primaryStage.setTitle("LegoUI");
-		primaryStage.setScene(new Scene(root,900,900));
+		primaryStage.setScene(new Scene(root,975,975));
 		primaryStage.show();
 	}
 	

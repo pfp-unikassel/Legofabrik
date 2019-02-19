@@ -12,10 +12,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class MotorSettingsController implements Initializable {
 
+	private AnchorPane ap;
 	public Button applyButton, closeButton, defaulButton;
 
 	public TextField zahlbandv, sensorbandv, lieferbandv, fahrstuhlhorizont, fahrstuhlvertikal, drehgeschwindigkeit,
@@ -35,8 +37,10 @@ public class MotorSettingsController implements Initializable {
 		// TODO Auto-generated method stub
 		farbe.getItems().addAll("Weiß", "Schwarz", "Rot", "Grün", "Blau", "Braun");
 		drehtischposition.getItems().addAll("Anlieferung", "Lager", "Lift");
-
-		Stage stage = (Stage) closeButton.getScene().getWindow();
+		
+		
+		Stage stage = (Stage) ap.getScene().getWindow();
+	
 		s = (Steuerung) stage.getUserData();
 
 		updateFromLiveModel();
