@@ -62,4 +62,20 @@ public class Cleaning {
 		cleaner.stop(false);
 		liftLine.stop(false);
 	}
+
+	public int getCleanerSpeed() {
+		return cleanerSpeed;
+	}
+
+	public void setCleanerSpeed(int cleanerSpeed) {
+		this.cleanerSpeed = cleanerSpeed;
+	}
+
+	public int getLiftLaneSpeed() {
+		return liftLaneSpeed;
+	}
+
+	public void setLiftLaneSpeed(int liftLaneSpeed) {
+		this.liftLaneSpeed = liftLaneSpeed;
+	}
 }

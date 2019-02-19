@@ -498,4 +498,44 @@ public void placeBoxFromLineOnElevatorline(boolean instantReturn){
 		this.elevatorPositionVertical = elevatorPositionVertical;
 	}
 
+	public int getElevatorHorizontalSpeed() {
+		return elevatorHorizontalSpeed;
+	}
+
+	public void setElevatorHorizontalSpeed(int elevatorHorizontalSpeed) {
+		this.elevatorHorizontalSpeed = elevatorHorizontalSpeed;
+	}
+
+	public int getElevatorVerticalSpeed() {
+		return elevatorVerticalSpeed;
+	}
+
+	public void setElevatorVerticalSpeed(int elevatorVerticalSpeed) {
+		this.elevatorVerticalSpeed = elevatorVerticalSpeed;
+	}
+
+	public int getStoreLineRotateDegree() {
+		return storeLineRotateDegree;
+	}
+
+	public void setStoreLineRotateDegree(int storeLineRotateDegree) {
+		this.storeLineRotateDegree = storeLineRotateDegree;
+	}
+
+	public int getStockRotationDegree() {
+		return stockRotationDegree;
+	}
+
+	public void setStockRotationDegree(int stockRotationDegree) {
+		this.stockRotationDegree = stockRotationDegree;
+	}
+
+	public int getHorizontalRotationDegree() {
+		return horizontalRotationDegree;
+	}
+
+	public void setHorizontalRotationDegree(int horizontalRotationDegree) {
+		this.horizontalRotationDegree = horizontalRotationDegree;
+	}
+
 }

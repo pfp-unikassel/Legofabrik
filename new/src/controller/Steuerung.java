@@ -195,9 +195,18 @@ public class Steuerung {
 		sendPowerLevels(); // sends brick powerlevel to dig twin
 	}
 
-	// ---Communication interactions---------------------------------
 
-	public ArrayList<String> getBrickIpsFromConfig() {
+	//---Communication interactions---------------------------------
+	
+	public void setOnline() {
+		
+	}
+	
+	public void setOffline() {
+		
+	}
+	
+	public ArrayList<String> getBrickIpsFromConfig(){
 		brickIps = config.getBrickips();
 		return config.getBrickips();
 	}
@@ -213,12 +222,14 @@ public class Steuerung {
 		saveBrickIps();
 	}
 
-	public void createLegoClient(String ip, int port) { // ip and port can be
-														// null in this case
-														// default values will
-														// be used
+	public ArrayList<String> getDefaultIps() {
+		return config.getDefaultBrickips();
+	}
+	
+	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be used
+		
+		legoClient = new LegoClient(ip,port);
 
-		legoClient = new LegoClient(ip, port);
 	}
 
 	public void deleteLegoClient() {
@@ -465,6 +476,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B1 not Found");
 		}
 		b101a = b101.createRegulatedMotor("A", 'M');
@@ -488,6 +500,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B5 not Found");
 		}
 
@@ -510,6 +523,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B6 not Found");
 
 		}
@@ -533,6 +547,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B7 not Found");
 
 		}
@@ -556,6 +571,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B8 not Found");
 
 		}
@@ -579,6 +595,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B11 not Found");
 
 		}
@@ -604,6 +621,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B13 not Found");
 
 		}
@@ -629,6 +647,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B14 not Found");
 
 		}
@@ -652,6 +671,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B15 not Found");
 
 		}
@@ -677,6 +697,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B16 not Found");
 
 		}
@@ -702,6 +723,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B17 not Found");
 
 		}
@@ -727,6 +749,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B18 not Found");
 
 		}
@@ -752,6 +775,7 @@ public class Steuerung {
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			closePorts();
 			System.out.println("B19 not Found");
 
 		}
@@ -1462,6 +1486,22 @@ public class Steuerung {
 			}
 		}, 1000);
 
+	}
+
+	public Stock getStock() {
+		return stock;
+	}
+
+	public static void setStock(Stock stock) {
+		Steuerung.stock = stock;
+	}
+
+	public  FillStation getFillStation() {
+		return fillStation;
+	}
+
+	public static void setFillStation(FillStation fillStation) {
+		Steuerung.fillStation = fillStation;
 	}
 
 }

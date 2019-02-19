@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MotorSettingsController">
+   <children>
+      <ScrollPane prefHeight="600.0" prefWidth="600.0">
+        <content>
+          <AnchorPane prefHeight="419.0" prefWidth="581.0">
+               <children>
+                  <VBox prefHeight="419.0" prefWidth="582.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Qualität :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Digital Zwilling :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="zwillingOn" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Online">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g5" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="zwillingOff" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Offline" toggleGroup="$g5" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="42.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="24.0" prefWidth="163.0" text="IO Farbe :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ComboBox fx:id="farbe" prefHeight="25.0" prefWidth="210.0" promptText="Weiß" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="ZählBand V :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="zahlbandv" prefHeight="25.0" prefWidth="211.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Sensorband V :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="sensorbandv" prefHeight="25.0" prefWidth="211.0" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Label text="Chargier :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="42.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="24.0" prefWidth="163.0" text="Drehtisch Position :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ComboBox fx:id="drehtischposition" prefHeight="25.0" prefWidth="210.0" promptText="Anlieferung" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lieferband V ;">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="lieferbandv" prefHeight="25.0" prefWidth="211.0" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Label text="Lager :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lager 1 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="lager1" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g1" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="lager11" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g1" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lager 2 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="lager2" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g2" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="lager12" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g2" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="585.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lager 3 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="lager3" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g3" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="lager13" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g3" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="585.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lager 4 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="lager4" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g4" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="lager14" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g4" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Fahrstuhl Horizontal V :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="fahrstuhlhorizont" prefHeight="25.0" prefWidth="216.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Fahrstuhl Vertikal V :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="fahrstuhlvertikal" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Label text="Reiniger :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Drehgeschwindigkeit :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="drehgeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="HebeBand V :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="hebebandv" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Label text="Befüllstation :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Drehgeschwindigkeit :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="filldrehgescwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Anzahl Drehungen :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="anzahldrehungen" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Label text="Lieferstation :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band zum Arm V :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="bandzumarmv" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Auslieferband V :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="auslieferbandv" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Label text="Aufzug :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Hebegeschindigkeit :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="hebegeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Shaker intensität :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="shaker" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+        </content>
+      </ScrollPane>
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0" spacing="30.0">
+         <children>
+            <Button fx:id="defaultButton" mnemonicParsing="false" onAction="#defaultButtonPushed" prefHeight="25.0" prefWidth="100.0" text="Default" />
+            <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyButtonPushed" prefHeight="25.0" prefWidth="100.0" text="Apply" />
+            <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonPushed" prefHeight="25.0" prefWidth="100.0" text="Close" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

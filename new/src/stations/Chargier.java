@@ -205,4 +205,8 @@ public class Chargier {
 
 	}
 
+	public void setTablePosition(int tablePosition) {
+		this.tablePosition = tablePosition;
+	}
+
 }
