@@ -178,8 +178,8 @@ public class Steuerung {
 		stock = new Stock(this, b118a, b118d, b119a, b119b, b118c, b118b, b117a, b117b, b117c, b117d);
 		fillStation = new FillStation(this, b105a);
 
-		// config = new BrickConfig(this);
-		// getBrickIpsFromConfig();
+		 config = new BrickConfig(this);
+		 getBrickIpsFromConfig();
 
 		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe
 																							// das

@@ -96,14 +96,17 @@ public class Controller implements Initializable {
 			public void handle(ActionEvent event) { 
 				Parent root;
 				try {
-					root = FXMLLoader.load(getClass().getResource("/motorSettings.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/motorSettings.fxml"));
+					root = loader.load();  //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+
 					Stage stage = new Stage();
 					stage.setTitle("Settings");
 					stage.setScene(new Scene(root, 600, 650));
 					stage.setUserData(s);
 					stage.show();
-					// Hide this current window (if this is what you want)
-//	            ((Node)(event.getSource())).getScene().getWindow().hide();
+				
+					MotorSettingsController motorController =  loader.<MotorSettingsController>getController();
+					motorController.start();
 				}
 				catch (IOException e) {
 					e.printStackTrace();
@@ -116,12 +119,17 @@ public class Controller implements Initializable {
 	    public void handle(ActionEvent event) { 
 	        Parent root1;
 	        try {
-	            root1 = FXMLLoader.load(getClass().getResource("/ipconfig.fxml")); //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+	        	FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/ipconfig.fxml"));
+	            root1 = loader1.load(); 
+	            
 	            Stage stage1 = new Stage();
 	            stage1.setTitle("Ip Config");
 	            stage1.setScene(new Scene(root1, 600, 650));
 	            stage1.setUserData(s);
 	            stage1.show();
+	            
+	           IpconfigController ipController =  loader1.<IpconfigController>getController();
+				ipController.start();
 	            // Hide this current window (if this is what you want)
 //	            ((Node)(event.getSource())).getScene().getWindow().hide();
 	        }

@@ -39,13 +39,12 @@ public class MotorSettingsController implements Initializable {
 		farbe.getItems().addAll("Weiß", "Schwarz", "Rot", "Grün", "Blau", "Braun");
 		drehtischposition.getItems().addAll("Anlieferung", "Lager", "Lift");
 		
-		
-		Stage stage = (Stage) vbox.getScene().getWindow();
-	
+	}
+	public void start() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
 		s = (Steuerung) stage.getUserData();
 
 		updateFromLiveModel();
-
 	}
 	
 	public void setOffline() {
@@ -76,6 +75,8 @@ public class MotorSettingsController implements Initializable {
 	public void applyButtonPushed() {
 
 		saveFromUiToLiveModel();
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+	    stage.close();
 	}
 
 	public void closeButtonPushed() {
@@ -270,5 +271,6 @@ public class MotorSettingsController implements Initializable {
 			s.getQuality().setIoColor("BLUE");
 		}
 	}
+
 
 }

@@ -12,19 +12,24 @@ import controller.Steuerung;
 public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 
 	private Steuerung s;
-	
-	/* liest Brick Ips bei erstellung ein, falls datei nicht existiert erzeugt sie die gespeicherten standart Werte
-	 * */
-	 
+
+	/*
+	 * liest Brick Ips bei erstellung ein, falls datei nicht existiert erzeugt
+	 * sie die gespeicherten standart Werte
+	 */
 
 	public BrickConfig(Steuerung s) {
 		this.s = s;
 		try {
-			if(new File("/Brickconfig.txt").exists()) {
+			if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\Brickconfig.txt").exists()) {
 				readIps();
-			}else {
-				if(new File("/BrickDefaultconfig.txt").exists()) {
-					readDefaultIps();					
+			} else {
+				if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\BrickDefaultconfig.txt").exists()) {
+					readDefaultIps();
+
+				} else {
+					System.out.println("keine der Dateien existiert");
+					SaveInFile.saveInFile("Test.txt", "Hallo Nico");
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -41,7 +46,7 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 
 	public void readIps() throws FileNotFoundException, IOException {
 
-		File f = new File("/Brickconfig.txt");
+		File f = new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\Brickconfig.txt");
 		try (BufferedReader br = new BufferedReader(new FileReader(f))) {
 			String line;
 			while ((line = br.readLine()) != null) {
@@ -53,26 +58,21 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 
 	public void writeIps() {
 
-		SaveInFile.deleteFile("/Brickconfig.txt");
+		SaveInFile.deleteFile("Brickconfig.txt");
+		SaveInFile.saveInFile("Brickconfig.txt", brickips);
 
-		for (String c : brickips) {
-
-			SaveInFile.saveInFile("Brickconfig.txt", c);
-		}
 	}
-	
+
 	public void writeDefaultIps() { // change default Ips in config, not be used
 
-		SaveInFile.deleteFile("/BrickDefaultconfig.txt");
+		SaveInFile.deleteFile("BrickDefaultconfig.txt");
+		SaveInFile.saveInFile("BrickDefaultconfig.txt", defaultBrickips);
 
-		for (String c : brickips) {
-			SaveInFile.saveInFile("BrickDefaultconfig.txt", c);
-		}
 	}
 
 	public void readDefaultIps() {
 
-		File f = new File("/BrickDefaultconfig.txt");
+		File f = new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\BrickDefaultconfig.txt");
 
 		try (BufferedReader br = new BufferedReader(new FileReader(f))) {
 			String line;
@@ -92,7 +92,7 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 	public ArrayList<String> getDefaultBrickips() {
 		return defaultBrickips;
 	}
-	
+
 	public ArrayList<String> getBrickips() {
 		return brickips;
 	}

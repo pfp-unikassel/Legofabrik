@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class IpconfigController implements Initializable {
@@ -21,55 +20,81 @@ public class IpconfigController implements Initializable {
 	private Steuerung s;
 	private ArrayList<String> brickIps;
 	private ArrayList<TextField> textFields = new ArrayList<>();
-	private VBox vbox;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-
 		
-		Stage stage = (Stage) vbox.getScene().getWindow();
-		s = (Steuerung)stage.getUserData();
+	}
+
+	public void start() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+
+		s = (Steuerung) stage.getUserData();
 		brickIps = s.getBrickIpsFromConfig();
+		updateTextfields();
 	}
 
 	public void updateTextfields() {
-		
-		for(int i = 0; i <= textFields.size(); i++) {
-			
-			textFields.get(i).setText(brickIps.get(i));   // hol text aus dem Array und zeig ihn im Fenster
+
+		for (int i = 0; i < textFields.size(); i++) {
+
+			if(brickIps.get(i)!=null){
+			textFields.get(i).setText(brickIps.get(i)); // hol text aus dem
+														// Array und zeig ihn im
+														// Fenster
+			}
 		}
-		
-		//TODO: show BrickIp in Textfields
+
+		// TODO: show BrickIp in Textfields
 	}
-	
+
 	public void applyButtonPushed() {
 
-		for(int i = 0; i <= textFields.size(); i++) {
+		for (int i = 0; i < textFields.size(); i++) {
+
+			if(textFields.get(i).equals(null)){ // textfield is empty
+				
+			}else{
 			
-			brickIps.set(i, textFields.get(i).getText());   // hol aus den Textfenstern den Text und speicher ihn im array
-			
+			brickIps.set(i, textFields.get(i).getText()); // hol aus den
+															// Textfenstern den
+															// Text und speicher
+															// ihn im array
+			}
+
 		}
 		s.changeBrickIps(brickIps);
 		
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
 	}
 
 	public void closeButtonPushed() {
 
 		Stage stage = (Stage) closeButton.getScene().getWindow();
-	    stage.close();
+		stage.close();
 	}
 
 	public void defaultButtonPushed() {
 
-		for(int i = 0; i <= textFields.size(); i++) {
+		for (int i = 0; i < textFields.size(); i++) {
+
+			if(s.getDefaultIps().get(i).equals(null)){
+				
+			}else{
+				textFields.get(i).setText(s.getDefaultIps().get(i)); // hol text aus
+				// dem Array
+				// und zeig
+				// ihn im
+				// Fenster
+			}
 			
-			textFields.get(i).setText(s.getDefaultIps().get(i));   // hol text aus dem Array und zeig ihn im Fenster
 		}
 	}
-	
+
 	public void addTextFieldsToList() {
-		
+
 		textFields.add(Bricktextfield1);
 		textFields.add(Bricktextfield2);
 		textFields.add(Bricktextfield3);
@@ -85,6 +110,5 @@ public class IpconfigController implements Initializable {
 		textFields.add(Bricktextfield13);
 		textFields.add(Bricktextfield14);
 	}
-	
-	
+
 }
