@@ -145,6 +145,7 @@ public class Steuerung {
 	private String lastRecivedMessage;
 	private int sendErrorCounter = 0;
 	private int numberOfSendTrys = 5;
+	private int szenario = 0;
 
 	public Steuerung(Controller c) {
 		this.c = c;
@@ -436,6 +437,14 @@ public class Steuerung {
 		// QualityStation arm is stalled boolean true stalled, false nicht
 		// qulityStation.setArmIsStalled(armIsStalled);
 
+	}
+	
+	public int getSzenario() {
+		return szenario;
+	}
+	
+	public void setSzenario(int szenario) {
+		this.szenario = szenario;
 	}
 
 	public void resetSensorStatus() {
@@ -1084,7 +1093,7 @@ public class Steuerung {
 	// }
 
 	public void startSzenario1() {
-
+		setSzenario(1);
 		// sendMessage("ST");
 		// sendPowerLevels();
 
@@ -1179,6 +1188,7 @@ public class Steuerung {
 
 	public void startSzenario2() {
 
+		setSzenario(2);
 		sendMessage("TF");
 
 		// sendMessage("ST");
@@ -1299,6 +1309,7 @@ public class Steuerung {
 
 	public void startSzenario3() {
 
+		setSzenario(3);
 		// c.updateLabels();
 		// sendMessage("ST");
 
@@ -1503,6 +1514,22 @@ public class Steuerung {
 
 	public static void setFillStation(FillStation fillStation) {
 		Steuerung.fillStation = fillStation;
+	}
+
+	public static Compressor getCompressor() {
+		return compressor;
+	}
+
+	public static void setCompressor(Compressor compressor) {
+		Steuerung.compressor = compressor;
+	}
+
+	public static Airarms getAirarms() {
+		return airarms;
+	}
+
+	public static void setAirarms(Airarms airarms) {
+		Steuerung.airarms = airarms;
 	}
 
 }

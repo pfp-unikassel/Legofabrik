@@ -276,4 +276,20 @@ public class Airarms { // schalter rechts rechts Links links
 	public void setTowerPosition(boolean towerPosition) {
 		this.towerPosition = towerPosition;
 	}
+
+	public int getTurnDegree() {
+		return turnDegree;
+	}
+
+	public void setTurnDegree(int turnDegree) {
+		this.turnDegree = turnDegree;
+	}
+
+	public int getTowerTurnDegree() {
+		return towerTurnDegree;
+	}
+
+	public void setTowerTurnDegree(int towerTurnDegree) {
+		this.towerTurnDegree = towerTurnDegree;
+	}
 }

@@ -20,6 +20,10 @@ public class Deliverylane {
 	private int gateTurnDegree = 50;
 	private int gateCounter = 0;
 	private int gatesUsed = 0 ;
+	private int gateDCounter =0;
+	private int gateBCounter =0;
+	private int gateCCounter =0;
+	private int gateECounter= 0; // is no gate ist k3
 
 	private boolean gateDStatus = true; // true is closed
 	private boolean gateBStatus = true; // true is closed
@@ -91,6 +95,7 @@ public class Deliverylane {
 			try {
 				gateD.rotate(gateTurnDegree, true);
 				s.sendMessage("K2");
+				gateDCounter++;
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -120,6 +125,7 @@ public class Deliverylane {
 			// open
 			try {
 				gateB.rotate(-gateTurnDegree, true);
+				gateBCounter++;
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -150,6 +156,7 @@ public class Deliverylane {
 			// open
 			try {
 				gateC.rotate(gateTurnDegree, true);
+				gateCCounter++;
 				s.sendMessage("K1");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -182,10 +189,11 @@ public class Deliverylane {
 			if (gateCounter % 3 == 1) {
 				openGateD();
 			}else {
+				gateECounter++;
 				s.sendMessage("K3");
 			}
 		}
-		
+		gateCounter++; // not sure
 		gatesUsed++;
 	}
 	
@@ -209,6 +217,10 @@ public class Deliverylane {
 		closeGates();
 		gateCounter = 0;
 		gatesUsed = 0;
+		gateCCounter =0;
+		gateBCounter =0;
+		gateDCounter =0;
+		gateECounter =0;
 		
 	}
 
@@ -250,6 +262,50 @@ public class Deliverylane {
 
 	public void setLineToEndSpeed(int lineToEndSpeed) {
 		this.lineToEndSpeed = lineToEndSpeed;
+	}
+
+	public int getGateCounter() {
+		return gateCounter;
+	}
+
+	public void setGateCounter(int gateCounter) {
+		this.gateCounter = gateCounter;
+	}
+
+	public int getGateECounter() {
+		return gateECounter;
+	}
+
+	public void setGateECounter(int gateECounter) {
+		this.gateECounter = gateECounter;
+	}
+
+	public int getGateBCounter() {
+		return gateBCounter;
+	}
+
+	public void setGateBCounter(int gateBCounter) {
+		this.gateBCounter = gateBCounter;
+	}
+
+	public int getGateCCounter() {
+		return gateCCounter;
+	}
+
+	public void setGateCCounter(int gateCCounter) {
+		this.gateCCounter = gateCCounter;
+	}
+
+	public void setGatesUsed(int gatesUsed) {
+		this.gatesUsed = gatesUsed;
+	}
+
+	public int getGateDCounter() {
+		return gateDCounter;
+	}
+
+	public void setGateDCounter(int gateDCounter) {
+		this.gateDCounter = gateDCounter;
 	}
 
 }

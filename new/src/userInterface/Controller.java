@@ -39,14 +39,19 @@ public class Controller implements Initializable {
 	public Label rightBottomLabel;
 	public Circle showBall;
 
-	public Label defaultlabelbetriebszeit, defaultlabelware, defaultlabelio, defaultlabelnio, defaultlabeldurchsatz,
-			defaultlabelpuffer, defaultlabelverbrauch, defaultlabelversand; // Labels
-																			// Default
-																			// Details
+	public Label defaultszenario, defaultlabelbetriebszeit, defaultlabelware, defaultlabelio, defaultlabelnio,
+			defaultlabeldurchsatz, defaultlabelpuffer, defaultlabelverbrauch, defaultlabelversand; // Labels
+																									// Default
+																									// Details
+
+	public Label detaillabel00, detaillabel01, detaillabel02, detaillabel03, detaillabel04, detaillabel05,
+			detaillabel06, detaillabel07, detaillabel08, detailslabel10, detailslabel11, detailslabel12, detailslabel13,
+			detailslabel14, detailslabel15, detailslabel16, detailslabel17, detailslabel18;
 
 	public Label label00, label01, label02, label03, label04, label10, label11, label12, label13, label14, label20,
-			label21, label22, label23, label24, label30, label31, label32, label33, label34, label05,label15,label25,label35,label06,label16,label26,label36; // LAbel
-																								// akku
+			label21, label22, label23, label24, label30, label31, label32, label33, label34, label05, label15, label25,
+			label35, label06, label16, label26, label36; // LAbel
+	// akku
 	// 0X 2X Names 1X 3X Values
 
 	public Circle led1, led2, led3, led4, led5, led6, led7;
@@ -58,8 +63,8 @@ public class Controller implements Initializable {
 	public Button stop1, stop2, stop3, stop4, stop5, stop6, stop7;
 
 	public CheckBox box1, box2, box3, box4, box5, box6, box7;
-	
-	public MenuItem ipconfig,motorSettings;
+
+	public MenuItem ipconfig, motorSettings;
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
@@ -67,7 +72,7 @@ public class Controller implements Initializable {
 	private float timer = 0;
 	long startTime;
 	DateFormat timeFormat = new SimpleDateFormat("mm:ss");
-	
+
 	private ArrayList<Label> brickLabels;
 
 	public Steuerung s;
@@ -84,67 +89,323 @@ public class Controller implements Initializable {
 		addBrickLabeltoList();
 		paused = false;
 		running = false;
-		
+
 		updatePowerLevel();
 		startTimer();
 
-		
-	
-	
-	//--------------------------------------------Menu-------------------------------------------
+		// --------------------------------------------Menu-------------------------------------------
 		motorSettings.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) { 
+			public void handle(ActionEvent event) {
 				Parent root;
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/motorSettings.fxml"));
-					root = loader.load();  //FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"), resources);
+					root = loader.load(); // FXMLLoader.load(getClass().getClassLoader().getResource("/settings.fxml"),
+											// resources);
 
 					Stage stage = new Stage();
 					stage.setTitle("Settings");
 					stage.setScene(new Scene(root, 600, 650));
 					stage.setUserData(s);
 					stage.show();
-				
-					MotorSettingsController motorController =  loader.<MotorSettingsController>getController();
+
+					MotorSettingsController motorController = loader.<MotorSettingsController>getController();
 					motorController.start();
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		
-	
-	ipconfig.setOnAction(new EventHandler<ActionEvent>() {
-	    public void handle(ActionEvent event) { 
-	        Parent root1;
-	        try {
-	        	FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/ipconfig.fxml"));
-	            root1 = loader1.load(); 
-	            
-	            Stage stage1 = new Stage();
-	            stage1.setTitle("Ip Config");
-	            stage1.setScene(new Scene(root1, 600, 650));
-	            stage1.setUserData(s);
-	            stage1.show();
-	            
-	           IpconfigController ipController =  loader1.<IpconfigController>getController();
-				ipController.start();
-	            // Hide this current window (if this is what you want)
-//	            ((Node)(event.getSource())).getScene().getWindow().hide();
-	        }
-	        catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	});
-	
+
+		ipconfig.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				Parent root1;
+				try {
+					FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/ipconfig.fxml"));
+					root1 = loader1.load();
+
+					Stage stage1 = new Stage();
+					stage1.setTitle("Ip Config");
+					stage1.setScene(new Scene(root1, 600, 650));
+					stage1.setUserData(s);
+					stage1.show();
+
+					IpconfigController ipController = loader1.<IpconfigController>getController();
+					ipController.start();
+					// Hide this current window (if this is what you want)
+					// ((Node)(event.getSource())).getScene().getWindow().hide();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 
 	}
-	//--------------------------------------------Menu---------------------------------------------
+	// --------------------------------------------/Menu---------------------------------------------
+	// -----------------------------------------------------Details---------------------------------
 
-	//-------------------------------------------------Steuerung-------------------------------------------
-	
+	public void setDetailAirarms() {
+
+		detaillabel01.setText("Turmposition:");
+		detaillabel02.setText("Armposition:");
+		detaillabel03.setText("Armstatus:");
+		detaillabel04.setText("Greiferposition:");
+		detaillabel05.setText("GreiferStatus:");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getAirarms().getTurnDegree() + "");
+		
+		if (s.getAirarms().getArmPosition()) {
+			detailslabel12.setText("Ausgefahren");
+		}else {
+			detailslabel12.setText("Eingefahren");
+		}
+		if (s.getAirarms().getArmStatus()) {
+			detailslabel13.setText("Oben");
+		}else {
+			detailslabel13.setText("Unten");
+		}
+		if (s.getAirarms().getGrabStatus()) {
+			detailslabel14.setText("||");
+		}else {
+			detailslabel14.setText("=");
+		}
+		if (s.getAirarms().getGrabPosition()) {
+			detailslabel15.setText("Offen");
+		}else {
+			detailslabel15.setText("Geschlossen");
+		}
+		
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+
+	}
+
+	public void setDetailCar() {
+		detaillabel01.setText("");
+		detaillabel02.setText("");
+		detaillabel03.setText("");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText("");
+		detailslabel12.setText("");
+		detailslabel13.setText("");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailShaker() {
+		detaillabel01.setText("Rüttelgeschwindigkeit:");
+		detaillabel02.setText("");
+		detaillabel03.setText("");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getLift().getShakerSpeed() + "");
+		detailslabel12.setText("");
+		detailslabel13.setText("");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailChargier() {
+		detaillabel01.setText("Tischposition");
+		detaillabel02.setText("Bandgeschwindigkeit");
+		detaillabel03.setText("");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getChargier().getTablePostion() + "");
+		detailslabel12.setText(s.getChargier().getLineSpeed()+"");
+		detailslabel13.setText("");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailCleaner() {
+		detaillabel01.setText("Drehgeschwindigkeit");
+		detaillabel02.setText("Hebebandgeschindigkeit:");
+		detaillabel03.setText("");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getCleaner().getCleanerSpeed() + "");
+		detailslabel12.setText(s.getCleaner().getLiftLaneSpeed() + "");
+		detailslabel13.setText("");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailCompressor() {
+		detaillabel01.setText("Druck:");
+		detaillabel02.setText("");
+		detaillabel03.setText("");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(String.valueOf(s.getCompressor().getOnPressure()));
+		detailslabel12.setText("");
+		detailslabel13.setText("");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailDelivery() {
+		detaillabel01.setText("Kunden beliefert:");
+		detaillabel02.setText("Lieferbandgeschwindigkeit:");
+		detaillabel03.setText("Kunde1:");
+		detaillabel04.setText("Kunde2:");
+		detaillabel05.setText("Kunde3:");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getDelivery().getGatesUsed() + "");
+		detailslabel12.setText(s.getDelivery().getLineToEndSpeed() + "");
+		detailslabel13.setText(s.getDelivery().getGateCCounter()+"");
+		detailslabel14.setText(s.getDelivery().getGateDCounter()+"");
+		detailslabel15.setText(s.getDelivery().getGateECounter()+"");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailFillStation() {
+		detaillabel01.setText("Drehgeschwindigkeit:");
+		detaillabel02.setText("Drehungen:");
+		detaillabel03.setText("geladene Bälle:");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getFillStation().getWheelspeed() + "");
+		detailslabel12.setText(s.getFillStation().getNumberOfTurns() + "");
+		detailslabel13.setText(s.getFillStation().getNumberOfDeliveredBalls() + "");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailLift() {
+		detaillabel01.setText("Liftgeschwindigkeit:");
+		detaillabel02.setText("");
+		detaillabel03.setText("");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getLift().getliftSpeed() + "");
+		detailslabel12.setText("");
+		detailslabel13.setText("");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailQuality() {
+		detaillabel01.setText("IO Farbe:");
+		detaillabel02.setText("Farbe:");
+		detaillabel03.setText("Bandgeschwindigkeit:");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(s.getQuality().getIoColor());
+		detailslabel12.setText(s.getQuality().getColorString());
+		detailslabel13.setText(s.getQuality().getCounterLineSpeed() + "");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailQualityStation() {
+		detaillabel01.setText("IO Farbe:");
+		detaillabel02.setText("Farbe:");
+		detaillabel03.setText("Bandgeschwindigkeit:");
+		detaillabel04.setText("");
+		detaillabel05.setText("");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");// change to quality station
+		detailslabel11.setText(s.getQuality().getIoColor());
+		detailslabel12.setText(s.getQuality().getColorString());
+		detailslabel13.setText(s.getQuality().getCounterLineSpeed() + "");
+		detailslabel14.setText("");
+		detailslabel15.setText("");
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	public void setDetailStock() {
+		detaillabel01.setText("Lager1:");
+		detaillabel02.setText("Lager2:");
+		detaillabel03.setText("Lager3:");
+		detaillabel04.setText("Lager4:");
+		detaillabel05.setText("Fahrstuhlposition:");
+		detaillabel06.setText("");
+		detaillabel07.setText("");
+		detaillabel08.setText("");
+		detailslabel10.setText(s.getSzenario() + "");
+		detailslabel11.setText(String.valueOf(s.getStock().getStockPlace1()));
+		detailslabel12.setText(String.valueOf(s.getStock().getStockPlace2()));
+		detailslabel13.setText(String.valueOf(s.getStock().getStockPlace3()));
+		detailslabel14.setText(String.valueOf(s.getStock().getStockPlace4()));
+		detailslabel15.setText(s.getStock().getElevatorpositionAsString());
+		detailslabel16.setText("");
+		detailslabel17.setText("");
+		detailslabel18.setText("");
+	}
+
+	// -----------------------------------------------------/Details---------------------------------
+	// -------------------------------------------------Steuerung-------------------------------------------
+
 	public void updateLabels() { // should be called by clock later on
 
 		updateTime();
@@ -201,7 +462,8 @@ public class Controller implements Initializable {
 		float powerLevel;
 		String brickName;
 
-		// nicht Genug felder für Namen, schmeisst out of bouce index aus wenn zu viele namen
+		// nicht Genug felder für Namen, schmeisst out of bouce index aus wenn zu viele
+		// namen
 		for (lejos.remote.ev3.RemoteEV3 b : s.getBrickList()) {
 
 			powerLevel = b.getPower().getVoltageMilliVolt();
@@ -218,8 +480,8 @@ public class Controller implements Initializable {
 		}
 	}
 
-	//-------------------------------------------------Steuerung-------------------------------------------
-	
+	// -------------------------------------------------/Steuerung-------------------------------------------
+
 	public void startButtonClicked() {
 		if (running) { // if game runs allready do nothing
 
@@ -304,7 +566,7 @@ public class Controller implements Initializable {
 
 		showBall.setFill(javafx.scene.paint.Color.RED);
 		readyLabel.setText("ERROR !!");
-		
+
 	}
 
 	public void error(String msg) { // error with Message
@@ -312,7 +574,6 @@ public class Controller implements Initializable {
 		showBall.setFill(javafx.scene.paint.Color.RED);
 		readyLabel.setText("ERROR !!"); // TODO: change ERROR!! to error code
 		System.out.println(msg);
-		
 
 	}
 
@@ -399,27 +660,25 @@ public class Controller implements Initializable {
 
 	// ----------------------------------------------TEST&STOP------------------------------------------------------------------
 	// ------------------------------------------------Timer-------------------------------------------------------------------
-	
+
 	private void startTimer() {
-	 startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		updateTime();
 	}
 
 	private void resetTimer() {
-		startTime= System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		updateTime();
 	}
 
 	private void updateTime() {
-		
-	   long time = System.currentTimeMillis() - startTime;
-	   leftBottomLabel.setText(timeFormat.format(time));
-	   }
-	
 
+		long time = System.currentTimeMillis() - startTime;
+		leftBottomLabel.setText(timeFormat.format(time));
+	}
 
 	// ------------------------------------------------Timer-----------------------------------------------------------------------
-	
+
 	public Button getStartButton() {
 		return startButton;
 	}

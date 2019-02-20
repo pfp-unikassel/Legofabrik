@@ -10,7 +10,8 @@ public class FillStation {
 	private Steuerung s;
 	private RMIRegulatedMotor wheel;
 	private int wheelspeed =60;
-	private int numberOfTurns = 1; // 1 turn 360degree
+	private int numberOfTurns = 0; // 1 turn 360degree
+	private int numberOfDeliveredBalls =0;
 	
 	public FillStation(Steuerung s, RMIRegulatedMotor m){
 		this.s=s;
@@ -37,6 +38,8 @@ public class FillStation {
 	public void loadCar(){
 		
 		rotateWheel(360, false);
+		numberOfTurns++;
+		numberOfDeliveredBalls = numberOfDeliveredBalls+12;
 	}
 
 	public int getWheelspeed() {
@@ -53,6 +56,14 @@ public class FillStation {
 
 	public void setNumberOfTurns(int numberOfTurns) {
 		this.numberOfTurns = numberOfTurns;
+	}
+
+	public int getNumberOfDeliveredBalls() {
+		return numberOfDeliveredBalls;
+	}
+
+	public void setNumberOfDeliveredBalls(int numberOfDeliveredBalls) {
+		this.numberOfDeliveredBalls = numberOfDeliveredBalls;
 	}
 	
 	

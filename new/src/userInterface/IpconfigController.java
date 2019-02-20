@@ -24,7 +24,7 @@ public class IpconfigController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+		addTextFieldsToList();		
 	}
 
 	public void start() {

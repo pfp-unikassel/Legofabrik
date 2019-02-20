@@ -36,26 +36,8 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Close" />
                   <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Save As…" />
-                  <MenuItem mnemonicParsing="false" text="Revert" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Preferences…" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Quit" />
-                </items>
-              </Menu>
-              <Menu mnemonicParsing="false" text="Edit">
-                <items>
-                  <MenuItem mnemonicParsing="false" text="Undo" />
-                  <MenuItem mnemonicParsing="false" text="Redo" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cut" />
-                  <MenuItem mnemonicParsing="false" text="Copy" />
-                  <MenuItem mnemonicParsing="false" text="Paste" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Select All" />
-                  <MenuItem mnemonicParsing="false" text="Unselect All" />
                 </items>
               </Menu>
               <Menu mnemonicParsing="false" text="Help">
@@ -105,7 +87,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test41" mnemonicParsing="false" onMouseClicked="#stockTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailStock" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop41" mnemonicParsing="false" onMouseClicked="#stockStop" prefHeight="25.0" prefWidth="117.0" text="Reset" />
                                           <CheckBox fx:id="box41" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -136,7 +118,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test1" mnemonicParsing="false" onMouseClicked="#chargierTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailChargier" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop1" mnemonicParsing="false" onMouseClicked="#chargierStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                           <CheckBox fx:id="box1" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -167,7 +149,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test2" mnemonicParsing="false" onMouseClicked="#liftTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailLift" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop2" mnemonicParsing="false" onMouseClicked="#liftStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                           <CheckBox fx:id="box2" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -198,7 +180,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test3" mnemonicParsing="false" onMouseClicked="#shakerTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailShaker" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop3" mnemonicParsing="false" onMouseClicked="#shakerStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                           <CheckBox fx:id="box3" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -229,7 +211,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test4" mnemonicParsing="false" onMouseClicked="#cleanerTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailCleaner" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop4" mnemonicParsing="false" onMouseClicked="#cleanerStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                           <CheckBox fx:id="box4" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -260,7 +242,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test5" mnemonicParsing="false" onMouseClicked="#qualityTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailQuality" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop5" mnemonicParsing="false" onMouseClicked="#qualityStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                           <CheckBox fx:id="box5" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -291,7 +273,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test6" mnemonicParsing="false" onMouseClicked="#airarmsTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailAirarms" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop6" mnemonicParsing="false" onMouseClicked="#airarmsTest" prefHeight="25.0" prefWidth="117.0" text="Reset" />
                                           <CheckBox fx:id="box6" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -322,7 +304,7 @@
                                     <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
                                        <children>
                                           <Button fx:id="test7" mnemonicParsing="false" onMouseClicked="#deliveryTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Details" />
+                                          <Button mnemonicParsing="false" onAction="#setDetailDelivery" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop7" mnemonicParsing="false" onMouseClicked="#deliveryStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                           <CheckBox fx:id="box7" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
@@ -422,7 +404,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1">
+                                    <Label fx:id="defaultszenario" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Label" GridPane.columnIndex="1">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -484,7 +466,118 @@
                               </Label>
                               <Pane prefHeight="339.0" prefWidth="222.0">
                                  <children>
-                                    <ScrollPane fx:id="defaultlabelszenario" fitToWidth="true" layoutY="1.0" prefHeight="337.0" prefWidth="222.0" style="-fx-background-color: GREY; -fx-border-width: 2px;" />
+                                    <ScrollPane fx:id="defaultlabelszenario" fitToWidth="true" layoutY="1.0" prefHeight="322.0" prefWidth="222.0" style="-fx-background-color: GREY; -fx-border-width: 2px;">
+                                       <content>
+                                          <GridPane fx:id="station" prefHeight="320.0" prefWidth="220.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label fx:id="detaillabel00" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" text="Szenario:" underline="true">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel01" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel02" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel03" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel04" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel05" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel06" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel07" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detaillabel08" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" underline="true" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel10" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel11" alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="18.0" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel12" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel13" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel14" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel15" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel16" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel17" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="detailslabel18" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                       </content></ScrollPane>
                                  </children>
                               </Pane>
                               <GridPane prefHeight="173.0" prefWidth="222.0" style="-fx-border-color: GREY; -fx-border-width: 2px;">
@@ -544,7 +637,7 @@
             <children>
               <Label fx:id="leftBottomLabel" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Test" textFill="#251f1f" HBox.hgrow="ALWAYS">
                 <font>
-                  <Font size="11.0" fx:id="x3" />
+                  <Font size="15.0" fx:id="x3" />
                 </font>
               </Label>
               <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
