@@ -537,7 +537,8 @@ public class Controller implements Initializable {
 
 	public void emptyButtonClicked() {
 		System.out.println("emptyButtonClicked clicked");
-		Steuerung.closePorts();
+		s.stopSensorDeamon();
+		s.closePorts();
 
 	}
 

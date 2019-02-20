@@ -131,6 +131,7 @@ public class Steuerung {
 	static QualityStation qualitystation;
 	static Stock stock;
 	static FillStation fillStation;
+	private Sensordeamon sensordeamon;
 
 	static BrickConfig config;
 
@@ -182,7 +183,7 @@ public class Steuerung {
 		 config = new BrickConfig(this);
 		 getBrickIpsFromConfig();
 
-		Sensordeamon sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe
+		 sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe
 																							// das
 																							// Object
 																							// und
@@ -814,7 +815,12 @@ public class Steuerung {
 		return bricks;
 	}
 
-	public static void closePorts() {
+	@SuppressWarnings("deprecation")
+	public void stopSensorDeamon(){
+		sensordeamon.suspend();
+	}
+	
+	public void closePorts() {
 		/**
 		 * @param schliesst
 		 *            alle Motorports7Sensorports der Bricks aus der Liste muss

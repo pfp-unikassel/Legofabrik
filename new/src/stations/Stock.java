@@ -456,7 +456,6 @@ public class Stock {
 				return ("DOWN/Right");
 			}
 		}
-		return "";
 	}
 
 	public boolean isStock1() {

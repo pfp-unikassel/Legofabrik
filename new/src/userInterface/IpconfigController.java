@@ -80,15 +80,12 @@ public class IpconfigController implements Initializable {
 
 		for (int i = 0; i < textFields.size(); i++) {
 
-			if(s.getDefaultIps().get(i).equals(null)){
-				
-			}else{
+			
 				textFields.get(i).setText(s.getDefaultIps().get(i)); // hol text aus
 				// dem Array
 				// und zeig
 				// ihn im
 				// Fenster
-			}
 			
 		}
 	}

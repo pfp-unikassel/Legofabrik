@@ -24,15 +24,14 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 			if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\Brickconfig.txt").exists()) {
 				readIps();
 				System.out.print("Ip von datei gelesen");
-			} else {
-				if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\BrickDefaultconfig.txt").exists()) {
-					readDefaultIps();
-
+			} 
+			if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\BrickDefaultconfig.txt").exists()) {
+				readDefaultIps();
 				} else {
 					System.out.println("keine der Dateien existiert,lege dault an"); // 
 					SaveInFile.saveInFile("Test.txt", "Hallo Nico");
 				}
-			}
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
