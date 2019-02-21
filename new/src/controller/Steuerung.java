@@ -40,24 +40,39 @@ import stations.FillStation;
 public class Steuerung {
 
 	RemoteEV3 b101;
+	RemoteEV3 b102;
+	RemoteEV3 b103;
+	RemoteEV3 b104;
 	RemoteEV3 b105;
 	RemoteEV3 b106;
 	RemoteEV3 b107;
 	RemoteEV3 b108;
+	RemoteEV3 b109;
+	RemoteEV3 b110;
 	RemoteEV3 b111;
+	RemoteEV3 b112;
 	RemoteEV3 b113;
-	RemoteEV3 b114;
-	RemoteEV3 b115;
-	RemoteEV3 b116;
-	RemoteEV3 b117;
-	RemoteEV3 b118;
-	RemoteEV3 b119;
 	// RemoteEV3 b120;
 
 	static RMIRegulatedMotor b101a;
 	static RMIRegulatedMotor b101b;
 	static RMIRegulatedMotor b101c;
 	static RMIRegulatedMotor b101d;
+
+	static RMIRegulatedMotor b102a;
+	static RMIRegulatedMotor b102b;
+	static RMIRegulatedMotor b102c;
+	static RMIRegulatedMotor b102d;
+
+	static RMIRegulatedMotor b103a;
+	static RMIRegulatedMotor b103b;
+	static RMIRegulatedMotor b103c;
+	static RMIRegulatedMotor b103d;
+
+	static RMIRegulatedMotor b104a;
+	static RMIRegulatedMotor b104b;
+	static RMIRegulatedMotor b104c;
+	static RMIRegulatedMotor b104d;
 
 	static RMIRegulatedMotor b105a;
 	static RMIRegulatedMotor b105b;
@@ -77,44 +92,29 @@ public class Steuerung {
 	static RMIRegulatedMotor b108a;
 	static RMIRegulatedMotor b108b;
 	static RMIRegulatedMotor b108c;
-	static RMIRegulatedMotor b108d;
+
+	static RMIRegulatedMotor b109a;
+	static RMIRegulatedMotor b109b;
+	static RMIRegulatedMotor b109c;
+	static RMIRegulatedMotor b109d;
+
+	static RMIRegulatedMotor b110a;
+	static RMIRegulatedMotor b110b;
+	static RMIRegulatedMotor b110c;
+	static RMIRegulatedMotor b110d;
 
 	static RMIRegulatedMotor b111a;
 	static RMIRegulatedMotor b111b;
 	static RMIRegulatedMotor b111c;
 	static RMIRegulatedMotor b111d;
 
+	static RMIRegulatedMotor b112a;
+	static RMIRegulatedMotor b112b;
+	static RMIRegulatedMotor b112c;
+	static RMIRegulatedMotor b112d;
+
 	static RMIRegulatedMotor b113a;
 	static RMIRegulatedMotor b113b;
-	static RMIRegulatedMotor b113c;
-	static RMIRegulatedMotor b113d;
-
-	static RMIRegulatedMotor b114a;
-	static RMIRegulatedMotor b114b;
-	static RMIRegulatedMotor b114c;
-
-	static RMIRegulatedMotor b115a;
-	static RMIRegulatedMotor b115b;
-	static RMIRegulatedMotor b115c;
-	static RMIRegulatedMotor b115d;
-
-	static RMIRegulatedMotor b116a;
-	static RMIRegulatedMotor b116b;
-	static RMIRegulatedMotor b116c;
-	static RMIRegulatedMotor b116d;
-
-	static RMIRegulatedMotor b117a;
-	static RMIRegulatedMotor b117b;
-	static RMIRegulatedMotor b117c;
-	static RMIRegulatedMotor b117d;
-
-	static RMIRegulatedMotor b118a;
-	static RMIRegulatedMotor b118b;
-	static RMIRegulatedMotor b118c;
-	static RMIRegulatedMotor b118d;
-
-	static RMIRegulatedMotor b119a;
-	static RMIRegulatedMotor b119b;
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
 	static ArrayList<RMISampleProvider> openSensorPorts = new ArrayList<>();
@@ -171,35 +171,6 @@ public class Steuerung {
 		config = new BrickConfig(this);
 		getBrickIpsFromConfig();
 		
-		initAll();
-		System.out.println("steuerung start");
-
-		chargier = new Chargier(this, b106a, b106d, b106b, b105d, b105c);
-		lift = new Lift(this, b101a, b101b, b101c, b101d, b108a);
-		cleaner = new Cleaning(this, b108b, b108c);
-		quality = new Quality(this, b107c, b107b, b107d);
-		compressor = new Compressor(this, b113a, b113b, b113c, b113d);
-		airarms = new Airarms(this, b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
-		qualitystation = new QualityStation(this, b115a, b115b, b115c, b115d);
-		deliverylane = new Deliverylane(this, b116a, b116b, b116c, b116d, b114c);
-		stock = new Stock(this, b118a, b118d, b119a, b119b, b118c, b118b, b117a, b117b, b117c, b117d);
-		fillStation = new FillStation(this, b105a);
-
-
-		 sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe
-																							// das
-																							// Object
-																							// und
-																							// rufe
-																							// b1073
-																							// TODO:
-																							// ad
-																							// 114
-																							// distanz
-		sensordeamon.start();
-		
-		resetDigitalTwin(); // brings digital twin in start position
-		sendPowerLevels(); // sends brick powerlevel to dig twin
 	}
 
 
@@ -276,11 +247,8 @@ public class Steuerung {
 			// powerLevel.getChars(0, 4, c, 0); // get first 4 chars
 			brickName = b.getName();
 
-			if (brickName.length() != 3) {
-				System.out.println("Fehler Brickname muss 3 stellig sein, fuer dig zwilling ");
-			}
 
-			message = ("B" + brickName + "-" + b.getPower().getVoltageMilliVolt()); // message
+			message = ("B1" + brickName + "-" + b.getPower().getVoltageMilliVolt()); // message
 																					// looks
 																					// like:
 																					// B100XXX
@@ -459,29 +427,43 @@ public class Steuerung {
 		quality.resetColorString();
 	}
 	
-	public void reconnectBricks() {
-		initAll();
+	public void connectBricks() {
 		
-		chargier = new Chargier(this, b106a, b106d, b106b, b105d, b105c);
-		lift = new Lift(this, b101a, b101b, b101c, b101d, b108a);
-		cleaner = new Cleaning(this, b108b, b108c);
-		quality = new Quality(this, b107c, b107b, b107d);
-		compressor = new Compressor(this, b113a, b113b, b113c, b113d);
-		airarms = new Airarms(this, b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
-		qualitystation = new QualityStation(this, b115a, b115b, b115c, b115d);
-		deliverylane = new Deliverylane(this, b116a, b116b, b116c, b116d, b114c);
-		stock = new Stock(this, b118a, b118d, b119a, b119b, b118c, b118b, b117a, b117b, b117c, b117d);
-		fillStation = new FillStation(this, b105a);
+		initAll();
+		System.out.println("Connected");
+
+		chargier = new Chargier(this, b103a, b103d, b103b, b102d, b102c);
+		lift = new Lift(this, b101a, b101b, b101c, b101d, b105a);
+		cleaner = new Cleaning(this, b105b, b105c);
+		quality = new Quality(this, b104c, b104b, b104d);
+		compressor = new Compressor(this, b107a, b107b, b107c, b107d);
+		airarms = new Airarms(this, b106a, b106b, b106c, b106d, b108a, b108b); // distanzsensor
+		qualitystation = new QualityStation(this, b109a, b109b, b109c, b109d);
+		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
+		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
+		fillStation = new FillStation(this, b102a);
 
 
-		sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); 
-		sensordeamon.start();
+		 sensordeamon = new Sensordeamon(this, b102, b103, b104, b107, b109); 
+		 sensordeamon.start();
+		
+		 updatePowerLevel();
+		resetDigitalTwin(); // brings digital twin in start position
+		sendPowerLevels(); // sends brick powerlevel to dig twin
+		
 	}
 	
 	public void disconnectBricks() { /* */
 		
+		reset();
 		stopSensorDeamon();
 		closePorts();
+		System.out.println("DISCONNECTED");
+		
+	}
+
+	private void reset() {
+		// TODO add every reset method from every station
 		
 	}
 
@@ -494,18 +476,18 @@ public class Steuerung {
 		System.out.println("init All");
 
 		initBrick1();
+		initBrick2();
+		initBrick3();
+		initBrick4();
 		initBrick5();
 		initBrick6();
 		initBrick7();
 		initBrick8();
+		initBrick9();
+		initBrick10();
 		initBrick11();
+		initBrick12();
 		initBrick13();
-		initBrick14();
-		initBrick15();
-		initBrick16();
-		initBrick17();
-		initBrick18();
-		initBrick19();
 
 	}
 
@@ -536,14 +518,14 @@ public class Steuerung {
 		bricks.add(b101);
 	}
 
-	public void initBrick5() {
+	public void initBrick2() {
 
 		try {
 			if(getBrickIps().get(1)!= null) {
-				b105 = new RemoteEV3(getBrickIps().get(1));				
+				b102 = new RemoteEV3(getBrickIps().get(1));				
 			}
-			else b105 = new RemoteEV3("192.168.0.107");
-			getPowerLevel(b105);
+			else b102 = new RemoteEV3("192.168.0.107");
+			getPowerLevel(b102);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -551,25 +533,25 @@ public class Steuerung {
 			System.out.println("B5 not Found");
 		}
 
-		b105a = b105.createRegulatedMotor("A", 'L'); // Motor Fillstation
-		b105c = b105.createRegulatedMotor("C", 'L'); // Motor Drehtisch
-		b105d = b105.createRegulatedMotor("D", 'L'); // Motor Räder Drehtisch
+		b102a = b102.createRegulatedMotor("A", 'L'); // Motor Fillstation
+		b102c = b102.createRegulatedMotor("C", 'L'); // Motor Drehtisch
+		b102d = b102.createRegulatedMotor("D", 'L'); // Motor Räder Drehtisch
 
-		openMotorPorts.add(b105a);
-		openMotorPorts.add(b105c);
-		openMotorPorts.add(b105d);
+		openMotorPorts.add(b102a);
+		openMotorPorts.add(b102c);
+		openMotorPorts.add(b102d);
 
-		bricks.add(b105);
+		bricks.add(b102);
 	}
 
-	public void initBrick6() {
+	public void initBrick3() {
 
 		try {
 			if(getBrickIps().get(2)!= null) {
-				b106 = new RemoteEV3(getBrickIps().get(2));				
+				b103 = new RemoteEV3(getBrickIps().get(2));				
 			}
-			else b106 = new RemoteEV3("192.168.0.101");
-			getPowerLevel(b106);
+			else b103 = new RemoteEV3("192.168.0.101");
+			getPowerLevel(b103);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -578,25 +560,25 @@ public class Steuerung {
 
 		}
 
-		b106a = b106.createRegulatedMotor("A", 'L'); // Laufband zum Drehtisch
-		b106b = b106.createRegulatedMotor("B", 'L'); // Laufband vom Drehtisch
-		b106d = b106.createRegulatedMotor("D", 'L'); // Laufband zur
+		b103a = b103.createRegulatedMotor("A", 'L'); // Laufband zum Drehtisch
+		b103b = b103.createRegulatedMotor("B", 'L'); // Laufband vom Drehtisch
+		b103d = b103.createRegulatedMotor("D", 'L'); // Laufband zur
 														// Kippvorrichtung)
 
-		openMotorPorts.add(b106a);
-		openMotorPorts.add(b106b);
-		openMotorPorts.add(b106d);
+		openMotorPorts.add(b103a);
+		openMotorPorts.add(b103b);
+		openMotorPorts.add(b103d);
 
-		bricks.add(b106);
+		bricks.add(b103);
 	}
 
-	public void initBrick7() {
+	public void initBrick4() {
 		try {
 			if(getBrickIps().get(3)!= null) {
-				b107 = new RemoteEV3(getBrickIps().get(3));				
+				b104 = new RemoteEV3(getBrickIps().get(3));				
 			}
-			else b107 = new RemoteEV3("192.168.0.106");
-			getPowerLevel(b107);
+			else b104 = new RemoteEV3("192.168.0.106");
+			getPowerLevel(b104);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -605,25 +587,25 @@ public class Steuerung {
 
 		}
 
-		b107b = b107.createRegulatedMotor("B", 'M');
-		b107c = b107.createRegulatedMotor("C", 'L');
-		b107d = b107.createRegulatedMotor("D", 'L');
+		b104b = b104.createRegulatedMotor("B", 'M');
+		b104c = b104.createRegulatedMotor("C", 'L');
+		b104d = b104.createRegulatedMotor("D", 'L');
 
-		openMotorPorts.add(b107b);
-		openMotorPorts.add(b107c);
-		openMotorPorts.add(b107d);
+		openMotorPorts.add(b104b);
+		openMotorPorts.add(b104c);
+		openMotorPorts.add(b104d);
 
-		bricks.add(b107);
+		bricks.add(b104);
 	}
 
-	public void initBrick8() {
+	public void initBrick5() {
 		// Brick 108
 		try {
 			if(getBrickIps().get(4)!= null) {
-				b108 = new RemoteEV3(getBrickIps().get(4));				
+				b105 = new RemoteEV3(getBrickIps().get(4));				
 			}
-			else b108 = new RemoteEV3("192.168.0.108");
-			getPowerLevel(b108);
+			else b105 = new RemoteEV3("192.168.0.108");
+			getPowerLevel(b105);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -632,25 +614,25 @@ public class Steuerung {
 
 		}
 
-		b108a = b108.createRegulatedMotor("A", 'M');
-		b108b = b108.createRegulatedMotor("B", 'L');
-		b108c = b108.createRegulatedMotor("C", 'M');
+		b105a = b105.createRegulatedMotor("A", 'M');
+		b105b = b105.createRegulatedMotor("B", 'L');
+		b105c = b105.createRegulatedMotor("C", 'M');
 
-		openMotorPorts.add(b108a);
-		openMotorPorts.add(b108b);
-		openMotorPorts.add(b108c);
+		openMotorPorts.add(b105a);
+		openMotorPorts.add(b105b);
+		openMotorPorts.add(b105c);
 
-		bricks.add(b108);
+		bricks.add(b105);
 	}
 
-	public void initBrick11() {
+	public void initBrick6() {
 		// Brick 111
 		try {
 			if(getBrickIps().get(5)!= null) {
-				b111 = new RemoteEV3(getBrickIps().get(5));				
+				b106 = new RemoteEV3(getBrickIps().get(5));				
 			}
-			else b111 = new RemoteEV3("192.168.0.102");
-			getPowerLevel(b111);
+			else b106 = new RemoteEV3("192.168.0.102");
+			getPowerLevel(b106);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -659,10 +641,153 @@ public class Steuerung {
 
 		}
 
-		b111a = b111.createRegulatedMotor("A", 'M');
-		b111b = b111.createRegulatedMotor("B", 'M');
-		b111c = b111.createRegulatedMotor("C", 'M');
-		b111d = b111.createRegulatedMotor("D", 'M');
+		b106a = b106.createRegulatedMotor("A", 'M');
+		b106b = b106.createRegulatedMotor("B", 'M');
+		b106c = b106.createRegulatedMotor("C", 'M');
+		b106d = b106.createRegulatedMotor("D", 'M');
+
+		openMotorPorts.add(b106a);
+		openMotorPorts.add(b106b);
+		openMotorPorts.add(b106c);
+		openMotorPorts.add(b106d);
+
+		bricks.add(b106);
+	}
+
+	public void initBrick7() {
+		// Brick 113
+		try {
+			if(getBrickIps().get(6)!= null) {
+				b107 = new RemoteEV3(getBrickIps().get(6));				
+			}
+			else b107 = new RemoteEV3("192.168.0.109");
+			getPowerLevel(b107);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			closePorts();
+			System.out.println("B13 not Found");
+
+		}
+
+		b107a = b107.createRegulatedMotor("A", 'L');
+		b107b = b107.createRegulatedMotor("B", 'L');
+		b107c = b107.createRegulatedMotor("C", 'L');
+		b107d = b107.createRegulatedMotor("D", 'L');
+
+		openMotorPorts.add(b107a);
+		openMotorPorts.add(b107b);
+		openMotorPorts.add(b107c);
+		openMotorPorts.add(b107d);
+
+		bricks.add(b107);
+	}
+
+	public void initBrick8() {
+		// Brick 114
+		try {
+			if(getBrickIps().get(7)!= null) {
+				b108 = new RemoteEV3(getBrickIps().get(7));				
+			}
+			else b108 = new RemoteEV3("192.168.0.105");
+			getPowerLevel(b108);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			closePorts();
+			System.out.println("B14 not Found");
+
+		}
+
+		b108a = b108.createRegulatedMotor("A", 'M');
+		b108b = b108.createRegulatedMotor("B", 'M');
+		b108c = b108.createRegulatedMotor("C", 'L');
+
+		openMotorPorts.add(b108a);
+		openMotorPorts.add(b108b);
+		openMotorPorts.add(b108c);
+
+		bricks.add(b108);
+	}
+
+	public void initBrick9() {
+		// Brick 115
+		try {
+			if(getBrickIps().get(8)!= null) {
+				b109 = new RemoteEV3(getBrickIps().get(8));				
+			}
+			else b109 = new RemoteEV3("192.168.0.110");
+			getPowerLevel(b109);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			closePorts();
+			System.out.println("B15 not Found");
+
+		}
+
+		b109a = b109.createRegulatedMotor("A", 'M');
+		b109b = b109.createRegulatedMotor("B", 'M');
+		b109c = b109.createRegulatedMotor("C", 'M');
+		b109d = b109.createRegulatedMotor("D", 'M');
+
+		openMotorPorts.add(b109a);
+		openMotorPorts.add(b109b);
+		openMotorPorts.add(b109c);
+		openMotorPorts.add(b109d);
+
+		bricks.add(b109);
+	}
+
+	public void initBrick10() {
+		// Brick 116
+		try {
+			if(getBrickIps().get(9)!= null) {
+				b110 = new RemoteEV3(getBrickIps().get(9));				
+			}
+			else b110 = new RemoteEV3("192.168.0.104");
+			getPowerLevel(b110);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			closePorts();
+			System.out.println("B16 not Found");
+
+		}
+
+		b110a = b110.createRegulatedMotor("A", 'M');
+		b110b = b110.createRegulatedMotor("B", 'M');
+		b110c = b110.createRegulatedMotor("C", 'M');
+		b110d = b110.createRegulatedMotor("D", 'M');
+
+		openMotorPorts.add(b110a);
+		openMotorPorts.add(b110b);
+		openMotorPorts.add(b110c);
+		openMotorPorts.add(b110d);
+
+		bricks.add(b110);
+	}
+
+	public void initBrick11() {
+		// Brick 117
+		try {
+			if(getBrickIps().get(10)!= null) {
+				b111 = new RemoteEV3(getBrickIps().get(10));				
+			}
+			else b111 = new RemoteEV3("192.168.0.111");
+			getPowerLevel(b111);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			closePorts();
+			System.out.println("B17 not Found");
+
+		}
+
+		b111a = b111.createRegulatedMotor("A", 'L');
+		b111b = b111.createRegulatedMotor("B", 'L');
+		b111c = b111.createRegulatedMotor("C", 'L');
+		b111d = b111.createRegulatedMotor("D", 'L');
 
 		openMotorPorts.add(b111a);
 		openMotorPorts.add(b111b);
@@ -672,157 +797,14 @@ public class Steuerung {
 		bricks.add(b111);
 	}
 
-	public void initBrick13() {
-		// Brick 113
-		try {
-			if(getBrickIps().get(6)!= null) {
-				b113 = new RemoteEV3(getBrickIps().get(6));				
-			}
-			else b113 = new RemoteEV3("192.168.0.109");
-			getPowerLevel(b113);
-		} catch (RemoteException | MalformedURLException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			closePorts();
-			System.out.println("B13 not Found");
-
-		}
-
-		b113a = b113.createRegulatedMotor("A", 'L');
-		b113b = b113.createRegulatedMotor("B", 'L');
-		b113c = b113.createRegulatedMotor("C", 'L');
-		b113d = b113.createRegulatedMotor("D", 'L');
-
-		openMotorPorts.add(b113a);
-		openMotorPorts.add(b113b);
-		openMotorPorts.add(b113c);
-		openMotorPorts.add(b113d);
-
-		bricks.add(b113);
-	}
-
-	public void initBrick14() {
-		// Brick 114
-		try {
-			if(getBrickIps().get(7)!= null) {
-				b114 = new RemoteEV3(getBrickIps().get(7));				
-			}
-			else b114 = new RemoteEV3("192.168.0.105");
-			getPowerLevel(b114);
-		} catch (RemoteException | MalformedURLException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			closePorts();
-			System.out.println("B14 not Found");
-
-		}
-
-		b114a = b114.createRegulatedMotor("A", 'M');
-		b114b = b114.createRegulatedMotor("B", 'M');
-		b114c = b114.createRegulatedMotor("C", 'L');
-
-		openMotorPorts.add(b114a);
-		openMotorPorts.add(b114b);
-		openMotorPorts.add(b114c);
-
-		bricks.add(b114);
-	}
-
-	public void initBrick15() {
-		// Brick 115
-		try {
-			if(getBrickIps().get(8)!= null) {
-				b115 = new RemoteEV3(getBrickIps().get(8));				
-			}
-			else b115 = new RemoteEV3("192.168.0.110");
-			getPowerLevel(b115);
-		} catch (RemoteException | MalformedURLException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			closePorts();
-			System.out.println("B15 not Found");
-
-		}
-
-		b115a = b115.createRegulatedMotor("A", 'M');
-		b115b = b115.createRegulatedMotor("B", 'M');
-		b115c = b115.createRegulatedMotor("C", 'M');
-		b115d = b115.createRegulatedMotor("D", 'M');
-
-		openMotorPorts.add(b115a);
-		openMotorPorts.add(b115b);
-		openMotorPorts.add(b115c);
-		openMotorPorts.add(b115d);
-
-		bricks.add(b115);
-	}
-
-	public void initBrick16() {
-		// Brick 116
-		try {
-			if(getBrickIps().get(9)!= null) {
-				b116 = new RemoteEV3(getBrickIps().get(9));				
-			}
-			else b116 = new RemoteEV3("192.168.0.104");
-			getPowerLevel(b116);
-		} catch (RemoteException | MalformedURLException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			closePorts();
-			System.out.println("B16 not Found");
-
-		}
-
-		b116a = b116.createRegulatedMotor("A", 'M');
-		b116b = b116.createRegulatedMotor("B", 'M');
-		b116c = b116.createRegulatedMotor("C", 'M');
-		b116d = b116.createRegulatedMotor("D", 'M');
-
-		openMotorPorts.add(b116a);
-		openMotorPorts.add(b116b);
-		openMotorPorts.add(b116c);
-		openMotorPorts.add(b116d);
-
-		bricks.add(b116);
-	}
-
-	public void initBrick17() {
-		// Brick 117
-		try {
-			if(getBrickIps().get(10)!= null) {
-				b117 = new RemoteEV3(getBrickIps().get(10));				
-			}
-			else b117 = new RemoteEV3("192.168.0.111");
-			getPowerLevel(b117);
-		} catch (RemoteException | MalformedURLException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			closePorts();
-			System.out.println("B17 not Found");
-
-		}
-
-		b117a = b117.createRegulatedMotor("A", 'L');
-		b117b = b117.createRegulatedMotor("B", 'L');
-		b117c = b117.createRegulatedMotor("C", 'L');
-		b117d = b117.createRegulatedMotor("D", 'L');
-
-		openMotorPorts.add(b117a);
-		openMotorPorts.add(b117b);
-		openMotorPorts.add(b117c);
-		openMotorPorts.add(b117d);
-
-		bricks.add(b117);
-	}
-
-	public void initBrick18() {
+	public void initBrick12() {
 		// Brick 118
 		try {
 			if(getBrickIps().get(11)!= null) {
-				b118 = new RemoteEV3(getBrickIps().get(11));				
+				b112 = new RemoteEV3(getBrickIps().get(11));				
 			}
-			else b118 = new RemoteEV3("192.168.0.114");
-			getPowerLevel(b118);
+			else b112 = new RemoteEV3("192.168.0.114");
+			getPowerLevel(b112);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -831,27 +813,27 @@ public class Steuerung {
 
 		}
 
-		b118a = b118.createRegulatedMotor("A", 'L');
-		b118b = b118.createRegulatedMotor("B", 'L');
-		b118c = b118.createRegulatedMotor("C", 'L');
-		b118d = b118.createRegulatedMotor("D", 'L');
+		b112a = b112.createRegulatedMotor("A", 'L');
+		b112b = b112.createRegulatedMotor("B", 'L');
+		b112c = b112.createRegulatedMotor("C", 'L');
+		b112d = b112.createRegulatedMotor("D", 'L');
 
-		openMotorPorts.add(b118a);
-		openMotorPorts.add(b118b);
-		openMotorPorts.add(b118c);
-		openMotorPorts.add(b118d);
+		openMotorPorts.add(b112a);
+		openMotorPorts.add(b112b);
+		openMotorPorts.add(b112c);
+		openMotorPorts.add(b112d);
 
-		bricks.add(b118);
+		bricks.add(b112);
 	}
 
-	public void initBrick19() {
+	public void initBrick13() {
 		// Brick 119
 		try {
 			if(getBrickIps().get(12)!= null) {
-				b119 = new RemoteEV3(getBrickIps().get(12));				
+				b113 = new RemoteEV3(getBrickIps().get(12));				
 			}
-			else b119 = new RemoteEV3("192.168.0.112");
-			getPowerLevel(b119);
+			else b113 = new RemoteEV3("192.168.0.112");
+			getPowerLevel(b113);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -860,13 +842,13 @@ public class Steuerung {
 
 		}
 
-		b119a = b119.createRegulatedMotor("A", 'L');
-		b119b = b119.createRegulatedMotor("B", 'L');
+		b113a = b113.createRegulatedMotor("A", 'L');
+		b113b = b113.createRegulatedMotor("B", 'L');
 
-		openMotorPorts.add(b119a);
-		openMotorPorts.add(b119b);
+		openMotorPorts.add(b113a);
+		openMotorPorts.add(b113b);
 
-		bricks.add(b119);
+		bricks.add(b113);
 	}
 
 	public void addToSensorList(RMISampleProvider s) {
@@ -892,7 +874,7 @@ public class Steuerung {
 	public void closePorts() {
 		/**
 		 * @param schliesst
-		 *            alle Motorports7Sensorports der Bricks aus der Liste muss
+		 *            alle Motorports/Sensorports der Bricks aus der Liste muss
 		 *            bei jedem programm Ende gemacht werden
 		 */
 
@@ -918,6 +900,8 @@ public class Steuerung {
 			}
 		}
 		openSensorPorts.clear();
+		openMotorPorts.clear();
+		getBrickList().clear();
 	}
 
 	public Chargier getChargier() {

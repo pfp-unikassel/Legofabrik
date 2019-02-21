@@ -68,7 +68,7 @@ public class Controller implements Initializable {
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
-	private boolean connected = true; // connected with bricks  
+	private boolean connected = false; // connected with bricks  
 	private Timeline timeline;
 	private float timer = 0;
 	long startTime;
@@ -394,10 +394,10 @@ public class Controller implements Initializable {
 		detaillabel07.setText("");
 		detaillabel08.setText("");
 		detailslabel10.setText(s.getSzenario() + "");
-		detailslabel11.setText(String.valueOf(s.getStock().getStockPlace1()));
-		detailslabel12.setText(String.valueOf(s.getStock().getStockPlace2()));
-		detailslabel13.setText(String.valueOf(s.getStock().getStockPlace3()));
-		detailslabel14.setText(String.valueOf(s.getStock().getStockPlace4()));
+		detailslabel11.setText(String.valueOf(s.getStock().isStock1()));
+		detailslabel12.setText(String.valueOf(s.getStock().isStock2()));
+		detailslabel13.setText(String.valueOf(s.getStock().isStock3()));
+		detailslabel14.setText(String.valueOf(s.getStock().isStock4()));
 		detailslabel15.setText(s.getStock().getElevatorpositionAsString());
 		detailslabel16.setText("");
 		detailslabel17.setText("");
@@ -539,10 +539,9 @@ public class Controller implements Initializable {
 	public void emptyButtonClicked() {
 		System.out.println("emptyButtonClicked clicked");
 		if(connected) {
-			
-		}else {
 			s.disconnectBricks();
-			connected = false;
+			connected = false;			
+		}else {
 		}
 
 	}
@@ -552,7 +551,7 @@ public class Controller implements Initializable {
 		if(connected) {
 			
 		}else {
-			s.initAll();
+			s.connectBricks();
 			connected =true;
 		}
 
@@ -723,13 +722,13 @@ public class Controller implements Initializable {
 		this.emptyButton = emptyButton;
 	}
 
-	public Button getAllButton() {
-		return allButton;
-	}
-
-	public void setAllButton(Button allButton) {
-		this.allButton = allButton;
-	}
+//	public Button getAllButton() {
+//		return allButton;
+//	}
+//
+//	public void setAllButton(Button allButton) {
+//		this.allButton = allButton;
+//	}
 
 	public Button getSzenarioButton1() {
 		return szenarioButton1;

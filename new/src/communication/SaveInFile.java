@@ -58,7 +58,6 @@ public class SaveInFile {
 				PrintWriter out = new PrintWriter(recivedMessagesFile);
 				for(String s : strings){
 					out.println(s);
-					System.out.println(s);
 				}
 				out.close();
 			}

@@ -23,7 +23,7 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 		try {
 			if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\Brickconfig.txt").exists()) {
 				readIps();
-				System.out.print("Ip von datei gelesen");
+				System.out.println("Ip von datei gelesen");
 			} 
 			if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\BrickDefaultconfig.txt").exists()) {
 				readDefaultIps();
@@ -52,7 +52,6 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 			while ((line = br.readLine()) != null) {
 
 				brickips.add(line);
-				System.out.println(line);
 			}
 		}
 	}

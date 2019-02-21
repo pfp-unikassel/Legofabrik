@@ -59,7 +59,7 @@
                         <Button fx:id="startButton" layoutX="16.0" layoutY="763.0" mnemonicParsing="false" onMouseClicked="#startButtonClicked" prefHeight="48.0" prefWidth="144.0" text="START" />
                         <Button fx:id="stopButton" layoutX="16.0" layoutY="622.0" mnemonicParsing="false" onMouseClicked="#stopButtonClicked" prefHeight="48.0" prefWidth="144.0" text="STOP" />
                         <Button fx:id="emptyButton" layoutX="16.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#emptyButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Disconnect" />
-                        <Button fx:id="connectButton" layoutX="16.0" layoutY="535.0" mnemonicParsing="false" onAction="#connectButtonClicked" onMouseClicked="#allButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Connect" />
+                        <Button fx:id="connectButton" layoutX="16.0" layoutY="535.0" mnemonicParsing="false" onAction="#connectButtonClicked" prefHeight="48.0" prefWidth="144.0" text="Connect" />
                         <Button fx:id="szenarioButton1" layoutX="16.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#szenarioButton1Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 1" />
                         <Button fx:id="szenarioButton2" layoutX="16.0" layoutY="340.0" mnemonicParsing="false" onMouseClicked="#szenarioButton2Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 2" />
                         <Button fx:id="szenarioButton3" layoutX="16.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#szenarioButton3Clicked" prefHeight="48.0" prefWidth="144.0" text="Szenario 3" />

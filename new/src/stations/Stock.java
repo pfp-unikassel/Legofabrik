@@ -416,13 +416,13 @@ public class Stock {
 			if (getElevatorPositionVertical() == 'u') {
 				System.out.println("Elevator is UP/LEFT");
 			} else {
-				System.out.println("Elevator is UP/Right");
+				System.out.println("Elevator is Down/LEFT");
 			}
 		} else {
 			if (getElevatorPositionVertical() == 'u') {
-				System.out.println("Elevator is DOWN/LEFT");
+				System.out.println("Elevator is Down/Right");
 			} else {
-				System.out.println("Elevator is DOWN/RIGHT");
+				System.out.println("Elevator is Up/RIGHT");
 			}
 
 		}
@@ -447,11 +447,11 @@ public class Stock {
 			if (getElevatorPositionVertical() == 'u') {
 				return ("UP/Left");
 			} else {
-				return ("UP/Right");
+				return ("Down/Left");
 			}
 		} else {
 			if (getElevatorPositionVertical() == 'u') {
-				return ("DOWN/Left");
+				return ("DOWN/Rigth");
 			} else {
 				return ("DOWN/Right");
 			}
