@@ -458,6 +458,32 @@ public class Steuerung {
 		b1072Status = false;
 		quality.resetColorString();
 	}
+	
+	public void reconnectBricks() {
+		initAll();
+		
+		chargier = new Chargier(this, b106a, b106d, b106b, b105d, b105c);
+		lift = new Lift(this, b101a, b101b, b101c, b101d, b108a);
+		cleaner = new Cleaning(this, b108b, b108c);
+		quality = new Quality(this, b107c, b107b, b107d);
+		compressor = new Compressor(this, b113a, b113b, b113c, b113d);
+		airarms = new Airarms(this, b111a, b111b, b111c, b111d, b114a, b114b); // distanzsensor
+		qualitystation = new QualityStation(this, b115a, b115b, b115c, b115d);
+		deliverylane = new Deliverylane(this, b116a, b116b, b116c, b116d, b114c);
+		stock = new Stock(this, b118a, b118d, b119a, b119b, b118c, b118b, b117a, b117b, b117c, b117d);
+		fillStation = new FillStation(this, b105a);
+
+
+		sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); 
+		sensordeamon.start();
+	}
+	
+	public void disconnectBricks() { /* */
+		
+		stopSensorDeamon();
+		closePorts();
+		
+	}
 
 	public void initAll() {
 		/**

@@ -29,7 +29,7 @@ public class Controller implements Initializable {
 	public Button stopButton;
 	public Button pauseButton;
 	public Button emptyButton;
-	public Button allButton;
+	public Button connectButton;
 	public Button szenarioButton1;
 	public Button szenarioButton2;
 	public Button szenarioButton3;
@@ -68,6 +68,7 @@ public class Controller implements Initializable {
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
+	private boolean connected = true; // connected with bricks  
 	private Timeline timeline;
 	private float timer = 0;
 	long startTime;
@@ -537,13 +538,23 @@ public class Controller implements Initializable {
 
 	public void emptyButtonClicked() {
 		System.out.println("emptyButtonClicked clicked");
-		s.stopSensorDeamon();
-		s.closePorts();
+		if(connected) {
+			
+		}else {
+			s.disconnectBricks();
+			connected = false;
+		}
 
 	}
 
-	public void allButtonClicked() {
-		System.out.println("allButtonClicked clicked");
+	public void connectButtonClicked() {
+		System.out.println("connectClicked clicked");
+		if(connected) {
+			
+		}else {
+			s.initAll();
+			connected =true;
+		}
 
 	}
 
