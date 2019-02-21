@@ -132,7 +132,7 @@ public class Steuerung {
 	static Stock stock;
 	static FillStation fillStation;
 	private Sensordeamon sensordeamon;
-
+	
 	static BrickConfig config;
 
 	private boolean b1053Status = false; // set True if button fires
@@ -162,10 +162,15 @@ public class Steuerung {
 		/**
 		 * @param Initialsiert
 		 *            alle Stations und den Sensordeamon sollte vom Controller
+		 *            holt ips aus datei
 		 *            ausgeführt werden oder dieser übergeben.
 		 */
 
 		c = c1;
+		
+		config = new BrickConfig(this);
+		getBrickIpsFromConfig();
+		
 		initAll();
 		System.out.println("steuerung start");
 
@@ -180,8 +185,6 @@ public class Steuerung {
 		stock = new Stock(this, b118a, b118d, b119a, b119b, b118c, b118b, b117a, b117b, b117c, b117d);
 		fillStation = new FillStation(this, b105a);
 
-		 config = new BrickConfig(this);
-		 getBrickIpsFromConfig();
 
 		 sensordeamon = new Sensordeamon(this, b105, b106, b107, b113, b115); // uebergebe
 																							// das
@@ -460,6 +463,7 @@ public class Steuerung {
 		/**
 		 * @param Initioalisiert
 		 *            alle Bricks
+		 *            wenn ip in Datei steht wird diese genommen, wenn nicht die im code definierte
 		 */
 		System.out.println("init All");
 
@@ -482,7 +486,10 @@ public class Steuerung {
 	public void initBrick1() {
 		// Brick 101
 		try {
-			b101 = new RemoteEV3("192.168.0.103"); // hier muessen alle Brick  Ips eingetragen werden
+			if(getBrickIps().get(0)!= null) {
+				b101 = new RemoteEV3(getBrickIps().get(0));				
+			}
+			else b101 = new RemoteEV3("192.168.0.103"); // hier muessen alle Brick  Ips eingetragen werden
 			getPowerLevel(b101);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -506,7 +513,10 @@ public class Steuerung {
 	public void initBrick5() {
 
 		try {
-			b105 = new RemoteEV3("192.168.0.107");
+			if(getBrickIps().get(1)!= null) {
+				b105 = new RemoteEV3(getBrickIps().get(1));				
+			}
+			else b105 = new RemoteEV3("192.168.0.107");
 			getPowerLevel(b105);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -529,7 +539,10 @@ public class Steuerung {
 	public void initBrick6() {
 
 		try {
-			b106 = new RemoteEV3("192.168.0.101");
+			if(getBrickIps().get(2)!= null) {
+				b106 = new RemoteEV3(getBrickIps().get(2));				
+			}
+			else b106 = new RemoteEV3("192.168.0.101");
 			getPowerLevel(b106);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -553,7 +566,10 @@ public class Steuerung {
 
 	public void initBrick7() {
 		try {
-			b107 = new RemoteEV3("192.168.0.106");
+			if(getBrickIps().get(3)!= null) {
+				b107 = new RemoteEV3(getBrickIps().get(3));				
+			}
+			else b107 = new RemoteEV3("192.168.0.106");
 			getPowerLevel(b107);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -577,7 +593,10 @@ public class Steuerung {
 	public void initBrick8() {
 		// Brick 108
 		try {
-			b108 = new RemoteEV3("192.168.0.108");
+			if(getBrickIps().get(4)!= null) {
+				b108 = new RemoteEV3(getBrickIps().get(4));				
+			}
+			else b108 = new RemoteEV3("192.168.0.108");
 			getPowerLevel(b108);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -601,7 +620,10 @@ public class Steuerung {
 	public void initBrick11() {
 		// Brick 111
 		try {
-			b111 = new RemoteEV3("192.168.0.102");
+			if(getBrickIps().get(5)!= null) {
+				b111 = new RemoteEV3(getBrickIps().get(5));				
+			}
+			else b111 = new RemoteEV3("192.168.0.102");
 			getPowerLevel(b111);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -627,7 +649,10 @@ public class Steuerung {
 	public void initBrick13() {
 		// Brick 113
 		try {
-			b113 = new RemoteEV3("192.168.0.109");
+			if(getBrickIps().get(6)!= null) {
+				b113 = new RemoteEV3(getBrickIps().get(6));				
+			}
+			else b113 = new RemoteEV3("192.168.0.109");
 			getPowerLevel(b113);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -653,7 +678,10 @@ public class Steuerung {
 	public void initBrick14() {
 		// Brick 114
 		try {
-			b114 = new RemoteEV3("192.168.0.105");
+			if(getBrickIps().get(7)!= null) {
+				b114 = new RemoteEV3(getBrickIps().get(7));				
+			}
+			else b114 = new RemoteEV3("192.168.0.105");
 			getPowerLevel(b114);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -677,7 +705,10 @@ public class Steuerung {
 	public void initBrick15() {
 		// Brick 115
 		try {
-			b115 = new RemoteEV3("192.168.0.110");
+			if(getBrickIps().get(8)!= null) {
+				b115 = new RemoteEV3(getBrickIps().get(8));				
+			}
+			else b115 = new RemoteEV3("192.168.0.110");
 			getPowerLevel(b115);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -703,7 +734,10 @@ public class Steuerung {
 	public void initBrick16() {
 		// Brick 116
 		try {
-			b116 = new RemoteEV3("192.168.0.104");
+			if(getBrickIps().get(9)!= null) {
+				b116 = new RemoteEV3(getBrickIps().get(9));				
+			}
+			else b116 = new RemoteEV3("192.168.0.104");
 			getPowerLevel(b116);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -729,7 +763,10 @@ public class Steuerung {
 	public void initBrick17() {
 		// Brick 117
 		try {
-			b117 = new RemoteEV3("192.168.0.111");
+			if(getBrickIps().get(10)!= null) {
+				b117 = new RemoteEV3(getBrickIps().get(10));				
+			}
+			else b117 = new RemoteEV3("192.168.0.111");
 			getPowerLevel(b117);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -755,7 +792,10 @@ public class Steuerung {
 	public void initBrick18() {
 		// Brick 118
 		try {
-			b118 = new RemoteEV3("192.168.0.114");
+			if(getBrickIps().get(11)!= null) {
+				b118 = new RemoteEV3(getBrickIps().get(11));				
+			}
+			else b118 = new RemoteEV3("192.168.0.114");
 			getPowerLevel(b118);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -781,7 +821,10 @@ public class Steuerung {
 	public void initBrick19() {
 		// Brick 119
 		try {
-			b119 = new RemoteEV3("192.168.0.112");
+			if(getBrickIps().get(12)!= null) {
+				b119 = new RemoteEV3(getBrickIps().get(12));				
+			}
+			else b119 = new RemoteEV3("192.168.0.112");
 			getPowerLevel(b119);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -1536,6 +1579,14 @@ public class Steuerung {
 
 	public static void setAirarms(Airarms airarms) {
 		Steuerung.airarms = airarms;
+	}
+
+	public ArrayList<String> getBrickIps() {
+		return brickIps;
+	}
+
+	public void setBrickIps(ArrayList<String> brickIps) {
+		this.brickIps = brickIps;
 	}
 
 }
