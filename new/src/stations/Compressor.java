@@ -7,23 +7,25 @@ import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Compressor {
 
+	private boolean status = true; // On = true -- off = false
 	private boolean onPressure = false;
 	RMIRegulatedMotor m1;
 	RMIRegulatedMotor m2;
 	RMIRegulatedMotor m3;
 	RMIRegulatedMotor m4;
-	
+
 	private Steuerung s;
 
-	public Compressor(Steuerung s,RMIRegulatedMotor m1, RMIRegulatedMotor m2, RMIRegulatedMotor m3, RMIRegulatedMotor m4) {
-		
+	public Compressor(Steuerung s, RMIRegulatedMotor m1, RMIRegulatedMotor m2, RMIRegulatedMotor m3,
+			RMIRegulatedMotor m4) {
+
 		this.s = s;
 		this.m1 = m1;
 		this.m2 = m2;
 		this.m3 = m3;
 		this.m4 = m4;
 
-		try {			// Set Compressor speed
+		try { // Set Compressor speed
 			m1.setSpeed(800);
 			m2.setSpeed(800);
 			m3.setSpeed(800);
@@ -36,18 +38,21 @@ public class Compressor {
 
 	public void startCompressor() {
 
-		if (!getOnPressure()) {
+		if (status) {
 
-			try {
+			if (!getOnPressure()) {
 
-				m1.forward(); // TODO:2 for 2 back
-				m2.forward();
-				m3.backward();
-				m4.backward();
+				try {
 
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+					m1.forward(); // TODO:2 for 2 back
+					m2.forward();
+					m3.backward();
+					m4.backward();
+
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -66,16 +71,15 @@ public class Compressor {
 	}
 
 	public void pressureButtonfired(boolean button) {
-		
-		if(!button ) {				// wenn der Knopf nicht gedrueckt ist starte komp
+
+		if (!button) { // wenn der Knopf nicht gedrueckt ist starte komp
 			setOnPressure(false);
 			startCompressor();
-			
-		}else {
+
+		} else {
 			setOnPressure(true);
 			stopCompressor();
-		} 
-		
+		}
 
 	}
 
@@ -85,6 +89,14 @@ public class Compressor {
 
 	public void setOnPressure(boolean onPressure) {
 		this.onPressure = onPressure;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

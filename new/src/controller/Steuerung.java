@@ -132,7 +132,7 @@ public class Steuerung {
 	static Stock stock;
 	static FillStation fillStation;
 	private Sensordeamon sensordeamon;
-	
+
 	static BrickConfig config;
 
 	private boolean b1053Status = false; // set True if button fires
@@ -142,7 +142,7 @@ public class Steuerung {
 
 	private Controller c;
 	private static LegoClient legoClient;
-	private boolean twinConnection =false;
+	private boolean twinConnection = false;
 	private String lastRecivedMessage;
 	private int sendErrorCounter = 0;
 	private int numberOfSendTrys = 5;
@@ -161,30 +161,28 @@ public class Steuerung {
 
 		/**
 		 * @param Initialsiert
-		 *            alle Stations und den Sensordeamon sollte vom Controller
-		 *            holt ips aus datei
-		 *            ausgeführt werden oder dieser übergeben.
+		 *            alle Stations und den Sensordeamon sollte vom Controller holt ips
+		 *            aus datei ausgeführt werden oder dieser übergeben.
 		 */
 
 		c = c1;
-		
+
 		config = new BrickConfig(this);
 		getBrickIpsFromConfig();
-		
+
 	}
 
+	// ---Communication interactions---------------------------------
 
-	//---Communication interactions---------------------------------
-	
 	public void setOnline() {
 		setTwinConnection(true);
 	}
-	
+
 	public void setOffline() {
 		setTwinConnection(false);
 	}
-	
-	public ArrayList<String> getBrickIpsFromConfig(){
+
+	public ArrayList<String> getBrickIpsFromConfig() {
 		brickIps = config.getBrickips();
 		return config.getBrickips();
 	}
@@ -203,10 +201,11 @@ public class Steuerung {
 	public ArrayList<String> getDefaultIps() {
 		return config.getDefaultBrickips();
 	}
-	
-	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be used
-		
-		legoClient = new LegoClient(ip,port);
+
+	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be
+														// used
+
+		legoClient = new LegoClient(ip, port);
 
 	}
 
@@ -214,19 +213,18 @@ public class Steuerung {
 		legoClient = null;
 	}
 
-	public void setTwinConnection(boolean twinConnection){
+	public void setTwinConnection(boolean twinConnection) {
 		this.twinConnection = twinConnection;
 	}
-	
-	public boolean getTwinConnection(){
+
+	public boolean getTwinConnection() {
 		return twinConnection;
 	}
-	
+
 	public boolean isConnected() {
-	
+
 		return twinConnection;
 	}
-	
 
 	public LegoClient getLegoClient() {
 		return legoClient;
@@ -247,11 +245,10 @@ public class Steuerung {
 			// powerLevel.getChars(0, 4, c, 0); // get first 4 chars
 			brickName = b.getName();
 
-
 			message = ("B1" + brickName + "-" + b.getPower().getVoltageMilliVolt()); // message
-																					// looks
-																					// like:
-																					// B100XXX
+																						// looks
+																						// like:
+																						// B100XXX
 
 			sendMessage(message);
 
@@ -263,14 +260,14 @@ public class Steuerung {
 		sendMessage("ST");
 	}
 
-	public void sendMessage(String message) { // vergesse nicht vorher ein  client aufzumachen
+	public void sendMessage(String message) { // vergesse nicht vorher ein client aufzumachen
 
 		if (isConnected()) {
-		new java.util.Timer().schedule(new java.util.TimerTask() {
-			@Override
-			public void run() {
+			new java.util.Timer().schedule(new java.util.TimerTask() {
+				@Override
+				public void run() {
 
-				legoClient = new LegoClient("192.168.0.117", 33333);
+					legoClient = new LegoClient("192.168.0.117", 33333);
 
 					lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
 
@@ -288,8 +285,8 @@ public class Steuerung {
 					// }
 					// }else {
 					// System.out.println("No Client available");
-			}
-		}, 10);
+				}
+			}, 10);
 		}
 
 	}
@@ -410,11 +407,11 @@ public class Steuerung {
 		// qulityStation.setArmIsStalled(armIsStalled);
 
 	}
-	
+
 	public int getSzenario() {
 		return szenario;
 	}
-	
+
 	public void setSzenario(int szenario) {
 		this.szenario = szenario;
 	}
@@ -426,9 +423,9 @@ public class Steuerung {
 		b1072Status = false;
 		quality.resetColorString();
 	}
-	
+
 	public void connectBricks() {
-		
+
 		initAll();
 		System.out.println("Connected");
 
@@ -443,35 +440,34 @@ public class Steuerung {
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
 		fillStation = new FillStation(this, b102a);
 
+		sensordeamon = new Sensordeamon(this, b102, b103, b104, b107, b109);
+		sensordeamon.start();
 
-		 sensordeamon = new Sensordeamon(this, b102, b103, b104, b107, b109); 
-		 sensordeamon.start();
-		
-		 updatePowerLevel();
+		updatePowerLevel();
 		resetDigitalTwin(); // brings digital twin in start position
 		sendPowerLevels(); // sends brick powerlevel to dig twin
-		
+
 	}
-	
+
 	public void disconnectBricks() { /* */
-		
+
 		reset();
 		stopSensorDeamon();
 		closePorts();
 		System.out.println("DISCONNECTED");
-		
+
 	}
 
 	private void reset() {
 		// TODO add every reset method from every station
-		
+
 	}
 
 	public void initAll() {
 		/**
 		 * @param Initioalisiert
-		 *            alle Bricks
-		 *            wenn ip in Datei steht wird diese genommen, wenn nicht die im code definierte
+		 *            alle Bricks wenn ip in Datei steht wird diese genommen, wenn nicht
+		 *            die im code definierte
 		 */
 		System.out.println("init All");
 
@@ -494,10 +490,10 @@ public class Steuerung {
 	public void initBrick1() {
 		// Brick 101
 		try {
-			if(getBrickIps().get(0)!= null) {
-				b101 = new RemoteEV3(getBrickIps().get(0));				
-			}
-			else b101 = new RemoteEV3("192.168.0.103"); // hier muessen alle Brick  Ips eingetragen werden
+			if (getBrickIps().get(0) != null) {
+				b101 = new RemoteEV3(getBrickIps().get(0));
+			} else
+				b101 = new RemoteEV3("192.168.0.103"); // hier muessen alle Brick Ips eingetragen werden
 			getPowerLevel(b101);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -521,10 +517,10 @@ public class Steuerung {
 	public void initBrick2() {
 
 		try {
-			if(getBrickIps().get(1)!= null) {
-				b102 = new RemoteEV3(getBrickIps().get(1));				
-			}
-			else b102 = new RemoteEV3("192.168.0.107");
+			if (getBrickIps().get(1) != null) {
+				b102 = new RemoteEV3(getBrickIps().get(1));
+			} else
+				b102 = new RemoteEV3("192.168.0.107");
 			getPowerLevel(b102);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -547,10 +543,10 @@ public class Steuerung {
 	public void initBrick3() {
 
 		try {
-			if(getBrickIps().get(2)!= null) {
-				b103 = new RemoteEV3(getBrickIps().get(2));				
-			}
-			else b103 = new RemoteEV3("192.168.0.101");
+			if (getBrickIps().get(2) != null) {
+				b103 = new RemoteEV3(getBrickIps().get(2));
+			} else
+				b103 = new RemoteEV3("192.168.0.101");
 			getPowerLevel(b103);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -574,10 +570,10 @@ public class Steuerung {
 
 	public void initBrick4() {
 		try {
-			if(getBrickIps().get(3)!= null) {
-				b104 = new RemoteEV3(getBrickIps().get(3));				
-			}
-			else b104 = new RemoteEV3("192.168.0.106");
+			if (getBrickIps().get(3) != null) {
+				b104 = new RemoteEV3(getBrickIps().get(3));
+			} else
+				b104 = new RemoteEV3("192.168.0.106");
 			getPowerLevel(b104);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -601,10 +597,10 @@ public class Steuerung {
 	public void initBrick5() {
 		// Brick 108
 		try {
-			if(getBrickIps().get(4)!= null) {
-				b105 = new RemoteEV3(getBrickIps().get(4));				
-			}
-			else b105 = new RemoteEV3("192.168.0.108");
+			if (getBrickIps().get(4) != null) {
+				b105 = new RemoteEV3(getBrickIps().get(4));
+			} else
+				b105 = new RemoteEV3("192.168.0.108");
 			getPowerLevel(b105);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -628,10 +624,10 @@ public class Steuerung {
 	public void initBrick6() {
 		// Brick 111
 		try {
-			if(getBrickIps().get(5)!= null) {
-				b106 = new RemoteEV3(getBrickIps().get(5));				
-			}
-			else b106 = new RemoteEV3("192.168.0.102");
+			if (getBrickIps().get(5) != null) {
+				b106 = new RemoteEV3(getBrickIps().get(5));
+			} else
+				b106 = new RemoteEV3("192.168.0.102");
 			getPowerLevel(b106);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -657,10 +653,10 @@ public class Steuerung {
 	public void initBrick7() {
 		// Brick 113
 		try {
-			if(getBrickIps().get(6)!= null) {
-				b107 = new RemoteEV3(getBrickIps().get(6));				
-			}
-			else b107 = new RemoteEV3("192.168.0.109");
+			if (getBrickIps().get(6) != null) {
+				b107 = new RemoteEV3(getBrickIps().get(6));
+			} else
+				b107 = new RemoteEV3("192.168.0.109");
 			getPowerLevel(b107);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -686,10 +682,10 @@ public class Steuerung {
 	public void initBrick8() {
 		// Brick 114
 		try {
-			if(getBrickIps().get(7)!= null) {
-				b108 = new RemoteEV3(getBrickIps().get(7));				
-			}
-			else b108 = new RemoteEV3("192.168.0.105");
+			if (getBrickIps().get(7) != null) {
+				b108 = new RemoteEV3(getBrickIps().get(7));
+			} else
+				b108 = new RemoteEV3("192.168.0.105");
 			getPowerLevel(b108);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -713,10 +709,10 @@ public class Steuerung {
 	public void initBrick9() {
 		// Brick 115
 		try {
-			if(getBrickIps().get(8)!= null) {
-				b109 = new RemoteEV3(getBrickIps().get(8));				
-			}
-			else b109 = new RemoteEV3("192.168.0.110");
+			if (getBrickIps().get(8) != null) {
+				b109 = new RemoteEV3(getBrickIps().get(8));
+			} else
+				b109 = new RemoteEV3("192.168.0.110");
 			getPowerLevel(b109);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -742,10 +738,10 @@ public class Steuerung {
 	public void initBrick10() {
 		// Brick 116
 		try {
-			if(getBrickIps().get(9)!= null) {
-				b110 = new RemoteEV3(getBrickIps().get(9));				
-			}
-			else b110 = new RemoteEV3("192.168.0.104");
+			if (getBrickIps().get(9) != null) {
+				b110 = new RemoteEV3(getBrickIps().get(9));
+			} else
+				b110 = new RemoteEV3("192.168.0.104");
 			getPowerLevel(b110);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -771,10 +767,10 @@ public class Steuerung {
 	public void initBrick11() {
 		// Brick 117
 		try {
-			if(getBrickIps().get(10)!= null) {
-				b111 = new RemoteEV3(getBrickIps().get(10));				
-			}
-			else b111 = new RemoteEV3("192.168.0.111");
+			if (getBrickIps().get(10) != null) {
+				b111 = new RemoteEV3(getBrickIps().get(10));
+			} else
+				b111 = new RemoteEV3("192.168.0.111");
 			getPowerLevel(b111);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -800,10 +796,10 @@ public class Steuerung {
 	public void initBrick12() {
 		// Brick 118
 		try {
-			if(getBrickIps().get(11)!= null) {
-				b112 = new RemoteEV3(getBrickIps().get(11));				
-			}
-			else b112 = new RemoteEV3("192.168.0.114");
+			if (getBrickIps().get(11) != null) {
+				b112 = new RemoteEV3(getBrickIps().get(11));
+			} else
+				b112 = new RemoteEV3("192.168.0.114");
 			getPowerLevel(b112);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -829,10 +825,10 @@ public class Steuerung {
 	public void initBrick13() {
 		// Brick 119
 		try {
-			if(getBrickIps().get(12)!= null) {
-				b113 = new RemoteEV3(getBrickIps().get(12));				
-			}
-			else b113 = new RemoteEV3("192.168.0.112");
+			if (getBrickIps().get(12) != null) {
+				b113 = new RemoteEV3(getBrickIps().get(12));
+			} else
+				b113 = new RemoteEV3("192.168.0.112");
 			getPowerLevel(b113);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -867,15 +863,15 @@ public class Steuerung {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void stopSensorDeamon(){
+	public void stopSensorDeamon() {
 		sensordeamon.suspend();
 	}
-	
+
 	public void closePorts() {
 		/**
 		 * @param schliesst
-		 *            alle Motorports/Sensorports der Bricks aus der Liste muss
-		 *            bei jedem programm Ende gemacht werden
+		 *            alle Motorports/Sensorports der Bricks aus der Liste muss bei
+		 *            jedem programm Ende gemacht werden
 		 */
 
 		for (RMIRegulatedMotor temp : openMotorPorts) { // close every open
@@ -924,6 +920,17 @@ public class Steuerung {
 		return deliverylane;
 	}
 
+	public void turnKompressorOff() {
+		compressor.setStatus(false);
+	}
+
+	public void turnKompressorOn() {
+		compressor.setStatus(true);
+	}
+
+	public boolean getKompressorStatus() {
+		return compressor.isStatus();
+	}
 	// ------------------------help methods with
 	// werden durch test Button im UI aufgerufen und fuehren standart ablauf
 	// durch
@@ -1567,7 +1574,7 @@ public class Steuerung {
 		Steuerung.stock = stock;
 	}
 
-	public  FillStation getFillStation() {
+	public FillStation getFillStation() {
 		return fillStation;
 	}
 

@@ -25,9 +25,10 @@ public class MotorSettingsController implements Initializable {
 			hebebandv, filldrehgescwindigkeit, anzahldrehungen, bandzumarmv, auslieferbandv, hebegeschwindigkeit,
 			shaker;
 
-	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14,zwillingOff,zwillingOn;
+	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14, zwillingOff, zwillingOn,
+			kompressorAn, kompressorAus;
 
-	public ToggleGroup g1, g2, g3, g4,g5;
+	public ToggleGroup g1, g2, g3, g4, g5, g6;
 
 	public ComboBox<String> farbe, drehtischposition;
 
@@ -38,23 +39,14 @@ public class MotorSettingsController implements Initializable {
 		// TODO Auto-generated method stub
 		farbe.getItems().addAll("Weiß", "Schwarz", "Rot", "Grün", "Blau", "Braun");
 		drehtischposition.getItems().addAll("Anlieferung", "Lager", "Lift");
-		
+
 	}
+
 	public void start() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 		s = (Steuerung) stage.getUserData();
 
 		updateFromLiveModel();
-	}
-	
-	public void setOffline() {
-		s.setOffline();
-		zwillingOff.setSelected(true);
-	}
-	
-	public void setOnline() {
-		s.setOnline();
-		zwillingOn.setSelected(true);
 	}
 
 	public void updateFromLiveModel() { // gets every value from Steuerung
@@ -62,6 +54,9 @@ public class MotorSettingsController implements Initializable {
 		fetchIoColor();
 		fetchTablePosition();
 		fetchMotorSettings();
+		fetchKompressorToggleButton();
+		fetchTwinToggleButton();
+		
 	}
 
 	public void saveFromUiToLiveModel() { // sets everything from Ui in steuerung
@@ -70,27 +65,31 @@ public class MotorSettingsController implements Initializable {
 		setStockFromButtons();
 		setTablePosition();
 		setMotorSettings();
+		setKompressor();
+		setTwin();
+
 	}
 
 	public void applyButtonPushed() {
 
 		saveFromUiToLiveModel();
 		Stage stage = (Stage) closeButton.getScene().getWindow();
-	    stage.close();
+		stage.close();
 	}
 
 	public void closeButtonPushed() {
 
 		Stage stage = (Stage) closeButton.getScene().getWindow();
-	    stage.close();
+		stage.close();
 	}
 
 	public void defaultButtonPushed() {
-		
+
 	}
 
 	// ------------------From Code to
 	// Ui-------------------------------------------------------------------
+
 	public void updateStockToggleButton() { // gets Stock values and updates it in UI
 
 		if (s.getStock().isStock1()) { // wenn in Lager1 was steht dann toggle voll button sonst leer
@@ -116,6 +115,7 @@ public class MotorSettingsController implements Initializable {
 		} else {
 			lager14.setSelected(true);
 		}
+
 	}
 
 	public void fetchIoColor() { // gets IO color from steuerung and updates Ui
@@ -183,29 +183,69 @@ public class MotorSettingsController implements Initializable {
 
 	}
 
+	public void fetchTwinToggleButton() {
+		
+		if (s.isConnected()) {
+			zwillingOn.setSelected(true);
+		}
+		else {
+			zwillingOff.setSelected(true);
+		}
+	}
+
+	public void fetchKompressorToggleButton() {
+		
+		if(s.getKompressorStatus()) {
+			kompressorAn.setSelected(true);
+		}else {
+			kompressorAus.setSelected(true);
+		}
+	}
+	
+	
+
 	// -----------------------------From-ui-to--Code-----------------------------------------
 
+	public void setKompressor() {
+		if (kompressorAn.isSelected()) {
+			s.turnKompressorOn();
+		}
+		if (kompressorAus.isSelected()) {
+			s.turnKompressorOff();
+		}
+	}
+
+	public void setTwin() {
+		if (zwillingOn.isSelected()) {
+			s.setOnline();
+		}
+		if (zwillingOff.isSelected()) {
+			s.setOffline();
+		}
+	}
+
 	public void setMotorSettings() {
-		
+
 		s.getQuality().setCounterLineSpeed(Integer.parseInt(zahlbandv.getText()));
 		s.getQuality().setLineSpeed(Integer.parseInt(sensorbandv.getText()));
-		
+
 		s.getChargier().setLineSpeed((Integer.parseInt(zahlbandv.getText())));
-		
+
 		s.getStock().setElevatorHorizontalSpeed((Integer.parseInt(fahrstuhlhorizont.getText())));
 		s.getStock().setElevatorVerticalSpeed((Integer.parseInt(fahrstuhlvertikal.getText())));
-		
+
 		s.getCleaner().setCleanerSpeed(Integer.parseInt(drehgeschwindigkeit.getText()));
 		s.getCleaner().setLiftLaneSpeed(Integer.parseInt(anzahldrehungen.getText()));
-		
+
 		s.getFillStation().setWheelspeed(Integer.parseInt(bandzumarmv.getText()));
 		s.getFillStation().setNumberOfTurns(Integer.parseInt(auslieferbandv.getText()));
-		
+
 		s.getLift().setliftSpeedt(Integer.parseInt(hebegeschwindigkeit.getText()));
 		s.getLift().setShakerSpeed(Integer.parseInt(shaker.getText()));
-		
+
 	}
-	public void setTablePosition() { 
+
+	public void setTablePosition() {
 
 		if (drehtischposition.getValue().equals("Lift")) {
 
@@ -220,7 +260,7 @@ public class MotorSettingsController implements Initializable {
 
 			s.getChargier().setTablePosition(0);
 		}
-		
+
 	}
 
 	public void setStockFromButtons() { // gets Stock values and updates it in UI
@@ -271,6 +311,5 @@ public class MotorSettingsController implements Initializable {
 			s.getQuality().setIoColor("BLUE");
 		}
 	}
-
 
 }

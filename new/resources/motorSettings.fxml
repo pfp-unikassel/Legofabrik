@@ -22,7 +22,7 @@
                <children>
                   <VBox prefHeight="419.0" prefWidth="582.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label text="Qualität :" underline="true">
+                        <Label text="Einstellungen:" underline="true">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -51,6 +51,36 @@
                               <ToggleButton fx:id="zwillingOff" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Offline" toggleGroup="$g5" />
                            </children>
                         </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Kompressor :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="kompressorAn" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="An">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g6" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="kompressorAus" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Aus" toggleGroup="$g6" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0" />
+                        <Label text="Qualität :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
                         <HBox prefHeight="42.0" prefWidth="581.0" spacing="30.0">
                            <children>
                               <Label prefHeight="24.0" prefWidth="163.0" text="IO Farbe :">
