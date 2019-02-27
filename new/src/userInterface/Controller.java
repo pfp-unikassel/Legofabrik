@@ -64,7 +64,7 @@ public class Controller implements Initializable {
 
 	public CheckBox box1, box2, box3, box4, box5, box6, box7;
 
-	public MenuItem ipconfig, motorSettings;
+	public MenuItem ipconfig, motorSettings,manuel;
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
@@ -132,6 +132,29 @@ public class Controller implements Initializable {
 
 					IpconfigController ipController = loader1.<IpconfigController>getController();
 					ipController.start();
+					// Hide this current window (if this is what you want)
+					// ((Node)(event.getSource())).getScene().getWindow().hide();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		manuel.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				Parent root2;
+				try {
+					FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/manuel.fxml"));
+					root2 = loader2.load();
+
+					Stage stage2 = new Stage();
+					stage2.setTitle("Manuel Control");
+					stage2.setScene(new Scene(root2, 600, 650));
+					stage2.setUserData(s);
+					stage2.show();
+
+					ManuelController manuelController = loader2.<ManuelController>getController();
+					manuelController.start();
 					// Hide this current window (if this is what you want)
 					// ((Node)(event.getSource())).getScene().getWindow().hide();
 				} catch (IOException e) {
