@@ -62,7 +62,7 @@ public class IpconfigController implements Initializable {
 															// Text und speicher
 															// ihn im array
 			}
-
+			
 		}
 		s.changeBrickIps(brickIps);
 		

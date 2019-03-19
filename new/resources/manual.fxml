@@ -10,9 +10,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MotorSettingsController">
+<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1262.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MotorSettingsController">
    <children>
-      <ScrollPane prefHeight="600.0" prefWidth="600.0">
+      <ScrollPane prefHeight="1213.0" prefWidth="600.0">
         <content>
           <AnchorPane prefHeight="419.0" prefWidth="581.0">
                <children>
@@ -55,6 +55,62 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
+                              <Button fx:id="chargierBack15" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="chargierVor15" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="91.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band zur Produktion :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="chargierBack14" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="chargierVor14" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="91.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band zum Lager :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="chargierBack13" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="chargierVor13" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="91.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band auf Tisch :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="chargierBack12" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="chargierVor12" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Rotier Tisch :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
                               <Button fx:id="chargierBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
                               <Button fx:id="chargierVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
                            </children>
@@ -75,6 +131,76 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Fahrstuhl Hoch :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="elevatorBack15" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="elevatorVor15" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="287.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Fahrstuhl Runter :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="elevatorBack14" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="elevatorVor14" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Fahrstuhl Rechts :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="elevatorBack13" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="elevatorVor13" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Fahrstuhl Links :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="elevatorBack12" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="elevatorVor12" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="347.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band auf Fahrstuhl :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="elevatorBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="elevatorVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                         <Line endX="484.0" layoutX="111.0" layoutY="138.0" startX="-100.0" />
                         <Label text="Lager :" underline="true">
                            <font>
@@ -87,6 +213,62 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox layoutX="10.0" layoutY="478.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lagerplatz 4 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="stockBack14" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="stockVor14" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="508.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lagerplatz 3 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="stockBack13" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="stockVor13" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="508.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lagerplatz 2 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="stockBack12" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="stockVor12" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="377.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lagerplatz 1 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="stockBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="stockVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                         <Line endX="484.0" startX="-100.0">
                            <VBox.margin>
                               <Insets top="5.0" />
@@ -103,6 +285,76 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox layoutX="10.0" layoutY="734.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Links Up/Down :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="liftBack14" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="liftVor14" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="704.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Rechts Up/Down :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="liftBack13" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="liftVor13" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="674.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Links Rein/Raus :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="liftBack12" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="liftVor12" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="644.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Rechts Rein/Raus :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="liftBack11" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="liftVor11" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="568.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Shaker :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="liftBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="liftVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                         <Line endX="484.0" startX="-100.0">
                            <VBox.margin>
                               <Insets top="5.0" />
@@ -119,6 +371,34 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox layoutX="10.0" layoutY="764.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Reiniger  :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="cleanerBack11" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="cleanerVor11" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="840.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Liftline :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="cleanerBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="cleanerVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                         <Line endX="484.0" startX="-100.0" />
                         <Label text="Qualität :" underline="true">
                            <font>
@@ -131,6 +411,48 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox layoutX="10.0" layoutY="971.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Zähler Band :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="qualityBack12" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="qualityVor12" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="941.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Farbsensor Band :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="qualityBack11" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="qualityVor11" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="870.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Farbsensor Tor :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="qualityBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="qualityVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                         <Line endX="484.0" startX="-100.0">
                            <VBox.margin>
                               <Insets top="5.0" />
@@ -147,6 +469,20 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox layoutX="10.0" layoutY="211.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Drehmotor :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="fillBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="fillVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                         <Line endX="484.0" startX="-100.0">
                            <VBox.margin>
                               <Insets top="5.0" />
@@ -163,6 +499,76 @@
                               <Insets left="10.0" />
                            </padding>
                         </Label>
+                        <HBox layoutX="10.0" layoutY="1243.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band vom Puffer :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="deliveryBack14" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="deliveryVor14" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1153.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Kunden Band :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="deliveryBack13" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="deliveryVor13" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1153.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Kisten Tor :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="deliveryBack12" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="deliveryVor12" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1153.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Tor C :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="deliveryBack11" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="deliveryVor11" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1077.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Tor D :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="deliveryBack1" mnemonicParsing="false" onMousePressed="#chargierBackButtonPressed1" onMouseReleased="#chargierBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="deliveryVor1" mnemonicParsing="false" onMousePressed="#chargierVorButtonPressed1" onMouseReleased="#chargierVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children></AnchorPane>
