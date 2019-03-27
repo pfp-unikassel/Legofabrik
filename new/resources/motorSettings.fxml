@@ -43,12 +43,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <ToggleButton fx:id="zwillingOn" mnemonicParsing="false" onAction="#setOnline" prefHeight="25.0" prefWidth="106.0" text="Online">
+                              <ToggleButton fx:id="zwillingOn" mnemonicParsing="false" onAction="#setTwin" prefHeight="25.0" prefWidth="106.0" text="Online">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="g5" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="zwillingOff" mnemonicParsing="false" onAction="#setOffline" prefHeight="25.0" prefWidth="106.0" selected="true" text="Offline" toggleGroup="$g5" />
+                              <ToggleButton fx:id="zwillingOff" mnemonicParsing="false" onAction="#setTwin" prefHeight="25.0" prefWidth="106.0" selected="true" text="Offline" toggleGroup="$g5" />
                            </children>
                         </HBox>
                         <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
