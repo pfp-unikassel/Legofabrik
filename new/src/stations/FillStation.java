@@ -65,6 +65,14 @@ public class FillStation {
 	public void setNumberOfDeliveredBalls(int numberOfDeliveredBalls) {
 		this.numberOfDeliveredBalls = numberOfDeliveredBalls;
 	}
+
+	public RMIRegulatedMotor getWheel() {
+		return wheel;
+	}
+
+	public void setWheel(RMIRegulatedMotor wheel) {
+		this.wheel = wheel;
+	}
 	
 	
 }

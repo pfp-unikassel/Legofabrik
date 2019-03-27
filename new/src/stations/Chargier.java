@@ -209,4 +209,44 @@ public class Chargier {
 		this.tablePosition = tablePosition;
 	}
 
+	public RMIRegulatedMotor getAntriebBandZumDT() {
+		return antriebBandZumDT;
+	}
+
+	public void setAntriebBandZumDT(RMIRegulatedMotor antriebBandZumDT) {
+		this.antriebBandZumDT = antriebBandZumDT;
+	}
+
+	public RMIRegulatedMotor getAntriebBandProd() {
+		return antriebBandProd;
+	}
+
+	public void setAntriebBandProd(RMIRegulatedMotor antriebBandProd) {
+		this.antriebBandProd = antriebBandProd;
+	}
+
+	public RMIRegulatedMotor getAntriebBandLeergut() {
+		return antriebBandLeergut;
+	}
+
+	public void setAntriebBandLeergut(RMIRegulatedMotor antriebBandLeergut) {
+		this.antriebBandLeergut = antriebBandLeergut;
+	}
+
+	public RMIRegulatedMotor getAntriebDrehtisch() {
+		return antriebDrehtisch;
+	}
+
+	public void setAntriebDrehtisch(RMIRegulatedMotor antriebDrehtisch) {
+		this.antriebDrehtisch = antriebDrehtisch;
+	}
+
+	public RMIRegulatedMotor getDrehtischRotieren() {
+		return drehtischRotieren;
+	}
+
+	public void setDrehtischRotieren(RMIRegulatedMotor drehtischRotieren) {
+		this.drehtischRotieren = drehtischRotieren;
+	}
+
 }

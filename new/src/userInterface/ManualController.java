@@ -21,17 +21,14 @@ public class ManualController implements Initializable {
 	private Steuerung s;
 	public Button closeButton;
 
-	public Button chargierVor1,chargierVor12,chargierVor13,chargierVor14,chargierVor15,
-	chargierBack1, chargierBack12, chargierBack13, chargierBack14, chargierBack15,
-	elevatorVor1,elevatorVor12,elevatorVor13,elevatorVor14,elevatorVor15
-	,elevatorBack1,elevatorBack12,elevatorBack13,elevatorBack14,elevatorBack15
-	,stockVor1,stockVor12,stockVor13,stockVor14,stockBack1,stockBack12,stockBack13,stockBack14
-	,liftVor1,liftVor11,liftVor12,liftVor13,liftVor14,liftBack1,liftBack11,liftBack12,liftBack13,liftBack14
-	,cleanerVor1,cleanerVor11,cleanerBack1,cleanerBack11
-	,qualityVor1,qualityVor11,qualityVor12,qualityBack1,qualityBack11,qualityBack12
-	,fillVor1,fillBack1
-	,deliveryVor1,deliveryVor11,deliveryVor12,deliveryVor13,deliveryVor14
-	,deliveryBack1,deliveryBack11,deliveryBack12,deliveryBack13,deliveryBack14;
+	public Button chargierVor1, chargierVor12, chargierVor13, chargierVor14, chargierVor15, chargierBack1,
+			chargierBack12, chargierBack13, chargierBack14, chargierBack15, elevatorVor1, elevatorVor12, elevatorVor13,
+			elevatorVor14, elevatorVor15, elevatorBack1, elevatorBack12, elevatorBack13, elevatorBack14, elevatorBack15,
+			stockVor1, stockVor12, stockVor13, stockVor14, stockBack1, stockBack12, stockBack13, stockBack14, liftVor1,
+			liftVor11, liftVor12, liftVor13, liftVor14, liftBack1, liftBack11, liftBack12, liftBack13, liftBack14,
+			cleanerVor1, cleanerVor11, cleanerBack1, cleanerBack11, qualityVor1, qualityVor11, qualityVor12,
+			qualityBack1, qualityBack11, qualityBack12, fillVor1, fillBack1, deliveryVor1, deliveryVor11, deliveryVor12,
+			deliveryVor13, deliveryVor14, deliveryBack1, deliveryBack11, deliveryBack12, deliveryBack13, deliveryBack14;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -55,35 +52,992 @@ public class ManualController implements Initializable {
 
 	}
 
+	
+	// try {
+	// s.getChargier().stopLineToTable();
+	// } catch (RemoteException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	
+	// --------------------------------------------------------------------Turn Table
 	public void chargierVorButtonPressed1() {
 		
-		System.out.println("Pushed");
-//		try {
-//			s.getChargier().startLineToTable(true);
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			s.getChargier().getAntriebDrehtisch().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void chargierVorButtonReleased1() {
-		
-		System.out.println("Stoped");
-//		try {
-//			s.getChargier().stopLineToTable();
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			s.getChargier().getAntriebDrehtisch().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void chargierBackButtonPressed1() {
-		System.out.println("Rücktaste gedrückt");
-
+		try {
+			s.getChargier().getAntriebDrehtisch().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void chargierBackButtonReleased1() {
-		System.out.println("Rücktaste losgelassen");
+		try {
+			s.getChargier().getAntriebDrehtisch().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
+
+	// -------------------------------------------------------------------- Line on Table
+	public void chargierVorButtonPressed12() {
+		try {
+			s.getChargier().startLineToTable(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierVorButtonReleased12() {
+		try {
+			s.getChargier().stopLineToTable();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonPressed12() {
+		try {
+			s.getChargier().startLineToTable(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonReleased12() {
+		try {
+			s.getChargier().stopLineToTable();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Line to store
+	public void chargierVorButtonPressed13() {
+		try {
+			s.getChargier().startLineToStore(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierVorButtonReleased13() {
+		try {
+			s.getChargier().stopLineToStorer();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonPressed13() {
+		try {
+			s.getChargier().startLineToStore(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonReleased13() {
+		try {
+			s.getChargier().stopLineToStorer();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Line to production
+	public void chargierVorButtonPressed14() {
+		try {
+			s.getChargier().startLineToLifter(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierVorButtonReleased14() {
+		try {
+			s.getChargier().stopLineToLifter();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonPressed14() {
+		try {
+			s.getChargier().startLineToLifter(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonReleased14() {
+		try {
+			s.getChargier().stopLineToLifter();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Line to Table
+	public void chargierVorButtonPressed15() {
+		try {
+			s.getChargier().startLineToTable(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierVorButtonReleased15() {
+		try {
+			s.getChargier().stopLineToTable();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonPressed15() {
+		try {
+			s.getChargier().startLineToTable(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void chargierBackButtonReleased15() {
+		try {
+			s.getChargier().stopLineToTable();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Line on Elevator
+	public void elevatorVorButtonPressed1() {
+		try {
+			s.getStock().startLineToStock(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorVorButtonReleased1() {
+		try {
+			s.getStock().stopLaneToStock();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonPressed1() {
+		try {
+			s.getStock().startLineToStock(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonReleased1() {
+		try {
+			s.getStock().stopLaneToStock();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Elevator to left
+	public void elevatorVorButtonPressed12() {
+		try {
+			s.getStock().getElevatorHorizontal1().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorVorButtonReleased12() {
+		try {
+			s.getStock().getElevatorHorizontal1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonPressed12() {
+		try {
+			s.getStock().getElevatorHorizontal1().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonReleased12() {
+		try {
+			s.getStock().getElevatorHorizontal1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Elevator to right
+	public void elevatorVorButtonPressed13() {
+		try {
+			s.getStock().getElevatorHorizontal2().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorVorButtonReleased13() {
+		try {
+			s.getStock().getElevatorHorizontal2().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonPressed13() {
+		try {
+			s.getStock().getElevatorHorizontal2().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonReleased13() {
+		try {
+			s.getStock().getElevatorHorizontal2().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Elevator down
+	public void elevatorVorButtonPressed14() {
+		try {
+			s.getStock().getElevatorVertical1().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorVorButtonReleased14() {
+		try {
+			s.getStock().getElevatorVertical1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonPressed14() {
+		try {
+			s.getStock().getElevatorVertical1().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonReleased14() {
+		try {
+			s.getStock().getElevatorVertical1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Elevator up
+	public void elevatorVorButtonPressed15() {
+		try {
+			s.getStock().getElevatorVertical2().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorVorButtonReleased15() {
+		try {
+			s.getStock().getElevatorVertical2().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonPressed15() {
+		try {
+			s.getStock().getElevatorVertical2().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void elevatorBackButtonReleased15() {
+		try {
+			s.getStock().getElevatorVertical2().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Stock1
+	public void stockVorButtonPressed1() {
+		try {
+			s.getStock().getStockPlace1().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockVorButtonReleased1() {
+		try {
+			s.getStock().getStockPlace1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonPressed1() {
+		try {
+			s.getStock().getStockPlace1().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonReleased1() {
+		try {
+			s.getStock().getStockPlace1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Stock2
+	public void stockVorButtonPressed12() {
+		try {
+			s.getStock().getStockPlace2().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockVorButtonReleased12() {
+		try {
+			s.getStock().getStockPlace2().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonPressed12() {
+		try {
+			s.getStock().getStockPlace2().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonReleased12() {
+		try {
+			s.getStock().getStockPlace2().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Stock3
+	public void stockVorButtonPressed13() {
+		try {
+			s.getStock().getStockPlace3().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockVorButtonReleased13() {
+		try {
+			s.getStock().getStockPlace3().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonPressed13() {
+		try {
+			s.getStock().getStockPlace3().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonReleased13() {
+		try {
+			s.getStock().getStockPlace3().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Stock4
+	public void stockVorButtonPressed14() {
+		try {
+			s.getStock().getStockPlace4().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockVorButtonReleased14() {
+		try {
+			s.getStock().getStockPlace4().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonPressed14() {
+		try {
+			s.getStock().getStockPlace4().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void stockBackButtonReleased14() {
+		try {
+			s.getStock().getStockPlace4().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- shaker
+	public void liftVorButtonPressed1() {
+		try {
+			s.getLift().getShaker().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftVorButtonReleased1() {
+		try {
+			s.getLift().getShaker().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonPressed1() {
+		try {
+			s.getLift().getShaker().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonReleased1() {
+		try {
+			s.getLift().getShaker().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- lift right in out
+	public void liftVorButtonPressed11() {
+		try {
+			s.getLift().getGreifenRechts().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftVorButtonReleased11() {
+		try {
+			s.getLift().getGreifenRechts().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonPressed11() {
+		try {
+			s.getLift().getGreifenRechts().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonReleased11() {
+		try {
+			s.getLift().getGreifenRechts().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	// -------------------------------------------------------------------- lift left in out
+
+	public void liftVorButtonPressed12() {
+		try {
+			s.getLift().getGreifenLink().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftVorButtonReleased12() {
+		try {
+			s.getLift().getGreifenLink().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonPressed12() {
+		try {
+			s.getLift().getGreifenLink().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonReleased12() {
+		try {
+			s.getLift().getGreifenLink().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- lift right up down
+	public void liftVorButtonPressed13() {
+		try {
+			s.getLift().getHebenRechts().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftVorButtonReleased13() {
+		try {
+			s.getLift().getHebenRechts().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonPressed13() {
+		try {
+			s.getLift().getHebenRechts().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonReleased13() {
+		try {
+			s.getLift().getHebenRechts().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- lift left up down
+	public void liftVorButtonPressed14() {
+		try {
+			s.getLift().getHebenLinks().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftVorButtonReleased14() {
+		try {
+			s.getLift().getHebenLinks().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonPressed14() {
+		try {
+			s.getLift().getHebenLinks().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void liftBackButtonReleased14() {
+		try {
+			s.getLift().getHebenLinks().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- liftline
+	public void cleanerVorButtonPressed1() {
+		try {
+			s.getCleaner().startLiftLine(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void cleanerVorButtonReleased1() {
+		try {
+			s.getCleaner().stopLiftLine();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void cleanerBackButtonPressed1() {
+		try {
+			s.getCleaner().startLiftLine(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void cleanerBackButtonReleased1() {
+		try {
+			s.getCleaner().stopLiftLine();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	// -------------------------------------------------------------------- cleaner
+
+	public void cleanerVorButtonPressed11() {
+		try {
+			s.getCleaner().startCleaner(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void cleanerVorButtonReleased11() {
+		try {
+			s.getCleaner().stopCleaner();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void cleanerBackButtonPressed11() {
+		try {
+			s.getCleaner().startLiftLine(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void cleanerBackButtonReleased11() {
+		try {
+			s.getCleaner().stopCleaner();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- colorsensor gate
+	public void qualityVorButtonPressed1() {
+		try {
+			s.getQuality().getGate().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityVorButtonReleased1() {
+		try {
+			s.getQuality().getGate().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonPressed1() {
+		try {
+			s.getQuality().getGate().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased1() {
+		try {
+			s.getQuality().getGate().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- color line
+	public void qualityVorButtonPressed11() {
+		try {
+			s.getQuality().getLine().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityVorButtonReleased11() {
+		try {
+			s.getQuality().getLine().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonPressed11() {
+		try {
+			s.getQuality().getLine().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased11() {
+		try {
+			s.getQuality().getLine().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- counter line
+	public void qualityVorButtonPressed12() {
+		try {
+			s.getQuality().getCounterLine().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityVorButtonReleased12() {
+		try {
+			s.getQuality().getCounterLine().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonPressed12() {
+		try {
+			s.getQuality().getCounterLine().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased12() {
+		try {
+			s.getQuality().getCounterLine().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- fill
+	public void fillVorButtonPressed1() {
+		try {
+			s.getFillStation().getWheel().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void fillVorButtonReleased1() {
+		try {
+			s.getFillStation().getWheel().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void fillBackButtonPressed1() {
+		try {
+			s.getFillStation().getWheel().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void fillBackButtonReleased1() {
+		try {
+			s.getFillStation().getWheel().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Gate D
+	public void deliveryVorButtonPressed1() {
+		try {
+			s.getDelivery().getGateD().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryVorButtonReleased1() {
+		try {
+			s.getDelivery().getGateD().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonPressed1() {
+		try {
+			s.getDelivery().getGateD().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonReleased1() {
+		try {
+			s.getDelivery().getGateD().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- gate C
+	public void deliveryVorButtonPressed11() {
+		try {
+			s.getDelivery().getGateC().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryVorButtonReleased11() {
+		try {
+			s.getDelivery().getGateC().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonPressed11() {
+		try {
+			s.getDelivery().getGateC().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonReleased11() {
+		try {
+			s.getDelivery().getGateC().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Box door
+	public void deliveryVorButtonPressed12() {
+		try {
+			s.getDelivery().getGateB().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryVorButtonReleased12() {
+		try {
+			s.getDelivery().getGateB().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonPressed12() {
+		try {
+			s.getDelivery().getGateB().back();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonReleased12() {
+		try {
+			s.getDelivery().getGateB().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- line to customers
+	public void deliveryVorButtonPressed13() {
+		try {
+			s.getDelivery().getLineToEnd().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryVorButtonReleased13() {
+		try {
+			s.getDelivery().getLineToEnd().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonPressed13() {
+		try {
+			s.getDelivery().getLineToEnd().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryBackButtonReleased13() {
+		try {
+			s.getDelivery().getLineToEnd().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- line from puffer to arms
+	public void deliveryVorButtonPressed14() {
+		try {
+			s.getDelivery().getLineToArms().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deliveryVorButtonReleased14() {
+		s.getDelivery().getLineToArms().stop();
+	}
+
+	public void deliveryBackButtonPressed14() {
+		s.getDelivery().getLineToArms().backward();
+	}
+
+	public void deliveryBackButtonReleased14() {
+		s.getDelivery().getLineToArms().stop();
+	}
+	// --------------------------------------------------------------------
 
 }

@@ -586,4 +586,52 @@ public class Stock {
 		this.stockPlace4 = stockPlace4;
 	}
 
+	public RMIRegulatedMotor getLaneToStock1() {
+		return laneToStock1;
+	}
+
+	public void setLaneToStock1(RMIRegulatedMotor laneToStock1) {
+		this.laneToStock1 = laneToStock1;
+	}
+
+	public RMIRegulatedMotor getLaneToStock2() {
+		return laneToStock2;
+	}
+
+	public void setLaneToStock2(RMIRegulatedMotor laneToStock2) {
+		this.laneToStock2 = laneToStock2;
+	}
+
+	public RMIRegulatedMotor getElevatorHorizontal1() {
+		return elevatorHorizontal1;
+	}
+
+	public void setElevatorHorizontal1(RMIRegulatedMotor elevatorHorizontal1) {
+		this.elevatorHorizontal1 = elevatorHorizontal1;
+	}
+
+	public RMIRegulatedMotor getElevatorHorizontal2() {
+		return elevatorHorizontal2;
+	}
+
+	public void setElevatorHorizontal2(RMIRegulatedMotor elevatorHorizontal2) {
+		this.elevatorHorizontal2 = elevatorHorizontal2;
+	}
+
+	public RMIRegulatedMotor getElevatorVertical1() {
+		return elevatorVertical1;
+	}
+
+	public void setElevatorVertical1(RMIRegulatedMotor elevatorVertical1) {
+		this.elevatorVertical1 = elevatorVertical1;
+	}
+
+	public RMIRegulatedMotor getElevatorVertical2() {
+		return elevatorVertical2;
+	}
+
+	public void setElevatorVertical2(RMIRegulatedMotor elevatorVertical2) {
+		this.elevatorVertical2 = elevatorVertical2;
+	}
+
 }

@@ -123,4 +123,44 @@ public class Lift {
 		this.running = running;
 	}
 
+	public RMIRegulatedMotor getHebenLinks() {
+		return hebenLinks;
+	}
+
+	public void setHebenLinks(RMIRegulatedMotor hebenLinks) {
+		this.hebenLinks = hebenLinks;
+	}
+
+	public RMIRegulatedMotor getHebenRechts() {
+		return hebenRechts;
+	}
+
+	public void setHebenRechts(RMIRegulatedMotor hebenRechts) {
+		this.hebenRechts = hebenRechts;
+	}
+
+	public RMIRegulatedMotor getGreifenLinks() {
+		return greifenLinks;
+	}
+
+	public void setGreifenLinks(RMIRegulatedMotor greifenLinks) {
+		this.greifenLinks = greifenLinks;
+	}
+
+	public RMIRegulatedMotor getGreifenRechts() {
+		return greifenRechts;
+	}
+
+	public void setGreifenRechts(RMIRegulatedMotor greifenRechts) {
+		this.greifenRechts = greifenRechts;
+	}
+
+	public RMIRegulatedMotor getShaker() {
+		return shaker;
+	}
+
+	public void setShaker(RMIRegulatedMotor shaker) {
+		this.shaker = shaker;
+	}
+
 }

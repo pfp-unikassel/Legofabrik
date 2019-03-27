@@ -308,4 +308,44 @@ public class Deliverylane {
 		this.gateDCounter = gateDCounter;
 	}
 
+	public RMIRegulatedMotor getLineToEnd() {
+		return lineToEnd;
+	}
+
+	public void setLineToEnd(RMIRegulatedMotor lineToEnd) {
+		this.lineToEnd = lineToEnd;
+	}
+
+	public RMIRegulatedMotor getGateB() {
+		return gateB;
+	}
+
+	public void setGateB(RMIRegulatedMotor gateB) {
+		this.gateB = gateB;
+	}
+
+	public RMIRegulatedMotor getGateC() {
+		return gateC;
+	}
+
+	public void setGateC(RMIRegulatedMotor gateC) {
+		this.gateC = gateC;
+	}
+
+	public RMIRegulatedMotor getGateD() {
+		return gateD;
+	}
+
+	public void setGateD(RMIRegulatedMotor gateD) {
+		this.gateD = gateD;
+	}
+
+	public RMIRegulatedMotor getLineToArms() {
+		return LineToArms;
+	}
+
+	public void setLineToArms(RMIRegulatedMotor lineToArms) {
+		LineToArms = lineToArms;
+	}
+
 }

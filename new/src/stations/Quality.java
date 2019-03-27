@@ -230,4 +230,74 @@ public class Quality {
 	public void setIoColor(String ioClore) {
 		this.ioColor = ioClore;
 	}
+
+
+
+
+	public RMIRegulatedMotor getLine() {
+		return line;
+	}
+
+
+
+
+	public void setLine(RMIRegulatedMotor line) {
+		this.line = line;
+	}
+
+
+
+
+	public RMIRegulatedMotor getGate() {
+		return gate;
+	}
+
+
+
+
+	public void setGate(RMIRegulatedMotor gate) {
+		this.gate = gate;
+	}
+
+
+
+
+	public RMIRegulatedMotor getCounterLine() {
+		return counterLine;
+	}
+
+
+
+
+	public void setCounterLine(RMIRegulatedMotor counterLine) {
+		this.counterLine = counterLine;
+	}
+
+
+
+
+	public EV3TouchSensor getCounter() {
+		return counter;
+	}
+
+
+
+
+	public void setCounter(EV3TouchSensor counter) {
+		this.counter = counter;
+	}
+
+
+
+
+	public float[] getColor() {
+		return color;
+	}
+
+
+
+
+	public void setColor(float[] color) {
+		this.color = color;
+	}
 }
