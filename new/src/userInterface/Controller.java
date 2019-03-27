@@ -144,7 +144,7 @@ public class Controller implements Initializable {
 			public void handle(ActionEvent event) {
 				Parent root2;
 				try {
-					FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/manuel.fxml"));
+					FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/manual.fxml"));
 					root2 = loader2.load();
 
 					Stage stage2 = new Stage();
@@ -153,7 +153,7 @@ public class Controller implements Initializable {
 					stage2.setUserData(s);
 					stage2.show();
 
-					ManuelController manuelController = loader2.<ManuelController>getController();
+					ManualController manuelController = loader2.<ManualController>getController();
 					manuelController.start();
 					// Hide this current window (if this is what you want)
 					// ((Node)(event.getSource())).getScene().getWindow().hide();
