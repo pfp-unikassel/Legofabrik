@@ -7,7 +7,7 @@ import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 import stations.Deliverylane;
 
-public class test2 {
+public class Rfidreadexample {
 
 	public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException {
 

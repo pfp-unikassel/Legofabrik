@@ -64,7 +64,7 @@ public class Controller implements Initializable {
 
 	public CheckBox box1, box2, box3, box4, box5, box6, box7;
 
-	public MenuItem ipconfig, motorSettings,manuel;
+	public MenuItem ipconfig, motorSettings,manual;
 
 	public boolean paused; // True if game paused right now
 	public boolean running;
@@ -140,7 +140,7 @@ public class Controller implements Initializable {
 			}
 		});
 		
-		manuel.setOnAction(new EventHandler<ActionEvent>() {
+		manual.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				Parent root2;
 				try {

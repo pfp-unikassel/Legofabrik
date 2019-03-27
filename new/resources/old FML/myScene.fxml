@@ -8,7 +8,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -31,12 +30,9 @@
               <Menu mnemonicParsing="false" text="File">
                 <items>
                   <MenuItem fx:id="motorSettings" mnemonicParsing="false" text="Motor Settings" />
+                  <MenuItem fx:id="manual" mnemonicParsing="false" text="Manuel Control" />
                   <MenuItem fx:id="ipconfig" mnemonicParsing="false" text="IP-Config" />
-                  <Menu mnemonicParsing="false" text="Open Recent" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Close" />
                   <MenuItem mnemonicParsing="false" text="Save" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Quit" />
                 </items>
               </Menu>
