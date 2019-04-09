@@ -72,7 +72,7 @@ public class ManualController implements Initializable {
 
 	public void chargierVorButtonReleased1() {
 		try {
-			s.getChargier().getAntriebDrehtisch().stop();
+			s.getChargier().getAntriebDrehtisch().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -88,7 +88,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonReleased1() {
 		try {
-			s.getChargier().getAntriebDrehtisch().stop();
+			s.getChargier().getAntriebDrehtisch().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -97,7 +97,7 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- Line on Table
 	public void chargierVorButtonPressed12() {
 		try {
-			s.getChargier().startLineToTable(true);
+			s.getChargier().startLineToTable(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -113,7 +113,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonPressed12() {
 		try {
-			s.getChargier().startLineToTable(false);
+			s.getChargier().startLineToTable(true);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -130,7 +130,7 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- Line to store
 	public void chargierVorButtonPressed13() {
 		try {
-			s.getChargier().startLineToStore(true);
+			s.getChargier().startLineToStore(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -146,7 +146,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonPressed13() {
 		try {
-			s.getChargier().startLineToStore(false);
+			s.getChargier().startLineToStore(true);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -196,7 +196,7 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- Line to Table
 	public void chargierVorButtonPressed15() {
 		try {
-			s.getChargier().startLineToTable(true);
+			s.getChargier().startLineToTable(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -212,7 +212,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonPressed15() {
 		try {
-			s.getChargier().startLineToTable(false);
+			s.getChargier().startLineToTable(true);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -270,7 +270,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorVorButtonReleased12() {
 		try {
-			s.getStock().getElevatorHorizontal1().stop();
+			s.getStock().getElevatorHorizontal1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -286,7 +286,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorBackButtonReleased12() {
 		try {
-			s.getStock().getElevatorHorizontal1().stop();
+			s.getStock().getElevatorHorizontal1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -303,7 +303,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorVorButtonReleased13() {
 		try {
-			s.getStock().getElevatorHorizontal2().stop();
+			s.getStock().getElevatorHorizontal2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -319,7 +319,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorBackButtonReleased13() {
 		try {
-			s.getStock().getElevatorHorizontal2().stop();
+			s.getStock().getElevatorHorizontal2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -328,7 +328,7 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- Elevator down
 	public void elevatorVorButtonPressed14() {
 		try {
-			s.getStock().getElevatorVertical1().forward();
+			s.getStock().getElevatorVertical1().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -336,7 +336,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorVorButtonReleased14() {
 		try {
-			s.getStock().getElevatorVertical1().stop();
+			s.getStock().getElevatorVertical1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -344,7 +344,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorBackButtonPressed14() {
 		try {
-			s.getStock().getElevatorVertical1().backward();
+			s.getStock().getElevatorVertical1().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -352,7 +352,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorBackButtonReleased14() {
 		try {
-			s.getStock().getElevatorVertical1().stop();
+			s.getStock().getElevatorVertical1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -369,7 +369,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorVorButtonReleased15() {
 		try {
-			s.getStock().getElevatorVertical2().stop();
+			s.getStock().getElevatorVertical2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -385,7 +385,7 @@ public class ManualController implements Initializable {
 
 	public void elevatorBackButtonReleased15() {
 		try {
-			s.getStock().getElevatorVertical2().stop();
+			s.getStock().getElevatorVertical2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -402,7 +402,7 @@ public class ManualController implements Initializable {
 
 	public void stockVorButtonReleased1() {
 		try {
-			s.getStock().getStockPlace1().stop();
+			s.getStock().getStockPlace1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -418,7 +418,7 @@ public class ManualController implements Initializable {
 
 	public void stockBackButtonReleased1() {
 		try {
-			s.getStock().getStockPlace1().stop();
+			s.getStock().getStockPlace1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -435,7 +435,7 @@ public class ManualController implements Initializable {
 
 	public void stockVorButtonReleased12() {
 		try {
-			s.getStock().getStockPlace2().stop();
+			s.getStock().getStockPlace2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -451,7 +451,7 @@ public class ManualController implements Initializable {
 
 	public void stockBackButtonReleased12() {
 		try {
-			s.getStock().getStockPlace2().stop();
+			s.getStock().getStockPlace2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -468,7 +468,7 @@ public class ManualController implements Initializable {
 
 	public void stockVorButtonReleased13() {
 		try {
-			s.getStock().getStockPlace3().stop();
+			s.getStock().getStockPlace3().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -484,7 +484,7 @@ public class ManualController implements Initializable {
 
 	public void stockBackButtonReleased13() {
 		try {
-			s.getStock().getStockPlace3().stop();
+			s.getStock().getStockPlace3().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -501,7 +501,7 @@ public class ManualController implements Initializable {
 
 	public void stockVorButtonReleased14() {
 		try {
-			s.getStock().getStockPlace4().stop();
+			s.getStock().getStockPlace4().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -517,7 +517,7 @@ public class ManualController implements Initializable {
 
 	public void stockBackButtonReleased14() {
 		try {
-			s.getStock().getStockPlace4().stop();
+			s.getStock().getStockPlace4().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -534,7 +534,7 @@ public class ManualController implements Initializable {
 
 	public void liftVorButtonReleased1() {
 		try {
-			s.getLift().getShaker().stop();
+			s.getLift().getShaker().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -550,7 +550,7 @@ public class ManualController implements Initializable {
 
 	public void liftBackButtonReleased1() {
 		try {
-			s.getLift().getShaker().stop();
+			s.getLift().getShaker().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -559,7 +559,7 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- lift right in out
 	public void liftVorButtonPressed11() {
 		try {
-			s.getLift().getGreifenRechts().forward();
+			s.getLift().getGreifenRechts().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -567,7 +567,7 @@ public class ManualController implements Initializable {
 
 	public void liftVorButtonReleased11() {
 		try {
-			s.getLift().getGreifenRechts().stop();
+			s.getLift().getGreifenRechts().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -575,7 +575,7 @@ public class ManualController implements Initializable {
 
 	public void liftBackButtonPressed11() {
 		try {
-			s.getLift().getGreifenRechts().backward();
+			s.getLift().getGreifenRechts().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -583,7 +583,7 @@ public class ManualController implements Initializable {
 
 	public void liftBackButtonReleased11() {
 		try {
-			s.getLift().getGreifenRechts().stop();
+			s.getLift().getGreifenRechts().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -592,7 +592,7 @@ public class ManualController implements Initializable {
 
 	public void liftVorButtonPressed12() {
 		try {
-			s.getLift().getGreifenLink().forward();
+			s.getLift().getGreifenLinks().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -600,7 +600,7 @@ public class ManualController implements Initializable {
 
 	public void liftVorButtonReleased12() {
 		try {
-			s.getLift().getGreifenLink().stop();
+			s.getLift().getGreifenLinks().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -608,7 +608,7 @@ public class ManualController implements Initializable {
 
 	public void liftBackButtonPressed12() {
 		try {
-			s.getLift().getGreifenLink().backward();
+			s.getLift().getGreifenLinks().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -616,7 +616,7 @@ public class ManualController implements Initializable {
 
 	public void liftBackButtonReleased12() {
 		try {
-			s.getLift().getGreifenLink().stop();
+			s.getLift().getGreifenLinks().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -633,7 +633,7 @@ public class ManualController implements Initializable {
 
 	public void liftVorButtonReleased13() {
 		try {
-			s.getLift().getHebenRechts().stop();
+			s.getLift().getHebenRechts().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -649,7 +649,7 @@ public class ManualController implements Initializable {
 
 	public void liftBackButtonReleased13() {
 		try {
-			s.getLift().getHebenRechts().stop();
+			s.getLift().getHebenRechts().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -666,7 +666,7 @@ public class ManualController implements Initializable {
 
 	public void liftVorButtonReleased14() {
 		try {
-			s.getLift().getHebenLinks().stop();
+			s.getLift().getHebenLinks().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -682,7 +682,7 @@ public class ManualController implements Initializable {
 
 	public void liftBackButtonReleased14() {
 		try {
-			s.getLift().getHebenLinks().stop();
+			s.getLift().getHebenLinks().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -740,7 +740,7 @@ public class ManualController implements Initializable {
 
 	public void cleanerBackButtonPressed11() {
 		try {
-			s.getCleaner().startLiftLine(false);
+			s.getCleaner().startCleaner(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -757,7 +757,7 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- colorsensor gate
 	public void qualityVorButtonPressed1() {
 		try {
-			s.getQuality().getGate().forward();
+			s.getQuality().getGate().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -765,7 +765,7 @@ public class ManualController implements Initializable {
 
 	public void qualityVorButtonReleased1() {
 		try {
-			s.getQuality().getGate().stop();
+			s.getQuality().getGate().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -773,7 +773,7 @@ public class ManualController implements Initializable {
 
 	public void qualityBackButtonPressed1() {
 		try {
-			s.getQuality().getGate().backward();
+			s.getQuality().getGate().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -781,7 +781,7 @@ public class ManualController implements Initializable {
 
 	public void qualityBackButtonReleased1() {
 		try {
-			s.getQuality().getGate().stop();
+			s.getQuality().getGate().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -798,7 +798,7 @@ public class ManualController implements Initializable {
 
 	public void qualityVorButtonReleased11() {
 		try {
-			s.getQuality().getLine().stop();
+			s.getQuality().getLine().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -814,7 +814,7 @@ public class ManualController implements Initializable {
 
 	public void qualityBackButtonReleased11() {
 		try {
-			s.getQuality().getLine().stop();
+			s.getQuality().getLine().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -831,7 +831,7 @@ public class ManualController implements Initializable {
 
 	public void qualityVorButtonReleased12() {
 		try {
-			s.getQuality().getCounterLine().stop();
+			s.getQuality().getCounterLine().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -847,7 +847,7 @@ public class ManualController implements Initializable {
 
 	public void qualityBackButtonReleased12() {
 		try {
-			s.getQuality().getCounterLine().stop();
+			s.getQuality().getCounterLine().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -864,7 +864,7 @@ public class ManualController implements Initializable {
 
 	public void fillVorButtonReleased1() {
 		try {
-			s.getFillStation().getWheel().stop();
+			s.getFillStation().getWheel().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -880,7 +880,7 @@ public class ManualController implements Initializable {
 
 	public void fillBackButtonReleased1() {
 		try {
-			s.getFillStation().getWheel().stop();
+			s.getFillStation().getWheel().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -897,7 +897,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryVorButtonReleased1() {
 		try {
-			s.getDelivery().getGateD().stop();
+			s.getDelivery().getGateD().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -913,7 +913,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryBackButtonReleased1() {
 		try {
-			s.getDelivery().getGateD().stop();
+			s.getDelivery().getGateD().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -930,7 +930,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryVorButtonReleased11() {
 		try {
-			s.getDelivery().getGateC().stop();
+			s.getDelivery().getGateC().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -946,7 +946,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryBackButtonReleased11() {
 		try {
-			s.getDelivery().getGateC().stop();
+			s.getDelivery().getGateC().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -963,7 +963,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryVorButtonReleased12() {
 		try {
-			s.getDelivery().getGateB().stop();
+			s.getDelivery().getGateB().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -971,7 +971,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryBackButtonPressed12() {
 		try {
-			s.getDelivery().getGateB().back();
+			s.getDelivery().getGateB().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -979,7 +979,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryBackButtonReleased12() {
 		try {
-			s.getDelivery().getGateB().stop();
+			s.getDelivery().getGateB().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -988,7 +988,7 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- line to customers
 	public void deliveryVorButtonPressed13() {
 		try {
-			s.getDelivery().getLineToEnd().forward();
+			s.getDelivery().getLineToEnd().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -996,7 +996,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryVorButtonReleased13() {
 		try {
-			s.getDelivery().getLineToEnd().stop();
+			s.getDelivery().getLineToEnd().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1004,7 +1004,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryBackButtonPressed13() {
 		try {
-			s.getDelivery().getLineToEnd().backward();
+			s.getDelivery().getLineToEnd().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1012,7 +1012,7 @@ public class ManualController implements Initializable {
 
 	public void deliveryBackButtonReleased13() {
 		try {
-			s.getDelivery().getLineToEnd().stop();
+			s.getDelivery().getLineToEnd().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1021,22 +1021,37 @@ public class ManualController implements Initializable {
 	// -------------------------------------------------------------------- line from puffer to arms
 	public void deliveryVorButtonPressed14() {
 		try {
-			s.getDelivery().getLineToArms().forward();
+			s.getDelivery().getLineToArms().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void deliveryVorButtonReleased14() {
-		s.getDelivery().getLineToArms().stop();
+		try {
+			s.getDelivery().getLineToArms().stop(false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void deliveryBackButtonPressed14() {
-		s.getDelivery().getLineToArms().backward();
+		try {
+			s.getDelivery().getLineToArms().forward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void deliveryBackButtonReleased14() {
-		s.getDelivery().getLineToArms().stop();
+		try {
+			s.getDelivery().getLineToArms().stop(false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	// --------------------------------------------------------------------
 
