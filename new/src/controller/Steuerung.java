@@ -172,257 +172,7 @@ public class Steuerung {
 
 	}
 
-	// ---Communication interactions---------------------------------
-
-	public void setOnline() {
-		setTwinConnection(true);
-	}
-
-	public void setOffline() {
-		setTwinConnection(false);
-	}
-
-	public ArrayList<String> getBrickIpsFromConfig() {
-		brickIps = config.getBrickips();
-		return config.getBrickips();
-	}
-
-	public void saveBrickIps() { // saves BrickIps arraylist, so new ips have to
-									// be there
-		config.setBrickips(brickIps);
-		config.writeIps();
-	}
-
-	public void changeBrickIps(ArrayList<String> newBrickIps) {
-		brickIps = newBrickIps;
-		saveBrickIps();
-	}
-
-	public ArrayList<String> getDefaultIps() {
-		return config.getDefaultBrickips();
-	}
-
-	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be
-														// used
-
-		legoClient = new LegoClient(ip, port);
-
-	}
-
-	public void deleteLegoClient() {
-		legoClient = null;
-	}
-
-	public void setTwinConnection(boolean twinConnection) {
-		this.twinConnection = twinConnection;
-	}
-
-	public boolean getTwinConnection() {
-		return twinConnection;
-	}
-
-	public boolean isConnected() {
-
-		return twinConnection;
-	}
-
-	public LegoClient getLegoClient() {
-		return legoClient;
-	}
-
-	public void sendPowerLevels() {
-
-		String message, brickName;
-		String powerLevel;
-		char[] c = new char[5];
-
-		for (lejos.remote.ev3.RemoteEV3 b : getBrickList()) {
-
-			// int akkustand = b.getPower().getVoltageMilliVolt();
-			//
-			// powerLevel = String.valueOf(b.getPower().getVoltageMilliVolt());
-			// // int in String
-			// powerLevel.getChars(0, 4, c, 0); // get first 4 chars
-			brickName = b.getName();
-
-			message = ("B1" + brickName + "-" + b.getPower().getVoltageMilliVolt()); // message
-																						// looks
-																						// like:
-																						// B100XXX
-
-			sendMessage(message);
-
-		}
-
-	}
-
-	public void resetDigitalTwin() {
-		sendMessage("ST");
-	}
-
-	public void sendMessage(String message) { // vergesse nicht vorher ein client aufzumachen
-
-		if (isConnected()) {
-			new java.util.Timer().schedule(new java.util.TimerTask() {
-				@Override
-				public void run() {
-
-					legoClient = new LegoClient("192.168.0.117", 33333);
-
-					lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
-
-					// if(lastRecivedMessage == null && sendErrorCounter >
-					// numberOfSendTrys) { // try again
-					// sendErrorCounter++;
-					// sendMessage(message);
-					// }
-					// if(!lastRecivedMessage.equals("")) { // last message not
-					// empty or null
-					// System.out.println( "Erfoglreich gesendet" + message );
-					// System.out.println("Empfangen" + lastRecivedMessage);
-					// sendErrorCounter = 0; // after succesfully send a message
-					// reset error counter
-					// }
-					// }else {
-					// System.out.println("No Client available");
-				}
-			}, 10);
-		}
-
-	}
-
-	// ---------------------Brick interactions------------------------
-
-	public float getPowerLevel(RemoteEV3 brick) {
-		/**
-		 * @param Gibt
-		 *            Akkustand aus und zurueck
-		 */
-		if (brick != null) {
-
-			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt() + "V Akku");
-
-			return brick.getPower().getVoltageMilliVolt();
-
-		} else
-			return 0;
-
-		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-	}
-
-	public float getPowerUse(RemoteEV3 brick) {
-
-		/**
-		 * @param gibt
-		 *            momentanen akku verbrauch
-		 */
-		if (brick != null) {
-
-			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
-
-			return brick.getPower().getBatteryCurrent();
-
-		} else
-			return 0;
-
-	}
-
-	public float getMotorPowerUse(RemoteEV3 brick) {
-
-		/**
-		 * @param gibt
-		 *            Motor verbrauch zurueck
-		 */
-		if (brick != null) {
-
-			System.out.println(
-					brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent() + "Amp/s Akku");
-			return brick.getPower().getMotorCurrent();
-		} else {
-			return 0;
-		}
-
-		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
-	}
-
-	public void updatePowerLevel() {
-		/**
-		 * @param updated
-		 *            powerlevel anzeige im controller and sends thems
-		 */
-
-		c.updatePowerLevel();
-
-	}
-
-	// --------------Controller interactions----------------------
-
-	public void updateLabelInController() {
-		/**
-		 * @param laesst
-		 *            den Controller alle Labels updaten
-		 */
-		c.updateLabels();
-	}
-	// --------------------------------------------------------
-
-	public void b1053Fired() { // lift schalter
-		chargier.touchLiftfired();
-		b1053Status = true;
-	}
-
-	public void b1054Fired() { // drehtischschalter
-		chargier.touchTablefired();
-		b1054Status = true;
-	}
-
-	public void b1061Fired() { // ultraschall sensor
-		chargier.schrankefired();
-		b1061Status = true;
-	}
-
-	public void b1072Fired() {
-
-		quality.counterSensorFired();
-		b1072Status = true;
-	}
-
-	public void b1073Fired(String colorString) {
-
-		quality.colorSensorFired(colorString);
-	}
-
-	public void b1131Fired(boolean button) {
-
-		compressor.pressureButtonfired(button);
-	}
-
-	public void b1151Fired(String colorString) {
-
-		qualitystation.colorSensorFired(colorString);
-	}
-
-	public void armIsStalled(boolean armIsStalled) {
-		// QualityStation arm is stalled boolean true stalled, false nicht
-		// qulityStation.setArmIsStalled(armIsStalled);
-
-	}
-
-	public int getSzenario() {
-		return szenario;
-	}
-
-	public void setSzenario(int szenario) {
-		this.szenario = szenario;
-	}
-
-	public void resetSensorStatus() {
-		b1053Status = false;
-		b1054Status = false;
-		b1061Status = false;
-		b1072Status = false;
-		quality.resetColorString();
-	}
+	// ------------init--------------------------------------------------
 
 	public void connectBricks() {
 
@@ -439,10 +189,9 @@ public class Steuerung {
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
 		fillStation = new FillStation(this, b102a);
-
-		sensordeamon = new Sensordeamon(this, b102, b103, b104, b107, b109);
-		sensordeamon.start();
-
+		
+		startSensordeamon();
+		
 		updatePowerLevel();
 		resetDigitalTwin(); // brings digital twin in start position
 		sendPowerLevels(); // sends brick powerlevel to dig twin
@@ -452,12 +201,21 @@ public class Steuerung {
 	public void disconnectBricks() { /* */
 
 		reset();
-		stopSensorDeamon();
+		closeSensordeamon();
 		closePorts();
 		System.out.println("DISCONNECTED");
 
 	}
 
+	private void startSensordeamon() {
+		sensordeamon = new Sensordeamon(this, b102, b103, b104, b107, b109);
+		sensordeamon.start();
+	}
+	
+	private void closeSensordeamon() {
+		
+		sensordeamon.setStoper(true);
+	}
 	private void reset() {
 		// TODO add every reset method from every station
 
@@ -862,11 +620,6 @@ public class Steuerung {
 		return bricks;
 	}
 
-	@SuppressWarnings("deprecation")
-	public void stopSensorDeamon() {
-		sensordeamon.suspend();
-	}
-
 	public void closePorts() {
 		/**
 		 * @param schliesst
@@ -900,6 +653,261 @@ public class Steuerung {
 		getBrickList().clear();
 	}
 
+	// ---Communication interactions---------------------------------
+
+	public void setOnline() {
+		setTwinConnection(true);
+	}
+
+	public void setOffline() {
+		setTwinConnection(false);
+	}
+
+	public ArrayList<String> getBrickIpsFromConfig() {
+		brickIps = config.getBrickips();
+		return config.getBrickips();
+	}
+
+	public void saveBrickIps() { // saves BrickIps arraylist, so new ips have to
+									// be there
+		config.setBrickips(brickIps);
+		config.writeIps();
+	}
+
+	public void changeBrickIps(ArrayList<String> newBrickIps) {
+		brickIps = newBrickIps;
+		saveBrickIps();
+	}
+
+	public ArrayList<String> getDefaultIps() {
+		return config.getDefaultBrickips();
+	}
+
+	public void createLegoClient(String ip, int port) { // ip and port can be null in this case default values will be
+														// used
+
+		legoClient = new LegoClient(ip, port);
+
+	}
+
+	public void deleteLegoClient() {
+		legoClient = null;
+	}
+
+	public void setTwinConnection(boolean twinConnection) {
+		this.twinConnection = twinConnection;
+	}
+
+	public boolean getTwinConnection() {
+		return twinConnection;
+	}
+
+	public boolean isConnected() {
+
+		return twinConnection;
+	}
+
+	public LegoClient getLegoClient() {
+		return legoClient;
+	}
+
+	public void sendPowerLevels() {
+
+		String message, brickName;
+		String powerLevel;
+		char[] c = new char[5];
+
+		for (lejos.remote.ev3.RemoteEV3 b : getBrickList()) {
+
+			// int akkustand = b.getPower().getVoltageMilliVolt();
+			//
+			// powerLevel = String.valueOf(b.getPower().getVoltageMilliVolt());
+			// // int in String
+			// powerLevel.getChars(0, 4, c, 0); // get first 4 chars
+			brickName = b.getName();
+
+			message = ("B1" + brickName + "-" + b.getPower().getVoltageMilliVolt()); // message
+																						// looks
+																						// like:
+																						// B100XXX
+
+			sendMessage(message);
+
+		}
+
+	}
+
+	public void resetDigitalTwin() {
+		sendMessage("ST");
+	}
+
+	public void sendMessage(String message) { // vergesse nicht vorher ein client aufzumachen
+
+		if (isConnected()) {
+			new java.util.Timer().schedule(new java.util.TimerTask() {
+				@Override
+				public void run() {
+
+					legoClient = new LegoClient("192.168.0.117", 33333);
+
+					lastRecivedMessage = legoClient.sendMessage(message); // sendMessage allways returns the answer
+
+					// if(lastRecivedMessage == null && sendErrorCounter >
+					// numberOfSendTrys) { // try again
+					// sendErrorCounter++;
+					// sendMessage(message);
+					// }
+					// if(!lastRecivedMessage.equals("")) { // last message not
+					// empty or null
+					// System.out.println( "Erfoglreich gesendet" + message );
+					// System.out.println("Empfangen" + lastRecivedMessage);
+					// sendErrorCounter = 0; // after succesfully send a message
+					// reset error counter
+					// }
+					// }else {
+					// System.out.println("No Client available");
+				}
+			}, 10);
+		}
+
+	}
+
+	// ---------------------Brick interactions------------------------
+
+	public float getPowerLevel(RemoteEV3 brick) {
+		/**
+		 * @param Gibt
+		 *            Akkustand aus und zurueck
+		 */
+		if (brick != null) {
+
+			System.out.println(brick.getName() + " hat noch " + brick.getPower().getVoltageMilliVolt() + "V Akku");
+
+			return brick.getPower().getVoltageMilliVolt();
+
+		} else
+			return 0;
+
+		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
+	}
+
+	public float getPowerUse(RemoteEV3 brick) {
+
+		/**
+		 * @param gibt
+		 *            momentanen akku verbrauch
+		 */
+		if (brick != null) {
+
+			System.out.println(brick.getName() + " verbraucht " + brick.getPower().getBatteryCurrent() + "Amp/s Akku"); // TODO:
+
+			return brick.getPower().getBatteryCurrent();
+
+		} else
+			return 0;
+
+	}
+
+	public float getMotorPowerUse(RemoteEV3 brick) {
+
+		/**
+		 * @param gibt
+		 *            Motor verbrauch zurueck
+		 */
+		if (brick != null) {
+
+			System.out.println(
+					brick.getName() + " Motoren verbrauchen " + brick.getPower().getMotorCurrent() + "Amp/s Akku");
+			return brick.getPower().getMotorCurrent();
+		} else {
+			return 0;
+		}
+
+		// TODO: PoverLevel in % umrechnen, wenn unter wert x dann alarm
+	}
+
+	public void updatePowerLevel() {
+		/**
+		 * @param updated
+		 *            powerlevel anzeige im controller and sends thems
+		 */
+
+		c.updatePowerLevel();
+
+	}
+
+	// --------------Controller interactions----------------------
+
+	public void updateLabelInController() {
+		/**
+		 * @param laesst
+		 *            den Controller alle Labels updaten
+		 */
+		c.updateLabels();
+	}
+
+	// --------------------------------------------------------
+
+	public void b1053Fired() { // lift schalter
+		chargier.touchLiftfired();
+		b1053Status = true;
+	}
+
+	public void b1054Fired() { // drehtischschalter
+		chargier.touchTablefired();
+		b1054Status = true;
+	}
+
+	public void b1061Fired() { // ultraschall sensor
+		chargier.schrankefired();
+		b1061Status = true;
+	}
+
+	public void b1072Fired() {
+
+		quality.counterSensorFired();
+		b1072Status = true;
+	}
+
+	public void b1073Fired(String colorString) {
+
+		quality.colorSensorFired(colorString);
+	}
+
+	public void b1131Fired(boolean button) {
+
+		compressor.pressureButtonfired(button);
+	}
+
+	public void b1151Fired(String colorString) {
+
+		qualitystation.colorSensorFired(colorString);
+	}
+
+	public void armIsStalled(boolean armIsStalled) {
+		// QualityStation arm is stalled boolean true stalled, false nicht
+		// qulityStation.setArmIsStalled(armIsStalled);
+
+	}
+
+	public int getSzenario() {
+		return szenario;
+	}
+
+	public void setSzenario(int szenario) {
+		this.szenario = szenario;
+	}
+
+	public void resetSensorStatus() {
+		b1053Status = false;
+		b1054Status = false;
+		b1061Status = false;
+		b1072Status = false;
+		quality.resetColorString();
+	}
+
+	// -------------------Getter-Stations---------------------------------------------
+
 	public Chargier getChargier() {
 		return chargier;
 	}
@@ -931,6 +939,48 @@ public class Steuerung {
 	public boolean getKompressorStatus() {
 		return compressor.isStatus();
 	}
+
+	public Stock getStock() {
+		return stock;
+	}
+
+	public static void setStock(Stock stock) {
+		Steuerung.stock = stock;
+	}
+
+	public FillStation getFillStation() {
+		return fillStation;
+	}
+
+	public static void setFillStation(FillStation fillStation) {
+		Steuerung.fillStation = fillStation;
+	}
+
+	public static Compressor getCompressor() {
+		return compressor;
+	}
+
+	public static void setCompressor(Compressor compressor) {
+		Steuerung.compressor = compressor;
+	}
+
+	public static Airarms getAirarms() {
+		return airarms;
+	}
+
+	public static void setAirarms(Airarms airarms) {
+		Steuerung.airarms = airarms;
+	}
+
+	public ArrayList<String> getBrickIps() {
+		return brickIps;
+	}
+
+	public void setBrickIps(ArrayList<String> brickIps) {
+
+		this.brickIps = brickIps;
+	}
+
 	// ------------------------help methods with
 	// werden durch test Button im UI aufgerufen und fuehren standart ablauf
 	// durch
@@ -1149,14 +1199,7 @@ public class Steuerung {
 		}
 	}
 
-	// public void runShaker(boolean mode) {
-	//
-	// if (mode == true) {
-	// lift.startShaker();
-	// } else {
-	// lift.stopShaker();
-	// }
-	// }
+	// --------------------Szenarios------------------------------
 
 	public void startSzenario1() {
 		setSzenario(1);
@@ -1564,46 +1607,6 @@ public class Steuerung {
 			}
 		}, 1000);
 
-	}
-
-	public Stock getStock() {
-		return stock;
-	}
-
-	public static void setStock(Stock stock) {
-		Steuerung.stock = stock;
-	}
-
-	public FillStation getFillStation() {
-		return fillStation;
-	}
-
-	public static void setFillStation(FillStation fillStation) {
-		Steuerung.fillStation = fillStation;
-	}
-
-	public static Compressor getCompressor() {
-		return compressor;
-	}
-
-	public static void setCompressor(Compressor compressor) {
-		Steuerung.compressor = compressor;
-	}
-
-	public static Airarms getAirarms() {
-		return airarms;
-	}
-
-	public static void setAirarms(Airarms airarms) {
-		Steuerung.airarms = airarms;
-	}
-
-	public ArrayList<String> getBrickIps() {
-		return brickIps;
-	}
-
-	public void setBrickIps(ArrayList<String> brickIps) {
-		this.brickIps = brickIps;
 	}
 
 }
