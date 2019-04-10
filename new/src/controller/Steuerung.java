@@ -189,9 +189,9 @@ public class Steuerung {
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
 		fillStation = new FillStation(this, b102a);
-		
+
 		startSensordeamon();
-		
+
 		updatePowerLevel();
 		resetDigitalTwin(); // brings digital twin in start position
 		sendPowerLevels(); // sends brick powerlevel to dig twin
@@ -211,11 +211,12 @@ public class Steuerung {
 		sensordeamon = new Sensordeamon(this, b102, b103, b104, b107, b109);
 		sensordeamon.start();
 	}
-	
+
 	private void closeSensordeamon() {
-		
+
 		sensordeamon.setStoper(true);
 	}
+
 	private void reset() {
 		// TODO add every reset method from every station
 
@@ -988,17 +989,23 @@ public class Steuerung {
 
 	public void runDelivery() {
 
-		try {
-			deliverylane.startLineToEnd(false);
-			deliverylane.closeGates();
-			deliverylane.turnLineToArms(-1048);
-			airarms.runAirArms();
-			deliverylane.openGateB();
-			deliverylane.openEquallyGate();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				try {
+					deliverylane.startLineToEnd(false);
+					deliverylane.closeGates();
+					deliverylane.turnLineToArms(-1048);
+					airarms.runAirArms();
+					deliverylane.openGateB();
+					deliverylane.openEquallyGate();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000);
+		
 
 	}
 
@@ -1153,15 +1160,21 @@ public class Steuerung {
 	public void runStock(boolean mode) {
 
 		if (mode == true) {
-			try {
-				stock.elevatorToRight(true);
-				stock.elevatorUp(false);
-				stock.elevatorToLeft(true);
-				stock.elevatorDown(false);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			new java.util.Timer().schedule(new java.util.TimerTask() {
+				@Override
+				public void run() {
+					try {
+						stock.elevatorToRight(true);
+						stock.elevatorUp(false);
+						stock.elevatorToLeft(true);
+						stock.elevatorDown(false);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}, 1000);
+
 		} else {
 			stock.reset();
 		}
@@ -1170,14 +1183,20 @@ public class Steuerung {
 	public void runDelivery(boolean mode) {
 
 		if (mode == true) {
-			try {
-				deliverylane.startLineToEnd(false);
-				deliverylane.turnLineToArms(-1048);
-				runGates(true);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			new java.util.Timer().schedule(new java.util.TimerTask() {
+				@Override
+				public void run() {
+					try {
+						deliverylane.startLineToEnd(false);
+						deliverylane.turnLineToArms(-1048);
+						runGates(true);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}, 1000);
+
 		} else {
 			try {
 				runGates(false);
