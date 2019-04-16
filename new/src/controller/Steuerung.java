@@ -197,7 +197,7 @@ public class Steuerung {
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
 		fillStation = new FillStation(this, b102a);
-//		car = new Car(this,b114a,b114b,b114c);
+		car = new Car(this,b114a,b114b,b114c);
 
 		startSensordeamon();
 
@@ -252,7 +252,7 @@ public class Steuerung {
 		initBrick11();
 		initBrick12();
 		initBrick13();
-//		initBrick14();
+		initBrick14();
 
 	}
 
@@ -617,7 +617,7 @@ public class Steuerung {
 	}
 	
 	public void initBrick14() {
-		// Brick 119
+		// Brick 114
 		try {
 			if (getBrickIps().get(12) != null) {
 				b114 = new RemoteEV3(getBrickIps().get(13));
