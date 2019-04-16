@@ -26,6 +26,7 @@ import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RMISampleProvider;
 import lejos.remote.ev3.RemoteEV3;
 import stations.Airarms;
+import stations.Car;
 import stations.Chargier;
 import stations.Lift;
 import stations.Quality;
@@ -52,6 +53,7 @@ public class Steuerung {
 	RemoteEV3 b111;
 	RemoteEV3 b112;
 	RemoteEV3 b113;
+	RemoteEV3 b114;
 	// RemoteEV3 b120;
 
 	static RMIRegulatedMotor b101a;
@@ -115,6 +117,11 @@ public class Steuerung {
 
 	static RMIRegulatedMotor b113a;
 	static RMIRegulatedMotor b113b;
+	
+	static RMIRegulatedMotor b114a;
+	static RMIRegulatedMotor b114b;
+	static RMIRegulatedMotor b114c;
+	static RMIRegulatedMotor b114d;
 
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
 	static ArrayList<RMISampleProvider> openSensorPorts = new ArrayList<>();
@@ -132,6 +139,7 @@ public class Steuerung {
 	static Stock stock;
 	static FillStation fillStation;
 	private Sensordeamon sensordeamon;
+	static Car car;
 
 	static BrickConfig config;
 
@@ -189,6 +197,7 @@ public class Steuerung {
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
 		fillStation = new FillStation(this, b102a);
+//		car = new Car(this,b114a,b114b,b114c);
 
 		startSensordeamon();
 
@@ -243,6 +252,7 @@ public class Steuerung {
 		initBrick11();
 		initBrick12();
 		initBrick13();
+//		initBrick14();
 
 	}
 
@@ -604,6 +614,33 @@ public class Steuerung {
 		openMotorPorts.add(b113b);
 
 		bricks.add(b113);
+	}
+	
+	public void initBrick14() {
+		// Brick 119
+		try {
+			if (getBrickIps().get(12) != null) {
+				b114 = new RemoteEV3(getBrickIps().get(13));
+			} else
+				b114 = new RemoteEV3("192.168.0.114");
+			getPowerLevel(b113);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			closePorts();
+			System.out.println("B14 not Found");
+
+		}
+
+		b114a = b114.createRegulatedMotor("A", 'L');
+		b114b = b114.createRegulatedMotor("B", 'M');
+		b114c = b114.createRegulatedMotor("C", 'M');
+		
+		openMotorPorts.add(b114a);
+		openMotorPorts.add(b114b);
+		openMotorPorts.add(b114c);
+
+		bricks.add(b114);
 	}
 
 	public void addToSensorList(RMISampleProvider s) {
@@ -1626,6 +1663,14 @@ public class Steuerung {
 			}
 		}, 1000);
 
+	}
+
+	public static Car getCar() {
+		return car;
+	}
+
+	public static void setCar(Car car) {
+		Steuerung.car = car;
 	}
 
 }
