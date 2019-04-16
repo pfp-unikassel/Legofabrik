@@ -447,6 +447,49 @@
                               <Insets bottom="10.0" />
                            </padding>
                         </HBox>
+                        <Line endX="484.0" startX="-100.0" />
+                        <Label text="Car :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Geschwindigkeit">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="carGeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Line Geschwindigkeit">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="lineoncarGeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Horizontal Drehwinkel:">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="horizontalturndegree" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children></AnchorPane>

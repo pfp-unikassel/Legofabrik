@@ -28,7 +28,8 @@ public class ManualController implements Initializable {
 			liftVor11, liftVor12, liftVor13, liftVor14, liftBack1, liftBack11, liftBack12, liftBack13, liftBack14,
 			cleanerVor1, cleanerVor11, cleanerBack1, cleanerBack11, qualityVor1, qualityVor11, qualityVor12,
 			qualityBack1, qualityBack11, qualityBack12, fillVor1, fillBack1, deliveryVor1, deliveryVor11, deliveryVor12,
-			deliveryVor13, deliveryVor14, deliveryBack1, deliveryBack11, deliveryBack12, deliveryBack13, deliveryBack14;
+			deliveryVor13, deliveryVor14, deliveryBack1, deliveryBack11, deliveryBack12, deliveryBack13,deliveryBack14,
+			carVor1,carVor12,carVor13,carBack1,carBack12,carBack13;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -1053,6 +1054,116 @@ public class ManualController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	// --------------------------------------------------------------------
+	// -------------------------------------------------------------------- CAR Line
 
+	public void carVorButtonPressed1() {
+		try {
+			s.getCar().getLineOnCar().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void carVorButtonReleased1() {
+		try {
+			s.getCar().getLineOnCar().stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void carBackButtonPressed1() {
+		try {
+			s.getCar().getLineOnCar().backward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void carBackButtonReleased1() {
+		try {
+			s.getCar().getLineOnCar().stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// -------------------------------------------------------------------- CAR Lenkung
+
+		public void carVorButtonPressed12() {
+			try {
+				s.getCar().getLenkung().forward();
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void carVorButtonReleased12() {
+			try {
+				s.getCar().getLenkung().stop();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		public void carBackButtonPressed12() {
+			try {
+				s.getCar().getLenkung().backward();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		public void carBackButtonReleased12() {
+			try {
+				s.getCar().getLenkung().stop();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+
+//-------------------------------------------------------------------- CAR antrieb
+
+	public void carVorButtonPressed13() {
+		try {
+			s.getCar().getAntrieb().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void carVorButtonReleased13() {
+		try {
+			s.getCar().getAntrieb().stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void carBackButtonPressed13() {
+		try {
+			s.getCar().getAntrieb().backward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void carBackButtonReleased13() {
+		try {
+			s.getCar().getAntrieb().stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
+
