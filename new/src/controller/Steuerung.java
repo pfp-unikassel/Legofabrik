@@ -1255,6 +1255,21 @@ public class Steuerung {
 		}
 	}
 
+	public void runCar() {
+		
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				try {
+					car.moveCarDegree(720, false);
+					car.moveCarDegree(-720, false);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000);
+	}
 	// --------------------Szenarios------------------------------
 
 	public void startSzenario1() {
