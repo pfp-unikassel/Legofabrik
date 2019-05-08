@@ -117,7 +117,11 @@ public class Quality {
 //			System.out.println(" White open gate");
 		}else {						 // if ball is not white open gate 
 			closeGate();
-			setBadBalls(getBadBalls()+1);
+			if(colorString == "BLACK") { // if he scans Black he should not count nio balls, black is the line
+				
+			}else {
+				setBadBalls(getBadBalls()+1);				
+			}
 //			System.out.println(" not white close gate");
 		}
 	}

@@ -24,6 +24,7 @@ public class Sensordeamon extends Thread {
 
 	private Steuerung s;
 	private int counter = 0;
+	private boolean stoper = false;
 
 	private RemoteEV3 b105;
 	private RemoteEV3 b106;
@@ -48,9 +49,19 @@ public class Sensordeamon extends Thread {
 		// this.m = b;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
-
+		/**
+		 * legt Sampleprovider der Sensoren an 
+		 * fuegt diese zu einer Liste hinzu 
+		 * und erstellt für jeden ein Array
+		 * 
+		 * runs thread welcher in jedem durchlauf:
+		 * die Sensoren abfragt und wenn diese ausloesen sender er dies and die Steuerung
+		 * Startet außderdem Ui thread welcher das UI updated
+		 * 
+		 */
 		// RMISampleProvider b1061 = b106.createSampleProvider("S1",
 		// "lejos.hardware.sensor.EV3UltrasonicSensor", null); // "Distance"
 		// mode
@@ -69,8 +80,8 @@ public class Sensordeamon extends Thread {
 		s.addToSensorList(b1054);
 		// s.addToSensorList(b1061);
 		s.addToSensorList(b1072);
-		s.addToSensorList(b1073);
 		s.addToSensorList(b1131);
+		s.addToSensorList(b1073);
 		// s.addToSensorList(b1151);
 
 		float[] Sensorarray1 = new float[5];
@@ -92,7 +103,12 @@ public class Sensordeamon extends Thread {
 
 		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas
 						// erkennt
-
+		
+			if(stoper) { // stops this thread
+				s.getSensorList().clear();
+				this.stop();
+			}
+			
 			try {
 				// Sensorarray1 = b1061.fetchSample();
 				Sensorarray2 = b1053.fetchSample();
@@ -110,7 +126,6 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray1[0] == 1) { // wenn schalter gedrueckt wurde dann
 
 				s.b1061Fired();
-				// System.out.println("Sensor b1061 fired");
 				waitSek(2);
 				Sensorarray1[0] = 0;
 				s.resetSensorStatus();
@@ -118,7 +133,6 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
-				// System.out.println("Sensor b1053 fired");
 				s.sendMessage("LF");
 				waitSek(3);
 				Sensorarray2[0] = 0;
@@ -127,7 +141,6 @@ public class Sensordeamon extends Thread {
 			}
 			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
-				// System.out.println("Sensor b1054 fired");
 				s.sendMessage("TF");
 				waitSek(3);
 				Sensorarray3[0] = 0;
@@ -136,7 +149,6 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray4[0] == 1) { // counter sensor
 				s.b1072Fired();
 				s.sendMessage("CF");
-				// System.out.println("Sensor b1072 fired");
 				Sensorarray4[0] = 0;
 				s.resetSensorStatus();
 			}
@@ -244,7 +256,7 @@ public class Sensordeamon extends Thread {
 			// -------------UI
 			// changes--------------------------------------------------------------------------------------------
 			/**
-			 * @param ruft die Labelupdate Methode jedesmal in einem Platformthread auf
+			 * ruft die Labelupdate Methode jedesmal in einem Platformthread auf
 			 * Ruft die Update Powerlevel nur bei jedem 100 durchlauf auf
 			 */
 
@@ -302,6 +314,14 @@ public class Sensordeamon extends Thread {
 		} else {
 			return secondId;
 		}
+	}
+
+	public boolean isStoper() {
+		return stoper;
+	}
+
+	public void setStoper(boolean stoper) {
+		this.stoper = stoper;
 	}
 
 }

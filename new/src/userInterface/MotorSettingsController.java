@@ -23,7 +23,7 @@ public class MotorSettingsController implements Initializable {
 
 	public TextField zahlbandv, sensorbandv, lieferbandv, fahrstuhlhorizont, fahrstuhlvertikal, drehgeschwindigkeit,
 			hebebandv, filldrehgescwindigkeit, anzahldrehungen, bandzumarmv, auslieferbandv, hebegeschwindigkeit,
-			shaker;
+			shaker,carGeschwindigkeit, lineoncarGeschwindigkeit,horizontalturndegree;
 
 	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14, zwillingOff, zwillingOn,
 			kompressorAn, kompressorAus;
@@ -37,7 +37,7 @@ public class MotorSettingsController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		farbe.getItems().addAll("Weiß", "Schwarz", "Rot", "Grün", "Blau", "Braun");
+		farbe.getItems().addAll("Weiß", "Rot", "Grün", "Blau", "Braun");
 		drehtischposition.getItems().addAll("Anlieferung", "Lager", "Lift");
 
 	}
@@ -180,7 +180,10 @@ public class MotorSettingsController implements Initializable {
 		// lift
 		hebegeschwindigkeit.setText(String.valueOf(s.getLift().getliftSpeed()));
 		shaker.setText(String.valueOf(s.getLift().getShakerSpeed()));
-
+		//Car
+		carGeschwindigkeit.setText(String.valueOf(s.getCar().getCarSpeed()));
+		lineoncarGeschwindigkeit.setText(String.valueOf(s.getCar().getLineSpeed()));
+		horizontalturndegree.setText(String.valueOf(s.getCar().getCarHorizontalDegree()));
 	}
 
 	public void fetchTwinToggleButton() {
@@ -242,6 +245,10 @@ public class MotorSettingsController implements Initializable {
 
 		s.getLift().setliftSpeedt(Integer.parseInt(hebegeschwindigkeit.getText()));
 		s.getLift().setShakerSpeed(Integer.parseInt(shaker.getText()));
+		
+		s.getCar().setCarHorizontalDegree(Integer.parseInt(horizontalturndegree.getText()));
+		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
+		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));
 
 	}
 
@@ -295,9 +302,9 @@ public class MotorSettingsController implements Initializable {
 		if (farbe.getValue().equals("Weiß")) {
 			s.getQuality().setIoColor("WHITE");
 		}
-		if (farbe.getValue().equals("Schwarz")) {
-			s.getQuality().setIoColor("BLACK");
-		}
+//		if (farbe.getValue().equals("Schwarz")) {  // Schwarz should not be avaiable as io color becouse the line is black
+//			s.getQuality().setIoColor("BLACK");
+//		}
 		if (farbe.getValue().equals("Rot")) {
 			s.getQuality().setIoColor("RED");
 		}
