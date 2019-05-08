@@ -37,7 +37,7 @@ public class MotorSettingsController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		farbe.getItems().addAll("Weiß", "Schwarz", "Rot", "Grün", "Blau", "Braun");
+		farbe.getItems().addAll("Weiß", "Rot", "Grün", "Blau", "Braun");
 		drehtischposition.getItems().addAll("Anlieferung", "Lager", "Lift");
 
 	}
@@ -302,9 +302,9 @@ public class MotorSettingsController implements Initializable {
 		if (farbe.getValue().equals("Weiß")) {
 			s.getQuality().setIoColor("WHITE");
 		}
-		if (farbe.getValue().equals("Schwarz")) {
-			s.getQuality().setIoColor("BLACK");
-		}
+//		if (farbe.getValue().equals("Schwarz")) {  // Schwarz should not be avaiable as io color becouse the line is black
+//			s.getQuality().setIoColor("BLACK");
+//		}
 		if (farbe.getValue().equals("Rot")) {
 			s.getQuality().setIoColor("RED");
 		}

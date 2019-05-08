@@ -25,6 +25,13 @@ import javafx.stage.Stage;
 
 public class Controller implements Initializable {
 
+	/**
+	 * controller des main Ui
+	 * jedes element muss mit der FX id deklariert werden, java fx initialisiert sie selber
+	 * 
+	 * startet steuerung und uebergibt sich selber
+	 */
+	
 	public Button startButton;
 	public Button stopButton;
 	public Button pauseButton;

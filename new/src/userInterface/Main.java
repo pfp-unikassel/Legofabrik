@@ -12,7 +12,9 @@ import javafx.scene.Scene;
 
 
 public class Main extends Application {
-
+	/**
+	 * Startet den Ui controller welcher dann die Steuerung startet
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

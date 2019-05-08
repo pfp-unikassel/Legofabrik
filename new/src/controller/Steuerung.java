@@ -168,9 +168,8 @@ public class Steuerung {
 	public void start(Controller c1) {
 
 		/**
-		 * @param Initialsiert
-		 *            alle Stations und den Sensordeamon sollte vom Controller holt ips
-		 *            aus datei ausgeführt werden oder dieser übergeben.
+		 *   holt ips aus Datei
+		 * @param Controller des main UI
 		 */
 
 		c = c1;
@@ -183,7 +182,11 @@ public class Steuerung {
 	// ------------init--------------------------------------------------
 
 	public void connectBricks() {
-
+		/**
+		 * initialisiert jede Station
+		 * startet den Sensor deamon
+		 * laedt akkustaende
+		 * */
 		initAll();
 		System.out.println("Connected");
 
@@ -230,12 +233,12 @@ public class Steuerung {
 		// TODO add every reset method from every station
 
 	}
-
+	
 	public void initAll() {
 		/**
-		 * @param Initioalisiert
-		 *            alle Bricks wenn ip in Datei steht wird diese genommen, wenn nicht
-		 *            die im code definierte
+		 *  Initialisiert
+		 *  alle Bricks wenn ip in Datei steht wird diese genommen, wenn nicht
+		 *  die im code definierte
 		 */
 		System.out.println("init All");
 
@@ -257,6 +260,10 @@ public class Steuerung {
 	}
 
 	public void initBrick1() {
+		/**
+		 * initialisiert Brick1 mit der Ip aus Datei falls vorhanden und speichert ihn in der Brick liste
+		 * initialisiert Motoren des Bricks und speichert diese in der Motor Arraylist
+		 * */
 		// Brick 101
 		try {
 			if (getBrickIps().get(0) != null) {
@@ -660,9 +667,9 @@ public class Steuerung {
 
 	public void closePorts() {
 		/**
-		 * @param schliesst
-		 *            alle Motorports/Sensorports der Bricks aus der Liste muss bei
-		 *            jedem programm Ende gemacht werden
+		 * schliesst
+		 * alle Motorports/Sensorports der Bricks aus der Liste muss bei
+		 * jedem programm Ende gemacht werden
 		 */
 
 		for (RMIRegulatedMotor temp : openMotorPorts) { // close every open
@@ -694,10 +701,16 @@ public class Steuerung {
 	// ---Communication interactions---------------------------------
 
 	public void setOnline() {
+		/**
+		 *  sorgt dafuer das Nachrichten an den Zwilling geschickt werden
+		 * */
 		setTwinConnection(true);
 	}
 
 	public void setOffline() {
+		/**
+		 *  sorgt dafuer das keine Nachrichten an den Zwilling geschickt werden
+		 * */
 		setTwinConnection(false);
 	}
 
@@ -706,13 +719,19 @@ public class Steuerung {
 		return config.getBrickips();
 	}
 
-	public void saveBrickIps() { // saves BrickIps arraylist, so new ips have to
-									// be there
+	public void saveBrickIps() { 
+		/**
+		 *  Speichert brick ips in Datai
+		 * */
+		
 		config.setBrickips(brickIps);
 		config.writeIps();
 	}
 
 	public void changeBrickIps(ArrayList<String> newBrickIps) {
+		/**
+		 *  tauscht alte gegen neue ips aus
+		 * */
 		brickIps = newBrickIps;
 		saveBrickIps();
 	}
@@ -751,6 +770,9 @@ public class Steuerung {
 
 	public void sendPowerLevels() {
 
+		/**
+		 *  holt akkustand vom Brick und Name von Brick und sendet sie dem Zwilling
+		 * */
 		String message, brickName;
 		String powerLevel;
 		char[] c = new char[5];
@@ -781,6 +803,10 @@ public class Steuerung {
 
 	public void sendMessage(String message) { // vergesse nicht vorher ein client aufzumachen
 
+		/**sendet Nachricht an den Zwilling, Ip und Port sind in der Methode hardcoded
+		 *  
+		 *  @param Message as String
+		 * */
 		if (isConnected()) {
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
@@ -814,8 +840,8 @@ public class Steuerung {
 
 	public float getPowerLevel(RemoteEV3 brick) {
 		/**
-		 * @param Gibt
-		 *            Akkustand aus und zurueck
+		 * @param RemoteEV3 legobrick
+		 *  @return  Akkustand als mV float, 7V = 7000mv
 		 */
 		if (brick != null) {
 
@@ -832,8 +858,8 @@ public class Steuerung {
 	public float getPowerUse(RemoteEV3 brick) {
 
 		/**
-		 * @param gibt
-		 *            momentanen akku verbrauch
+		 * @param RemoteEV3 legobrick
+		 *  @return momentanen akku verbrauch in mV
 		 */
 		if (brick != null) {
 
@@ -849,8 +875,8 @@ public class Steuerung {
 	public float getMotorPowerUse(RemoteEV3 brick) {
 
 		/**
-		 * @param gibt
-		 *            Motor verbrauch zurueck
+		 * @param lego Brick
+		 * @return  Motor verbrauch float in mV
 		 */
 		if (brick != null) {
 
@@ -866,8 +892,7 @@ public class Steuerung {
 
 	public void updatePowerLevel() {
 		/**
-		 * @param updated
-		 *            powerlevel anzeige im controller and sends thems
+		 *  updated powerlevel anzeige im controller
 		 */
 
 		c.updatePowerLevel();
@@ -887,22 +912,36 @@ public class Steuerung {
 	// --------------------------------------------------------
 
 	public void b1053Fired() { // lift schalter
+		/**
+		 * Programm ablauf wartet auf diesen boolean
+		 * Sensor lift schalter
+		 */
 		chargier.touchLiftfired();
 		b1053Status = true;
 	}
 
 	public void b1054Fired() { // drehtischschalter
+		/**
+		 * Programm ablauf wartet auf diesen boolean
+		 * Dreht tisch  schalter
+		 */
 		chargier.touchTablefired();
 		b1054Status = true;
 	}
 
 	public void b1061Fired() { // ultraschall sensor
+		/**
+		 * Programm ablauf wartet auf diesen boolean
+		 * Ultraschall Sensor
+		 */
 		chargier.schrankefired();
 		b1061Status = true;
 	}
 
 	public void b1072Fired() {
-
+		/**
+		 * zaehlt bälle
+		 */
 		quality.counterSensorFired();
 		b1072Status = true;
 	}
@@ -923,6 +962,11 @@ public class Steuerung {
 	}
 
 	public void armIsStalled(boolean armIsStalled) {
+		/**
+		 * methode soll aufgerufen werden wenn ein Motor blockiert
+		 * das Funktioniert mit der Lego Biblio auch 
+		 * noch zu implementieren
+		 */
 		// QualityStation arm is stalled boolean true stalled, false nicht
 		// qulityStation.setArmIsStalled(armIsStalled);
 
@@ -1026,6 +1070,9 @@ public class Steuerung {
 
 	public void runDelivery() {
 
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
@@ -1048,6 +1095,9 @@ public class Steuerung {
 
 	public void runChargier(boolean mode) { // True starts false stops
 
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
@@ -1114,6 +1164,9 @@ public class Steuerung {
 
 	public void runCleaner(boolean mode) {
 
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			try {
 				cleaner.startLiftLine(true);
@@ -1133,7 +1186,9 @@ public class Steuerung {
 	}
 
 	public void runShaker(boolean mode) {
-
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			try {
 				lift.startShaker();
@@ -1152,7 +1207,9 @@ public class Steuerung {
 	}
 
 	public void runLift(boolean mode) {
-
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
@@ -1166,7 +1223,9 @@ public class Steuerung {
 	}
 
 	public void runQuality(boolean mode) {
-
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			try {
 				quality.startCounterLine(false);
@@ -1186,7 +1245,9 @@ public class Steuerung {
 	}
 
 	public void runAirarms(boolean mode) {
-
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			airarms.runAirArms();
 		} else {
@@ -1195,7 +1256,9 @@ public class Steuerung {
 	}
 
 	public void runStock(boolean mode) {
-
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
@@ -1218,7 +1281,9 @@ public class Steuerung {
 	}
 
 	public void runDelivery(boolean mode) {
-
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
@@ -1246,7 +1311,9 @@ public class Steuerung {
 	}
 
 	public void runGates(boolean mode) {
-
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		if (mode == true) {
 			deliverylane.openGateB();
 			deliverylane.openEquallyGate();
@@ -1256,7 +1323,9 @@ public class Steuerung {
 	}
 
 	public void runCar() {
-		
+		/**
+		 * runs Station standart ablauf in seperaten thread
+		 */
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
@@ -1273,7 +1342,7 @@ public class Steuerung {
 	// --------------------Szenarios------------------------------
 
 	public void startSzenario1() {
-		setSzenario(1);
+		setSzenario(1); 
 		// sendMessage("ST");
 		// sendPowerLevels();
 

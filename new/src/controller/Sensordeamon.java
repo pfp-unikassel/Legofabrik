@@ -52,7 +52,16 @@ public class Sensordeamon extends Thread {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
-
+		/**
+		 * legt Sampleprovider der Sensoren an 
+		 * fuegt diese zu einer Liste hinzu 
+		 * und erstellt für jeden ein Array
+		 * 
+		 * runs thread welcher in jedem durchlauf:
+		 * die Sensoren abfragt und wenn diese ausloesen sender er dies and die Steuerung
+		 * Startet außderdem Ui thread welcher das UI updated
+		 * 
+		 */
 		// RMISampleProvider b1061 = b106.createSampleProvider("S1",
 		// "lejos.hardware.sensor.EV3UltrasonicSensor", null); // "Distance"
 		// mode
@@ -247,7 +256,7 @@ public class Sensordeamon extends Thread {
 			// -------------UI
 			// changes--------------------------------------------------------------------------------------------
 			/**
-			 * @param ruft die Labelupdate Methode jedesmal in einem Platformthread auf
+			 * ruft die Labelupdate Methode jedesmal in einem Platformthread auf
 			 * Ruft die Update Powerlevel nur bei jedem 100 durchlauf auf
 			 */
 
