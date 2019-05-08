@@ -16,7 +16,7 @@ public class Lift {
 	private int winkelGreifen = 280;
 	private int winkelHeben = 3400;
 	private int liftSpeed = 740;
-	private int shakerSpeed = 700;
+	private int shakerSpeed = 360;
 	private boolean running = false;
 		
 	private Steuerung s;
