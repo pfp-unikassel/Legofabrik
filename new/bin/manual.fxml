@@ -569,6 +569,60 @@
                               <Button fx:id="deliveryVor1" mnemonicParsing="false" onMousePressed="#deliveryVorButtonPressed1" onMouseReleased="#deliveryVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
                            </children>
                         </HBox>
+                        <Line endX="484.0" startX="-100.0" />
+                        <Label text="Car :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Motor Hinterachse :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="carBack13" mnemonicParsing="false" onMousePressed="#carBackButtonPressed13" onMouseReleased="#carBackButtonReleased13" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="carVor13" mnemonicParsing="false" onMousePressed="#carVorButtonPressed13" onMouseReleased="#carVorButtonReleased13" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lenkung">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="carBack12" mnemonicParsing="false" onMousePressed="#carBackButtonPressed12" onMouseReleased="#carBackButtonReleased12" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="carVor12" mnemonicParsing="false" onMousePressed="#carVorButtonPressed12" onMouseReleased="#carVorButtonReleased12" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="carBack1" mnemonicParsing="false" onMousePressed="#carBackButtonPressed1" onMouseReleased="#carBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="carVor1" mnemonicParsing="false" onMousePressed="#carVorButtonPressed1" onMouseReleased="#carVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children></AnchorPane>

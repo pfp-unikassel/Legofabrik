@@ -188,12 +188,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <ToggleButton fx:id="lager1" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                              <ToggleButton fx:id="lager1" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="g1" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="lager11" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g1" />
+                              <ToggleButton fx:id="lager11" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll" toggleGroup="$g1" />
                            </children>
                         </HBox>
                         <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
@@ -206,12 +206,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <ToggleButton fx:id="lager2" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                              <ToggleButton fx:id="lager2" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="g2" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="lager12" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g2" />
+                              <ToggleButton fx:id="lager12" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll" toggleGroup="$g2" />
                            </children>
                         </HBox>
                         <HBox prefHeight="35.0" prefWidth="585.0" spacing="30.0">
@@ -224,12 +224,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <ToggleButton fx:id="lager3" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                              <ToggleButton fx:id="lager3" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="g3" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="lager13" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g3" />
+                              <ToggleButton fx:id="lager13" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll" toggleGroup="$g3" />
                            </children>
                         </HBox>
                         <HBox prefHeight="35.0" prefWidth="585.0" spacing="30.0">
@@ -242,12 +242,12 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <ToggleButton fx:id="lager4" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll">
+                              <ToggleButton fx:id="lager4" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="g4" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="lager14" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Leer" toggleGroup="$g4" />
+                              <ToggleButton fx:id="lager14" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Voll" toggleGroup="$g4" />
                            </children>
                         </HBox>
                         <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
@@ -446,6 +446,49 @@
                            <padding>
                               <Insets bottom="10.0" />
                            </padding>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0" />
+                        <Label text="Car :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Geschwindigkeit">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="carGeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Line Geschwindigkeit">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="lineoncarGeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Horizontal Drehwinkel:">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="horizontalturndegree" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
                         </HBox>
                      </children>
                   </VBox>
