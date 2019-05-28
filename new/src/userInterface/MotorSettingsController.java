@@ -26,9 +26,9 @@ public class MotorSettingsController implements Initializable {
 			shaker,carGeschwindigkeit, lineoncarGeschwindigkeit,horizontalturndegree;
 
 	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14, zwillingOff, zwillingOn,
-			kompressorAn, kompressorAus;
+			kompressorAn, kompressorAus,airarms1,airarms2,airarms3,airarms4,airarms11,airarms12,airarms13,airarms14;
 
-	public ToggleGroup g1, g2, g3, g4, g5, g6;
+	public ToggleGroup g1, g2, g3, g4, g5, g6, g7,g8,g9,g10;
 
 	public ComboBox<String> farbe, drehtischposition;
 
@@ -51,6 +51,7 @@ public class MotorSettingsController implements Initializable {
 
 	public void updateFromLiveModel() { // gets every value from Steuerung
 		updateStockToggleButton();
+		updateAirarmsToggleButton();
 		fetchIoColor();
 		fetchTablePosition();
 		fetchMotorSettings();
@@ -67,7 +68,7 @@ public class MotorSettingsController implements Initializable {
 		setMotorSettings();
 		setKompressor();
 		setTwin();
-
+		setAirarmsFromUi();
 	}
 
 	public void applyButtonPushed() {
@@ -205,7 +206,33 @@ public class MotorSettingsController implements Initializable {
 		}
 	}
 	
-	
+	public void updateAirarmsToggleButton() { // gets Airarm values and updates it in UI
+
+		if (s.getAirarms().getArmPosition()) { 
+			airarms11.setSelected(true);
+		} else {
+			airarms1.setSelected(true);
+		}
+
+		if (s.getAirarms().getArmStatus()) { 
+			airarms12.setSelected(true);
+		} else {
+			airarms1.setSelected(true);
+		}
+
+		if (s.getAirarms().getGrabPosition()) { 
+			airarms3.setSelected(true);
+		} else {
+			airarms13.setSelected(true);
+		}
+
+		if (s.getAirarms().getGrabStatus()) { 
+			airarms4.setSelected(true);
+		} else {
+			airarms14.setSelected(true);
+		}
+
+	}
 
 	// -----------------------------From-ui-to--Code-----------------------------------------
 
@@ -318,5 +345,57 @@ public class MotorSettingsController implements Initializable {
 			s.getQuality().setIoColor("BLUE");
 		}
 	}
+	
+	public void setAirarmsFromUi() { // gets Airarm values and updates it in UI
+
+		if (airarms1.isSelected()) { 
+			s.getAirarms().setArmPosition(false);
+		} else {
+			s.getAirarms().setArmPosition(true);
+		}
+
+		if (airarms2.isSelected()) {
+			s.getAirarms().setArmStatus(false);
+		} else {
+			s.getAirarms().setArmStatus(true);
+		}
+
+		if (airarms3.isSelected()) {
+			s.getAirarms().setGrabPosition(true);
+		} else {
+			s.getAirarms().setGrabPosition(false);
+		}
+
+		if (airarms4.isSelected()) {
+			s.getAirarms().setGrabStatus(true);
+		} else {
+			s.getAirarms().setGrabStatus(false);
+		}
+		
+		
+		
+		if (s.getAirarms().getArmPosition()) { 
+			airarms11.setSelected(true);
+		} else {
+			airarms1.setSelected(true);
+		}
+
+		if (s.getAirarms().getArmStatus()) { 
+			airarms12.setSelected(true);
+		} else {
+			airarms1.setSelected(true);
+		}
+
+		if (s.getAirarms().getGrabPosition()) { 
+			airarms3.setSelected(true);
+		} else {
+			airarms13.setSelected(true);
+		}
+
+		if (s.getAirarms().getGrabStatus()) { 
+			airarms4.setSelected(true);
+		} else {
+			airarms14.setSelected(true);
+		}
 
 }
