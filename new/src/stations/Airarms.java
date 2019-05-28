@@ -292,4 +292,20 @@ public class Airarms { // schalter rechts rechts Links links
 	public void setTowerTurnDegree(int towerTurnDegree) {
 		this.towerTurnDegree = towerTurnDegree;
 	}
+
+	public RMIRegulatedMotor getTurnArm1() {
+		return turnArm1;
+	}
+
+	public void setTurnArm1(RMIRegulatedMotor turnArm1) {
+		this.turnArm1 = turnArm1;
+	}
+
+	public RMIRegulatedMotor getTurnArm2() {
+		return turnArm2;
+	}
+
+	public void setTurnArm2(RMIRegulatedMotor turnArm2) {
+		this.turnArm2 = turnArm2;
+	}
 }

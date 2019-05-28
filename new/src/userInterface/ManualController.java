@@ -28,8 +28,10 @@ public class ManualController implements Initializable {
 			liftVor11, liftVor12, liftVor13, liftVor14, liftBack1, liftBack11, liftBack12, liftBack13, liftBack14,
 			cleanerVor1, cleanerVor11, cleanerBack1, cleanerBack11, qualityVor1, qualityVor11, qualityVor12,
 			qualityBack1, qualityBack11, qualityBack12, fillVor1, fillBack1, deliveryVor1, deliveryVor11, deliveryVor12,
-			deliveryVor13, deliveryVor14, deliveryBack1, deliveryBack11, deliveryBack12, deliveryBack13,deliveryBack14,
-			carVor1,carVor12,carVor13,carBack1,carBack12,carBack13;
+			deliveryVor13, deliveryVor14, deliveryBack1, deliveryBack11, deliveryBack12, deliveryBack13, deliveryBack14,
+			carVor1, carVor12, carVor13, carBack1, carBack12, carBack13, airarmsVor1, airarmsVor12, airarmsVor13,
+			airarmsVor14, airarmsVor15, airarmsVor16, airarmsBack1, airarmsBack12, airarmsBack13, airarmsBack14,
+			airarmsBack15, airarmsBack16;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -53,17 +55,17 @@ public class ManualController implements Initializable {
 
 	}
 
-	
 	// try {
 	// s.getChargier().stopLineToTable();
 	// } catch (RemoteException e) {
 	// // TODO Auto-generated catch block
 	// e.printStackTrace();
 	// }
-	
-	// --------------------------------------------------------------------Turn Table
+
+	// --------------------------------------------------------------------Turn
+	// Table
 	public void chargierVorButtonPressed1() {
-		
+
 		try {
 			s.getChargier().getAntriebDrehtisch().forward();
 		} catch (RemoteException e) {
@@ -95,7 +97,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line on Table
+	// -------------------------------------------------------------------- Line on
+	// Table
 	public void chargierVorButtonPressed12() {
 		try {
 			s.getChargier().startLineToTable(false);
@@ -128,7 +131,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line to store
+	// -------------------------------------------------------------------- Line to
+	// store
 	public void chargierVorButtonPressed13() {
 		try {
 			s.getChargier().startLineToStore(false);
@@ -161,7 +165,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line to production
+	// -------------------------------------------------------------------- Line to
+	// production
 	public void chargierVorButtonPressed14() {
 		try {
 			s.getChargier().startLineToLifter(true);
@@ -194,7 +199,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line to Table
+	// -------------------------------------------------------------------- Line to
+	// Table
 	public void chargierVorButtonPressed15() {
 		try {
 			s.getChargier().startLineToTable(false);
@@ -227,7 +233,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line on Elevator
+	// -------------------------------------------------------------------- Line on
+	// Elevator
 	public void elevatorVorButtonPressed1() {
 		try {
 			s.getStock().startLineToStock(true);
@@ -260,7 +267,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator to left
+	// -------------------------------------------------------------------- Elevator
+	// to left
 	public void elevatorVorButtonPressed12() {
 		try {
 			s.getStock().getElevatorHorizontal1().backward();
@@ -293,7 +301,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator to right
+	// -------------------------------------------------------------------- Elevator
+	// to right
 	public void elevatorVorButtonPressed13() {
 		try {
 			s.getStock().getElevatorHorizontal2().forward();
@@ -326,7 +335,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator down
+	// -------------------------------------------------------------------- Elevator
+	// down
 	public void elevatorVorButtonPressed14() {
 		try {
 			s.getStock().getElevatorVertical1().backward();
@@ -359,7 +369,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator up
+	// -------------------------------------------------------------------- Elevator
+	// up
 	public void elevatorVorButtonPressed15() {
 		try {
 			s.getStock().getElevatorVertical2().forward();
@@ -557,7 +568,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- lift right in out
+	// -------------------------------------------------------------------- lift
+	// right in out
 	public void liftVorButtonPressed11() {
 		try {
 			s.getLift().getGreifenRechts().backward();
@@ -589,7 +601,8 @@ public class ManualController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	// -------------------------------------------------------------------- lift left in out
+	// -------------------------------------------------------------------- lift
+	// left in out
 
 	public void liftVorButtonPressed12() {
 		try {
@@ -623,7 +636,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- lift right up down
+	// -------------------------------------------------------------------- lift
+	// right up down
 	public void liftVorButtonPressed13() {
 		try {
 			s.getLift().getHebenRechts().forward();
@@ -656,7 +670,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- lift left up down
+	// -------------------------------------------------------------------- lift
+	// left up down
 	public void liftVorButtonPressed14() {
 		try {
 			s.getLift().getHebenLinks().forward();
@@ -755,7 +770,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- colorsensor gate
+	// --------------------------------------------------------------------
+	// colorsensor gate
 	public void qualityVorButtonPressed1() {
 		try {
 			s.getQuality().getGate().backward();
@@ -788,7 +804,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- color line
+	// -------------------------------------------------------------------- color
+	// line
 	public void qualityVorButtonPressed11() {
 		try {
 			s.getQuality().getLine().forward();
@@ -821,7 +838,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- counter line
+	// -------------------------------------------------------------------- counter
+	// line
 	public void qualityVorButtonPressed12() {
 		try {
 			s.getQuality().getCounterLine().forward();
@@ -849,6 +867,204 @@ public class ManualController implements Initializable {
 	public void qualityBackButtonReleased12() {
 		try {
 			s.getQuality().getCounterLine().stop(false);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Airarms
+	public void airarmsVorButtonPressed1() {
+		try {
+			s.getAirarms().getMoveArm().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsVorButtonReleased1() {
+		try {
+			s.getAirarms().getMoveArm().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsBackButtonPressed1() {
+		try {
+			s.getAirarms().getMoveArm().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased1() {
+		try {
+			s.getAirarms().getMoveArm().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Airarms
+	public void airarmsVorButtonPressed12() {
+		try {
+			s.getAirarms().getVerticalArm()().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsVorButtonReleased12() {
+		try {
+			s.getAirarms().getVerticalArm()().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsBackButtonPressed12() {
+		try {
+			s.getAirarms().getVerticalArm()().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased12() {
+		try {
+			s.getAirarms().getVerticalArm()().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Airarms
+	public void airarmsVorButtonPressed13() {
+		try {
+			s.getAirarms().getTurnGrab().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsVorButtonReleased13() {
+		try {
+			s.getAirarms().getTurnGrab().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsBackButtonPressed13() {
+		try {
+			s.getAirarms().getTurnGrab().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased13() {
+		try {
+			s.getAirarms().getTurnGrab().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Airarms
+	public void airarmsVorButtonPressed14() {
+		try {
+			s.getAirarms().getOpenCloseGrab().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsVorButtonReleased14() {
+		try {
+			s.getAirarms().getOpenCloseGrab().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsBackButtonPressed14() {
+		try {
+			s.getAirarms().getOpenCloseGrab().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased14() {
+		try {
+			s.getAirarms().getOpenCloseGrab().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Airarms
+	public void airarmsVorButtonPressed15() {
+		try {
+			s.getAirarms().getTurnArm1().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsVorButtonReleased15() {
+		try {
+			s.getAirarms().getTurnArm1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsBackButtonPressed15() {
+		try {
+			s.getAirarms().getTurnArm1()().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased15() {
+		try {
+			s.getAirarms().getTurnArm1().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// -------------------------------------------------------------------- Airarms
+	public void airarmsVorButtonPressed16() {
+		try {
+			s.getAirarms().getTurnArm2().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsVorButtonReleased16() {
+		try {
+			s.getAirarms().getTurnArm2().stop();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void airarmsBackButtonPressed16() {
+		try {
+			s.getAirarms().getTurnArm2().backward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void qualityBackButtonReleased16() {
+		try {
+			s.getAirarms().getTurnArm2().stop();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -986,7 +1202,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- line to customers
+	// -------------------------------------------------------------------- line to
+	// customers
 	public void deliveryVorButtonPressed13() {
 		try {
 			s.getDelivery().getLineToEnd().backward();
@@ -1019,7 +1236,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- line from puffer to arms
+	// -------------------------------------------------------------------- line
+	// from puffer to arms
 	public void deliveryVorButtonPressed14() {
 		try {
 			s.getDelivery().getLineToArms().backward();
@@ -1090,46 +1308,47 @@ public class ManualController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-	// -------------------------------------------------------------------- CAR Lenkung
 
-		public void carVorButtonPressed12() {
-			try {
-				s.getCar().getLenkung().forward();
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
+	// -------------------------------------------------------------------- CAR
+	// Lenkung
+
+	public void carVorButtonPressed12() {
+		try {
+			s.getCar().getLenkung().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
+	}
 
-		public void carVorButtonReleased12() {
-			try {
-				s.getCar().getLenkung().stop();
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public void carVorButtonReleased12() {
+		try {
+			s.getCar().getLenkung().stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 
-		public void carBackButtonPressed12() {
-			try {
-				s.getCar().getLenkung().backward();
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public void carBackButtonPressed12() {
+		try {
+			s.getCar().getLenkung().backward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 
-		public void carBackButtonReleased12() {
-			try {
-				s.getCar().getLenkung().stop();
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public void carBackButtonReleased12() {
+		try {
+			s.getCar().getLenkung().stop();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	
+	}
 
-//-------------------------------------------------------------------- CAR antrieb
+	// -------------------------------------------------------------------- CAR
+	// antrieb
 
 	public void carVorButtonPressed13() {
 		try {
@@ -1166,4 +1385,3 @@ public class ManualController implements Initializable {
 		}
 	}
 }
-
