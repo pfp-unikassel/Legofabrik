@@ -521,6 +521,34 @@
                               <Button fx:id="airarmsVor14" mnemonicParsing="false" onMousePressed="#airarmsVorButtonPressed14" onMouseReleased="#airarmsVorButtonReleased14" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
                            </children>
                         </HBox>
+                        <HBox layoutX="10.0" layoutY="1162.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text=" Tower 1 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="airamsBack15" mnemonicParsing="false" onMousePressed="#airarmsBackButtonPressed15" onMouseReleased="#airarmsBackButtonReleased15" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="airarmsVor15" mnemonicParsing="false" onMousePressed="#airarmsVorButtonPressed15" onMouseReleased="#airarmsVorButtonReleased15" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1192.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Tower 2 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="airamsBack16" mnemonicParsing="false" onMousePressed="#airarmsBackButtonPressed16" onMouseReleased="#airarmsBackButtonReleased16" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="airarmsVor16" mnemonicParsing="false" onMousePressed="#airarmsVorButtonPressed16" onMouseReleased="#airarmsVorButtonReleased16" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                         <Line endX="484.0" startX="-100.0">
                            <VBox.margin>
                               <Insets top="5.0" />
@@ -547,8 +575,8 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <Button fx:id="fillBack1" mnemonicParsing="false" onMousePressed="#fillBackButtonPressed1" onMouseReleased="#fillBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
-                              <Button fx:id="fillVor1" mnemonicParsing="false" onMousePressed="#fillVorButtonPressed1" onMouseReleased="#fillVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                              <Button fx:id="fillBack1" mnemonicParsing="false" onMousePressed="#fillBackButtonPressed15" onMouseReleased="#fillBackButtonReleased15" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="fillVor1" mnemonicParsing="false" onMousePressed="#fillVorButtonPressed15" onMouseReleased="#fillVorButtonReleased15" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
                            </children>
                         </HBox>
                         <Line endX="484.0" startX="-100.0">
