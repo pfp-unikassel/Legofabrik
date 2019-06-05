@@ -200,7 +200,7 @@ public class Steuerung {
 		airarms = new Airarms(this, b106a, b106b, b106c, b106d, b108a, b108b); 
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
-		car = new Car(this,b114a,b114b,b114c);
+
 
 		startSensordeamon();
 
@@ -255,7 +255,7 @@ public class Steuerung {
 		initBrick11();
 		initBrick12();
 		initBrick13();
-		initBrick14();
+//		initBrick14();
 
 	}
 
@@ -1026,7 +1026,7 @@ public class Steuerung {
 		return stock;
 	}
 
-	public static void setStock(Stock stock) {
+	public  void setStock(Stock stock) {
 		Steuerung.stock = stock;
 	}
 
@@ -1034,23 +1034,23 @@ public class Steuerung {
 		return fillStation;
 	}
 
-	public static void setFillStation(FillStation fillStation) {
+	public  void setFillStation(FillStation fillStation) {
 		Steuerung.fillStation = fillStation;
 	}
 
-	public static Compressor getCompressor() {
+	public  Compressor getCompressor() {
 		return compressor;
 	}
 
-	public static void setCompressor(Compressor compressor) {
+	public  void setCompressor(Compressor compressor) {
 		Steuerung.compressor = compressor;
 	}
 
-	public static Airarms getAirarms() {
+	public  Airarms getAirarms() {
 		return airarms;
 	}
 
-	public static void setAirarms(Airarms airarms) {
+	public  void setAirarms(Airarms airarms) {
 		Steuerung.airarms = airarms;
 	}
 
@@ -1329,13 +1329,8 @@ public class Steuerung {
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
-				try {
-					car.moveCarDegree(720, false);
-					car.moveCarDegree(-720, false);
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				car.moveCarDegree(720, false);
+				car.moveCarDegree(-720, false);
 			}
 		}, 1000);
 	}
@@ -1460,7 +1455,8 @@ public class Steuerung {
 		 try {
 		
 			 
-			 
+			 quality.stopLine();
+			 Thread.sleep(1);
 		 
 		 } catch (RemoteException e) {
 		 // TODO Auto-generated catch block

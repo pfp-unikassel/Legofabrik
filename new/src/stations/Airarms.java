@@ -308,4 +308,36 @@ public class Airarms { // schalter rechts rechts Links links
 	public void setTurnArm2(RMIRegulatedMotor turnArm2) {
 		this.turnArm2 = turnArm2;
 	}
+
+	public RMIRegulatedMotor getMoveArm() {
+		return moveArm;
+	}
+
+	public void setMoveArm(RMIRegulatedMotor moveArm) {
+		this.moveArm = moveArm;
+	}
+
+	public RMIRegulatedMotor getVerticalArm() {
+		return verticalArm;
+	}
+
+	public void setVerticalArm(RMIRegulatedMotor verticalArm) {
+		this.verticalArm = verticalArm;
+	}
+
+	public RMIRegulatedMotor getTurnGrab() {
+		return turnGrab;
+	}
+
+	public void setTurnGrab(RMIRegulatedMotor turnGrab) {
+		this.turnGrab = turnGrab;
+	}
+
+	public RMIRegulatedMotor getOpenCloseGrab() {
+		return openCloseGrab;
+	}
+
+	public void setOpenCloseGrab(RMIRegulatedMotor openCloseGrab) {
+		this.openCloseGrab = openCloseGrab;
+	}
 }

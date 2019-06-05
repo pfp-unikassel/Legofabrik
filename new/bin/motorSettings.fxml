@@ -70,6 +70,90 @@
                            </children>
                         </HBox>
                         <Line endX="484.0" startX="-100.0" />
+                        <Label layoutX="10.0" layoutY="117.0" text="Luftarme:" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox layoutX="10.0" layoutY="45.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Schalter 1 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="airarms1" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Links">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g7" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="airarms11" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Rechts" toggleGroup="$g7" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="146.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Schalter 2 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="airarms2" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Links">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g8" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="airarms12" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Rechts" toggleGroup="$g8" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="176.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Schalter 3 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="airarms3" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Links">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g9" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="airarms13" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Rechts" toggleGroup="$g9" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="206.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Schalter 4 :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <ToggleButton fx:id="airarms4" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Links">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="g10" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="airarms14" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Rechts" toggleGroup="$g10" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" layoutX="111.0" layoutY="106.0" startX="-100.0" />
                         <Label text="Qualität :" underline="true">
                            <font>
                               <Font size="20.0" />

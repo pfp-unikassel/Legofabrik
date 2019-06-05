@@ -12,42 +12,42 @@ import stations.Airarms;
 public class Test {
 	public static void main (String args []) throws RemoteException, MalformedURLException, NotBoundException{
 		
-		RemoteEV3 b105 = new RemoteEV3 ("192.168.0.110");
-		
-		 RMIRegulatedMotor table = b105.createRegulatedMotor("A", 'M');
-		 RMIRegulatedMotor armVertical  = b105.createRegulatedMotor("B", 'M');
-		 RMIRegulatedMotor armHorizontal = b105.createRegulatedMotor("C", 'M');
-		 RMIRegulatedMotor tower = b105.createRegulatedMotor("D", 'M');
+		RemoteEV3 b110 = new RemoteEV3 ("192.168.0.110");
+		 
+		 RMIRegulatedMotor linetoEnd = b110.createRegulatedMotor("A", 'M');
+		 RMIRegulatedMotor gateB  = b110.createRegulatedMotor("B", 'M');
+		 RMIRegulatedMotor gateC = b110.createRegulatedMotor("C", 'M');
+		 RMIRegulatedMotor gateD = b110.createRegulatedMotor("D", 'M');
 		
 		 
+		 
+		 //--------------------------------------------------------------------
+		 int turnDegree = 45;;  
+		 
+		linetoEnd.setSpeed(350);  // set speed degree per second
+		 
+		linetoEnd.backward();
 		
-		 tower.setSpeed(140);
-		
-		 tower.backward();
+		gateD.rotate(turnDegree);
+	
+		 
 		 System.out.println("sollte sich drehen");
-		 
-		// table.rotate(-150, false); 										// True = programm laeuft direkt weiter, false wartet er bis er feritg ist 
-		 
-		//gut Seite
-		 //armHorizontal.rotate(300 , false); 
-		 //Ball Aufheben
-		 //armVertical.rotate(-350, false);
-		 //Ball Ablegen
-		// armVertical.rotate(-200, false);
-		 //ausschuss Seite
-		//armHorizontal.rotate(-250 , false);
+		
 	   try {
 		   
-		Thread.sleep(75000);    
+		Thread.sleep(60000);    
 		// Time to wait
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}	
-		table.close();
-		armHorizontal.close();
-		armVertical.close();
-		tower.close();
+	   linetoEnd.stop(false);
+	   gateD.rotate(-turnDegree);
+	   
+		linetoEnd.close();
+		gateC.close();
+		gateB.close();
+		gateD.close();
 		 System.out.println("fertig");
 	}
 }
