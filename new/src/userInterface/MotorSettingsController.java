@@ -23,12 +23,13 @@ public class MotorSettingsController implements Initializable {
 
 	public TextField zahlbandv, sensorbandv, lieferbandv, fahrstuhlhorizont, fahrstuhlvertikal, drehgeschwindigkeit,
 			hebebandv, filldrehgescwindigkeit, anzahldrehungen, bandzumarmv, auslieferbandv, hebegeschwindigkeit,
-			shaker,carGeschwindigkeit, lineoncarGeschwindigkeit,horizontalturndegree;
+			shaker, carGeschwindigkeit, lineoncarGeschwindigkeit, horizontalturndegree;
 
 	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14, zwillingOff, zwillingOn,
-			kompressorAn, kompressorAus;
+			kompressorAn, kompressorAus, airarms1, airarms2, airarms3, airarms4, airarms11, airarms12, airarms13,
+			airarms14;
 
-	public ToggleGroup g1, g2, g3, g4, g5, g6;
+	public ToggleGroup g1, g2, g3, g4, g5, g6, g7, g8, g9, g10;
 
 	public ComboBox<String> farbe, drehtischposition;
 
@@ -51,12 +52,13 @@ public class MotorSettingsController implements Initializable {
 
 	public void updateFromLiveModel() { // gets every value from Steuerung
 		updateStockToggleButton();
+		updateAirarmsToggleButton();
 		fetchIoColor();
 		fetchTablePosition();
 		fetchMotorSettings();
 		fetchKompressorToggleButton();
 		fetchTwinToggleButton();
-		
+
 	}
 
 	public void saveFromUiToLiveModel() { // sets everything from Ui in steuerung
@@ -67,7 +69,7 @@ public class MotorSettingsController implements Initializable {
 		setMotorSettings();
 		setKompressor();
 		setTwin();
-
+		setAirarmsFromUi();
 	}
 
 	public void applyButtonPushed() {
@@ -180,32 +182,64 @@ public class MotorSettingsController implements Initializable {
 		// lift
 		hebegeschwindigkeit.setText(String.valueOf(s.getLift().getliftSpeed()));
 		shaker.setText(String.valueOf(s.getLift().getShakerSpeed()));
+<<<<<<< HEAD
 		//Car
 //		carGeschwindigkeit.setText(String.valueOf(s.getCar().getCarSpeed()));
 //		lineoncarGeschwindigkeit.setText(String.valueOf(s.getCar().getLineSpeed()));
 //		horizontalturndegree.setText(String.valueOf(s.getCar().getCarHorizontalDegree()));
+=======
+		// Car
+		carGeschwindigkeit.setText(String.valueOf(s.getCar().getCarSpeed()));
+		lineoncarGeschwindigkeit.setText(String.valueOf(s.getCar().getLineSpeed()));
+		horizontalturndegree.setText(String.valueOf(s.getCar().getCarHorizontalDegree()));
+>>>>>>> 400866a2c300dc628f97a71ced9a5d00d6ba90d5
 	}
 
 	public void fetchTwinToggleButton() {
-		
+
 		if (s.isConnected()) {
 			zwillingOn.setSelected(true);
-		}
-		else {
+		} else {
 			zwillingOff.setSelected(true);
 		}
 	}
 
 	public void fetchKompressorToggleButton() {
-		
-		if(s.getKompressorStatus()) {
+
+		if (s.getKompressorStatus()) {
 			kompressorAn.setSelected(true);
-		}else {
+		} else {
 			kompressorAus.setSelected(true);
 		}
 	}
-	
-	
+
+	public void updateAirarmsToggleButton() { // gets Airarm values and updates it in UI
+
+		if (s.getAirarms().getArmPosition()) {
+			airarms11.setSelected(true);
+		} else {
+			airarms1.setSelected(true);
+		}
+
+		if (s.getAirarms().getArmStatus()) {
+			airarms12.setSelected(true);
+		} else {
+			airarms1.setSelected(true);
+		}
+
+		if (s.getAirarms().getGrabPosition()) {
+			airarms3.setSelected(true);
+		} else {
+			airarms13.setSelected(true);
+		}
+
+		if (s.getAirarms().getGrabStatus()) {
+			airarms4.setSelected(true);
+		} else {
+			airarms14.setSelected(true);
+		}
+
+	}
 
 	// -----------------------------From-ui-to--Code-----------------------------------------
 
@@ -245,10 +279,17 @@ public class MotorSettingsController implements Initializable {
 
 		s.getLift().setliftSpeedt(Integer.parseInt(hebegeschwindigkeit.getText()));
 		s.getLift().setShakerSpeed(Integer.parseInt(shaker.getText()));
+<<<<<<< HEAD
 		
 //		s.getCar().setCarHorizontalDegree(Integer.parseInt(horizontalturndegree.getText()));
 //		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
 //		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));
+=======
+
+		s.getCar().setCarHorizontalDegree(Integer.parseInt(horizontalturndegree.getText()));
+		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
+		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));
+>>>>>>> 400866a2c300dc628f97a71ced9a5d00d6ba90d5
 
 	}
 
@@ -302,9 +343,10 @@ public class MotorSettingsController implements Initializable {
 		if (farbe.getValue().equals("Weiﬂ")) {
 			s.getQuality().setIoColor("WHITE");
 		}
-//		if (farbe.getValue().equals("Schwarz")) {  // Schwarz should not be avaiable as io color becouse the line is black
-//			s.getQuality().setIoColor("BLACK");
-//		}
+		// if (farbe.getValue().equals("Schwarz")) { // Schwarz should not be avaiable
+		// as io color becouse the line is black
+		// s.getQuality().setIoColor("BLACK");
+		// }
 		if (farbe.getValue().equals("Rot")) {
 			s.getQuality().setIoColor("RED");
 		}
@@ -317,6 +359,34 @@ public class MotorSettingsController implements Initializable {
 		if (farbe.getValue().equals("Blau")) {
 			s.getQuality().setIoColor("BLUE");
 		}
+	}
+
+	public void setAirarmsFromUi() { // gets Airarm values and updates it in Programm
+
+		if (airarms1.isSelected()) {
+			s.getAirarms().setArmPosition(false);
+		} else {
+			s.getAirarms().setArmPosition(true);
+		}
+
+		if (airarms2.isSelected()) {
+			s.getAirarms().setArmStatus(false);
+		} else {
+			s.getAirarms().setArmStatus(true);
+		}
+
+		if (airarms3.isSelected()) {
+			s.getAirarms().setGrabPosition(true);
+		} else {
+			s.getAirarms().setGrabPosition(false);
+		}
+
+		if (airarms4.isSelected()) {
+			s.getAirarms().setGrabStatus(true);
+		} else {
+			s.getAirarms().setGrabStatus(false);
+		}
+
 	}
 
 }
