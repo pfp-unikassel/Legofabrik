@@ -1,6 +1,9 @@
 package stations;
 
+import java.rmi.RemoteException;
+
 import controller.Steuerung;
+import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Car{
 
@@ -47,53 +50,103 @@ public class Car{
 	
 	public void moveCarDegree(int degree,boolean instantReturn){
 		
-		antrieb.rotate(degree,instantReturn);
+		try {
+			antrieb.rotate(degree,instantReturn);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
 	public void startCar() {
 		
-		antrieb.forward();
+		try {
+			antrieb.forward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void stopCar() {
 		
-		antrieb.stop();
+		try {
+			antrieb.stop(false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void startLineOnCar(boolean direction){
 		
 		// set linespeed
 		if(direction= true){
-			lineOnCar.forward();
+			try {
+				lineOnCar.forward();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else{
-			lineOnCar.backward();
+			try {
+				lineOnCar.backward();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public void rotateLineOnCar(int degree, boolean instantreturn) {
 		
-		lineOnCar.rotate(degree,instantreturn);
+		try {
+			lineOnCar.rotate(degree,instantreturn);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void stopLineOnCar(){
 		
-		lineOnCar.stop();
+		try {
+			lineOnCar.stop(false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void steerRight() {
 		
-		lenkung.forward();
+		try {
+			lenkung.forward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void steerLeft() {
 		
-		lenkung.backward();
+		try {
+			lenkung.backward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void steerDegree(int degree, boolean instantreturn) {
 		
-		lenkung.rotate(degree,instantreturn);
+		try {
+			lenkung.rotate(degree,instantreturn);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		steerDegree =+ degree;
 	}
 	
