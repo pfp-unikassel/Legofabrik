@@ -1026,7 +1026,7 @@ public class Steuerung {
 		return stock;
 	}
 
-	public static void setStock(Stock stock) {
+	public  void setStock(Stock stock) {
 		Steuerung.stock = stock;
 	}
 
@@ -1034,23 +1034,23 @@ public class Steuerung {
 		return fillStation;
 	}
 
-	public static void setFillStation(FillStation fillStation) {
+	public  void setFillStation(FillStation fillStation) {
 		Steuerung.fillStation = fillStation;
 	}
 
-	public static Compressor getCompressor() {
+	public  Compressor getCompressor() {
 		return compressor;
 	}
 
-	public static void setCompressor(Compressor compressor) {
+	public  void setCompressor(Compressor compressor) {
 		Steuerung.compressor = compressor;
 	}
 
-	public static Airarms getAirarms() {
+	public  Airarms getAirarms() {
 		return airarms;
 	}
 
-	public static void setAirarms(Airarms airarms) {
+	public  void setAirarms(Airarms airarms) {
 		Steuerung.airarms = airarms;
 	}
 
@@ -1455,7 +1455,8 @@ public class Steuerung {
 		 try {
 		
 			 
-			 
+			 quality.stopLine();
+			 Thread.sleep(1);
 		 
 		 } catch (RemoteException e) {
 		 // TODO Auto-generated catch block

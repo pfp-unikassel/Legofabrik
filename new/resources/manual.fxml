@@ -575,8 +575,8 @@
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <Button fx:id="fillBack1" mnemonicParsing="false" onMousePressed="#fillBackButtonPressed15" onMouseReleased="#fillBackButtonReleased15" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
-                              <Button fx:id="fillVor1" mnemonicParsing="false" onMousePressed="#fillVorButtonPressed15" onMouseReleased="#fillVorButtonReleased15" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                              <Button fx:id="fillBack1" mnemonicParsing="false" onMousePressed="#fillBackButtonPressed1" onMouseReleased="#fillBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="fillVor1" mnemonicParsing="false" onMousePressed="#fillVorButtonPressed1" onMouseReleased="#fillVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
                            </children>
                         </HBox>
                         <Line endX="484.0" startX="-100.0">

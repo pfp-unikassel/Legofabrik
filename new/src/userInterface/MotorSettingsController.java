@@ -182,17 +182,13 @@ public class MotorSettingsController implements Initializable {
 		// lift
 		hebegeschwindigkeit.setText(String.valueOf(s.getLift().getliftSpeed()));
 		shaker.setText(String.valueOf(s.getLift().getShakerSpeed()));
-<<<<<<< HEAD
+
 		//Car
 //		carGeschwindigkeit.setText(String.valueOf(s.getCar().getCarSpeed()));
 //		lineoncarGeschwindigkeit.setText(String.valueOf(s.getCar().getLineSpeed()));
 //		horizontalturndegree.setText(String.valueOf(s.getCar().getCarHorizontalDegree()));
-=======
-		// Car
-		carGeschwindigkeit.setText(String.valueOf(s.getCar().getCarSpeed()));
-		lineoncarGeschwindigkeit.setText(String.valueOf(s.getCar().getLineSpeed()));
-		horizontalturndegree.setText(String.valueOf(s.getCar().getCarHorizontalDegree()));
->>>>>>> 400866a2c300dc628f97a71ced9a5d00d6ba90d5
+
+		
 	}
 
 	public void fetchTwinToggleButton() {
@@ -279,17 +275,11 @@ public class MotorSettingsController implements Initializable {
 
 		s.getLift().setliftSpeedt(Integer.parseInt(hebegeschwindigkeit.getText()));
 		s.getLift().setShakerSpeed(Integer.parseInt(shaker.getText()));
-<<<<<<< HEAD
 		
 //		s.getCar().setCarHorizontalDegree(Integer.parseInt(horizontalturndegree.getText()));
 //		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
 //		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));
-=======
 
-		s.getCar().setCarHorizontalDegree(Integer.parseInt(horizontalturndegree.getText()));
-		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
-		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));
->>>>>>> 400866a2c300dc628f97a71ced9a5d00d6ba90d5
 
 	}
 

@@ -97,7 +97,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line on
+	// -------------------------------------------------------------------- Line
+	// on
 	// Table
 	public void chargierVorButtonPressed12() {
 		try {
@@ -131,7 +132,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line to
+	// -------------------------------------------------------------------- Line
+	// to
 	// store
 	public void chargierVorButtonPressed13() {
 		try {
@@ -165,7 +167,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line to
+	// -------------------------------------------------------------------- Line
+	// to
 	// production
 	public void chargierVorButtonPressed14() {
 		try {
@@ -199,7 +202,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line to
+	// -------------------------------------------------------------------- Line
+	// to
 	// Table
 	public void chargierVorButtonPressed15() {
 		try {
@@ -233,7 +237,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Line on
+	// -------------------------------------------------------------------- Line
+	// on
 	// Elevator
 	public void elevatorVorButtonPressed1() {
 		try {
@@ -267,7 +272,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator
+	// --------------------------------------------------------------------
+	// Elevator
 	// to left
 	public void elevatorVorButtonPressed12() {
 		try {
@@ -301,7 +307,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator
+	// --------------------------------------------------------------------
+	// Elevator
 	// to right
 	public void elevatorVorButtonPressed13() {
 		try {
@@ -335,7 +342,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator
+	// --------------------------------------------------------------------
+	// Elevator
 	// down
 	public void elevatorVorButtonPressed14() {
 		try {
@@ -369,7 +377,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Elevator
+	// --------------------------------------------------------------------
+	// Elevator
 	// up
 	public void elevatorVorButtonPressed15() {
 		try {
@@ -403,7 +412,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Stock1
+	// --------------------------------------------------------------------
+	// Stock1
 	public void stockVorButtonPressed1() {
 		try {
 			s.getStock().getStockPlace1().forward();
@@ -436,7 +446,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Stock2
+	// --------------------------------------------------------------------
+	// Stock2
 	public void stockVorButtonPressed12() {
 		try {
 			s.getStock().getStockPlace2().forward();
@@ -469,7 +480,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Stock3
+	// --------------------------------------------------------------------
+	// Stock3
 	public void stockVorButtonPressed13() {
 		try {
 			s.getStock().getStockPlace3().forward();
@@ -502,7 +514,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Stock4
+	// --------------------------------------------------------------------
+	// Stock4
 	public void stockVorButtonPressed14() {
 		try {
 			s.getStock().getStockPlace4().forward();
@@ -535,7 +548,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- shaker
+	// --------------------------------------------------------------------
+	// shaker
 	public void liftVorButtonPressed1() {
 		try {
 			s.getLift().getShaker().forward();
@@ -704,7 +718,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- liftline
+	// --------------------------------------------------------------------
+	// liftline
 	public void cleanerVorButtonPressed1() {
 		try {
 			s.getCleaner().startLiftLine(true);
@@ -736,7 +751,8 @@ public class ManualController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	// -------------------------------------------------------------------- cleaner
+	// --------------------------------------------------------------------
+	// cleaner
 
 	public void cleanerVorButtonPressed11() {
 		try {
@@ -804,7 +820,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- color
+	// --------------------------------------------------------------------
+	// color
 	// line
 	public void qualityVorButtonPressed11() {
 		try {
@@ -838,7 +855,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- counter
+	// --------------------------------------------------------------------
+	// counter
 	// line
 	public void qualityVorButtonPressed12() {
 		try {
@@ -872,7 +890,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Airarms
+	// --------------------------------------------------------------------
+	// Airarms
 	public void airarmsVorButtonPressed1() {
 		try {
 			s.getAirarms().getMoveArm().forward();
@@ -883,7 +902,7 @@ public class ManualController implements Initializable {
 
 	public void airarmsVorButtonReleased1() {
 		try {
-			s.getAirarms().getMoveArm().stop();
+			s.getAirarms().getMoveArm().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -897,18 +916,19 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	public void qualityBackButtonReleased1() {
+	public void airarmsBackButtonReleased1() {
 		try {
-			s.getAirarms().getMoveArm().stop();
+			s.getAirarms().getMoveArm().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// -------------------------------------------------------------------- Airarms
+	// --------------------------------------------------------------------
+	// Airarms
 	public void airarmsVorButtonPressed12() {
 		try {
-			s.getAirarms().getVerticalArm()().forward();
+			s.getAirarms().getVerticalArm().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -916,7 +936,7 @@ public class ManualController implements Initializable {
 
 	public void airarmsVorButtonReleased12() {
 		try {
-			s.getAirarms().getVerticalArm()().stop();
+			s.getAirarms().getVerticalArm().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -924,21 +944,22 @@ public class ManualController implements Initializable {
 
 	public void airarmsBackButtonPressed12() {
 		try {
-			s.getAirarms().getVerticalArm()().backward();
+			s.getAirarms().getVerticalArm().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void qualityBackButtonReleased12() {
+	public void airarmsBackButtonReleased12() {
 		try {
-			s.getAirarms().getVerticalArm()().stop();
+			s.getAirarms().getVerticalArm().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// -------------------------------------------------------------------- Airarms
+	// --------------------------------------------------------------------
+	// Airarms
 	public void airarmsVorButtonPressed13() {
 		try {
 			s.getAirarms().getTurnGrab().forward();
@@ -949,7 +970,7 @@ public class ManualController implements Initializable {
 
 	public void airarmsVorButtonReleased13() {
 		try {
-			s.getAirarms().getTurnGrab().stop();
+			s.getAirarms().getTurnGrab().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -963,15 +984,16 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	public void qualityBackButtonReleased13() {
+	public void airarmsBackButtonReleased13() {
 		try {
-			s.getAirarms().getTurnGrab().stop();
+			s.getAirarms().getTurnGrab().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// -------------------------------------------------------------------- Airarms
+	// --------------------------------------------------------------------
+	// Airarms
 	public void airarmsVorButtonPressed14() {
 		try {
 			s.getAirarms().getOpenCloseGrab().forward();
@@ -982,7 +1004,7 @@ public class ManualController implements Initializable {
 
 	public void airarmsVorButtonReleased14() {
 		try {
-			s.getAirarms().getOpenCloseGrab().stop();
+			s.getAirarms().getOpenCloseGrab().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -996,15 +1018,16 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	public void qualityBackButtonReleased14() {
+	public void airarmsBackButtonReleased14() {
 		try {
-			s.getAirarms().getOpenCloseGrab().stop();
+			s.getAirarms().getOpenCloseGrab().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// -------------------------------------------------------------------- Airarms
+	// --------------------------------------------------------------------
+	// Airarms
 	public void airarmsVorButtonPressed15() {
 		try {
 			s.getAirarms().getTurnArm1().forward();
@@ -1015,7 +1038,7 @@ public class ManualController implements Initializable {
 
 	public void airarmsVorButtonReleased15() {
 		try {
-			s.getAirarms().getTurnArm1().stop();
+			s.getAirarms().getTurnArm1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1023,21 +1046,22 @@ public class ManualController implements Initializable {
 
 	public void airarmsBackButtonPressed15() {
 		try {
-			s.getAirarms().getTurnArm1()().backward();
+			s.getAirarms().getTurnArm1().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void qualityBackButtonReleased15() {
+	public void airarmsBackButtonReleased15() {
 		try {
-			s.getAirarms().getTurnArm1().stop();
+			s.getAirarms().getTurnArm1().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 
-	// -------------------------------------------------------------------- Airarms
+	// --------------------------------------------------------------------
+	// Airarms
 	public void airarmsVorButtonPressed16() {
 		try {
 			s.getAirarms().getTurnArm2().forward();
@@ -1048,7 +1072,7 @@ public class ManualController implements Initializable {
 
 	public void airarmsVorButtonReleased16() {
 		try {
-			s.getAirarms().getTurnArm2().stop();
+			s.getAirarms().getTurnArm2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1062,9 +1086,9 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	public void qualityBackButtonReleased16() {
+	public void airarmsBackButtonReleased16() {
 		try {
-			s.getAirarms().getTurnArm2().stop();
+			s.getAirarms().getTurnArm2().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1103,7 +1127,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Gate D
+	// -------------------------------------------------------------------- Gate
+	// D
 	public void deliveryVorButtonPressed1() {
 		try {
 			s.getDelivery().getGateD().forward();
@@ -1136,7 +1161,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- gate C
+	// -------------------------------------------------------------------- gate
+	// C
 	public void deliveryVorButtonPressed11() {
 		try {
 			s.getDelivery().getGateC().forward();
@@ -1169,7 +1195,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- Box door
+	// -------------------------------------------------------------------- Box
+	// door
 	public void deliveryVorButtonPressed12() {
 		try {
 			s.getDelivery().getGateB().forward();
@@ -1202,7 +1229,8 @@ public class ManualController implements Initializable {
 		}
 	}
 
-	// -------------------------------------------------------------------- line to
+	// -------------------------------------------------------------------- line
+	// to
 	// customers
 	public void deliveryVorButtonPressed13() {
 		try {
@@ -1272,42 +1300,43 @@ public class ManualController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	// -------------------------------------------------------------------- CAR Line
+	// -------------------------------------------------------------------- CAR
+	// Line
 
-	public void carVorButtonPressed1() {
-		try {
-			s.getCar().getLineOnCar().forward();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void carVorButtonReleased1() {
-		try {
-			s.getCar().getLineOnCar().stop(false);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void carBackButtonPressed1() {
-		try {
-			s.getCar().getLineOnCar().backward();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void carBackButtonReleased1() {
-		try {
-			s.getCar().getLineOnCar().stop(false);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	 public void carVorButtonPressed1() {
+	 try {
+	 s.getCar().getLineOnCar().forward();
+	 } catch (RemoteException e) {
+	 e.printStackTrace();
+	 }
+	 }
+	
+	 public void carVorButtonReleased1() {
+	 try {
+	 s.getCar().getLineOnCar().stop(false);
+	 } catch (RemoteException e) {
+	 // TODO Auto-generated catch block
+	 e.printStackTrace();
+	 }
+	 }
+	
+	 public void carBackButtonPressed1() {
+	 try {
+	 s.getCar().getLineOnCar().backward();
+	 } catch (RemoteException e) {
+	 // TODO Auto-generated catch block
+	 e.printStackTrace();
+	 }
+	 }
+	
+	 public void carBackButtonReleased1() {
+	 try {
+	 s.getCar().getLineOnCar().stop(false);
+	 } catch (RemoteException e) {
+	 // TODO Auto-generated catch block
+	 e.printStackTrace();
+	 }
+	 }
 
 	// -------------------------------------------------------------------- CAR
 	// Lenkung
@@ -1320,22 +1349,12 @@ public class ManualController implements Initializable {
 		}
 	}
 
-<<<<<<< HEAD
-		public void carVorButtonReleased12() {
-			try {
-				s.getCar().getLenkung().stop(false);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-=======
 	public void carVorButtonReleased12() {
 		try {
-			s.getCar().getLenkung().stop();
+			s.getCar().getLenkung().stop(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
->>>>>>> 400866a2c300dc628f97a71ced9a5d00d6ba90d5
 		}
 	}
 
@@ -1348,60 +1367,51 @@ public class ManualController implements Initializable {
 		}
 	}
 
-<<<<<<< HEAD
-		public void carBackButtonReleased12() {
-			try {
-				s.getCar().getLenkung().stop(false);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-=======
 	public void carBackButtonReleased12() {
 		try {
-			s.getCar().getLenkung().stop();
+			s.getCar().getLenkung().stop(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
->>>>>>> 400866a2c300dc628f97a71ced9a5d00d6ba90d5
 		}
+
 	}
 
 	// -------------------------------------------------------------------- CAR
 	// antrieb
 
-//	public void carVorButtonPressed13() {
-//		try {
-//			s.getCar().getAntrieb().forward();
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void carVorButtonReleased13() {
-//		try {
-//			s.getCar().getAntrieb().stop(false);
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void carBackButtonPressed13() {
-//		try {
-//			s.getCar().getAntrieb().backward();
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void carBackButtonReleased13() {
-//		try {
-//			s.getCar().getAntrieb().stop(false);
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	public void carVorButtonPressed13() {
+		try {
+			s.getCar().getAntrieb().forward();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void carVorButtonReleased13() {
+		try {
+			s.getCar().getAntrieb().stop(false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void carBackButtonPressed13() {
+		try {
+			s.getCar().getAntrieb().backward();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void carBackButtonReleased13() {
+		try {
+			s.getCar().getAntrieb().stop(false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
