@@ -264,7 +264,7 @@ public class Sensordeamon extends Thread {
 					() -> {
 						s.updateLabelInController();
 
-						if (counter == 100) {
+						if (counter == 100) { // ad counter++
 							counter = 0;
 							s.updatePowerLevel();
 						}

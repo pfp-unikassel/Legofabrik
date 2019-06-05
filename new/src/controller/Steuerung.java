@@ -187,19 +187,19 @@ public class Steuerung {
 		 * startet den Sensor deamon
 		 * laedt akkustaende
 		 * */
-		initAll();
+		initAll();  // init every brick
 		System.out.println("Connected");
 
+		fillStation = new FillStation(this, b102a);
 		chargier = new Chargier(this, b103a, b103d, b103b, b102d, b102c);
 		lift = new Lift(this, b101a, b101b, b101c, b101d, b105a);
 		cleaner = new Cleaning(this, b105b, b105c);
 		quality = new Quality(this, b104c, b104b, b104d);
-		compressor = new Compressor(this, b107a, b107b, b107c, b107d);
-		airarms = new Airarms(this, b106a, b106b, b106c, b106d, b108a, b108b); // distanzsensor
 		qualitystation = new QualityStation(this, b109a, b109b, b109c, b109d);
+		compressor = new Compressor(this, b107a, b107b, b107c, b107d);
+		airarms = new Airarms(this, b106a, b106b, b106c, b106d, b108a, b108b); 
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
-		fillStation = new FillStation(this, b102a);
 		car = new Car(this,b114a,b114b,b114c);
 
 		startSensordeamon();
@@ -302,7 +302,7 @@ public class Steuerung {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			closePorts();
-			System.out.println("B5 not Found");
+			System.out.println("B2 not Found");
 		}
 
 		b102a = b102.createRegulatedMotor("A", 'L'); // Motor Fillstation
