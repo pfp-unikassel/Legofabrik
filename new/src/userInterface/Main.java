@@ -15,6 +15,7 @@ public class Main extends Application {
 	/**
 	 * Startet den Ui controller welcher dann die Steuerung startet
 	 */
+	private Controller controller;
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -27,6 +28,17 @@ public class Main extends Application {
 		primaryStage.setTitle("LegoUI");
 		primaryStage.setScene(new Scene(root,950,950));
 		primaryStage.show();
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/myScene.fxml"));
+		controller = loader.<Controller>getController();
 	}
 	
+	@Override
+	public void stop(){
+		/**
+		 * Disconnected bricks wenn das Fenster geschlossen wird
+		 */
+	    controller.getS().disconnectBricks();
+	    System.out.println("Stage is closing");
+	}
 }
