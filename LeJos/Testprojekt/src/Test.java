@@ -26,16 +26,15 @@ public class Test {
 		 
 		linetoEnd.setSpeed(350);  // set speed degree per second
 		 
-		linetoEnd.backward();
-		
-		gateD.rotate(turnDegree);
 	
-		 
+		
+		linetoEnd.backward();
+				 
 		 System.out.println("sollte sich drehen");
 		
 	   try {
 		   
-		Thread.sleep(60000);    
+		Thread.sleep(5000);    
 		// Time to wait
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block
