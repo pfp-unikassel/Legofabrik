@@ -97,6 +97,16 @@ public class Compressor {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+		resetCompressor();
+	}
+
+	private void resetCompressor() {
+		// TODO Auto-generated method stub
+		if(status) {
+			startCompressor();
+		}else {
+			stopCompressor();
+		}
 	}
 
 }
