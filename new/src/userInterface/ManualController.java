@@ -67,7 +67,7 @@ public class ManualController implements Initializable {
 	public void chargierVorButtonPressed1() {
 
 		try {
-			s.getChargier().getAntriebDrehtisch().forward();
+			s.getChargier().getDrehtischRotieren().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -75,7 +75,7 @@ public class ManualController implements Initializable {
 
 	public void chargierVorButtonReleased1() {
 		try {
-			s.getChargier().getAntriebDrehtisch().stop(false);
+			s.getChargier().getDrehtischRotieren().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +83,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonPressed1() {
 		try {
-			s.getChargier().getAntriebDrehtisch().backward();
+			s.getChargier().getDrehtischRotieren().backward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +91,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonReleased1() {
 		try {
-			s.getChargier().getAntriebDrehtisch().stop(false);
+			s.getChargier().getDrehtischRotieren().stop(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -102,7 +102,7 @@ public class ManualController implements Initializable {
 	// Table
 	public void chargierVorButtonPressed12() {
 		try {
-			s.getChargier().startLineToTable(false);
+			s.getChargier().startTableLine(false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +110,7 @@ public class ManualController implements Initializable {
 
 	public void chargierVorButtonReleased12() {
 		try {
-			s.getChargier().stopLineToTable();
+			s.getChargier().stopTableLine();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -118,7 +118,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonPressed12() {
 		try {
-			s.getChargier().startLineToTable(true);
+			s.getChargier().startTableLine(true);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +126,7 @@ public class ManualController implements Initializable {
 
 	public void chargierBackButtonReleased12() {
 		try {
-			s.getChargier().stopLineToTable();
+			s.getChargier().stopTableLine();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
