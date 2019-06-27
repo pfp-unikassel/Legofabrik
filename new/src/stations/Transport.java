@@ -14,8 +14,11 @@ public class Transport {
 	RMIRegulatedMotor ejectlineleft;
 	RMIRegulatedMotor ejectlineright;
 
-	int liftlinespeed;
-	int ejectlinespeed;
+	int liftlinespeed = 360;
+	int ejectlinespeed = 360;
+	int numberOfRotations = 7;
+	
+	boolean isLiftRunning = false;
 
 	boolean liftlineforward = true;
 	boolean ejectlineforward = true;
@@ -32,11 +35,14 @@ public class Transport {
 	}
 
 	public void rotateLiftline(String desc,int degree, boolean instantReturn) {
+		isLiftRunning = true;
 		switch(desc) {
 			case "left":
 			try {
+				
 				liftlineleft.setSpeed(liftlinespeed);
 				liftlineleft.rotate(degree, instantReturn);
+				isLiftRunning = false;
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -48,13 +54,59 @@ public class Transport {
 			try {
 				liftlineright.setSpeed(liftlinespeed);
 				liftlineright.rotate(degree, instantReturn);
+				isLiftRunning = false;
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 			break;
 		};
+		
 	}
-
+	
+	public void rotateEjectline(String desc,int degree, boolean instantReturn) {
+		if (!isLiftRunning) {
+			switch(desc) {
+			case "left":
+				try {
+					ejectlineleft.setSpeed(ejectlinespeed);
+					ejectlineleft.rotate(degree, instantReturn);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+							
+			//right
+			default:
+				try {
+					ejectlineright.setSpeed(ejectlinespeed);
+					ejectlineright.rotate(degree, instantReturn);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				break;
+			}
+		}
+	}
+	
+	public void liftBallsLeft() {
+		rotateLiftline("left", 360*numberOfRotations, false);
+	}
+	
+	public void liftBallsRight() {
+		rotateLiftline("right", 360*numberOfRotations, false);
+	}
+	
+	public void ejectLeftBox() {
+		rotateEjectline("left", 360, false); // TODO: adjust angle degree
+	}
+	
+	public void ejectRightBox() {
+		rotateEjectline("right", 360, false); // TODO: adjust angle degree
+	}
+	
 	public boolean isRightBoxThere() {
 		return ejectlineboxright;
 	}

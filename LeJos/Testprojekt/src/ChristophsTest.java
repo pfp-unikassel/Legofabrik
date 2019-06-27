@@ -11,6 +11,9 @@ import lejos.hardware.port.PortException;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RemoteEV3;
 
+import controller.Steuerung;
+import stations.Transport;
+
 public class ChristophsTest {
 	
 	ArrayList<String> testArr = new ArrayList();
@@ -38,7 +41,7 @@ public class ChristophsTest {
 		
 	}
 	
-	public ChristophsTest () {
+	public void ChristophsTest () {
 		testArr.add("Hans");
 		testArr.add("Franz");
 	}
@@ -60,6 +63,17 @@ public class ChristophsTest {
 		for (String s : c.testArr)
 			System.out.println(s);
 		
+		RemoteEV3 b115 = new RemoteEV3 ("192.168.0.115");
+		
+		 RMIRegulatedMotor mA = b115.createRegulatedMotor("A", 'L');  // foerderband
+		 RMIRegulatedMotor mB  = b115.createRegulatedMotor("B", 'L'); //foerderband
+		 RMIRegulatedMotor mC = b115.createRegulatedMotor("C", 'L');
+		 RMIRegulatedMotor mD = b115.createRegulatedMotor("D", 'L');
+		
+		Transport t = new Transport(null, mA, mB, mC, mD);
+		
+		
+		/*
 		RMIRegulatedMotor line;
 		
 		try {
@@ -74,7 +88,7 @@ public class ChristophsTest {
 			line.close();
 		} catch (Exception e) {
 			System.out.println("failed");
-		}
+		} */
 		
 		// RMIRegulatedMotor linetoEnd = b102.createRegulatedMotor("A", 'M');
 

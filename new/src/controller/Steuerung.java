@@ -32,6 +32,7 @@ import stations.Lift;
 import stations.Quality;
 import stations.QualityStation;
 import stations.Stock;
+import stations.Transport;
 import userInterface.Controller;
 import stations.Cleaning;
 import stations.Compressor;
@@ -54,6 +55,7 @@ public class Steuerung {
 	RemoteEV3 b112;
 	RemoteEV3 b113;
 	RemoteEV3 b114;
+	RemoteEV3 b115;
 	// RemoteEV3 b120;
 
 	static RMIRegulatedMotor b101a;
@@ -123,6 +125,11 @@ public class Steuerung {
 	static RMIRegulatedMotor b114c;
 	static RMIRegulatedMotor b114d;
 
+	static RMIRegulatedMotor b115a;
+	static RMIRegulatedMotor b115b;
+	static RMIRegulatedMotor b115c;
+	static RMIRegulatedMotor b115d;
+	
 	static ArrayList<RMIRegulatedMotor> openMotorPorts = new ArrayList<>(); // all
 	static ArrayList<RMISampleProvider> openSensorPorts = new ArrayList<>();
 	static ArrayList<RemoteEV3> bricks = new ArrayList<>();
@@ -140,6 +147,7 @@ public class Steuerung {
 	static FillStation fillStation;
 	private Sensordeamon sensordeamon;
 	static Car car;
+	static Transport transport;
 
 	static BrickConfig config;
 
@@ -200,7 +208,7 @@ public class Steuerung {
 		airarms = new Airarms(this, b106a, b106b, b106c, b106d, b108a, b108b); 
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
-
+		transport = new Transport(this, b115a, b115b, b115c, b115d);
 
 		startSensordeamon();
 
@@ -256,6 +264,7 @@ public class Steuerung {
 		initBrick12();
 		initBrick13();
 //		initBrick14();
+		// initBrick15();
 
 	}
 
@@ -610,7 +619,7 @@ public class Steuerung {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			closePorts();
-			System.out.println("B19 not Found");
+			System.out.println("B13 not Found");
 
 		}
 
@@ -626,11 +635,11 @@ public class Steuerung {
 	public void initBrick14() {
 		// Brick 114
 		try {
-			if (getBrickIps().get(12) != null) {
-				b114 = new RemoteEV3(getBrickIps().get(13));
+			if (getBrickIps().get(14) != null) {
+				b114 = new RemoteEV3(getBrickIps().get(14));
 			} else
 				b114 = new RemoteEV3("192.168.0.114");
-			getPowerLevel(b113);
+			getPowerLevel(b114);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -650,6 +659,35 @@ public class Steuerung {
 		bricks.add(b114);
 	}
 
+	public void initBrick15() {
+		// Brick 115
+		try {
+			if (getBrickIps().get(15) != null) {
+				b115 = new RemoteEV3(getBrickIps().get(15));
+			} else
+				b115 = new RemoteEV3("192.168.0.115");
+			getPowerLevel(b115);
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			closePorts();
+			System.out.println("B15 not Found");
+
+		}
+
+		b115a = b115.createRegulatedMotor("A", 'L');
+		b115b = b115.createRegulatedMotor("B", 'L');
+		b115c = b115.createRegulatedMotor("C", 'L');
+		b115d = b115.createRegulatedMotor("D", 'L');
+		
+		openMotorPorts.add(b115a);
+		openMotorPorts.add(b115b);
+		openMotorPorts.add(b115c);
+		openMotorPorts.add(b115d);
+		
+		bricks.add(b115);
+	}
+	
 	public void addToSensorList(RMISampleProvider s) {
 
 		openSensorPorts.add(s);
