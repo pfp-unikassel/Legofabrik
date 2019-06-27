@@ -1367,12 +1367,12 @@ public class Steuerung {
 
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
-					chargier.turnTable(660, false);
+					chargier.turnToLift(false);
 
 					chargier.startLineToLifter(false);
 					chargier.startTableLine(false);
 
-					while (!b1053Status) {
+					while (!b1053Status) {// wait on lift button
 						System.out.println("hänge in schleife 2");
 					}
 					chargier.stopLineToLifter();

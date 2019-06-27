@@ -25,9 +25,8 @@ public class Test {
 		 int turnDegree = 45;;  
 		 
 		linetoEnd.setSpeed(350);  // set speed degree per second
-		 
-	
 		
+		gateD.rotate(turnDegree);
 		linetoEnd.backward();
 				 
 		 System.out.println("sollte sich drehen");

@@ -38,7 +38,7 @@ public class Main extends Application {
 		/**
 		 * Disconnected bricks wenn das Fenster geschlossen wird
 		 */
-	    controller.getS().disconnectBricks();
+//	    controller.getS().disconnectBricks();
 	    System.out.println("Stage is closing");
 	}
 }

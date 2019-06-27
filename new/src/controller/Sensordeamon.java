@@ -104,6 +104,7 @@ public class Sensordeamon extends Thread {
 		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas
 						// erkennt
 		
+			counter++;
 			if(stoper) { // stops this thread
 				s.getSensorList().clear();
 				this.stop();
