@@ -76,6 +76,7 @@ public class Sensordeamon extends Thread {
 		// RMISampleProvider b1151 = b115.createSampleProvider("S1",
 		// "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
 
+		
 		s.addToSensorList(b1053);
 		s.addToSensorList(b1054);
 		// s.addToSensorList(b1061);
@@ -101,14 +102,10 @@ public class Sensordeamon extends Thread {
 		// e1.printStackTrace();
 		// }
 
-		while (true) { // kontrolliere jederzeit ob einer der Sensoren etwas
+		while (!stoper) { // kontrolliere jederzeit ob einer der Sensoren etwas
 						// erkennt
 		
 			counter++;
-			if(stoper) { // stops this thread
-				s.getSensorList().clear();
-				this.stop();
-			}
 			
 			try {
 				// Sensorarray1 = b1061.fetchSample();
@@ -297,7 +294,6 @@ public class Sensordeamon extends Thread {
 		int secondCounter = 0;
 
 		for (int i = 1; i < 5; i++) { // i< incomming values
-
 			if (filterArray[i] != 0) { // 0 is no value
 				if (firstId == filterArray[i]) {
 					firstCounter++;

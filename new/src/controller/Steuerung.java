@@ -723,7 +723,7 @@ public class Steuerung {
 
 		for (RMISampleProvider temp1 : openSensorPorts) { // close every sensor
 															// in Sensorlist
-			try {
+			try {				
 				temp1.close();
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
