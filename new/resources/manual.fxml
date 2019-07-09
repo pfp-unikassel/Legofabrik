@@ -719,6 +719,74 @@
                               <Button fx:id="carVor1" mnemonicParsing="false" onMousePressed="#carVorButtonPressed1" onMouseReleased="#carVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
                            </children>
                         </HBox>
+                        <Line endX="484.0" layoutX="111.0" layoutY="1525.0" startX="-100.0" />
+                        <Label layoutX="10.0" layoutY="1530.0" text="Transport :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox layoutX="10.0" layoutY="1565.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lift Links :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="transportBack1" mnemonicParsing="false" onMousePressed="#transportBackButtonPressed1" onMouseReleased="#transportBackButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="transportVor1" mnemonicParsing="false" onMousePressed="#transportVorButtonPressed1" onMouseReleased="#transportVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1595.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Lift Rechts :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="transportBack2" mnemonicParsing="false" onMousePressed="#transportBackButtonPressed2" onMouseReleased="#transportBackButtonReleased2" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="transportVor2" mnemonicParsing="false" onMousePressed="#transportVorButtonPressed2" onMouseReleased="#transportVorButtonReleased2" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1625.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band Links :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="transportBack3" mnemonicParsing="false" onMousePressed="#transportBackButtonPressed3" onMouseReleased="#transportBackButtonReleased3" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="transportVor3" mnemonicParsing="false" onMousePressed="#carVorButtonPressed1" onMouseReleased="#carVorButtonReleased1" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1756.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Band Rechts :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="transportBack4" mnemonicParsing="false" onMousePressed="#transportBackButtonPressed4" onMouseReleased="#transportBackButtonReleased4" prefHeight="25.0" prefWidth="150.0" text="Rückwärts" />
+                              <Button fx:id="transportVor4" mnemonicParsing="false" onMousePressed="#transportVorButtonPressed4" onMouseReleased="#transportVorButtonReleased4" prefHeight="25.0" prefWidth="150.0" text="Vorwärts" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children></AnchorPane>
