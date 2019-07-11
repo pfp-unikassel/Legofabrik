@@ -18,7 +18,10 @@ public class Transport {
 	int ejectlinespeed = 360;
 	int numberOfRotations = 7;
 	
-	boolean isLiftRunning = false;
+	boolean isLeftLiftRunning = false;
+	boolean isRightLiftRunning = false;
+	boolean isLeftEjectLineRunning = false;
+	boolean isRightEjectLineRunning = false;
 
 	boolean liftlineforward = true;
 	boolean ejectlineforward = true;
@@ -34,77 +37,81 @@ public class Transport {
 		ejectlineright = elr;
 	}
 
-	public void rotateLiftline(String desc,int degree, boolean instantReturn) {
-		isLiftRunning = true;
-		switch(desc) {
-			case "left":
-			try {
-				
-				liftlineleft.setSpeed(liftlinespeed);
-				liftlineleft.rotate(degree, instantReturn);
-				isLiftRunning = false;
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-
-			break;
-
-			// right
-			default:
-			try {
-				liftlineright.setSpeed(liftlinespeed);
-				liftlineright.rotate(degree, instantReturn);
-				isLiftRunning = false;
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-			break;
-		};
+	public void rotateLiftLineLeft(int degree, boolean instantReturn) {
+		isLeftLiftRunning = true;
+		
+		try {
+			liftlineleft.setSpeed(liftlinespeed);
+			liftlineleft.rotate(degree, instantReturn);
+			isLeftLiftRunning = false;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			isLeftLiftRunning = false;
+			e.printStackTrace();
+		}
 		
 	}
 	
-	public void rotateEjectline(String desc,int degree, boolean instantReturn) {
-		if (!isLiftRunning) {
-			switch(desc) {
-			case "left":
-				try {
-					ejectlineleft.setSpeed(ejectlinespeed);
-					ejectlineleft.rotate(degree, instantReturn);
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				break;
-							
-			//right
-			default:
-				try {
-					ejectlineright.setSpeed(ejectlinespeed);
-					ejectlineright.rotate(degree, instantReturn);
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				break;
+	public void rotateLiftLineRight(int degree, boolean instantReturn) {
+		isRightLiftRunning = true;
+		
+		try {
+			liftlineright.setSpeed(liftlinespeed);
+			liftlineright.rotate(degree, instantReturn);
+			isRightLiftRunning = false;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			isRightLiftRunning = false;
+			e.printStackTrace();
+		}
+		
+	
+	}
+	
+	public void rotateEjectLineLeft(int degree, boolean instantReturn) {
+		if (!isLeftLiftRunning) {
+			isLeftEjectLineRunning = true;
+			try {
+				ejectlineleft.setSpeed(ejectlinespeed);
+				ejectlineleft.rotate(degree, instantReturn);
+				isLeftEjectLineRunning = false;
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				isLeftEjectLineRunning = false;
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void rotateEjectLineRight(int degree, boolean instantReturn) {
+		if (!isRightLiftRunning) {
+			isRightEjectLineRunning = true;
+			try {
+				ejectlineright.setSpeed(ejectlinespeed);
+				ejectlineright.rotate(degree, instantReturn);
+				isRightEjectLineRunning = false;
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				isRightEjectLineRunning = false;
+				e.printStackTrace();
 			}
 		}
 	}
 	
 	public void liftBallsLeft() {
-		rotateLiftline("left", 360*numberOfRotations, false);
+		rotateLiftLineLeft(360*numberOfRotations, false);
 	}
 	
 	public void liftBallsRight() {
-		rotateLiftline("right", 360*numberOfRotations, false);
+		rotateLiftLineRight(360*numberOfRotations, false);
 	}
 	
 	public void ejectLeftBox() {
-		rotateEjectline("left", 360, false); // TODO: adjust angle degree
+		rotateEjectLineLeft(360, false); // TODO: adjust angle degree
 	}
 	
 	public void ejectRightBox() {
-		rotateEjectline("right", 360, false); // TODO: adjust angle degree
+		rotateEjectLineRight(360, false); // TODO: adjust angle degree
 	}
 	
 	public boolean isRightBoxThere() {
