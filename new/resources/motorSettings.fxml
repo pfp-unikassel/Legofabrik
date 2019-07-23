@@ -554,6 +554,10 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="carGeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
                               <Label prefHeight="26.0" prefWidth="163.0" text="Line Geschwindigkeit">
                                  <opaqueInsets>
                                     <Insets />
@@ -563,6 +567,10 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="lineoncarGeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
                               <Label prefHeight="26.0" prefWidth="163.0" text="Horizontal Drehwinkel:">
                                  <opaqueInsets>
                                     <Insets />
@@ -572,6 +580,57 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="horizontalturndegree" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <Line endX="484.0" startX="-100.0" />
+                        <Label text="Transport :" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <HBox prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Drehgeschindigkeit :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="drehgeschwindigkeittransport" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1335.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Ausfahrgeschindigkeit :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="ausfahrgeschwindigkeit" prefHeight="25.0" prefWidth="217.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="1365.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="163.0" text="Drehungen :">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="drehungen" prefHeight="25.0" prefWidth="217.0" />
                            </children>
                         </HBox>
                      </children>

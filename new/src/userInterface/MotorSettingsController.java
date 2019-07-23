@@ -23,7 +23,7 @@ public class MotorSettingsController implements Initializable {
 
 	public TextField zahlbandv, sensorbandv, lieferbandv, fahrstuhlhorizont, fahrstuhlvertikal, drehgeschwindigkeit,
 			hebebandv, filldrehgescwindigkeit, anzahldrehungen, bandzumarmv, auslieferbandv, hebegeschwindigkeit,
-			shaker, carGeschwindigkeit, lineoncarGeschwindigkeit, horizontalturndegree;
+			shaker, carGeschwindigkeit, lineoncarGeschwindigkeit, horizontalturndegree,drehgeschwindigkeittransport,ausfahrgeschwindigkeit,drehungen;
 
 	public ToggleButton lager1, lager2, lager3, lager4, lager11, lager12, lager13, lager14, zwillingOff, zwillingOn,
 			kompressorAn, kompressorAus, airarms1, airarms2, airarms3, airarms4, airarms11, airarms12, airarms13,
@@ -188,6 +188,8 @@ public class MotorSettingsController implements Initializable {
 //		lineoncarGeschwindigkeit.setText(String.valueOf(s.getCar().getLineSpeed()));
 //		horizontalturndegree.setText(String.valueOf(s.getCar().getCarHorizontalDegree()));
 
+		//transport
+		drehgeschwindigkeittransport.setText(String.valueOf(s.getTransport().getLiftlinespeed()));
 		
 	}
 
@@ -280,7 +282,7 @@ public class MotorSettingsController implements Initializable {
 //		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
 //		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));+
 		
-
+		s.getTransport().setEjectlinespeed(Integer.parseInt(drehgeschwindigkeittransport.getText()));
 
 	}
 
