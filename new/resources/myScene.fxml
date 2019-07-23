@@ -318,7 +318,7 @@
                               </HBox>
                               <HBox alignment="TOP_CENTER" prefHeight="130.0" prefWidth="478.0" spacing="10.0" style="-fx-border-style: solid inside; -fx-border-width: 1.5; -fx-border-color: GREY;">
                                  <children>
-                                    <Circle fx:id="led8" fill="#f50202" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+                                    <Circle fx:id="led71" fill="#f50202" radius="10.0" stroke="BLACK" strokeType="INSIDE">
                                        <HBox.margin>
                                           <Insets right="20.0" top="10.0" />
                                        </HBox.margin>
@@ -334,37 +334,6 @@
                                           <Button fx:id="details8" mnemonicParsing="false" onAction="#setDetailCar" prefHeight="25.0" prefWidth="130.0" text="Details" />
                                           <Button fx:id="stop8" mnemonicParsing="false" onMouseClicked="#deliveryStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
                                           <CheckBox fx:id="box8" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets left="10.0" />
-                                       </opaqueInsets>
-                                    </VBox>
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets top="2.0" />
-                                 </opaqueInsets>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="1042.0" prefHeight="130.0" prefWidth="478.0" spacing="10.0" style="-fx-border-style: solid inside; -fx-border-width: 1.5; -fx-border-color: GREY;">
-                                 <children>
-                                    <Circle fx:id="led9" fill="#f50202" radius="10.0" stroke="BLACK" strokeType="INSIDE">
-                                       <HBox.margin>
-                                          <Insets right="20.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Circle>
-                                    <ImageView fitHeight="120.0" fitWidth="253.0" pickOnBounds="true">
-                                       <image>
-                                          <Image url="@delivery.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <VBox prefHeight="119.0" prefWidth="111.0" spacing="5.0">
-                                       <children>
-                                          <Button fx:id="test9" mnemonicParsing="false" onMouseClicked="#deliveryTest" prefHeight="25.0" prefWidth="134.0" text="Test" />
-                                          <Button fx:id="details9" mnemonicParsing="false" onAction="#setDetailCar" prefHeight="25.0" prefWidth="130.0" text="Details" />
-                                          <Button fx:id="stop9" mnemonicParsing="false" onMouseClicked="#deliveryStop" prefHeight="25.0" prefWidth="117.0" text="Stop" />
-                                          <CheckBox fx:id="box9" graphicTextGap="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="135.0" text="Start" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets left="10.0" />

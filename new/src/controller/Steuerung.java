@@ -208,7 +208,7 @@ public class Steuerung {
 		airarms = new Airarms(this, b106a, b106b, b106c, b106d, b108a, b108b); 
 		deliverylane = new Deliverylane(this, b110a, b110b, b110c, b110d, b108c);
 		stock = new Stock(this, b112a, b112d, b113a, b113b, b112c, b112b, b111a, b111b, b111c, b111d);
-		//transport = new Transport(this, b115a, b115b, b115c, b115d);
+		transport = new Transport(this, b115a, b115b, b115c, b115d);
 
 		startSensordeamon();
 
@@ -1702,14 +1702,6 @@ public class Steuerung {
 
 	public static void setCar(Car car) {
 		Steuerung.car = car;
-	}
-
-	public static Transport getTransport() {
-		return transport;
-	}
-
-	public static void setTransport(Transport transport) {
-		Steuerung.transport = transport;
 	}
 
 }

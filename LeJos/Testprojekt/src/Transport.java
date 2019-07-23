@@ -14,54 +14,99 @@ import lejos.remote.ev3.RemoteEV3;
 	public class Transport {
 		public static void main (String args []) throws RemoteException, MalformedURLException, NotBoundException{
 			
-			RemoteEV3 b115 = new RemoteEV3 ("192.168.0.115");
+			
+			RemoteEV3 b110 = new RemoteEV3 ("192.168.0.110");
+			 
+			 RMIRegulatedMotor linetoEnd = b110.createRegulatedMotor("A", 'M');
+			 RMIRegulatedMotor gateB  = b110.createRegulatedMotor("B", 'M');
+			 RMIRegulatedMotor gateC = b110.createRegulatedMotor("C", 'M');
+			 RMIRegulatedMotor gateD = b110.createRegulatedMotor("D", 'M');
+			
+			RemoteEV3 b115 = new RemoteEV3 ("192.168.0.114");
 			 
 			 RMIRegulatedMotor mA = b115.createRegulatedMotor("A", 'L');  // foerderband
 			 RMIRegulatedMotor mB  = b115.createRegulatedMotor("B", 'L'); //foerderband
 			 RMIRegulatedMotor mC = b115.createRegulatedMotor("C", 'L');
 			 RMIRegulatedMotor mD = b115.createRegulatedMotor("D", 'L');
 			 
-////			RMISampleProvider b1151 = b115.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null); 
-//			RMISampleProvider b1152 = b115.createSampleProvider("S4", "lejos.hardware.sensor.EV3TouchSensor", null); 
-////			RMISampleProvider b1153 = b115.createSampleProvider("S4", "lejos.hardware.sensor.EV3UltrasonicSensor", 0); 
-//			
-//			//EV3UltrasonicSensor distance = new EV3UltrasonicSensor();
-//			
-//			float[] Sensorarray1 = new float[5];
-//			float[] Sensorarray2 = new float[5];
+
+//			RMISampleProvider b1151 = b115.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor", null); 
+			
+
+			float[] Sensorarray1 = new float[5];
+
 			 		 
 		    //----------------------------------------------------------------------
-			int rotateDegree = 360*7;
+			int rotateDegree = 360*18;     // foerderband
+			int turnDegree = 45;;  // Tor Gate
 			
-			mA.setSpeed(360);
-			mB.setSpeed(360);
+			
+			mA.setSpeed(500);
+			mB.setSpeed(500);
 			mC.setSpeed(360);
 			mD.setSpeed(360);
+			linetoEnd.setSpeed(350);  // set speed degree per second
 			
-			mA.forward();
-			mB.forward();  //mB.backward();
+				
+//		gateD.rotate(turnDegree);
+			linetoEnd.backward();
+		
+//			mC.forward();
+//			mD.forward();  //mB.backward();
+//			mA.rotate(rotateDegree,true);
+//			mB.rotate(-rotateDegree,false);
 			
-			mC.rotate(rotateDegree);
-			mD.rotate(rotateDegree);
+//			mC.rotate(180,true);
+//			mD.rotate(180);
 			
 			
 			//-----------------------------------------------------------------------
-		   try {
+//			int counter = 0;
+//			while(true){
+//				
+//				Sensorarray1 = b1151.fetchSample();
+//				
+//				System.out.println("Ultraschall Value:  "+ Sensorarray1[0]*100);  //x 100 cm
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				counter++;
+//				if(counter > 40){           // Dauert des Tests in s
+//					break;
+//				}
+//				
+//			}
+			
+//			try {
+//				Thread.sleep(10000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+			
+	 linetoEnd.stop(false);
+//		gateD.rotate(-turnDegree);
 			   
-			Thread.sleep(15000);    // zeit in milli
-			// Time to wait
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		  mA.stop(false);
-		  mB.stop(false);
+			
+//		  mA.stop(false);
+//		  mB.stop(false);
 		   
+	 mC.rotate(-180,true);
+		mD.rotate(-180);
+			   
+		 linetoEnd.close();
+		 gateC.close();
+		 gateB.close();
+		 gateD.close();
 		  mA.close();
 		  mB.close();
 		  mC.close();
 		  mD.close();
-		
+//	     b1151.close();
 			 System.out.println("fertig");
 		}
 	}

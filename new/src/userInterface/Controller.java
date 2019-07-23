@@ -61,15 +61,15 @@ public class Controller implements Initializable {
 	// akku
 	// 0X 2X Names 1X 3X Values
 
-	public Circle led1, led2, led3, led4, led5, led6, led7,led8,led9;
+	public Circle led1, led2, led3, led4, led5, led6, led7;
 
-	public Button test1, test2, test3, test4, test5, test6, test7,test8,test9;
+	public Button test1, test2, test3, test4, test5, test6, test7,test8;
 
-	public Button details1, details2, details3, details4, details5, details6, details7,details8,deatails9;
+	public Button details1, details2, details3, details4, details5, details6, details7,details8;
 
-	public Button stop1, stop2, stop3, stop4, stop5, stop6, stop7,stop8,stop9;
+	public Button stop1, stop2, stop3, stop4, stop5, stop6, stop7,stop8;
 
-	public CheckBox box1, box2, box3, box4, box5, box6, box7,box8,box9;
+	public CheckBox box1, box2, box3, box4, box5, box6, box7,box8;
 
 	public MenuItem ipconfig, motorSettings,manual;
 
@@ -415,25 +415,6 @@ public class Controller implements Initializable {
 	}
 
 	public void setDetailStock() {
-		detaillabel01.setText("Lager1:");
-		detaillabel02.setText("Lager2:");
-		detaillabel03.setText("Lager3:");
-		detaillabel04.setText("Lager4:");
-		detaillabel05.setText("Fahrstuhlposition:");
-		detaillabel06.setText("");
-		detaillabel07.setText("");
-		detaillabel08.setText("");
-		detailslabel10.setText(s.getSzenario() + "");
-		detailslabel11.setText(String.valueOf(s.getStock().isStock1()));
-		detailslabel12.setText(String.valueOf(s.getStock().isStock2()));
-		detailslabel13.setText(String.valueOf(s.getStock().isStock3()));
-		detailslabel14.setText(String.valueOf(s.getStock().isStock4()));
-		detailslabel15.setText(s.getStock().getElevatorpositionAsString());
-		detailslabel16.setText("");
-		detailslabel17.setText("");
-		detailslabel18.setText("");
-	}
-	public void setDetailTransport() { // TODO: change to real values 
 		detaillabel01.setText("Lager1:");
 		detaillabel02.setText("Lager2:");
 		detaillabel03.setText("Lager3:");

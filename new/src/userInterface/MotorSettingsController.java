@@ -85,7 +85,7 @@ public class MotorSettingsController implements Initializable {
 		stage.close();
 	}
 
-	public void defaultButtonPushed() { //todo: implemate deafault values
+	public void defaultButtonPushed() {
 
 	}
 
@@ -278,8 +278,7 @@ public class MotorSettingsController implements Initializable {
 		
 //		s.getCar().setCarHorizontalDegree(Integer.parseInt(horizontalturndegree.getText()));
 //		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
-//		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));+
-		
+//		s.getCar().setCarSpeed(Integer.parseInt(carGeschwindigkeit.getText()));
 
 
 	}
