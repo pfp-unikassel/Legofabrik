@@ -10,9 +10,9 @@ public class Test {
 		Callable c = new Callable() {
 			@Override
 			public String call() {
-				
+				return "";
 			}
-		}
+		};
 		// a.addState("test", );
 	}
 

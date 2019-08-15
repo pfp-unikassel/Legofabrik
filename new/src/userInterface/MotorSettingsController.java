@@ -189,7 +189,9 @@ public class MotorSettingsController implements Initializable {
 //		horizontalturndegree.setText(String.valueOf(s.getCar().getCarHorizontalDegree()));
 
 		//transport
-		drehgeschwindigkeittransport.setText(String.valueOf(s.getTransport().getLiftlinespeed()));
+		// drehgeschwindigkeittransport.setText(String.valueOf(s.getTransport().getLiftlinespeed()));
+		// ausfahrgeschwindigkeit.setText(String.valueOf(s.getTransport().getEjectlinespeed()));
+		// drehungen.setText(String.valueOf(s.getTransport().getNumberOfRotations()));
 		
 	}
 
@@ -281,8 +283,11 @@ public class MotorSettingsController implements Initializable {
 //		s.getCar().setCarHorizontalDegree(Integer.parseInt(horizontalturndegree.getText()));
 //		s.getCar().setLineSpeed(Integer.parseInt(lineoncarGeschwindigkeit.getText()));
 
-		s.getTransport().setEjectlinespeed(Integer.parseInt(drehgeschwindigkeittransport.getText()));
-
+		// s.getTransport().setEjectlinespeed(Integer.parseInt(ausfahrgeschwindigkeit.getText()));
+		// s.getTransport().setNumberOfRotations(Integer.parseInt(drehungen.getText()));
+		// s.getTransport().setLiftlinespeed(Integer.parseInt(drehgeschwindigkeit.getText()));
+		
+		
 	}
 
 	public void setTablePosition() {

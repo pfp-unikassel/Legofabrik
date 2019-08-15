@@ -45,6 +45,7 @@ public class ChristophsTest {
 		public void fire(float f) {
 			if (oldValue != 1)
 				changes.firePropertyChange(name, oldValue, f);
+			
 			oldValue = f;
 		}
 		

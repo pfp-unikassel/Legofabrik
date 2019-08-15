@@ -218,6 +218,7 @@ public class Steuerung {
 
 	}
 
+
 	public void disconnectBricks() { /* */
 
 		reset();
@@ -1092,6 +1093,15 @@ public class Steuerung {
 		Steuerung.airarms = airarms;
 	}
 
+	public static Transport getTransport() {
+		return transport;
+	}
+
+	public static void setTransport(Transport transport) {
+		Steuerung.transport = transport;
+	}
+
+	
 	public ArrayList<String> getBrickIps() {
 		return brickIps;
 	}

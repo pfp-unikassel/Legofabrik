@@ -202,4 +202,12 @@ public class Transport {
 		this.ejectlineboxright = ejectlineboxright;
 	}
 
+	public int getNumberOfRotations() {
+		return numberOfRotations;
+	}
+
+	public void setNumberOfRotations(int numberOfRotations) {
+		this.numberOfRotations = numberOfRotations;
+	}
+
 }

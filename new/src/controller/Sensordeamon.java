@@ -158,27 +158,34 @@ public class Sensordeamon extends Thread {
 
 				case Color.BLACK:
 					colorString = "BLACK";
+					System.out.println("black");
 //					s.sendMessage("S0");  bring it back in after the Line is yello/ not black anymore
 					break;
 				case Color.BLUE:
 					colorString = "BLUE";
+					System.out.println("blue");
 					break;
 				case Color.GREEN:
 					colorString = "GREEN";
+					System.out.println("green");
 					break;
 				case Color.YELLOW:
 					colorString = "YELLOW";
+					System.out.println("yellow");
 					break;
 				case Color.RED:
 					colorString = "RED";
+					System.out.println("red");
 					s.sendMessage("R0");
 					break;
 				case Color.WHITE:
 					colorString = "WHITE";
+					System.out.println("white");
 					s.sendMessage("W1");
 					break;
 				case Color.BROWN:
 					colorString = "BROWN";
+					System.out.println("brown");
 					break;
 				}
 				s.b1073Fired(colorString);
@@ -264,7 +271,7 @@ public class Sensordeamon extends Thread {
 
 						if (counter == 100) { // ad counter++
 							counter = 0;
-							s.updatePowerLevel();
+							// s.updatePowerLevel(); // alle 5000 nanosekunden sendet er hier ein paket zu jedem brick
 						}
 					});
 
