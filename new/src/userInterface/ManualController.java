@@ -895,6 +895,7 @@ public class ManualController implements Initializable {
 	public void airarmsVorButtonPressed1() {
 		try {
 			s.getAirarms().getMoveArm().forward();
+			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -903,6 +904,7 @@ public class ManualController implements Initializable {
 	public void airarmsVorButtonReleased1() {
 		try {
 			s.getAirarms().getMoveArm().stop(false);
+			System.out.println(s.getAirarms().getMoveArm().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -919,6 +921,7 @@ public class ManualController implements Initializable {
 	public void airarmsBackButtonReleased1() {
 		try {
 			s.getAirarms().getMoveArm().stop(false);
+			System.out.println(s.getAirarms().getMoveArm().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -937,6 +940,7 @@ public class ManualController implements Initializable {
 	public void airarmsVorButtonReleased12() {
 		try {
 			s.getAirarms().getVerticalArm().stop(false);
+			System.out.println(s.getAirarms().getVerticalArm().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -953,6 +957,7 @@ public class ManualController implements Initializable {
 	public void airarmsBackButtonReleased12() {
 		try {
 			s.getAirarms().getVerticalArm().stop(false);
+			System.out.println(s.getAirarms().getVerticalArm().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -971,6 +976,7 @@ public class ManualController implements Initializable {
 	public void airarmsVorButtonReleased13() {
 		try {
 			s.getAirarms().getTurnGrab().stop(false);
+			System.out.println(s.getAirarms().getTurnGrab().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -987,6 +993,7 @@ public class ManualController implements Initializable {
 	public void airarmsBackButtonReleased13() {
 		try {
 			s.getAirarms().getTurnGrab().stop(false);
+			System.out.println(s.getAirarms().getTurnGrab().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1005,6 +1012,7 @@ public class ManualController implements Initializable {
 	public void airarmsVorButtonReleased14() {
 		try {
 			s.getAirarms().getOpenCloseGrab().stop(false);
+			System.out.println(s.getAirarms().getOpenCloseGrab().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1021,6 +1029,7 @@ public class ManualController implements Initializable {
 	public void airarmsBackButtonReleased14() {
 		try {
 			s.getAirarms().getOpenCloseGrab().stop(false);
+			System.out.println(s.getAirarms().getOpenCloseGrab().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1039,6 +1048,7 @@ public class ManualController implements Initializable {
 	public void airarmsVorButtonReleased15() {
 		try {
 			s.getAirarms().getTurnArm1().stop(false);
+			System.out.println(s.getAirarms().getTurnArm1().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1055,6 +1065,7 @@ public class ManualController implements Initializable {
 	public void airarmsBackButtonReleased15() {
 		try {
 			s.getAirarms().getTurnArm1().stop(false);
+			System.out.println(s.getAirarms().getTurnArm1().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1073,6 +1084,7 @@ public class ManualController implements Initializable {
 	public void airarmsVorButtonReleased16() {
 		try {
 			s.getAirarms().getTurnArm2().stop(false);
+			System.out.println(s.getAirarms().getTurnArm2().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1089,6 +1101,7 @@ public class ManualController implements Initializable {
 	public void airarmsBackButtonReleased16() {
 		try {
 			s.getAirarms().getTurnArm2().stop(false);
+			System.out.println(s.getAirarms().getTurnArm2().getTachoCount());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

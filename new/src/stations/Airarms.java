@@ -5,18 +5,18 @@ import java.rmi.RemoteException;
 import controller.Steuerung;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
-public class Airarms { // schalter rechts rechts Links links
+public class Airarms { // schalter rechts rechts rechts links
 
 	private boolean grabStatus = true; // true is open   just set to 
-	private boolean grabPosition = true; // true is || over the line
+	private boolean grabPosition = false; // true is || over the line
 
 	private boolean armPosition = true; // true ist ausgefahren
 	private boolean armStatus = true; // true is up false down
 
-	private boolean towerPosition = true; // to lane
+	private boolean towerPosition = false; // to lane rigth one
 
-	private int turnDegree = -630;  // default/old -70 
-	private int towerTurnDegree =- 100;
+	private int turnDegree = -750;  // default 750
+	private int towerTurnDegree =- 100; //default 100
 	private Steuerung s;
 
 	RMIRegulatedMotor moveArm;
@@ -30,8 +30,8 @@ public class Airarms { // schalter rechts rechts Links links
 			RMIRegulatedMotor airLine4, RMIRegulatedMotor turnArm1, RMIRegulatedMotor turnArm2) {
 		
 		this.s = s;
-		this.moveArm = airLine1; // ausfahren
-		this.verticalArm = airLine2;
+		this.moveArm = airLine1; // ausfahren A B C D
+		this.verticalArm = airLine2; 
 		this.turnGrab = airLine3;
 		this.openCloseGrab = airLine4;
 		this.turnArm1 = turnArm1;
@@ -47,33 +47,9 @@ public class Airarms { // schalter rechts rechts Links links
 
 	}
 
-	public void armUp() {
-
-		if (!getArmStatus()) { // if arm is down do mit der achse gegen den uhrzeigersinn
-			setArmStatus(true);
-			try {
-				verticalArm.rotateTo(450, false); //490
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void armDown() {
-
-		if (getArmStatus()) { // if arm is up do
-			setArmStatus(false);
-			try {
-				verticalArm.rotateTo(-450, false); //490
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void turnArm() {
+	
+	
+	public void turnArm() { //A
 
 		if (getArmPosition()) {
 			// turn to get balls
@@ -97,22 +73,62 @@ public class Airarms { // schalter rechts rechts Links links
 			// turn to lane
 		}
 	}
+	
+	public void armUp() { // B
 
-	public void grabOpen() {
-
-		if (!getGrabStatus()) {
-			setGrabStatus(true);
+		if (!getArmStatus()) { // if arm is down do mit der achse gegen den uhrzeigersinn
+			setArmStatus(true);
 			try {
-				openCloseGrab.rotate(turnDegree, false);
+				verticalArm.rotate(-turnDegree, false); //450 490
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// close
 		}
 	}
 
-	public void grabClose() {
+	public void armDown() { //B
+
+		if (getArmStatus()) { // if arm is up do
+			setArmStatus(false);
+			try {
+				verticalArm.rotate(turnDegree, false); //490
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+
+
+	public void grabTurn() { //C
+
+		if (getGrabPosition()) {
+			// turn = to lane
+			setGrabPosition(false);
+			try {
+				turnGrab.rotate(-turnDegree, false); 
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				// || to lane
+				setGrabPosition(true);
+				turnGrab.rotate(turnDegree, false); 
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+		}
+	}
+	
+	
+	public void grabClose() { //D
 
 		if (getGrabStatus()) {
 			setGrabStatus(false);
@@ -126,27 +142,17 @@ public class Airarms { // schalter rechts rechts Links links
 		}
 	}
 
-	public void grabTurn() {
+	public void grabOpen() { //D
 
-		if (getGrabPosition()) {
-			// turn = to lane
-			setGrabPosition(false);
+		if (!getGrabStatus()) {
+			setGrabStatus(true);
 			try {
-				turnGrab.rotateTo(420, false); 
+				openCloseGrab.rotate(turnDegree, false);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			try {
-				// || to lane
-				setGrabPosition(true);
-				turnGrab.rotateTo(-420, false); 
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
+			// close
 		}
 	}
 
@@ -154,7 +160,7 @@ public class Airarms { // schalter rechts rechts Links links
 
 		if (towerPosition) { // true ist ausgefahren
 			try {
-				turnArm1.rotate(towerTurnDegree, false); // turn one after another
+//				turnArm1.rotate(towerTurnDegree, false); // turn one after another
 				turnArm2.rotate(towerTurnDegree, false); // falls es probleme gibt heir war vorher true testen
 				towerPosition = false;
 			} catch (RemoteException e) {
@@ -164,7 +170,7 @@ public class Airarms { // schalter rechts rechts Links links
 		} else {
 			try {
 				turnArm2.rotate(-towerTurnDegree, false);
-				turnArm1.rotate(-towerTurnDegree, false);
+//				turnArm1.rotate(-towerTurnDegree, false);
 				towerPosition = true;
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

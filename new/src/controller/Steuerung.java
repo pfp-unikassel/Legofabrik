@@ -1442,11 +1442,10 @@ public class Steuerung {
 					while (!b1054Status) { // wait table button pushed
 						System.out.println("hänge in schleife 3");
 					}
-
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
 
-					chargier.turnTable(-1320, false);
+					chargier.turnToStock(false);
 
 					chargier.startLineToStore(false); 
 					chargier.startTableLine(false);
@@ -1460,7 +1459,7 @@ public class Steuerung {
 					chargier.stopLineToStorer();
 
 					chargier.resetTable(true); // turns 660 to much repair later
-
+					
 					Thread.sleep(10000); // wait 10 sec
 					//
 					cleaner.stopLiftLine();
@@ -1554,7 +1553,7 @@ public class Steuerung {
 								stock.PushBox(true);							// box from stock on elevator line		
 								chargier.startLineToStore(true);
 								stock.pushBoxFromElevatorToLine(false); 		// from elevator Line on Chargier
-								// chargier.stopLineToStorer();
+								chargier.stopLineToStorer();
 
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
@@ -1568,9 +1567,11 @@ public class Steuerung {
 
 					// wait till Table Button is pushed, test maybe Ui freezes
 					while (!b1054Status) {
+						System.out.print("");
 						// System.out.println("hänge in schleife 1");
+						// System.out.println(b1054Status);
 					}
-					chargier.stopLineToStorer();
+//					chargier.stopLineToStorer();
 
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
@@ -1580,6 +1581,7 @@ public class Steuerung {
 					chargier.startTableLine(false);
 
 					while (!b1053Status) {
+						System.out.print("");
 						// System.out.println("hänge in schleife 2");
 					}
 
@@ -1600,7 +1602,7 @@ public class Steuerung {
 								chargier.startTableLine(true);
 
 								while (!b1054Status) { // wait table button
-														// pushed
+										System.out.print("");				// pushed
 									// System.out.println("hänge in schleife
 									// 3");
 								}

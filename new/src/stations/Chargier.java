@@ -109,6 +109,7 @@ public class Chargier {
 			
 			try {
 				turnTable(-getTablePostion()+660, instantReturn);
+				System.out.println("Turntable returned Chargier 112"); // chh
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

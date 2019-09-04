@@ -17,8 +17,9 @@ public class Quality {
 	float color[];
 	
 	private boolean gateStatus = false; //TODO: true us open 
-	private int counterLineSpeed = 130;
-	private int lineSpeed =60;
+	private int counterLineSpeed = 120;
+	private int gateSpeed = 720;
+	private int lineSpeed =70; //60
 	private int countedBalls = 0;
 	private int goodBalls = 0;
 	private int badBalls = 0;
@@ -45,6 +46,7 @@ public class Quality {
 			
 			gateStatus = false;
 			try {
+				this.gate.setSpeed(gateSpeed);
 				gate.rotate(40); // maybe +40 dont know what open and close is
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -58,6 +60,7 @@ public class Quality {
 			
 			gateStatus = true;
 			try {
+				this.gate.setSpeed(gateSpeed);
 				gate.rotate(-40); 	// maybe -40 dont know what open and close is
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

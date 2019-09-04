@@ -75,7 +75,7 @@ public class Sensordeamon extends Thread {
 		RMISampleProvider b1073 = b107.createSampleProvider("S3", "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
 		// RMISampleProvider b1151 = b115.createSampleProvider("S1",
 		// "lejos.hardware.sensor.EV3ColorSensor", "ColorID");
-
+		
 		
 		s.addToSensorList(b1053);
 		s.addToSensorList(b1054);
@@ -124,7 +124,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray1[0] == 1) { // wenn schalter gedrueckt wurde dann
 
 				s.b1061Fired();
-				waitSek(2);
+				waitSek(20);
 				Sensorarray1[0] = 0;
 				s.resetSensorStatus();
 
@@ -132,7 +132,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray2[0] == 1) {
 				s.b1053Fired();
 				s.sendMessage("LF");
-				waitSek(3);
+				waitSek(30);
 				Sensorarray2[0] = 0;
 				s.resetSensorStatus();
 
@@ -140,7 +140,7 @@ public class Sensordeamon extends Thread {
 			if (Sensorarray3[0] == 1) {
 				s.b1054Fired();
 				s.sendMessage("TF");
-				waitSek(3);
+				waitSek(30);
 				Sensorarray3[0] = 0;
 				s.resetSensorStatus();
 			}
@@ -158,29 +158,29 @@ public class Sensordeamon extends Thread {
 
 				case Color.BLACK:
 					colorString = "BLACK";
-					System.out.println("black");
+// 				System.out.println("black");
 //					s.sendMessage("S0");  bring it back in after the Line is yello/ not black anymore
 					break;
 				case Color.BLUE:
 					colorString = "BLUE";
-					System.out.println("blue");
+					System.out.println("					blue");
 					break;
 				case Color.GREEN:
 					colorString = "GREEN";
-					System.out.println("green");
+					System.out.println("			green");
 					break;
 				case Color.YELLOW:
 					colorString = "YELLOW";
-					System.out.println("yellow");
+					System.out.println("				yellow");
 					break;
 				case Color.RED:
 					colorString = "RED";
-					System.out.println("red");
+					System.out.println("		red");
 					s.sendMessage("R0");
 					break;
 				case Color.WHITE:
 					colorString = "WHITE";
-					System.out.println("white");
+					System.out.println("	white");
 					s.sendMessage("W1");
 					break;
 				case Color.BROWN:
@@ -189,9 +189,9 @@ public class Sensordeamon extends Thread {
 					break;
 				}
 				s.b1073Fired(colorString);
-				waitSek(1); // TODO: maybe turn line to sensor slow
 
 				if (colorString != "BLACK") {
+					waitSek(10); // TODO: maybe turn line to sensor slow
 					s.resetSensorStatus();
 
 				}
@@ -283,7 +283,7 @@ public class Sensordeamon extends Thread {
 	public void waitSek(int sekunden) {
 
 		try {
-			sleep(sekunden * 1000);
+			sleep(sekunden * 100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
