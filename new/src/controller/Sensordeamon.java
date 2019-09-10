@@ -191,7 +191,14 @@ public class Sensordeamon extends Thread {
 				s.b1073Fired(colorString);
 
 				if (colorString != "BLACK") {
-					waitSek(10); // TODO: maybe turn line to sensor slow
+					//waitSek(5);  // TODO: maybe turn line to sensor slow
+					try {
+						//System.out.println("Im sleeping now");
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					s.resetSensorStatus();
 
 				}
