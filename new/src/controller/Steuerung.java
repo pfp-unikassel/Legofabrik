@@ -261,7 +261,7 @@ public class Steuerung {
 		initBrick8();
 		initBrick9();
 		initBrick10();
-		initBrick11();
+//		initBrick11();
 		initBrick12();
 		initBrick13();
 //		initBrick14();
@@ -442,7 +442,7 @@ public class Steuerung {
 			if (getBrickIps().get(6) != null) {
 				b107 = new RemoteEV3(getBrickIps().get(6));
 			} else
-				b107 = new RemoteEV3("192.168.0.107");
+				b107 = new RemoteEV3("192.168.0.7"); //TODO change to 7
 			getPowerLevel(b107);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block

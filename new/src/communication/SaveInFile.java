@@ -12,8 +12,8 @@ public class SaveInFile {
 
 	public static void deleteFile(String fileName) {
 		
-		if(new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\"+fileName).isFile()) {
-			new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\"+fileName).delete();
+		if(new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\"+fileName).isFile()) {
+			new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\"+fileName).delete();
 		}else {
 			System.out.println("File does not exists");
 		}
@@ -22,7 +22,7 @@ public class SaveInFile {
 	public static void saveInFile(String fileName, String s) {
 		try {
 
-			File recivedMessagesFile = new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\"+fileName); // creates File if its not allready there
+			File recivedMessagesFile = new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\"+fileName); // creates File if its not allready there
 			try {
 				recivedMessagesFile.createNewFile();
 			} catch (IOException e) {
@@ -45,7 +45,7 @@ public class SaveInFile {
 	public static void saveInFile(String fileName, ArrayList<String> strings) {
 		try {
 
-			File recivedMessagesFile = new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\"+fileName); // creates File if its not allready there
+			File recivedMessagesFile = new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\"+fileName); // creates File if its not allready there
 			try {
 				recivedMessagesFile.createNewFile();
 			} catch (IOException e) {

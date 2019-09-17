@@ -63,7 +63,19 @@ public class Quality {
 
 			try {
 				this.gate.setSpeed(gateSpeed);
-				gate.rotate(-40); // maybe -40 dont know what open and close is
+				
+				new java.util.Timer().schedule(new java.util.TimerTask() {
+					@Override
+					public void run() {
+						try {
+							gate.rotate(-40);
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}					
+					}
+				}, 1500);
+				
 
 				// int timeToClose = 1600;
 
@@ -74,7 +86,7 @@ public class Quality {
 						System.out.println("timer runs ");
 						closeGate();
 					}
-				}, 1950); // time after the gate closes again
+				}, 1950); // time after the gate closes again 1950
 
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block

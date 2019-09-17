@@ -148,6 +148,7 @@ public class Sensordeamon extends Thread {
 				s.b1072Fired();
 				s.sendMessage("CF");
 				Sensorarray4[0] = 0;
+				waitSek(3); //test maybe delete later
 				s.resetSensorStatus();
 			}
 

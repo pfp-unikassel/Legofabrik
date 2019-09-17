@@ -21,14 +21,14 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 	public BrickConfig(Steuerung s) {
 		this.s = s;
 		try {
-			if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\Brickconfig.txt").exists()) {
+			if (new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\Brickconfig.txt").exists()) {
 				readIps();
 				System.out.println("Ip von datei gelesen");
 			} 
-			if (new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\BrickDefaultconfig.txt").exists()) {
+			if (new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\BrickDefaultconfig.txt").exists()) {
 				readDefaultIps();
 				} else {
-					System.out.println("keine der Dateien existiert,lege dault an"); // 
+					System.out.println("keine der Dateien existiert,lege default an"); // 
 					SaveInFile.saveInFile("Test.txt", "Hallo Nico");
 				}
 			
@@ -44,13 +44,12 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 	private ArrayList<String> brickips = new ArrayList<>();
 	private ArrayList<String> defaultBrickips = new ArrayList<>();
 
-	public void readIps() throws FileNotFoundException, IOException {
-
-		File f = new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\Brickconfig.txt");
+	public void readIps() throws FileNotFoundException, IOException { 
+		System.out.println(System.getProperty("user.dir"));
+		File f = new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\Brickconfig.txt");
 		try (BufferedReader br = new BufferedReader(new FileReader(f))) {
 			String line;
 			while ((line = br.readLine()) != null) {
-
 				brickips.add(line);
 			}
 		}
@@ -72,7 +71,7 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 
 	public void readDefaultIps() {
 
-		File f = new File("C:\\Users\\Mitarbeiter\\Documents\\new\\resources\\BrickDefaultconfig.txt");
+		File f = new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\BrickDefaultconfig.txt");
 
 		try (BufferedReader br = new BufferedReader(new FileReader(f))) {
 			String line;
