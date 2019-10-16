@@ -17,6 +17,7 @@ public class Deliverylane {
 	
 	private int lineToArmsSpeed = 180;
 	private int lineToEndSpeed = 120; // 90 before
+	private int lineToArmsTurnDegree = -1048 ;
 	private int gateTurnDegree = 50;
 	private int gateCounter = 0;
 	private int gatesUsed = 0 ;
@@ -40,16 +41,15 @@ public class Deliverylane {
 		this.LineToArms = LineToArms;
 	}
 
-	public void ultraSonicFired() {
-
-		// is not needed, just turn the line a complete round after the Gate B ist
-		// opend,
-		// Gate B is Opend right after the Airarms placed the balls
-		// if distance less then 30cm stop and rotate x (guess 180) degree and wait
-		// until gate b opens
-
+public void deliverNewContainer(){
+	try {
+		LineToArms.setSpeed(lineToArmsSpeed);
+		turnLineToArms(lineToArmsTurnDegree);
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
-
+}
 	public void startLineToArms(boolean direction) throws RemoteException { // false is the right direction
 
 		LineToArms.setSpeed(getLineToArmsSpeed());

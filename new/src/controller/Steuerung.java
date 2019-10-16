@@ -168,7 +168,6 @@ public class Steuerung {
 
 	public void start(Controller c1) {
 
-		System.out.println("test");
 		/**
 		 *   holt ips aus Datei
 		 * @param Controller des main UI
@@ -1288,7 +1287,7 @@ public class Steuerung {
 
 	public void runAirarms(boolean mode) {
 		/**
-		 * runs Station standart ablauf in seperaten thread
+		 * runs Station standart ablauf braucht seperaten thread
 		 */
 		if (mode == true) {
 			airarms.runAirArms();
@@ -1376,6 +1375,37 @@ public class Steuerung {
 			}
 		}, 1000);
 	}
+	
+	public void runExport() {
+		/**
+		 * runs airarms, opengates B, close Random Gate(C,D), wait, close gate B, open C/D,gets new Container
+		 */
+		new java.util.Timer().schedule(new java.util.TimerTask() {
+			@Override
+			public void run() {
+				//airarms.runAirArms();  //TODO: einkommentieren nachdem der rest funktioniert
+				deliverylane.openEquallyGate(); // open gate c or d or none equally
+				deliverylane.openGateB(); 
+				try {
+					wait(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				deliverylane.closeGateB();
+				
+				try {
+					wait(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				deliverylane.closeGates();
+				deliverylane.deliverNewContainer();
+			}
+		}, 1000);
+	}
+	
 	// --------------------Szenarios------------------------------
 
 	public void startSzenario1() {
@@ -1446,7 +1476,6 @@ public class Steuerung {
 
 					Thread.sleep(3000);
 					
-					stock.placeBoxFromLineOnElevatorline(false);
 					stock.storeBox(false);
 					
 					chargier.stopTableLine();
@@ -1496,12 +1525,9 @@ public class Steuerung {
 		 try {
 		
 			 
-			 quality.stopLine();
+			 runExport();
 			 Thread.sleep(1);
 		 
-		 } catch (RemoteException e) {
-		 // TODO Auto-generated catch block
-		 e.printStackTrace();
 		 } catch (InterruptedException e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
