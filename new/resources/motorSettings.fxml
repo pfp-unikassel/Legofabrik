@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MotorSettingsController">
+<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MotorSettingsController">
    <children>
       <ScrollPane prefHeight="600.0" prefWidth="600.0">
         <content>
@@ -132,7 +132,7 @@
                                     <ToggleGroup fx:id="g9" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="airarms13" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Rechts" toggleGroup="$g9" />
+                              <ToggleButton fx:id="airarms13" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" selected="true" text="Rechts" toggleGroup="$g9" />
                            </children>
                         </HBox>
                         <HBox layoutX="10.0" layoutY="206.0" prefHeight="35.0" prefWidth="581.0" spacing="30.0">

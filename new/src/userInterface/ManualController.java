@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import controller.Steuerung;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /* 
@@ -1318,7 +1317,7 @@ public class ManualController implements Initializable {
 
 	 public void carVorButtonPressed1() {
 	 try {
-	 s.getCar().getLineOnCar().forward();
+	 Steuerung.getCar().getLineOnCar().forward();
 	 } catch (RemoteException e) {
 	 e.printStackTrace();
 	 }
@@ -1326,7 +1325,7 @@ public class ManualController implements Initializable {
 	
 	 public void carVorButtonReleased1() {
 	 try {
-	 s.getCar().getLineOnCar().stop(false);
+	 Steuerung.getCar().getLineOnCar().stop(false);
 	 } catch (RemoteException e) {
 	 // TODO Auto-generated catch block
 	 e.printStackTrace();
@@ -1335,7 +1334,7 @@ public class ManualController implements Initializable {
 	
 	 public void carBackButtonPressed1() {
 	 try {
-	 s.getCar().getLineOnCar().backward();
+	 Steuerung.getCar().getLineOnCar().backward();
 	 } catch (RemoteException e) {
 	 // TODO Auto-generated catch block
 	 e.printStackTrace();
@@ -1344,7 +1343,7 @@ public class ManualController implements Initializable {
 	
 	 public void carBackButtonReleased1() {
 	 try {
-	 s.getCar().getLineOnCar().stop(false);
+	 Steuerung.getCar().getLineOnCar().stop(false);
 	 } catch (RemoteException e) {
 	 // TODO Auto-generated catch block
 	 e.printStackTrace();
@@ -1356,7 +1355,7 @@ public class ManualController implements Initializable {
 
 	public void carVorButtonPressed12() {
 		try {
-			s.getCar().getLenkung().forward();
+			Steuerung.getCar().getLenkung().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1364,7 +1363,7 @@ public class ManualController implements Initializable {
 
 	public void carVorButtonReleased12() {
 		try {
-			s.getCar().getLenkung().stop(false);
+			Steuerung.getCar().getLenkung().stop(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1373,7 +1372,7 @@ public class ManualController implements Initializable {
 
 	public void carBackButtonPressed12() {
 		try {
-			s.getCar().getLenkung().backward();
+			Steuerung.getCar().getLenkung().backward();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1382,7 +1381,7 @@ public class ManualController implements Initializable {
 
 	public void carBackButtonReleased12() {
 		try {
-			s.getCar().getLenkung().stop(false);
+			Steuerung.getCar().getLenkung().stop(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1395,7 +1394,7 @@ public class ManualController implements Initializable {
 
 	public void carVorButtonPressed13() {
 		try {
-			s.getCar().getAntrieb().forward();
+			Steuerung.getCar().getAntrieb().forward();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -1403,7 +1402,7 @@ public class ManualController implements Initializable {
 
 	public void carVorButtonReleased13() {
 		try {
-			s.getCar().getAntrieb().stop(false);
+			Steuerung.getCar().getAntrieb().stop(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1412,7 +1411,7 @@ public class ManualController implements Initializable {
 
 	public void carBackButtonPressed13() {
 		try {
-			s.getCar().getAntrieb().backward();
+			Steuerung.getCar().getAntrieb().backward();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1421,7 +1420,7 @@ public class ManualController implements Initializable {
 
 	public void carBackButtonReleased13() {
 		try {
-			s.getCar().getAntrieb().stop(false);
+			Steuerung.getCar().getAntrieb().stop(false);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

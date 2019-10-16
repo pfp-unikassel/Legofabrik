@@ -45,7 +45,7 @@ public class BrickConfig { // TODO: make a Brickconfig object in steuerung
 	private ArrayList<String> defaultBrickips = new ArrayList<>();
 
 	public void readIps() throws FileNotFoundException, IOException { 
-		System.out.println(System.getProperty("user.dir"));
+		
 		File f = new File("C:\\Users\\Mitarbeiter\\Documents\\Legofabrik_Git\\new\\resources\\Brickconfig.txt");
 		try (BufferedReader br = new BufferedReader(new FileReader(f))) {
 			String line;

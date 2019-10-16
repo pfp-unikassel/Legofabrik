@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>3rdparty</name>
+			<type>2</type>
+			<location>C:/Program Files/leJOS EV3/lib/ev3/3rdparty</location>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -19,11 +19,15 @@ public class TestAllgemein {
 		System.out.println(System.nanoTime() - currentTime);
 		
 		try {
-			RemoteEV3 lebrick = new RemoteEV3("192.168.0.103");
-			System.out.println(Naming.lookup("//192.168.0.103/RemoteEV3"));
-			RMIEV3 rmiEV3 = (RMIEV3)Naming.lookup("//192.168.0.103/RemoteEV3");
-			RemoteMotorPort pp = new RemoteMotorPort(rmiEV3);
+			// new RemoteEV3("192.168.0.107")
+			RemoteEV3 lebrick = new RemoteEV3("192.168.0.107");
+			System.out.println(Naming.lookup("//192.168.0.107/RemoteEV3"));
+			RMIEV3 rmiEV3 = (RMIEV3)Naming.lookup("//192.168.0.107/RemoteEV3");
+			RMIRegulatedMotor m = lebrick.createRegulatedMotor("A", 'L');
+			// b107a = b107.createRegulatedMotor("A", 'L');
+			// RemoteMotorPort pp = new RemoteMotorPort(rmiEV3);
 			// pp.close();
+			m.close();
 			// RMIRegulatedMotor m = lebrick.createRegulatedMotor("A", 'M');
 			System.out.println(lebrick.getPort("A"));
 			System.out.println("Engine created.");

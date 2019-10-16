@@ -3,8 +3,6 @@ package stations;
 import java.rmi.RemoteException;
 
 import controller.Steuerung;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Chargier {

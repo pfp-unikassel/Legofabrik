@@ -21,10 +21,10 @@ public class Stock {
 	RMIRegulatedMotor stockPlace4;
 
 	private Steuerung s;
-	private boolean stock1 = false; // topleft false = empty
+	private boolean stock1 = true; // topleft false = empty
 	private boolean stock2 = true; // topright
 	private boolean stock3 = false; // downleft
-	private boolean stock4 = false; // downright
+	private boolean stock4 = true; // downright
 
 	private int bandPosition = 0; // True is startposition, ready to take box from store on line
 

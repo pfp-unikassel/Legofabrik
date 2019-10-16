@@ -110,15 +110,15 @@ public class Fabriksteuerung {
 		heben.start();
 		rütteln.start();
 		waschen.start();
-		zählen.start();
-		kontrollieren.start();
+//		zählen.start();
+//		kontrollieren.start();
 		
 		chargierStation.join();
 		rütteln.join();
 		waschen.join();
-		zählen.join();
+//		zählen.join();
 		Delay.msDelay(30000);
-		kontrollieren.interrupt();
+//		kontrollieren.interrupt();
 		
 		
 		//Ports Schließen////////////////////////////////////////////////////////////////

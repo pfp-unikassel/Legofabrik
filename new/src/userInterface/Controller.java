@@ -2,7 +2,6 @@ package userInterface;
 
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -103,6 +102,7 @@ public class Controller implements Initializable {
 
 		// --------------------------------------------Menu-------------------------------------------
 		motorSettings.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent event) {
 				Parent root;
 				try {
@@ -125,6 +125,7 @@ public class Controller implements Initializable {
 		});
 
 		ipconfig.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent event) {
 				Parent root1;
 				try {
@@ -148,6 +149,7 @@ public class Controller implements Initializable {
 		});
 		
 		manual.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent event) {
 				Parent root2;
 				try {

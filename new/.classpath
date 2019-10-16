@@ -7,7 +7,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Mitarbeiter/Documents/new/resources/javafx_sdk-2_0_3-windows-x64.zip"/>
+	<classpathentry kind="lib" path="resources/javafx_sdk-2_0_3-windows-x64.zip"/>
 	<classpathentry kind="con" path="org.lejos.ev3.ldt.LEJOS_EV3_LIBRARY_CONTAINER/"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -15,13 +15,6 @@ import java.util.ArrayList;
 
 import communication.BrickConfig;
 import communication.LegoClient;
-import javafx.scene.control.Label;
-import lejos.hardware.port.Port;
-import lejos.hardware.sensor.BaseSensor;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.SensorMode;
 import lejos.remote.ev3.RMIRegulatedMotor;
 import lejos.remote.ev3.RMISampleProvider;
 import lejos.remote.ev3.RemoteEV3;
@@ -175,6 +168,7 @@ public class Steuerung {
 
 	public void start(Controller c1) {
 
+		System.out.println("test");
 		/**
 		 *   holt ips aus Datei
 		 * @param Controller des main UI
@@ -261,7 +255,8 @@ public class Steuerung {
 		initBrick8();
 		initBrick9();
 		initBrick10();
-//		initBrick11();
+		
+		initBrick11();
 		initBrick12();
 		initBrick13();
 //		initBrick14();
@@ -442,7 +437,7 @@ public class Steuerung {
 			if (getBrickIps().get(6) != null) {
 				b107 = new RemoteEV3(getBrickIps().get(6));
 			} else
-				b107 = new RemoteEV3("192.168.0.7"); //TODO change to 7
+				b107 = new RemoteEV3("192.168.0.107"); //TODO change to 7 chh: WARUM 7?
 			getPowerLevel(b107);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -504,7 +499,7 @@ public class Steuerung {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			closePorts();
-			System.out.println("B15 not Found");
+			System.out.println("B9 not Found");
 
 		}
 
@@ -533,7 +528,7 @@ public class Steuerung {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			closePorts();
-			System.out.println("B16 not Found");
+			System.out.println("B10 not Found");
 
 		}
 
@@ -555,14 +550,13 @@ public class Steuerung {
 		try {
 			if (getBrickIps().get(10) != null) {
 				b111 = new RemoteEV3(getBrickIps().get(10));
-			} else
-				b111 = new RemoteEV3("192.168.0.111");
+			} else b111 = new RemoteEV3("192.168.0.111");
 			getPowerLevel(b111);
 		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			closePorts();
-			System.out.println("B17 not Found");
+			System.out.println("B11 not Found");
 
 		}
 
@@ -591,7 +585,7 @@ public class Steuerung {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			closePorts();
-			System.out.println("B18 not Found");
+			System.out.println("B12 not Found");
 
 		}
 
