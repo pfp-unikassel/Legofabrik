@@ -252,6 +252,7 @@ public class MotorSettingsController implements Initializable {
 	public void setTwin() {
 		if (zwillingOn.isSelected()) {
 			s.setOnline();
+			s.startDigitilTwin();
 		}
 		if (zwillingOff.isSelected()) {
 			s.setOffline();
@@ -263,7 +264,7 @@ public class MotorSettingsController implements Initializable {
 		s.getQuality().setCounterLineSpeed(Integer.parseInt(zahlbandv.getText()));
 		s.getQuality().setLineSpeed(Integer.parseInt(sensorbandv.getText()));
 
-		s.getChargier().setLineSpeed((Integer.parseInt(zahlbandv.getText())));
+		s.getChargier().setLineSpeed((Integer.parseInt(lieferbandv.getText())));
 
 		s.getStock().setElevatorHorizontalSpeed((Integer.parseInt(fahrstuhlhorizont.getText())));
 		s.getStock().setElevatorVerticalSpeed((Integer.parseInt(fahrstuhlvertikal.getText())));

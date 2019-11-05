@@ -13,7 +13,7 @@ public class Lift {
 	RMIRegulatedMotor greifenRechts;
 	RMIRegulatedMotor shaker;
 	
-	private int winkelGreifen = 280;
+	private int winkelGreifen = 320;//280
 	private int winkelHeben = 3400;
 	private int liftSpeed = 740;
 	private int shakerSpeed = 720;//360

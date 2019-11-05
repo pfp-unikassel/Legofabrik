@@ -9,7 +9,7 @@ public class FillStation {
 
 	private Steuerung s;
 	private RMIRegulatedMotor wheel;
-	private int wheelspeed =60;
+	private int wheelspeed =90; //60
 	private int numberOfTurns = 0; // 1 turn 360degree
 	private int numberOfDeliveredBalls =0;
 	
@@ -37,9 +37,9 @@ public class FillStation {
 	
 	public void loadCar(){
 		
-		rotateWheel(360, false);
+		rotateWheel(720, false); //360 
 		numberOfTurns++;
-		numberOfDeliveredBalls = numberOfDeliveredBalls+12;
+		numberOfDeliveredBalls = numberOfDeliveredBalls+12*2; // ca 12 balls per 360°
 	}
 
 	public int getWheelspeed() {

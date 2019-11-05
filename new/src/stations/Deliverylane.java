@@ -7,6 +7,17 @@ import lejos.remote.ev3.RMIRegulatedMotor;
 
 public class Deliverylane {
 
+	/* LESEN
+	 * 
+	 * deliverNewContainer(): der rote Block bleibt beim Kisten rausschieben zuerst am zweiten Band unter den Greifarmen hängen
+	 * und danach hinten am "Gehäuse" der Kisten deswegen habe ich den durch zwei kleinere schwarze Stifte mit rundem Kopf ersetzt.
+	 * Die zwei Stifte müssen beim Start auf Höhe des blauen Stifts mit dem Gummi sein.
+	 * 
+	 * Beim ersten Förderband aus dem Kistenlager sind 1048° genau eine Umdrehung solange der Motor nicht blockiert (tut er nicht mehr).
+	 * Das Band wird dann über overflow überdreht damit die Kiste auf das Band unter den Luftarmen geschoben wird. Die Leiste zwischen den 
+	 * Bändern sorgt dafür dass die neue Kiste nicht zwischen den zwei Bändern "rotiert" (ist bei Versuchen im Mittel 2 von 3 mal passiert).
+	 */
+	
 	RMIRegulatedMotor lineToEnd;
 	RMIRegulatedMotor gateB;
 	RMIRegulatedMotor gateC;
@@ -17,8 +28,8 @@ public class Deliverylane {
 	
 	private int lineToArmsSpeed = 180;
 	private int lineToEndSpeed = 120; // 90 before
-	private int lineToArmsTurnDegree = -1048 ;
-	private int gateTurnDegree = 50;
+	private int lineToArmsTurnDegree = -1048; // -2048; // 1048 ; -1048 ist vollständige umdrehung auf den anfangspunkt
+	private int gateTurnDegree = 80; // 50;
 	private int gateCounter = 0;
 	private int gatesUsed = 0 ;
 	private int gateDCounter =0;
@@ -41,10 +52,18 @@ public class Deliverylane {
 		this.LineToArms = LineToArms;
 	}
 
-public void deliverNewContainer(){
+public void deliverNewContainer(){ // Startpunkt für die beiden Einschieber ist blauer Punkt
 	try {
+		// Überdreht damit die Kiste nicht zwischen den beiden Bändern rotiert
+		System.out.println(LineToArms.getTachoCount());
+		int overflow = 256;
+		int angle = lineToArmsTurnDegree < 0 ? lineToArmsTurnDegree - overflow : lineToArmsTurnDegree + overflow;
 		LineToArms.setSpeed(lineToArmsSpeed);
-		turnLineToArms(lineToArmsTurnDegree);
+		turnLineToArms(angle);
+		// Dreht wieder auf Startpunkt zurück
+		turnLineToArms(overflow * (lineToArmsTurnDegree < 0 ? 1 : -1));
+		System.out.println(LineToArms.getTachoCount());
+		
 	} catch (RemoteException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

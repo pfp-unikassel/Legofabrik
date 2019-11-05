@@ -9,6 +9,7 @@ package controller;
  */
 
 import java.net.MalformedURLException;
+import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -206,12 +207,16 @@ public class Steuerung {
 		startSensordeamon();
 
 		updatePowerLevel();
-		resetDigitalTwin(); // brings digital twin in start position
-		sendPowerLevels(); // sends brick powerlevel to dig twin
+		startDigitilTwin();
 
 	}
 
 
+	public void startDigitilTwin(){ // resets Twin and sends new powerlevels, get called by motorsettingscontroller apply
+		updatePowerLevel();
+		resetDigitalTwin(); // brings digital twin in start position
+		sendPowerLevels(); // sends brick powerlevel to dig twin
+	}
 	public void disconnectBricks() { /* */
 
 		reset();
@@ -707,7 +712,10 @@ public class Steuerung {
 		for (RMIRegulatedMotor temp : openMotorPorts) { // close every open
 														// Motor
 			try {
+				// System.out.println("Closing " + temp.toString());
 				temp.close();
+			} catch (ConnectException e) {
+				System.out.println("Can not connect to " + temp.toString() + "\'s Brick");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				System.out.println(temp.toString() + " could not be closed");
@@ -718,7 +726,10 @@ public class Steuerung {
 		for (RMISampleProvider temp1 : openSensorPorts) { // close every sensor
 															// in Sensorlist
 			try {				
+				// System.out.println("Closing " + temp1.toString());
 				temp1.close();
+			} catch (ConnectException e) {
+				System.out.println("Can not connect to " + temp1.toString() + "\'s Brick");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Sensor port konnte nicht geschloﬂen werden");
@@ -839,7 +850,7 @@ public class Steuerung {
 		 *  
 		 *  @param Message as String
 		 * */
-		if (isConnected()) {
+		if (isConnected()) { // should be inside if
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
 				public void run() {
@@ -1383,25 +1394,39 @@ public class Steuerung {
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
+				
+				// TODO exceptions anpassen damit die jvm sich nicht mehr beschwert
+				
 				//airarms.runAirArms();  //TODO: einkommentieren nachdem der rest funktioniert
+				try {
+					deliverylane.startLineToEnd(false);
+					 Thread.sleep(1000);
+					 
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
 				deliverylane.openEquallyGate(); // open gate c or d or none equally
 				deliverylane.openGateB(); 
 				try {
-					wait(1000);
-				} catch (InterruptedException e) {
+					Thread.sleep(8000);
+				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				deliverylane.closeGateB();
-				
-				try {
-					wait(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
 				deliverylane.closeGates();
+				
 				deliverylane.deliverNewContainer();
+				try {
+					deliverylane.stopLineToEnd();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		}, 1000);
 	}
@@ -1514,24 +1539,13 @@ public class Steuerung {
 		 * 
 		 */
 		setSzenario(2);
-		sendMessage("TF");
-		sendMessage("ST");
-		c.updatePowerLevel();
+		// runExport();
 		
 		
 		 new java.util.Timer().schedule(new java.util.TimerTask() {
 		 @Override
 		 public void run() {
-		 try {
-		
-			 
-			 runExport();
-			 Thread.sleep(1);
-		 
-		 } catch (InterruptedException e) {
-		 // TODO Auto-generated catch block
-		 e.printStackTrace();
-		 }
+		 runExport(); //TODO: Test me
 		 }
 		 }, 1000);
 

@@ -195,6 +195,7 @@ public class Sensordeamon extends Thread {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					waitSek(5);
 					s.resetSensorStatus();
 
 				}

@@ -51,6 +51,8 @@ public class Airarms { // schalter rechts rechts rechts links
 	
 	public void turnArm() { //A
 
+		System.out.println("In turnArm");
+		
 		if (getArmPosition()) {
 			// turn to get balls
 			try {
@@ -76,6 +78,8 @@ public class Airarms { // schalter rechts rechts rechts links
 	
 	public void armUp() { // B
 
+		System.out.println("In armUp");
+		
 		if (!getArmStatus()) { // if arm is down do mit der achse gegen den uhrzeigersinn
 			setArmStatus(true);
 			try {
@@ -89,6 +93,8 @@ public class Airarms { // schalter rechts rechts rechts links
 
 	public void armDown() { //B
 
+		System.out.println("In armDown");
+		
 		if (getArmStatus()) { // if arm is up do
 			setArmStatus(false);
 			try {
@@ -105,6 +111,8 @@ public class Airarms { // schalter rechts rechts rechts links
 
 	public void grabTurn() { //C
 
+		System.out.println("In grabTurn");
+		
 		if (getGrabPosition()) {
 			// turn = to lane
 			setGrabPosition(false);
@@ -130,6 +138,8 @@ public class Airarms { // schalter rechts rechts rechts links
 	
 	public void grabClose() { //D
 
+		System.out.println("In grabClose");
+		
 		if (getGrabStatus()) {
 			setGrabStatus(false);
 			try {
@@ -144,6 +154,8 @@ public class Airarms { // schalter rechts rechts rechts links
 
 	public void grabOpen() { //D
 
+		System.out.println("In grabOpen");
+		
 		if (!getGrabStatus()) {
 			setGrabStatus(true);
 			try {
@@ -158,6 +170,8 @@ public class Airarms { // schalter rechts rechts rechts links
 
 	public void turnTower() {
 
+		System.out.println("In turnTower");
+		
 		if (towerPosition) { // true ist ausgefahren
 			try {
 //				turnArm1.rotate(towerTurnDegree, false); // turn one after another
@@ -182,6 +196,8 @@ public class Airarms { // schalter rechts rechts rechts links
 
 	public void reset() {
 
+		System.out.println("In reset");
+		
 		if (!getGrabPosition()) {
 			grabTurn();
 		}
@@ -200,6 +216,8 @@ public class Airarms { // schalter rechts rechts rechts links
 	
 	public void hardReset() { // turning motors but has no sa
 		
+		System.out.println("In hard reset");
+		
 		try {
 			turnGrab.rotateTo(-420, false);
 			openCloseGrab.rotate(turnDegree, false);
@@ -213,6 +231,8 @@ public class Airarms { // schalter rechts rechts rechts links
 	}
 	
 	public void runAirArms() {
+		
+		System.out.println("In runAirArms");
 		
 		turnArm();                 // einfarhen / tower drehen / ausfahren / arm runter/ grab schlieﬂen / arm up / arm einfahren / turm drehen / arm ausfahren / grab drehen / runter / aufmachen 
 
@@ -244,22 +264,27 @@ public class Airarms { // schalter rechts rechts rechts links
 	}
 
 	public boolean getGrabStatus() {
+		System.out.println("In getGrabStatus");
 		return grabStatus;
 	}
 
 	public void setGrabStatus(boolean grabStatus) {
+		System.out.println("In setGrabStatus");
 		this.grabStatus = grabStatus;
 	}
 
 	public boolean getGrabPosition() {
+		System.out.println("In getGrabPosition");
 		return grabPosition;
 	}
 
 	public void setGrabPosition(boolean grabPosition) {
+		System.out.println("In setGrabPosition");
 		this.grabPosition = grabPosition;
 	}
 
 	public boolean getArmPosition() {
+		System.out.println("In getArmPosition");
 		return armPosition;
 	}
 
