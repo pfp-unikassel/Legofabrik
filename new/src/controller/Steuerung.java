@@ -120,7 +120,7 @@ public class Steuerung {
 	static RMIRegulatedMotor b114d;
 
 	static RMIRegulatedMotor b115a;
-	static RMIRegulatedMotor b115b;
+	static RMIRegulatedMotor b115b; // C1FC0F8A
 	static RMIRegulatedMotor b115c;
 	static RMIRegulatedMotor b115d;
 	
@@ -152,7 +152,7 @@ public class Steuerung {
 
 	private Controller c;
 	private static LegoClient legoClient;
-	private boolean twinConnection = false;
+	private boolean twinConnection = false; //default False
 	private String lastRecivedMessage;
 	private int sendErrorCounter = 0;
 	private int numberOfSendTrys = 5;
@@ -1397,7 +1397,7 @@ public class Steuerung {
 				
 				// TODO exceptions anpassen damit die jvm sich nicht mehr beschwert
 				
-				//airarms.runAirArms();  //TODO: einkommentieren nachdem der rest funktioniert
+				airarms.runAirArms();  //TODO: einkommentieren nachdem der rest funktioniert
 				try {
 					deliverylane.startLineToEnd(false);
 					 Thread.sleep(1000);
@@ -1458,19 +1458,27 @@ public class Steuerung {
 					chargier.startTableLine(true);
 
 					// wait till Table Button is pushed, test maybe Ui freezes
+					System.out.println("Warte Sensorschleife 01");
 					while (!b1054Status) {
-						System.out.println("hänge in schleife 1");
+						// System.out.println("Warte Sensorschleife 01");
+						Thread.sleep(100);
 					}
+					
+				System.out.println("Sensorschleife 01 verlassen.");
 
 					chargier.stopLineToTable();
 					chargier.stopTableLine();
-					chargier.turnToLift(false);
+					int speed = chargier.turnToLift(false);
 
+					System.out.println("Speed " + speed);
+					
 					chargier.startLineToLifter(false);
+					Thread.sleep(500);
 					chargier.startTableLine(false);
-
+					
+					System.out.println("Warte in Sensorschleife 02");
 					while (!b1053Status) {// wait on lift button
-						System.out.println("hänge in schleife 2");
+						Thread.sleep(100);
 					}
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
@@ -1488,14 +1496,18 @@ public class Steuerung {
 					quality.startCounterLine(false);
 					quality.startLine(true);
 
+					System.out.println("Warte in Sensorschleife 03");
 					while (!b1054Status) { // wait table button pushed
-						System.out.println("hänge in schleife 3");
+						
+						Thread.sleep(100);
 					}
 					chargier.stopLineToLifter();
 					chargier.stopTableLine();
 
 					chargier.turnToStock(false);
 
+					Thread.sleep(1000);
+					
 					chargier.startLineToStore(false); 
 					chargier.startTableLine(false);
 
@@ -1506,7 +1518,8 @@ public class Steuerung {
 					chargier.stopTableLine();
 					chargier.stopLineToStorer();
 
-					chargier.resetTable(true); // turns 660 to much repair later
+					chargier.turnTableToWheel(false);
+					// chargier.resetTable(true); // turns 660 to much repair later
 					
 					Thread.sleep(10000); // wait 10 sec
 					//
@@ -1520,6 +1533,8 @@ public class Steuerung {
 
 					System.out.println("N/IO: " + quality.getBadBalls() + "  IO: " + quality.getGoodBalls());
 
+					System.out.println("Speed: " + speed);
+					
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

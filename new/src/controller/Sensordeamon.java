@@ -165,7 +165,7 @@ public class Sensordeamon extends Thread {
 					colorString = "GREEN";
 					System.out.println("			green");
 					break;
-				case Color.YELLOW:
+				case Color.YELLOW: 
 					colorString = "YELLOW";
 					System.out.println("				yellow");
 					break;
@@ -195,7 +195,7 @@ public class Sensordeamon extends Thread {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					waitSek(5);
+					waitSek(6);
 					s.resetSensorStatus();
 
 				}
@@ -273,9 +273,9 @@ public class Sensordeamon extends Thread {
 					() -> {
 						s.updateLabelInController();
 
-						if (counter == 100) { // ad counter++
+						if (counter == 50000) { // ad counter++
 							counter = 0;
-							// s.updatePowerLevel(); // alle 5000 nanosekunden sendet er hier ein paket zu jedem brick
+							s.updatePowerLevel(); // counter Wert 100: alle 5000 nanosekunden sendet er hier ein paket zu jedem brick
 						}
 					});
 

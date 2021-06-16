@@ -24,7 +24,7 @@ public class Stock {
 	private boolean stock1 = true; // topleft false = empty
 	private boolean stock2 = true; // topright
 	private boolean stock3 = false; // downleft
-	private boolean stock4 = true; // downright
+	private boolean stock4 = false; // downright
 
 	private int bandPosition = 0; // True is startposition, ready to take box from store on line
 
@@ -39,6 +39,14 @@ public class Stock {
 	private int horizontalRotationDegree = 600; // Elevator motor turndegree
 	private int lineSpeed = 300;
 
+	
+	/*
+	 * TODO: Förderband Aufzug bewegen damit die Stifte Richtung Lagerslot nicht mit Kiste
+	 * verklemmen können.
+	 * 
+	 * 
+	 * */
+	
 	public Stock(Steuerung s, RMIRegulatedMotor laneToStock1, RMIRegulatedMotor laneToStock2,
 			RMIRegulatedMotor elevatorHorizontal1, RMIRegulatedMotor elevatorHorizontal2,
 			RMIRegulatedMotor elevatorVertical1, RMIRegulatedMotor elevatorVertical2, RMIRegulatedMotor stockPlace1,

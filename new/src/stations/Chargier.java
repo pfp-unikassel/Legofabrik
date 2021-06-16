@@ -19,6 +19,10 @@ public class Chargier {
 	private int tablePosition = 0;
 	private int lineSpeed = 300; // TODO: change to default speed
 	
+	private int quarterRotation = 130; // 135; // Vierteldrehung am Drehtisch
+	// private int quarterRotation = 180;
+	private static int turnTableSpeed = 100;
+	
 	private Steuerung s;
 
 	public Chargier(
@@ -32,18 +36,19 @@ public class Chargier {
 		this.antriebBandLeergut = antriebBandLeergut;
 		this.antriebDrehtisch = antriebDrehtisch;
 		this.drehtischRotieren = drehtischRotieren;
+		
+		
+		
 	}
 
 	public void startLineToTable(boolean direction) throws RemoteException { // start line from car to table if
 																				// direction true turn forword
-
 		antriebBandZumDT.setSpeed(getLineSpeed());
-
+		
 		if (direction) {
 			antriebBandZumDT.forward();
 		} else {
 			antriebBandZumDT.backward();
-
 		}
 
 	}
@@ -55,6 +60,7 @@ public class Chargier {
 
 	public void startTableLine(boolean direction) throws RemoteException { // start line on table
 
+		System.out.println("Start: " + antriebDrehtisch.getTachoCount());
 		antriebDrehtisch.setSpeed(getLineSpeed());
 
 		if (direction) {
@@ -62,6 +68,7 @@ public class Chargier {
 		} else {
 			antriebDrehtisch.backward();
 		}
+		System.out.println("Ende: " + antriebDrehtisch.getTachoCount());
 
 	}
 
@@ -70,19 +77,24 @@ public class Chargier {
 		antriebDrehtisch.stop(false);
 	}
 
-	public void turnTable(int degree , boolean instantReturn) throws RemoteException { // turn Table around degree
-
-		drehtischRotieren.rotate(-degree , instantReturn); // maybe - degree depends on motor settings
+	public int turnTable(int degree , boolean instantReturn) throws RemoteException { // turn Table around degree
+		drehtischRotieren.setSpeed(turnTableSpeed);
+		int ret = drehtischRotieren.getSpeed();
+		System.out.println("Drehtischrotator Tachostand Beginn: " + drehtischRotieren.getTachoCount());
+		drehtischRotieren.rotate(degree, instantReturn); // maybe - degree depends on motor settings
 		tablePosition = tablePosition + degree;
+		System.out.println("Drehtischrotator Tachostand Ende: " + drehtischRotieren.getTachoCount());
+		return ret;
 	}
 
 	public void turnToStock(boolean instantReturn) {
-		if(getTablePostion() == -660) {
+		if(getTablePostion() == -2 * quarterRotation) {
 			//is allready in position
 		}else {
 			
 			try {
-				turnTable(-getTablePostion()+-660, instantReturn);
+				turnTable(-2 * quarterRotation, instantReturn); // Drehtisch steht Richtung Einspeisung
+				// turnTable(-getTablePostion()+-660, instantReturn);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,25 +111,36 @@ public class Chargier {
 			e.printStackTrace();
 		}
 	}
-	public void turnToLift(boolean instantReturn) {
+	public int turnToLift(boolean instantReturn) {
 		
-		if(getTablePostion() == 660) {
+		int ret = 0;
+		
+		if(getTablePostion() == quarterRotation) {
 			//is allready in position
+			System.out.println("Im in the right position already");
 		}else {
 			
 			try {
-				turnTable(-getTablePostion()+660, instantReturn);
-				System.out.println("Turntable returned Chargier 112"); // chh
+				ret = turnTable(quarterRotation, instantReturn); // Drehtisch steht Richtung Anlieferung
+				// hier ist ein 
+				System.out.println("Turntable returned Chargier " + ret); // chh
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+		return ret;
+	}
+	
+	public void turnTableToWheel(boolean instantReturn) throws RemoteException {
+		drehtischRotieren.rotate(1 * quarterRotation, instantReturn);
+		// resetTable(instantReturn);
 	}
 	
 	public void resetTable(boolean instantReturn) throws RemoteException { // turns table back to start position
 
-		drehtischRotieren.rotate(tablePosition, instantReturn);
+		drehtischRotieren.rotate(-1 * tablePosition, instantReturn);
 		tablePosition = 0;
 	}
 

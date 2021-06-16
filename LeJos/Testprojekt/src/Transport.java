@@ -22,12 +22,12 @@ import lejos.remote.ev3.RemoteEV3;
 			 RMIRegulatedMotor gateC = b110.createRegulatedMotor("C", 'M');
 			 RMIRegulatedMotor gateD = b110.createRegulatedMotor("D", 'M');
 			
-			RemoteEV3 b115 = new RemoteEV3 ("192.168.0.114");
+			RemoteEV3 b114 = new RemoteEV3 ("192.168.0.114");
 			 
-			 RMIRegulatedMotor mA = b115.createRegulatedMotor("A", 'L');  // foerderband
-			 RMIRegulatedMotor mB  = b115.createRegulatedMotor("B", 'L'); //foerderband
-			 RMIRegulatedMotor mC = b115.createRegulatedMotor("C", 'L');
-			 RMIRegulatedMotor mD = b115.createRegulatedMotor("D", 'L');
+			 RMIRegulatedMotor mA = b114.createRegulatedMotor("A", 'L');  // foerderband
+			 RMIRegulatedMotor mB  = b114.createRegulatedMotor("B", 'L'); //foerderband
+			 RMIRegulatedMotor mC = b114.createRegulatedMotor("C", 'L');
+			 RMIRegulatedMotor mD = b114.createRegulatedMotor("D", 'L');
 			 
 
 //			RMISampleProvider b1151 = b115.createSampleProvider("S1", "lejos.hardware.sensor.EV3UltrasonicSensor", null); 
